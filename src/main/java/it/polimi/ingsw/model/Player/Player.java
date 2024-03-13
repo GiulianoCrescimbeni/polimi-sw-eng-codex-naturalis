@@ -3,9 +3,9 @@ package it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Enumerations.Color;
 
 public class Player {
-    int gameID;
-    Color color;
-    PlayerDeck playerDeck;
+    private int gameID;
+    private Color color;
+    private PlayerDeck playerDeck;
 
     public Player(int gameID, Color color) {
         this.gameID = gameID;
