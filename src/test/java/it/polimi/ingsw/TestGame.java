@@ -4,13 +4,13 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class TestTest extends TestCase {
+public class TestGame extends TestCase {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public TestTest( String testName )
+    public TestGame(String testName )
     {
         super( testName );
     }
@@ -20,7 +20,7 @@ public class TestTest extends TestCase {
      */
     public static Test suite()
     {
-        return new TestSuite( TestTest.class );
+        return new TestSuite( TestGame.class );
     }
 
     /**
