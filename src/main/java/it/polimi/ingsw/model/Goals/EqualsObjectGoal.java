@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.Goals;
 
 import it.polimi.ingsw.model.GameComponents.Codex;
 
+/**
+ * Class that represents the equals object goal
+ */
 public class EqualsObjectGoal extends Goal {
 
     //Goal Card: 2 equals object
@@ -9,6 +12,12 @@ public class EqualsObjectGoal extends Goal {
     // pos 4: SCROLL;
     // pos 5: FEATHER;
     // pos 6: JAR;
+
+    /**
+     * Function to check the goal completion
+     * @param codex the codex of the player to verify from
+     * @return the number of times that the goal has been completed
+     */
     @Override
     public int check(Codex codex) {
         switch (getObjectType()) {

@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.GameComponents.GameTable;
 import it.polimi.ingsw.model.Player.Player;
 import java.util.ArrayList;
 
+/**
+ * Class that represents the game model
+ */
 public class Game {
 
     private int gameID;
@@ -16,6 +19,16 @@ public class Game {
     private Player winner;
     private GameTable table;
 
+    /**
+     * Constructor
+     * @param gameID the id of the game
+     * @param players an arraylist of {@link Player} of the game
+     * @param availableColors an arraylist of possible {@link Color} that the player can pick
+     * @param currentPlayer the current {@link Player} that has to play the turn
+     * @param gameStatus the {@link GameStatus} of the game
+     * @param winner the winner of the game
+     * @param table the {@link GameTable} linked to the game
+     */
     public Game(int gameID, ArrayList<Player> players, ArrayList<Color> availableColors, Player currentPlayer, GameStatus gameStatus, Player winner, GameTable table) {
         this.gameID = gameID;
         this.players = players;
@@ -26,52 +39,75 @@ public class Game {
         this.table = table;
     }
 
-    public int getGameID() {
-        return gameID;
-    }
+    /**
+     * @return the game id
+     */
+    public int getGameID() { return gameID; }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
+    /**
+     * @return the players of the game
+     */
+    public ArrayList<Player> getPlayers() { return players; }
 
-    public ArrayList<Color> getAvailableColors() {
-        return availableColors;
-    }
+    /**
+     * @return the colors available for players
+     */
+    public ArrayList<Color> getAvailableColors() { return availableColors; }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
+    /**
+     * @return the current player that has to play the game
+     */
+    public Player getCurrentPlayer() { return currentPlayer; }
 
-    public GameStatus getGameStatus() {
-        return gameStatus;
-    }
+    /**
+     * @return the game status
+     */
+    public GameStatus getGameStatus() { return gameStatus; }
 
-    public Player getWinner() {
-        return winner;
-    }
+    /**
+     * @return the winner of the game
+     */
+    public Player getWinner() { return winner; }
 
-    public GameTable getTable() {
-        return table;
-    }
+    /**
+     * @return the game table
+     */
+    public GameTable getTable() { return table; }
 
-    public void addPlayer(Player toAdd) {
-        this.players.add(toAdd);
-    }
+    /**
+     * Add a player to the game
+     * @param toAdd the player that is being added
+     */
+    public void addPlayer(Player toAdd) { this.players.add(toAdd); }
 
-    public void removeAvailableColor(int position) {
-        this.availableColors.remove(position);
-    }
+    /**
+     * Remove a color after being picked by a player
+     * @param color the color picked by the player
+     */
+    public void removeAvailableColor(Color color) { this.availableColors.remove(color); }
 
+    /**
+     * Set the current player
+     * @param current the current player
+     */
     public void setCurrentPlayer(Player current) {
         if (players.contains(current)) {
             this.currentPlayer = current;
         }
     }
 
+    /**
+     * Set the game status
+     * @param status the game status
+     */
     public void setGameStatus(GameStatus status) {
         this.gameStatus = status;
     }
 
+    /**
+     * Set the winner of the game
+     * @param winner the player that won the game
+     */
     public void setWinner(Player winner) {
         if (this.players.contains(winner)) {
             this.winner = winner;

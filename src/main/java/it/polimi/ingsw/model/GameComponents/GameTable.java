@@ -2,97 +2,77 @@ package it.polimi.ingsw.model.GameComponents;
 
 import it.polimi.ingsw.model.Player.Player;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class GameTable {
 
     private Map<Player, Codex> codexMap;
-    private ArrayList<InitialCard> initialCardDeck;
-    /* TODO Abilitare il codice dopo l'aggiunta dei Goal
-    private ArrayList<Goal> goalsDeck;
-    */
-    private ArrayList<Card> cardDeck;
-    private ArrayList<GoldCard> goldCardDeck;
-    private ArrayList<Card> cardToPick;
-    private ArrayList<GoldCard> goldCardToPick;
-    /* TODO Abilitare il codice dopo l'aggiunta dei Goal
-    private ArrayList<Goal> commonGoals;
-    */
+    private Deck initialCardDeck;
+    private GoalsDeck goalsDeck;
+    private Deck cardDeck;
+    private Deck goldCardDeck;
+    private Deck cardToPick;
+    private Deck goldCardToPick;
+    private GoalsDeck commonGoals;
 
-    public GameTable(Map<Player, Codex> codexMap, ArrayList<InitialCard> initialCardDeck, /*ArrayList<Goal> goalsDeck, */ ArrayList<Card> cardDeck, ArrayList<GoldCard> goldCardDeck, ArrayList<Card> cardToPick, ArrayList<GoldCard> goldCardToPick/*, ArrayList<Goal> commonGoals*/) {
+    /**
+     * Constructor
+     * @param codexMap map that maps each player to his {@link Codex}
+     * @param initialCardDeck deck of {@link InitialCard}
+     * @param goalsDeck deck of {@link it.polimi.ingsw.model.Goals.Goal}
+     * @param cardDeck deck of {@link Card}
+     * @param goldCardDeck deck of {@link GoldCard}
+     * @param cardToPick deck of {@link Card} that the player can take
+     * @param goldCardToPick deck of {@link GoldCard} that the player can take
+     */
+    public GameTable(Map<Player, Codex> codexMap, Deck initialCardDeck, GoalsDeck goalsDeck, Deck cardDeck, Deck goldCardDeck, Deck cardToPick, Deck goldCardToPick) {
         this.codexMap = codexMap;
         this.initialCardDeck = initialCardDeck;
+        this.goalsDeck = goalsDeck;
         this.cardDeck = cardDeck;
         this.goldCardDeck = goldCardDeck;
         this.cardToPick = cardToPick;
         this.goldCardToPick = goldCardToPick;
-        /* TODO Abilitare il codice dopo l'aggiunta dei Goal
-        this.goalsDeck = goalsDeck;
-        this.commonGoals = commonGoals;
-        */
     }
 
-    public Codex getCodex(Player player) {
-        return this.codexMap.get(player);
-    }
+    /**
+     * @param player player to get the codex from
+     * @return the codex of the player
+     */
+    public Codex getCodex(Player player) { return this.codexMap.get(player); }
 
-    public ArrayList<InitialCard> getInitialCardDeck() {
-        return initialCardDeck;
-    }
+    /**
+     * @return the initial card deck
+     */
+    public Deck getInitialCardDeck() { return initialCardDeck; }
 
-    public ArrayList<Card> getCardDeck() {
-        return cardDeck;
-    }
+    /**
+     * @return the card deck
+     */
+    public Deck getCardDeck() { return cardDeck; }
 
-    public ArrayList<GoldCard> getGoldCardDeck() {
-        return goldCardDeck;
-    }
+    /**
+     * @return the gold card deck
+     */
+    public Deck getGoldCardDeck() { return goldCardDeck; }
 
-    public ArrayList<Card> getCardToPick() {
-        return cardToPick;
-    }
+    /**
+     * @return the deck of cards that the player can pick
+     */
+    public Deck getCardToPick() { return cardToPick; }
 
-    public ArrayList<GoldCard> getGoldCardToPick() {
-        return goldCardToPick;
-    }
+    /**
+     * @return the deck of gold cards that the player can pick
+     */
+    public Deck getGoldCardToPick() { return goldCardToPick; }
 
-    public void removeFromCard(int position) {
-        this.cardDeck.remove(position);
-    }
+    /**
+     * @return the deck of goals
+     */
+    public GoalsDeck getGoalsDeck() { return this.goalsDeck; }
 
-    public void removeFromGoldCard(int position) {
-        this.goldCardDeck.remove(position);
-    }
-
-    public void removeFromCardToPick(int position) {
-        this.cardToPick.remove(position);
-    }
-
-    public void removeFromGoldCardToPick(int position) {
-        this.goldCardToPick.remove(position);
-    }
-
-    public void addCardToPick(Card toAdd) {
-        this.cardToPick.add(toAdd);
-    }
-
-    public void addGoldCardToPick(GoldCard toAdd) {
-        this.goldCardToPick.add(toAdd);
-    }
-
-    /* TODO Abilitare i metodi dopo l'aggiunta dei Goal
-    public ArrayList<Goal> getGoalsDeck() {
-        return this.goalsDeck;
-    }
-
-    public ArrayList<Goal> getCommonGoals() {
-        return this.commonGoals;
-    }
-
-    public void removeFromGoals(int position) {
-        this.goalsDeck.remove(position);
-    }
-    */
-
+    /**
+     * @return the deck of common goals
+     */
+    public GoalsDeck getCommonGoals() { return this.commonGoals; }
 }
