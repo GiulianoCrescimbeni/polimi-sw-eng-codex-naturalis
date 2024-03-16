@@ -4,11 +4,11 @@ import it.polimi.ingsw.model.GameComponents.Card;
 
 import java.util.ArrayList;
 
-public class PlayerDeck {
+public class PlayerHand {
 
     private ArrayList<Card> cards;
 
-    public PlayerDeck(ArrayList<Card> cards) {
+    public PlayerHand(ArrayList<Card> cards) {
         this.cards = cards;
     }
 

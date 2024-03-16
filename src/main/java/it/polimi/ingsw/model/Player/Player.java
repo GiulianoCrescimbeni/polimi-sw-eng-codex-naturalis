@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Enumerations.Color;
 public class Player {
     private int gameID;
     private Color color;
-    private PlayerDeck playerDeck;
+    private PlayerHand playerHand;
 
     public Player(int gameID, Color color) {
         this.gameID = gameID;
@@ -20,8 +20,8 @@ public class Player {
         return color;
     }
 
-    public PlayerDeck getPlayerDeck() {
-        return playerDeck;
+    public PlayerHand getPlayerHand() {
+        return playerHand;
     }
 
     public void setColor(Color color) {
