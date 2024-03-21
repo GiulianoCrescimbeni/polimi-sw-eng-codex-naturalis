@@ -16,6 +16,9 @@ public class Card {
     private int cardScore;
     private boolean lUsed;
     private boolean dUsed;
+    private int coordinateX;
+    private int coordinateY;
+
 
     /**
      * Constructor
@@ -26,8 +29,9 @@ public class Card {
      * @param cardScore the score of the card
      * @param lUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.LGoal}
      * @param dUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.DiagonalGoal}
+     * @param coordinateX parameter that indicates the coordinates X and Y of the card
      */
-    public Card(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed) {
+    public Card(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed, int coordinateX, int coordinateY) {
         this.cardID = cardID;
         this.angles = angles;
         this.cardType = cardType;
@@ -35,6 +39,8 @@ public class Card {
         this.cardScore = cardScore;
         this.lUsed = lUsed;
         this.dUsed = dUsed;
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
     }
 
     /**
@@ -87,6 +93,16 @@ public class Card {
     }
 
     /**
+     * @return the X coordinate of the card
+     */
+    public int getCoordinateX() { return this.coordinateX; }
+
+    /**
+     * @return the Y coordinate of the card
+     */
+    public int getCoordinateY() { return this.coordinateY; }
+
+    /**
      * @param angles the angles of the card
      */
     public void setAngles(ArrayList<Angle> angles) {
@@ -115,4 +131,19 @@ public class Card {
     public void setdUsed() {
         this.dUsed = true;
     }
+
+    /**
+     * Set the X coordinate of the card
+     */
+    public void setCoordinateX(int coordinateX) {
+        this.coordinateX = coordinateX;
+    }
+
+    /**
+     * Set the Y coordinate of the card
+     */
+    public void setCoordinateY(int coordinateY) {
+        this.coordinateY = coordinateY;
+    }
+
 }
