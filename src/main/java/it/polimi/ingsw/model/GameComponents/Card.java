@@ -29,7 +29,8 @@ public class Card {
      * @param cardScore the score of the card
      * @param lUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.LGoal}
      * @param dUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.DiagonalGoal}
-     * @param coordinateX parameter that indicates the coordinates X and Y of the card
+     * @param coordinateX parameter that indicates the X coordinate of the card
+     * @param coordinateY parameter that indicates the Y coordinate of the card
      */
     public Card(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed, int coordinateX, int coordinateY) {
         this.cardID = cardID;
