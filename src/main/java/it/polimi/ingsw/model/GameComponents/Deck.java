@@ -1,12 +1,14 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Interfaces.DeckInterface;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Class for cards deck
  */
-public class Deck {
+public class Deck implements DeckInterface {
     private int numOfCards;
     private ArrayList<Card> cards;
 

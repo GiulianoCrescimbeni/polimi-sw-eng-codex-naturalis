@@ -3,13 +3,14 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Enumerations.GameStatus;
 import it.polimi.ingsw.model.GameComponents.GameTable;
+import it.polimi.ingsw.model.Interfaces.GameInterface;
 import it.polimi.ingsw.model.Player.Player;
 import java.util.ArrayList;
 
 /**
  * Class that represents the game model
  */
-public class Game {
+public class Game implements GameInterface {
 
     private int gameID;
     private ArrayList<Player> players;
@@ -69,6 +70,11 @@ public class Game {
      */
     public Player getWinner() { return winner; }
 
+    @Override
+    public GameTable getGameTable() {
+        return table;
+    }
+
     /**
      * @return the game table
      */
@@ -79,6 +85,11 @@ public class Game {
      * @param toAdd the player that is being added
      */
     public void addPlayer(Player toAdd) { this.players.add(toAdd); }
+
+    @Override
+    public void removeAvailableColor(int color) {
+
+    }
 
     /**
      * Remove a color after being picked by a player
@@ -112,5 +123,10 @@ public class Game {
         if (this.players.contains(winner)) {
             this.winner = winner;
         }
+    }
+
+
+    public int getGameId() {
+        return gameID;
     }
 }

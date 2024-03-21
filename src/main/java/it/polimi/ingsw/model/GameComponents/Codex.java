@@ -1,27 +1,30 @@
 package it.polimi.ingsw.model.GameComponents;
 
 import it.polimi.ingsw.model.Goals.Goal;
+import it.polimi.ingsw.model.Interfaces.CodexInterface;
 
 import java.util.ArrayList;
 
-public class Codex {
+public class Codex implements CodexInterface {
 
     private InitialCard initialCard;
     private int score;
     private GoalsDeck goalsToPick;
     private Goal personalGoal;
     private ArrayList<Integer> numOfResources;
+    private ArrayList<Card> cards;
 
     /**
      * Constructor
      * @param initialCard the {@link InitialCard} of the codex
      * @param numOfResources the number of resources contained in the codex (from 0 to 7 where 0 represent the plant and 7 the jar like the {@link it.polimi.ingsw.model.Enumerations.Resource})
      */
-    public Codex(InitialCard initialCard, /*ArrayList<Goal> goalsToPick, Goal personalGoal,*/ ArrayList<Integer> numOfResources) {
+    public Codex(InitialCard initialCard, /*ArrayList<Goal> goalsToPick, Goal personalGoal,*/ ArrayList<Integer> numOfResources, ArrayList<Card> cards) {
         this.initialCard = initialCard;
         this.goalsToPick = goalsToPick;
         this.personalGoal = personalGoal;
         this.numOfResources = numOfResources;
+        this.cards = cards;
     }
 
     /**
@@ -48,6 +51,14 @@ public class Codex {
      * @return the arraylist for the number of resources
      */
     public ArrayList<Integer> getNumOfResources() { return this.numOfResources; }
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
 
     /**
      * Set the score of the codex

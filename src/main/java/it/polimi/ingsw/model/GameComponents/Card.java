@@ -1,13 +1,14 @@
 package it.polimi.ingsw.model.GameComponents;
 
 import it.polimi.ingsw.model.Enumerations.CardType;
+import it.polimi.ingsw.model.Interfaces.CardInteface;
 
 import java.util.ArrayList;
 
 /**
  * Class that represent the card
  */
-public class Card {
+public class Card implements CardInteface {
 
     private int cardID;
     private ArrayList<Angle> angles;

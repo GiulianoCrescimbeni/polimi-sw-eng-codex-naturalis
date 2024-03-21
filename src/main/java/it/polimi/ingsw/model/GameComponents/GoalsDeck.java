@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.GameComponents;
 
 import it.polimi.ingsw.model.Goals.Goal;
+import it.polimi.ingsw.model.Interfaces.GoalDeckInterface;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -8,7 +9,7 @@ import java.util.Random;
 /**
  * Class for goals deck
  */
-public class GoalsDeck {
+public class GoalsDeck implements GoalDeckInterface {
     private int numOfGoals;
     private ArrayList<Goal> goals;
 

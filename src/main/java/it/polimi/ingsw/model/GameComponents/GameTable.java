@@ -1,10 +1,11 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Interfaces.GameTableInterface;
 import it.polimi.ingsw.model.Player.Player;
 
 import java.util.Map;
 
-public class GameTable {
+public class GameTable implements GameTableInterface {
 
     private Map<Player, Codex> codexMap;
     private Deck initialCardDeck;
@@ -45,6 +46,11 @@ public class GameTable {
      * @return the initial card deck
      */
     public Deck getInitialCardDeck() { return initialCardDeck; }
+
+    @Override
+    public GoalsDeck getGoalsCardDeck() {
+        return this.goalsDeck;
+    }
 
     /**
      * @return the card deck
