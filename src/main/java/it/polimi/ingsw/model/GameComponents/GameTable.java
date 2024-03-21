@@ -14,10 +14,6 @@ public class GameTable {
     private Deck cardToPick;
     private Deck goldCardToPick;
     private GoalsDeck commonGoals;
-    private int maxCoordinateX;
-    private int maxCoordinateY;
-    private int minCoordinateX;
-    private int minCoordinateY;
 
     /**
      * Constructor
@@ -28,12 +24,8 @@ public class GameTable {
      * @param goldCardDeck deck of {@link GoldCard}
      * @param cardToPick deck of {@link Card} that the player can take
      * @param goldCardToPick deck of {@link GoldCard} that the player can take
-     * @param maxCoordinateX is the max X coordinate of {@link Codex}
-     * @param maxCoordinateY is the max Y coordinate of {@link Codex}
-     * @param minCoordinateX is the min X coordinate of {@link Codex}
-     * @param minCoordinateY is the min Y coordinate of {@link Codex}
      */
-    public GameTable(Map<Player, Codex> codexMap, Deck initialCardDeck, GoalsDeck goalsDeck, Deck cardDeck, Deck goldCardDeck, Deck cardToPick, Deck goldCardToPick, int maxCoordinateX, int maxCoordinateY, int minCoordinateX, int minCoordinateY) {
+    public GameTable(Map<Player, Codex> codexMap, Deck initialCardDeck, GoalsDeck goalsDeck, Deck cardDeck, Deck goldCardDeck, Deck cardToPick, Deck goldCardToPick) {
         this.codexMap = codexMap;
         this.initialCardDeck = initialCardDeck;
         this.goalsDeck = goalsDeck;
@@ -41,10 +33,6 @@ public class GameTable {
         this.goldCardDeck = goldCardDeck;
         this.cardToPick = cardToPick;
         this.goldCardToPick = goldCardToPick;
-        this.maxCoordinateX = maxCoordinateX;
-        this.maxCoordinateY = maxCoordinateY;
-        this.minCoordinateX = minCoordinateX;
-        this.minCoordinateY = minCoordinateY;
     }
 
     /**
@@ -87,24 +75,4 @@ public class GameTable {
      * @return the deck of common goals
      */
     public GoalsDeck getCommonGoals() { return this.commonGoals; }
-
-    /**
-     * @return the max X coordinate of the codex
-     */
-    public int getMaxCoordinateX() { return this.maxCoordinateX; }
-
-    /**
-     * @return the max Y coordinate of the codex
-     */
-    public int getMaxCoordinateY() { return this.maxCoordinateY; }
-
-    /**
-     * @return the min X coordinate of the codex
-     */
-    public int getMinCoordinateX() { return minCoordinateX; }
-
-    /**
-     * @return the min Y coordinate of the codex
-     */
-    public int getMinCoordinateY() { return minCoordinateY; }
 }
