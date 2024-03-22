@@ -33,7 +33,7 @@ public class Card implements CardInteface {
      * @param coordinateX parameter that indicates the X coordinate of the card
      * @param coordinateY parameter that indicates the Y coordinate of the card
      */
-    public Card(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed, int coordinateX, int coordinateY) {
+    public Card(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed) {
         this.cardID = cardID;
         this.angles = angles;
         this.cardType = cardType;
@@ -41,8 +41,6 @@ public class Card implements CardInteface {
         this.cardScore = cardScore;
         this.lUsed = lUsed;
         this.dUsed = dUsed;
-        this.coordinateX = coordinateX;
-        this.coordinateY = coordinateY;
     }
 
     /**
