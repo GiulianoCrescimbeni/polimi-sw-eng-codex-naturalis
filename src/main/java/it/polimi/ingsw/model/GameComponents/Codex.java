@@ -17,9 +17,12 @@ public class Codex implements CodexInterface {
     /**
      * Constructor
      * @param initialCard the {@link InitialCard} of the codex
+     * @param goalsToPick the {@link GoalsDeck} of goals to pick the personal goal from
+     * @param personalGoal the {@link Goal} that is personal for each codex
      * @param numOfResources the number of resources contained in the codex (from 0 to 7 where 0 represent the plant and 7 the jar like the {@link it.polimi.ingsw.model.Enumerations.Resource})
+     * @param cards an arraylist of {@link Card} that are placed in the codex
      */
-    public Codex(InitialCard initialCard, /*ArrayList<Goal> goalsToPick, Goal personalGoal,*/ ArrayList<Integer> numOfResources, ArrayList<Card> cards) {
+    public Codex(InitialCard initialCard, GoalsDeck goalsToPick, Goal personalGoal, ArrayList<Integer> numOfResources, ArrayList<Card> cards) {
         this.initialCard = initialCard;
         this.goalsToPick = goalsToPick;
         this.personalGoal = personalGoal;
@@ -52,10 +55,16 @@ public class Codex implements CodexInterface {
      */
     public ArrayList<Integer> getNumOfResources() { return this.numOfResources; }
 
+    /**
+     * @return the arraylist of cards that are placed in the codex
+     */
     public ArrayList<Card> getCards() {
         return this.cards;
     }
 
+    /**
+     * @param card the card to be added in the arraylist of cards
+     */
     public void addCard(Card card) {
         this.cards.add(card);
     }
