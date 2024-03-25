@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Class that represent the gold card with the angle score type
  */
 public class AngleGoldCard extends GoldCard {
+    private int numOfAnglesCovered;
     /**
      * Constructor
      * @param cardID id of the card
@@ -21,5 +22,19 @@ public class AngleGoldCard extends GoldCard {
      */
     public AngleGoldCard(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed, ArrayList<Resource> playCondition) {
         super(cardID, angles, cardType, isTurned, cardScore, lUsed, dUsed, playCondition);
+    }
+
+    /**
+     * @return the number of angles covered
+     */
+    public int getNumOfAnglesCovered() {
+        return numOfAnglesCovered;
+    }
+
+    /**
+     * Increment by one the number of angle covered
+     */
+    public void addAngleCovered() {
+        numOfAnglesCovered++;
     }
 }

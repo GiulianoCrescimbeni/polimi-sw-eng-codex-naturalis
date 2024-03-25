@@ -7,15 +7,17 @@ import it.polimi.ingsw.model.Enumerations.Color;
  */
 public class Player {
     private int gameID;
+    private String nickname;
     private Color color;
     private PlayerHand playerHand;
 
     /**
      * Constructor
      * @param gameID the ID of the game
+     * @param nickname the nickname of the player
      * @param color color chosen from the player
      */
-    public Player(int gameID, Color color) {
+    public Player(int gameID, String nickname, Color color) {
         this.gameID = gameID;
         this.color = color;
     }
@@ -25,6 +27,13 @@ public class Player {
      */
     public int getGameID() {
         return gameID;
+    }
+
+    /**
+     * @return the nickname of the player
+     */
+    public String getNickname() {
+        return nickname;
     }
 
     /**
