@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Interfaces.CardInteface;
 import java.util.ArrayList;
 
 /**
- * Class that represent the card
+ * Class that represents the card
  */
 public class Card implements CardInteface {
 
@@ -17,9 +17,6 @@ public class Card implements CardInteface {
     private int cardScore;
     private boolean lUsed;
     private boolean dUsed;
-    private int coordinateX;
-    private int coordinateY;
-
 
     /**
      * Constructor
@@ -30,8 +27,6 @@ public class Card implements CardInteface {
      * @param cardScore the score of the card
      * @param lUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.LGoal}
      * @param dUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.DiagonalGoal}
-     * @param coordinateX parameter that indicates the X coordinate of the card
-     * @param coordinateY parameter that indicates the Y coordinate of the card
      */
     public Card(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed) {
         this.cardID = cardID;
@@ -93,16 +88,6 @@ public class Card implements CardInteface {
     }
 
     /**
-     * @return the X coordinate of the card
-     */
-    public int getCoordinateX() { return this.coordinateX; }
-
-    /**
-     * @return the Y coordinate of the card
-     */
-    public int getCoordinateY() { return this.coordinateY; }
-
-    /**
      * @param angles the angles of the card
      */
     public void setAngles(ArrayList<Angle> angles) {
@@ -130,20 +115,6 @@ public class Card implements CardInteface {
      */
     public void setdUsed() {
         this.dUsed = true;
-    }
-
-    /**
-     * Set the X coordinate of the card
-     */
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
-    }
-
-    /**
-     * Set the Y coordinate of the card
-     */
-    public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
     }
 
 }

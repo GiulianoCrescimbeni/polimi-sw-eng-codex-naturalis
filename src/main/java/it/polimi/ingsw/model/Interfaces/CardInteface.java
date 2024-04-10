@@ -12,8 +12,5 @@ public interface CardInteface {
     public CardType getCardType();
     public boolean isTurned();
     public int getCardScore();
-    public int getCoordinateX();
-    public int getCoordinateY();
-
 
 }
