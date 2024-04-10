@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.GameComponents;
 
 /**
  * Class that represents the codex's coordinate of each card
