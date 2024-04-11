@@ -4,13 +4,14 @@ import it.polimi.ingsw.model.Interfaces.DeckInterface;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 /**
  * Class for cards deck
  */
 public class Deck implements DeckInterface {
     private int numOfCards;
-    private ArrayList<Card> cards;
+    private static Stack<Card> cards;
 
     /**
      * Constructor
@@ -23,9 +24,9 @@ public class Deck implements DeckInterface {
     /**
      * Constructor
      * @param numOfCards the number of cards in the deck
-     * @param cards the arraylist of cards of the deck
+     * @param cards the stack of cards of the deck
      */
-    public Deck(int numOfCards, ArrayList<Card> cards) {
+    public Deck(int numOfCards, Stack<Card> cards) {
         this.numOfCards = numOfCards;
         this.cards = cards;
     }
@@ -36,9 +37,9 @@ public class Deck implements DeckInterface {
     public int getNumOfCards() { return numOfCards; }
 
     /**
-     * @return arraylist of cards in the deck
+     * @return stack of cards in the deck
      */
-    public ArrayList<Card> getCards() { return cards; }
+    public Stack<Card> getCards() { return cards; }
 
     /**
      * Pick a random {@link Card} from the deck and remove it
@@ -69,6 +70,11 @@ public class Deck implements DeckInterface {
      */
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public static Card pickCard() {
+        Card popped = Deck.cards.pop();
+        return popped;
     }
 
 }

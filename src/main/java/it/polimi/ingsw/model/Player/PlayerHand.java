@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class PlayerHand {
 
-    private ArrayList<Card> cards;
+    private static ArrayList<Card> cards;
 
     /**
      * @return cards in the player's hand
@@ -22,7 +22,7 @@ public class PlayerHand {
      * Function to add a card to the player's hand
      * @param cardToAdd the card to add
      */
-    public void addCard(Card cardToAdd) {
+    public static void addCard(Card cardToAdd) {
         cards.add(cardToAdd);
     }
 

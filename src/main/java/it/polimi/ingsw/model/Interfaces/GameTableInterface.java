@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 
 import java.util.ArrayList;
+import java.util.Stack;
+
 
 public interface GameTableInterface {
 

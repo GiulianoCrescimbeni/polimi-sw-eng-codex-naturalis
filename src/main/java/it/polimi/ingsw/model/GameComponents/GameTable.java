@@ -2,8 +2,11 @@ package it.polimi.ingsw.model.GameComponents;
 
 import it.polimi.ingsw.model.Interfaces.GameTableInterface;
 import it.polimi.ingsw.model.Player.Player;
+import it.polimi.ingsw.model.Player.PlayerHand;
 
+import java.io.InputStream;
 import java.util.Map;
+import java.util.Scanner;
 
 public class GameTable implements GameTableInterface {
 
@@ -81,4 +84,38 @@ public class GameTable implements GameTableInterface {
      * @return the deck of common goals
      */
     public GoalsDeck getCommonGoals() { return this.commonGoals; }
+
+
+    public void pickGoldCardFromGround(){
+        while (true) {
+            System.out.println("Enter the card to pick (0 or 1): ");
+            Scanner sc = new Scanner(System.in);
+            int pos = sc.nextInt();
+            if (pos == 0 || pos == 1){
+            Card picked = goldCardToPick.pickCard(pos);
+            PlayerHand.addCard(picked);
+            break;}
+            else{
+            System.out.println(" Unvalid input ");}
+
+        }
+
+
+    }
+    public void pickCardFromDeck(){
+        Card picked = cardDeck.pickCard();
+        PlayerHand.addCard(picked);
+
+    }
+
+    public void pickGoldCardFromDeck(){
+       Card picked = goldCardDeck.pickCard();
+        PlayerHand.addCard(picked);
+
+
+
+    }
+
 }
+
+
