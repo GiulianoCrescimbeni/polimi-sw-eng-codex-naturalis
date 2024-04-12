@@ -107,12 +107,24 @@ public class GameTable implements GameTableInterface {
         currentPlayer = player;
     }
 
+    public void pickCardFromGround(Card card) {
+        if (cardToPick.contains(card)) {
+            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
+            cardToPick.remove(card);
+            cardToPick.add(cardDeck.pickCard());
+        } else if (goldCardToPick.contains(card)) {
+            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
+            goldCardToPick.remove(card);
+            goldCardToPick.add(goldCardDeck.pickCard());
+        }
+    }
+
     /**
      * Take the card on the top of the deck and add it to the player hand
      */
     public void pickCardFromDeck(){
         Card picked = cardDeck.pickCard();
-        PlayerHand.addCard(picked);
+        currentPlayer.getPlayerHand().addCard(picked);
     }
 
     /**
@@ -120,7 +132,7 @@ public class GameTable implements GameTableInterface {
      */
     public void pickGoldCardFromDeck(){
        Card picked = goldCardDeck.pickCard();
-        PlayerHand.addCard(picked);
+        currentPlayer.getPlayerHand().addCard(picked);
     }
 
     /**
@@ -145,19 +157,6 @@ public class GameTable implements GameTableInterface {
         }
     }
 
-
-    public void pickCardFromGround(Card card) {
-        if (cardToPick.contains(card)) {
-            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
-            cardToPick.remove(card);
-            cardToPick.add(cardDeck.pickCard());
-        } else if (goldCardToPick.contains(card)) {
-            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
-            goldCardToPick.remove(card);
-            goldCardToPick.add(goldCardDeck.pickCard());
-        }
-    }
-
     /**
      * Take randomly the two common goals for all the players
      */
@@ -165,4 +164,5 @@ public class GameTable implements GameTableInterface {
         //prende 2 goals dalla cima dello stack "goals" e li mette nell'arrayList commonGoals
         for(int i=0; i<2; i++){  this.commonGoals.add(goalsDeck.getGoal());   }
     }
+
 }

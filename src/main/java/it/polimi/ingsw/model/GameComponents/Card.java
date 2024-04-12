@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Interfaces.CardInteface;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Class that represents the card
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 public class Card implements CardInteface {
 
     private int cardID;
-    private ArrayList<Angle> angles;
+    private Map<AnglePos, Angle> angles;
     private CardType cardType;
     private boolean isTurned;
     private int cardScore;
@@ -28,7 +30,7 @@ public class Card implements CardInteface {
      * @param lUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.LGoal}
      * @param dUsed parameter that indicates if the card has been used for an {@link it.polimi.ingsw.model.Goals.DiagonalGoal}
      */
-    public Card(int cardID, ArrayList<Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed) {
+    public Card(int cardID, Map<AnglePos, Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed) {
         this.cardID = cardID;
         this.angles = angles;
         this.cardType = cardType;
@@ -48,9 +50,11 @@ public class Card implements CardInteface {
     /**
      * @return the angles of the card
      */
-    public ArrayList<Angle> getAngles() {
+    public Map<AnglePos, Angle> getAngles() {
         return angles;
     }
+
+    public Angle getAngle(AnglePos anglePos) { return getAngles().get(anglePos); }
 
     /**
      * @return the type of the card
@@ -90,7 +94,7 @@ public class Card implements CardInteface {
     /**
      * @param angles the angles of the card
      */
-    public void setAngles(ArrayList<Angle> angles) {
+    public void setAngles(Map<AnglePos, Angle> angles) {
         this.angles = angles;
     }
 

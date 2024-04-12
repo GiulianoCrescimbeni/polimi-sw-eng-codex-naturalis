@@ -67,6 +67,8 @@ public class Codex implements CodexInterface {
         return this.cards;
     }
 
+    public Card getCard(Coordinate coordinate) { return this.cards.get(coordinate); }
+
     public Deck getCardsDeck() {
         return this.cardsDeck;
     }
