@@ -10,13 +10,11 @@ public interface GameInterface {
 
     public int getGameId();
     public ArrayList<Player> getPlayers();
-    public Player getCurrentPlayer();
     public GameStatus getGameStatus();
     public Player getWinner();
     public GameTable getGameTable();
     public void addPlayer(Player player);
     public void removeAvailableColor(int color);
-    public void setCurrentPlayer(Player player);
     public void setGameStatus(GameStatus status);
     public void setWinner(Player player);
 

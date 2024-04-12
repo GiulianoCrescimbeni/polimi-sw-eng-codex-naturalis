@@ -20,5 +20,5 @@ public interface GameTableInterface {
     public Deck getGoldCardDeck();
     public ArrayList<Card> getCardToPick();
     public ArrayList<Card> getGoldCardToPick();
-    public GoalsDeck getCommonGoals();
+    public ArrayList<Goal> getCommonGoals();
 }

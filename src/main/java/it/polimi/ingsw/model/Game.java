@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.GameComponents.GameTable;
 import it.polimi.ingsw.model.Interfaces.GameInterface;
 import it.polimi.ingsw.model.Player.Player;
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 /**
  * Class that represents the game model
@@ -15,7 +17,6 @@ public class Game implements GameInterface {
     private int gameID;
     private ArrayList<Player> players;
     private ArrayList<Color> availableColors;
-    private Player currentPlayer;
     private GameStatus gameStatus;
     private Player winner;
     private GameTable table;
@@ -25,16 +26,14 @@ public class Game implements GameInterface {
      * @param gameID the id of the game
      * @param players an arraylist of {@link Player} of the game
      * @param availableColors an arraylist of possible {@link Color} that the player can pick
-     * @param currentPlayer the current {@link Player} that has to play the turn
      * @param gameStatus the {@link GameStatus} of the game
      * @param winner the winner of the game
      * @param table the {@link GameTable} linked to the game
      */
-    public Game(int gameID, ArrayList<Player> players, ArrayList<Color> availableColors, Player currentPlayer, GameStatus gameStatus, Player winner, GameTable table) {
+    public Game(int gameID, ArrayList<Player> players, ArrayList<Color> availableColors, GameStatus gameStatus, Player winner, GameTable table) {
         this.gameID = gameID;
         this.players = players;
         this.availableColors = availableColors;
-        this.currentPlayer = currentPlayer;
         this.gameStatus = gameStatus;
         this.winner = winner;
         this.table = table;
@@ -54,11 +53,6 @@ public class Game implements GameInterface {
      * @return the colors available for players
      */
     public ArrayList<Color> getAvailableColors() { return availableColors; }
-
-    /**
-     * @return the current player that has to play the game
-     */
-    public Player getCurrentPlayer() { return currentPlayer; }
 
     /**
      * @return the game status
@@ -98,16 +92,6 @@ public class Game implements GameInterface {
     public void removeAvailableColor(Color color) { this.availableColors.remove(color); }
 
     /**
-     * Set the current player
-     * @param current the current player
-     */
-    public void setCurrentPlayer(Player current) {
-        if (players.contains(current)) {
-            this.currentPlayer = current;
-        }
-    }
-
-    /**
      * Set the game status
      * @param status the game status
      */
@@ -125,8 +109,33 @@ public class Game implements GameInterface {
         }
     }
 
-
+    /**
+     * return the ID of the game
+     */
     public int getGameId() {
         return gameID;
+    }
+
+    /**
+     * Create the order of the players
+     */
+    public void selectPlayerOrdering(){
+        Collections.shuffle(players);
+        this.table.setCurrentPlayer(players.get(0));
+    }
+
+    /**
+     * Select the next player
+     */
+    public void switchCurrentPlayer(){
+        int lastIndex = players.size() - 1;
+        int currIndex = players.indexOf( this.table.getCurrentPlayer() );
+
+        if(  currIndex == lastIndex ){
+            this.table.setCurrentPlayer(players.get(0));
+        }
+        else{
+            this.table.setCurrentPlayer(players.get(currIndex++));
+        }
     }
 }

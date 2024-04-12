@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.GameTableInterface;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
@@ -19,7 +20,7 @@ public class GameTable implements GameTableInterface {
     private Deck goldCardDeck;
     private ArrayList<Card> cardToPick;
     private ArrayList<Card> goldCardToPick;
-    private GoalsDeck commonGoals;
+    private ArrayList<Goal> commonGoals;
     private Player currentPlayer;
 
     //TODO Riferimento al Game Controller per le funzioni. Da sostituire quando scrieremo il game controller manager.
@@ -50,6 +51,13 @@ public class GameTable implements GameTableInterface {
      * @return the codex of the player
      */
     public Codex getCodex(Player player) { return this.codexMap.get(player); }
+
+    /**
+     * @return the current player
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     /**
      * @return the initial card deck
@@ -89,24 +97,13 @@ public class GameTable implements GameTableInterface {
     /**
      * @return the deck of common goals
      */
-    public GoalsDeck getCommonGoals() { return this.commonGoals; }
+    public ArrayList<Goal> getCommonGoals() { return this.commonGoals; }
 
-
-    public void pickGoldCardFromGround(){
-        while (true) {
-            System.out.println("Enter the card to pick (0 or 1): ");
-            Scanner sc = new Scanner(System.in);
-            int pos = sc.nextInt();
-            if (pos == 0 || pos == 1){
-            Card picked = goldCardToPick.get(pos);
-            PlayerHand.addCard(picked);
-            break;}
-            else{
-            System.out.println(" Unvalid input ");}
-
-        }
-
-
+    /**
+     * set the current player
+     */
+    public void setCurrentPlayer(Player player) {
+        currentPlayer = player;
     }
     public void pickCardFromDeck(){
         Card picked = cardDeck.pickCard();
