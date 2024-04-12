@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class GameTable implements GameTableInterface {
 
@@ -105,51 +106,63 @@ public class GameTable implements GameTableInterface {
     public void setCurrentPlayer(Player player) {
         currentPlayer = player;
     }
+
+    /**
+     * Take the card on the top of the deck and add it to the player hand
+     */
     public void pickCardFromDeck(){
         Card picked = cardDeck.pickCard();
         PlayerHand.addCard(picked);
-
     }
 
+    /**
+     * Take the card on the top of the gold deck and add it to the player hand
+     */
     public void pickGoldCardFromDeck(){
        Card picked = goldCardDeck.pickCard();
         PlayerHand.addCard(picked);
     }
 
+    /**
+     * set the current player
+     */
     public void gameBoardBuild() {
         //Per ogni giocatore presente nel game controller crea un nuovo codex vuoto e lo aggiunge alla mappa (giocatore -> codex)
         for(Player p : gameController.getPlayers()) {
             Codex c = new Codex();
             codexMap.put(p, c);
         }
-
     }
 
+    /**
+     * Set the initial card for each player in the game
+     */
     public void pickInitialCard() {
-        //Per ogni giocatore presente nella codex map aggiunge una carta iniziale al suo codex alle coordinate (80, 80)
         for (Player p : codexMap.keySet()) {
-            InitialCard toAdd = (InitialCard) initialCardDeck.pickCardFromStack();
+            InitialCard toAdd = (InitialCard) initialCardDeck.pickCard();
             Codex codex = codexMap.get(p);
             codex.setInitialCard(toAdd);
         }
     }
 
+
     public void pickCardFromGround(Card card) {
-        //Controlla da quale dei due array la carte è stata presa, la aggiunge al deck del current player.
-        //Successivamente la rimpiazza nell'array da cui è stata scelta con una nuova carta dai deck
         if (cardToPick.contains(card)) {
             codexMap.get(currentPlayer).getCardsDeck().addCard(card);
             cardToPick.remove(card);
-            cardToPick.add(cardDeck.pickCardFromStack());
+            cardToPick.add(cardDeck.pickCard());
         } else if (goldCardToPick.contains(card)) {
             codexMap.get(currentPlayer).getCardsDeck().addCard(card);
             goldCardToPick.remove(card);
-            goldCardToPick.add(goldCardDeck.pickCardFromStack());
+            goldCardToPick.add(goldCardDeck.pickCard());
         }
     }
 
-
-
+    /**
+     * Take randomly the two common goals for all the players
+     */
+    public void commonGoalsExtraction(){
+        //prende 2 goals dalla cima dello stack "goals" e li mette nell'arrayList commonGoals
+        for(int i=0; i<2; i++){  this.commonGoals.add(goalsDeck.getGoal());   }
+    }
 }
-
-

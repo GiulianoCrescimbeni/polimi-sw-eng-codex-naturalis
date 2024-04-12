@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.GameComponents;
 import it.polimi.ingsw.model.Interfaces.DeckInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
 
@@ -42,33 +43,6 @@ public class Deck implements DeckInterface {
     public Stack<Card> getCards() { return cards; }
 
     /**
-     * Pick a random {@link Card} from the deck and remove it
-     * @return card picked from the deck
-     */
-    public Card pickRandomCard() {
-        Random r = new Random();
-        int cardToPick = r.nextInt(numOfCards + 1);
-        Card cardPicked = cards.get(cardToPick);
-        cards.remove(cardToPick);
-        return cardPicked;
-    }
-
-    /**
-     * Pick a specific {@link Card} from the deck, identified by its position in it, and remove it
-     * @param pos the position of the card in the deck
-     * @return the card picked
-     */
-    public Card pickCard(int pos) {
-        Card cardPicked = cards.get(pos);
-        cards.remove(pos);
-        return cardPicked;
-    }
-
-    public Card pickCardFromStack() {
-        return cards.pop();
-    }
-
-    /**
      * Add a {@link Card} in the deck
      * @param card the card to add in the deck
      */
@@ -76,13 +50,25 @@ public class Deck implements DeckInterface {
         cards.add(card);
     }
 
+    /**
+     * Take the card at the top of the deck
+     */
     public static Card pickCard() {
         Card popped = Deck.cards.pop();
         return popped;
     }
 
+    /**
+     * Verify if there are cards in the deck
+     */
     public boolean containsCard(Card card) {
         return cards.contains(card);
     }
 
+    /**
+     * Shuffle the resources deck
+     */
+    public void deckShuffle(){
+        Collections.shuffle(cards);
+    }
 }

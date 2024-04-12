@@ -9,7 +9,5 @@ public interface DeckInterface {
 
     public int getNumOfCards();
     public Stack<Card> getCards();
-    public Card pickRandomCard();
-    public Card pickCard(int pos);
 
 }
