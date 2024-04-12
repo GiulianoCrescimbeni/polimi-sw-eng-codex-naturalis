@@ -7,9 +7,21 @@ public class Coordinate {
     private int x;
     private int y;
 
+    /**
+     * Constructor
+     * @param x
+     * @param y
+     */
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Constructor
+     */
+    public Coordinate() {
+
     }
 
     /**

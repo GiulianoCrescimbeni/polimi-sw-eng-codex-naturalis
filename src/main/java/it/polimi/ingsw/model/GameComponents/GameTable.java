@@ -109,11 +109,11 @@ public class GameTable implements GameTableInterface {
 
     public void pickCardFromGround(Card card) {
         if (cardToPick.contains(card)) {
-            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
+            currentPlayer.getPlayerHand().addCard(card);
             cardToPick.remove(card);
             cardToPick.add(cardDeck.pickCard());
         } else if (goldCardToPick.contains(card)) {
-            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
+            currentPlayer.getPlayerHand().addCard(card);
             goldCardToPick.remove(card);
             goldCardToPick.add(goldCardDeck.pickCard());
         }

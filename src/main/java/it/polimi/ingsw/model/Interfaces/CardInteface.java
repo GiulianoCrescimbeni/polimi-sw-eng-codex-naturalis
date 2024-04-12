@@ -10,7 +10,7 @@ import java.util.Map;
 public interface CardInteface {
 
     public int getCardID();
-    public Map<AnglePos, Angle> getAngles();
+    public Map<AnglePos,Angle> getAngles();
     public CardType getCardType();
     public boolean isTurned();
     public int getCardScore();
