@@ -3,8 +3,10 @@ package it.polimi.ingsw.model.GameComponents;
 import it.polimi.ingsw.model.Interfaces.GameTableInterface;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
+import it.polimi.ingsw.model.Game;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -15,9 +17,13 @@ public class GameTable implements GameTableInterface {
     private GoalsDeck goalsDeck;
     private Deck cardDeck;
     private Deck goldCardDeck;
-    private Deck cardToPick;
-    private Deck goldCardToPick;
+    private ArrayList<Card> cardToPick;
+    private ArrayList<Card> goldCardToPick;
     private GoalsDeck commonGoals;
+    private Player currentPlayer;
+
+    //TODO Riferimento al Game Controller per le funzioni. Da sostituire quando scrieremo il game controller manager.
+    private Game gameController;
 
     /**
      * Constructor
@@ -29,7 +35,7 @@ public class GameTable implements GameTableInterface {
      * @param cardToPick deck of {@link Card} that the player can take
      * @param goldCardToPick deck of {@link GoldCard} that the player can take
      */
-    public GameTable(Map<Player, Codex> codexMap, Deck initialCardDeck, GoalsDeck goalsDeck, Deck cardDeck, Deck goldCardDeck, Deck cardToPick, Deck goldCardToPick) {
+    public GameTable(Map<Player, Codex> codexMap, Deck initialCardDeck, GoalsDeck goalsDeck, Deck cardDeck, Deck goldCardDeck, ArrayList<Card> cardToPick, ArrayList<Card> goldCardToPick) {
         this.codexMap = codexMap;
         this.initialCardDeck = initialCardDeck;
         this.goalsDeck = goalsDeck;
@@ -68,12 +74,12 @@ public class GameTable implements GameTableInterface {
     /**
      * @return the deck of cards that the player can pick
      */
-    public Deck getCardToPick() { return cardToPick; }
+    public ArrayList<Card> getCardToPick() { return cardToPick; }
 
     /**
      * @return the deck of gold cards that the player can pick
      */
-    public Deck getGoldCardToPick() { return goldCardToPick; }
+    public ArrayList<Card> getGoldCardToPick() { return goldCardToPick; }
 
     /**
      * @return the deck of goals
@@ -92,7 +98,7 @@ public class GameTable implements GameTableInterface {
             Scanner sc = new Scanner(System.in);
             int pos = sc.nextInt();
             if (pos == 0 || pos == 1){
-            Card picked = goldCardToPick.pickCard(pos);
+            Card picked = goldCardToPick.get(pos);
             PlayerHand.addCard(picked);
             break;}
             else{
@@ -111,10 +117,41 @@ public class GameTable implements GameTableInterface {
     public void pickGoldCardFromDeck(){
        Card picked = goldCardDeck.pickCard();
         PlayerHand.addCard(picked);
+    }
 
-
+    public void gameBoardBuild() {
+        //Per ogni giocatore presente nel game controller crea un nuovo codex vuoto e lo aggiunge alla mappa (giocatore -> codex)
+        for(Player p : gameController.getPlayers()) {
+            Codex c = new Codex();
+            codexMap.put(p, c);
+        }
 
     }
+
+    public void pickInitialCard() {
+        //Per ogni giocatore presente nella codex map aggiunge una carta iniziale al suo codex alle coordinate (80, 80)
+        for (Player p : codexMap.keySet()) {
+            InitialCard toAdd = (InitialCard) initialCardDeck.pickCardFromStack();
+            Codex codex = codexMap.get(p);
+            codex.setInitialCard(toAdd);
+        }
+    }
+
+    public void pickCardFromGround(Card card) {
+        //Controlla da quale dei due array la carte è stata presa, la aggiunge al deck del current player.
+        //Successivamente la rimpiazza nell'array da cui è stata scelta con una nuova carta dai deck
+        if (cardToPick.contains(card)) {
+            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
+            cardToPick.remove(card);
+            cardToPick.add(cardDeck.pickCardFromStack());
+        } else if (goldCardToPick.contains(card)) {
+            codexMap.get(currentPlayer).getCardsDeck().addCard(card);
+            goldCardToPick.remove(card);
+            goldCardToPick.add(goldCardDeck.pickCardFromStack());
+        }
+    }
+
+
 
 }
 

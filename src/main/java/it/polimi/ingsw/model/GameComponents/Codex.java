@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.CodexInterface;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Codex implements CodexInterface {
 
@@ -12,7 +13,8 @@ public class Codex implements CodexInterface {
     private GoalsDeck goalsToPick;
     private Goal personalGoal;
     private ArrayList<Integer> numOfResources;
-    private ArrayList<Card> cards;
+    private Map<Coordinate, Card> cards;
+    private Deck cardsDeck;
 
     /**
      * Constructor
@@ -22,13 +24,16 @@ public class Codex implements CodexInterface {
      * @param numOfResources the number of resources contained in the codex (from 0 to 7 where 0 represent the plant and 7 the jar like the {@link it.polimi.ingsw.model.Enumerations.Resource})
      * @param cards an arraylist of {@link Card} that are placed in the codex
      */
-    public Codex(InitialCard initialCard, GoalsDeck goalsToPick, Goal personalGoal, ArrayList<Integer> numOfResources, ArrayList<Card> cards) {
+    public Codex(InitialCard initialCard, GoalsDeck goalsToPick, Goal personalGoal, ArrayList<Integer> numOfResources, Map<Coordinate, Card> cards) {
         this.initialCard = initialCard;
         this.goalsToPick = goalsToPick;
         this.personalGoal = personalGoal;
         this.numOfResources = numOfResources;
         this.cards = cards;
     }
+
+
+    public Codex() {}
 
     /**
      * @return the intial card of the deck
@@ -58,15 +63,19 @@ public class Codex implements CodexInterface {
     /**
      * @return the arraylist of cards that are placed in the codex
      */
-    public ArrayList<Card> getCards() {
+    public Map<Coordinate, Card> getCards() {
         return this.cards;
+    }
+
+    public Deck getCardsDeck() {
+        return this.cardsDeck;
     }
 
     /**
      * @param card the card to be added in the arraylist of cards
      */
-    public void addCard(Card card) {
-        this.cards.add(card);
+    public void addCard(Coordinate coordinate, Card card) {
+        this.cards.put(coordinate, card);
     }
 
     /**
@@ -88,4 +97,11 @@ public class Codex implements CodexInterface {
     public void setPersonalGoal(Goal personalGoal) {
         this.personalGoal = personalGoal;
     }
+
+    public void setInitialCard(InitialCard initialCard) {
+        this.initialCard = initialCard;
+        cards.put(new Coordinate(80, 80), (Card) initialCard);
+    }
+
+
 }

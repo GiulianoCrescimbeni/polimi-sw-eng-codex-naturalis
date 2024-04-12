@@ -64,6 +64,10 @@ public class Deck implements DeckInterface {
         return cardPicked;
     }
 
+    public Card pickCardFromStack() {
+        return cards.pop();
+    }
+
     /**
      * Add a {@link Card} in the deck
      * @param card the card to add in the deck
@@ -75,6 +79,10 @@ public class Deck implements DeckInterface {
     public static Card pickCard() {
         Card popped = Deck.cards.pop();
         return popped;
+    }
+
+    public boolean containsCard(Card card) {
+        return cards.contains(card);
     }
 
 }

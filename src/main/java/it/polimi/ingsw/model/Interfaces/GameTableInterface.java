@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.Interfaces;
 
+import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Codex;
 import it.polimi.ingsw.model.GameComponents.Deck;
 import it.polimi.ingsw.model.GameComponents.GoalsDeck;
@@ -17,7 +18,7 @@ public interface GameTableInterface {
     public GoalsDeck getGoalsCardDeck();
     public Deck getCardDeck();
     public Deck getGoldCardDeck();
-    public Deck getCardToPick();
-    public Deck getGoldCardToPick();
+    public ArrayList<Card> getCardToPick();
+    public ArrayList<Card> getGoldCardToPick();
     public GoalsDeck getCommonGoals();
 }
