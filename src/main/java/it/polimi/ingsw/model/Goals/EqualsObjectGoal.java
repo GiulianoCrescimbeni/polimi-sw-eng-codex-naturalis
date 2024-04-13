@@ -8,9 +8,6 @@ import it.polimi.ingsw.model.GameComponents.Codex;
  */
 public class EqualsObjectGoal extends Goal {
 
-    //Goal Card: 2 equals object
-    //Takes num of couple of object:
-
     /**
      * Function to check the goal completion
      * @param codex the codex of the player to verify from

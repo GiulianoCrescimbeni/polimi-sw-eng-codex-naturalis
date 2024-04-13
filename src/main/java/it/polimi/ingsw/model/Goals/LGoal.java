@@ -9,6 +9,12 @@ import it.polimi.ingsw.model.GameComponents.Coordinate;
  * Class that represent the L shaped goal
  */
 public class LGoal extends Goal {
+
+    /**
+     * Function to check the goal completion
+     * @param codex the codex of the player to verify from
+     * @return the number of times that the goal has been completed
+     */
     @Override
     public int check(Codex codex) {
         int numOfCompletion = 0;
@@ -16,8 +22,8 @@ public class LGoal extends Goal {
             case INSECT:
                 for (Coordinate i : codex.getCards().keySet()) {
                     Coordinate j = new Coordinate(i.getX(), i.getY() - 1);
-                    if (codex.getCard(i).isLUsed()==false && codex.getCard(j).isLUsed()==false && codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().isLUsed() == false && codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().getCardType()== CardType.ANIMAL
-                            && codex.getCard(i).getCardType()==codex.getCard(j).getCardType()){
+                    if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().getCardType() == CardType.ANIMAL
+                            && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()){
                         numOfCompletion++;
                         codex.getCard(i).setlUsed();
                         codex.getCard(j).setlUsed();
@@ -26,41 +32,41 @@ public class LGoal extends Goal {
                 }
                 break;
             case ANIMAL:
-                for (Coordinate z : codex.getCards().keySet()) {
-                    Coordinate v = new Coordinate(z.getX(), z.getY() - 1);
-                    if (codex.getCard(z).isLUsed() == false && codex.getCard(v).isLUsed() == false && codex.getCard(z).getAngle(AnglePos.UR).getAttached().getCard().isLUsed() == false && codex.getCard(z).getAngle(AnglePos.UL).getAttached().getCard().getCardType() == CardType.FUNGI
-                            && codex.getCard(z).getCardType() == codex.getCard(v).getCardType()) {
+                for (Coordinate i : codex.getCards().keySet()) {
+                    Coordinate j = new Coordinate(i.getX(), i.getY() - 1);
+                    if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.UR).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().getCardType() == CardType.FUNGI
+                            && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()) {
                         numOfCompletion++;
-                        codex.getCard(z).setlUsed();
-                        codex.getCard(z).setlUsed();
-                        codex.getCard(v).getAngle(AnglePos.UR).getAttached().getCard().setlUsed();
+                        codex.getCard(i).setlUsed();
+                        codex.getCard(i).setlUsed();
+                        codex.getCard(j).getAngle(AnglePos.UR).getAttached().getCard().setlUsed();
                     }
                 }
                 break;
 
 
             case PLANT:
-                for (Coordinate a : codex.getCards().keySet()) {
-                    Coordinate b = new Coordinate(a.getX(), a.getY() + 1);
-                    if (codex.getCard(a).isLUsed() == false && codex.getCard(b).isLUsed() == false && codex.getCard(a).getAngle(AnglePos.DL).getAttached().getCard().isLUsed() == false && codex.getCard(a).getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.INSECT
-                            && codex.getCard(a).getCardType() == codex.getCard(b).getCardType()) {
+                for (Coordinate i : codex.getCards().keySet()) {
+                    Coordinate j = new Coordinate(i.getX(), i.getY() + 1);
+                    if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.DL).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.INSECT
+                            && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()) {
                         numOfCompletion++;
-                        codex.getCard(a).setlUsed();
-                        codex.getCard(a).setlUsed();
-                        codex.getCard(b).getAngle(AnglePos.DL).getAttached().getCard().setlUsed();
+                        codex.getCard(i).setlUsed();
+                        codex.getCard(i).setlUsed();
+                        codex.getCard(j).getAngle(AnglePos.DL).getAttached().getCard().setlUsed();
                     }
                 }
                 break;
 
             case FUNGI:
-                for (Coordinate c : codex.getCards().keySet()) {
-                    Coordinate d = new Coordinate(c.getX(), c.getY() + 1);
-                    if (codex.getCard(c).isLUsed() == false && codex.getCard(d).isLUsed() == false && codex.getCard(c).getAngle(AnglePos.DR).getAttached().getCard().isLUsed() == false && codex.getCard(c).getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.PLANT
-                            && codex.getCard(c).getCardType() == codex.getCard(d).getCardType()) {
+                for (Coordinate i : codex.getCards().keySet()) {
+                    Coordinate j = new Coordinate(i.getX(), i.getY() + 1);
+                    if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.DR).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.PLANT
+                            && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()) {
                         numOfCompletion++;
-                        codex.getCard(c).setlUsed();
-                        codex.getCard(c).setlUsed();
-                        codex.getCard(d).getAngle(AnglePos.DR).getAttached().getCard().setlUsed();
+                        codex.getCard(i).setlUsed();
+                        codex.getCard(i).setlUsed();
+                        codex.getCard(j).getAngle(AnglePos.DR).getAttached().getCard().setlUsed();
                     }
                 }
                 break;

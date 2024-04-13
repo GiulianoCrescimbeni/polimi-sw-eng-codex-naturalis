@@ -8,12 +8,6 @@ import it.polimi.ingsw.model.GameComponents.Codex;
  */
 public class DifferentObjectGoal extends Goal {
 
-    //Goal Card: 3 different object
-    //Takes the min number from an ArrayList of Resources:
-    // pos 4: SCROLL;
-    // pos 5: FEATHER;
-    // pos 6: JAR;
-
     /**
      * Function to check the goal completion
      * @param codex the codex of the player to verify from

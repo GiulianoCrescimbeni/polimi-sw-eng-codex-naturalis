@@ -56,19 +56,18 @@ public class GameTable implements GameTableInterface {
     /**
      * @return the current player
      */
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
+    public Player getCurrentPlayer() {return currentPlayer; }
 
     /**
      * @return the initial card deck
      */
     public Deck getInitialCardDeck() { return initialCardDeck; }
 
+    /**
+     * @return the GoalsDeck
+     */
     @Override
-    public GoalsDeck getGoalsCardDeck() {
-        return this.goalsDeck;
-    }
+    public GoalsDeck getGoalsCardDeck() { return this.goalsDeck; }
 
     /**
      * @return the card deck
@@ -101,12 +100,16 @@ public class GameTable implements GameTableInterface {
     public ArrayList<Goal> getCommonGoals() { return this.commonGoals; }
 
     /**
-     * set the current player
+     * @param player the {@link Player} that will be the new current player
      */
     public void setCurrentPlayer(Player player) {
         currentPlayer = player;
     }
 
+    /**
+     * Pick a card from the ground
+     * @param card the card that the player wants to pick
+     */
     public void pickCardFromGround(Card card) {
         if (cardToPick.contains(card)) {
             currentPlayer.getPlayerHand().addCard(card);
@@ -136,10 +139,9 @@ public class GameTable implements GameTableInterface {
     }
 
     /**
-     * set the current player
+     * For each player, create an empty codex
      */
     public void gameBoardBuild() {
-        //Per ogni giocatore presente nel game controller crea un nuovo codex vuoto e lo aggiunge alla mappa (giocatore -> codex)
         for(Player p : gameController.getPlayers()) {
             Codex c = new Codex();
             codexMap.put(p, c);
@@ -161,8 +163,7 @@ public class GameTable implements GameTableInterface {
      * Take randomly the two common goals for all the players
      */
     public void commonGoalsExtraction(){
-        //prende 2 goals dalla cima dello stack "goals" e li mette nell'arrayList commonGoals
-        for(int i=0; i<2; i++){  this.commonGoals.add(goalsDeck.getGoal());   }
+        for(int i=0; i<2; i++) {  this.commonGoals.add(goalsDeck.getGoal());   }
     }
 
 }

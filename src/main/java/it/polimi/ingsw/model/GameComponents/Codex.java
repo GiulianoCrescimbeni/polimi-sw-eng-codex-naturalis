@@ -2,10 +2,11 @@ package it.polimi.ingsw.model.GameComponents;
 
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.Resource;
+import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
+import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.CodexInterface;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -245,7 +246,10 @@ public class Codex implements CodexInterface {
         }
     }
 
-
+    /**
+     * Set the initial card for the codex
+     * @param initialCard the initial card of the codex
+     */
     public void setInitialCard(InitialCard initialCard) {
         this.initialCard = initialCard;
         cards.put(new Coordinate(80, 80), (Card) initialCard);

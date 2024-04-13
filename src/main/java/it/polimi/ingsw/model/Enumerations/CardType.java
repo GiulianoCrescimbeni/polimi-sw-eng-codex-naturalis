@@ -19,5 +19,9 @@ public enum CardType {
     /**
      * Insect Card (The purple one)
      */
-    INSECT
+    INSECT,
+    /**
+     * First card of the codex
+     */
+    FIRST_CARD
 }
