@@ -19,7 +19,6 @@ public class EqualsObjectGoal extends Goal {
             case SCROLL:    return codex.getNumOfResources(Resource.SCROLL) / 2;
             case FEATHER:   return codex.getNumOfResources(Resource.FEATHER) / 2;
             case JAR:       return codex.getNumOfResources(Resource.JAR) / 2;
-            //TODO Aggiungere gestione eccezione
             default: return 0;
         }
     }

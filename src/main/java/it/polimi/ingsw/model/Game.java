@@ -116,10 +116,24 @@ public class Game implements GameInterface {
         return gameID;
     }
 
+    public void initGame() {
+        this.table = new GameTable();
+        this.table.setGameModel(this);
+        selectPlayerOrdering();
+        this.table.initialCardDeckBuild();
+        this.table.goalsDeckBuild();
+        this.table.cardDeckBuild();
+        this.table.goldCardDeckBuild();
+        this.table.codexBuild();
+        this.table.commonGoalsExtraction();
+        this.table.pickInitialCard();
+        this.table.groundBuild();
+        this.table.extractPersonalGoal();
+    }
     /**
      * Create the order of the players
      */
-    public void selectPlayerOrdering(){
+    private void selectPlayerOrdering(){
         Collections.shuffle(players);
         this.table.setCurrentPlayer(players.get(0));
     }

@@ -14,7 +14,7 @@ public class Codex implements CodexInterface {
 
     private InitialCard initialCard;
     private int score;
-    private GoalsDeck goalsToPick;
+    private ArrayList<Goal> goalsToPick;
     private Goal personalGoal;
     private Map<Resource,Integer> numOfResources;
     private Map<Coordinate, Card> cards;
@@ -26,7 +26,7 @@ public class Codex implements CodexInterface {
      * @param goalsToPick the {@link GoalsDeck} of goals to pick the personal goal from
      * @param personalGoal the {@link Goal} that is personal for each codex
      */
-    public Codex(InitialCard initialCard, GoalsDeck goalsToPick, Goal personalGoal) {
+    public Codex(InitialCard initialCard, ArrayList<Goal> goalsToPick, Goal personalGoal) {
         this.initialCard = initialCard;
         this.goalsToPick = goalsToPick;
         this.personalGoal = personalGoal;
@@ -50,7 +50,7 @@ public class Codex implements CodexInterface {
     /**
      * @return the deck of the goals to pick
      */
-    public GoalsDeck getGoalsToPick() { return this.goalsToPick; }
+    public ArrayList<Goal> getGoalsToPick() { return this.goalsToPick; }
 
     /**
      * @return the personal goal of the codex
@@ -68,9 +68,19 @@ public class Codex implements CodexInterface {
     public Map<Coordinate, Card> getCards() { return this.cards; }
 
 
+    /**
+     * Get the card in a specified coordinate
+     * @param coordinate the coordinate of the card
+     * @return
+     */
     public Card getCard(Coordinate coordinate) { return this.cards.get(coordinate); }
 
+    /**
+     * @return the cardsDeck
+     */
     public Deck getCardsDeck() { return this.cardsDeck; }
+
+    public void setGoalsToPick(ArrayList<Goal> goalsToPick) { this.goalsToPick = goalsToPick; }
 
     /**
      * Set the score of the codex
@@ -146,7 +156,7 @@ public class Codex implements CodexInterface {
      * @param coordinate the coordinates of the card
      * @return true if the card can be placed
      */
-    public boolean verifyPlacement(Coordinate coordinate, Card card) {
+    private boolean verifyPlacement(Coordinate coordinate, Card card) {
         Coordinate ul = new Coordinate(coordinate.getX() - 1, coordinate.getY() + 1);
         Coordinate ur = new Coordinate(coordinate.getX() + 1, coordinate.getY() + 1);
         Coordinate dl = new Coordinate(coordinate.getX() - 1, coordinate.getY() - 1);
@@ -199,7 +209,7 @@ public class Codex implements CodexInterface {
      * @param goldCard the card that needs to be verified
      * @return true if the card can be played
      */
-    public boolean verifyPlayCondition(GoldCard goldCard) {
+    private boolean verifyPlayCondition(GoldCard goldCard) {
         int[] playCondition = new int[4];
         ArrayList<Resource> resources = goldCard.getPlayCondition();
 
@@ -236,7 +246,7 @@ public class Codex implements CodexInterface {
      * Add points after placing a {@link GoldCard}
      * @param goldCard the gold card that needs to be calculated
      */
-    public void addPoints(GoldCard goldCard) {
+    private void addPoints(GoldCard goldCard) {
         if(goldCard.getClass() == AngleGoldCard.class) {
             incrementScore(goldCard.getCardScore() * ((AngleGoldCard) goldCard).getNumOfAnglesCovered());
         } else if(goldCard.getClass() == ResourceGoldCard.class) {

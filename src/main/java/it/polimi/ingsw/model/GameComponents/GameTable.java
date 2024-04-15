@@ -3,14 +3,10 @@ package it.polimi.ingsw.model.GameComponents;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.GameTableInterface;
 import it.polimi.ingsw.model.Player.Player;
-import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.model.Game;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.Stack;
 
 public class GameTable implements GameTableInterface {
 
@@ -25,13 +21,13 @@ public class GameTable implements GameTableInterface {
     private Player currentPlayer;
 
     //TODO Riferimento al Game Controller per le funzioni. Da sostituire quando scrieremo il game controller manager.
-    private Game gameController;
+    private Game gameModel;
 
     /**
      * Constructor
      * @param codexMap map that maps each player to his {@link Codex}
      * @param initialCardDeck deck of {@link InitialCard}
-     * @param goalsDeck deck of {@link it.polimi.ingsw.model.Goals.Goal}
+     * @param goalsDeck deck of {@link Goal}
      * @param cardDeck deck of {@link Card}
      * @param goldCardDeck deck of {@link GoldCard}
      * @param cardToPick deck of {@link Card} that the player can take
@@ -46,6 +42,11 @@ public class GameTable implements GameTableInterface {
         this.cardToPick = cardToPick;
         this.goldCardToPick = goldCardToPick;
     }
+
+    /**
+     * Constructor
+     */
+    public GameTable() {}
 
     /**
      * @param player player to get the codex from
@@ -107,6 +108,16 @@ public class GameTable implements GameTableInterface {
     }
 
     /**
+     * @return the game model entity
+     */
+    public Game getGameModel() { return gameModel; }
+
+    /**
+     * @param gameModel
+     */
+    public void setGameModel(Game gameModel) { this.gameModel = gameModel; }
+
+    /**
      * Pick a card from the ground
      * @param card the card that the player wants to pick
      */
@@ -141,11 +152,49 @@ public class GameTable implements GameTableInterface {
     /**
      * For each player, create an empty codex
      */
-    public void gameBoardBuild() {
-        for(Player p : gameController.getPlayers()) {
+    public void codexBuild() {
+        for(Player p : gameModel.getPlayers()) {
             Codex c = new Codex();
             codexMap.put(p, c);
         }
+    }
+
+    /**
+     * Function to build the ground
+     */
+    public void groundBuild() {
+        this.cardToPick.add(cardDeck.pickCard());
+        this.cardToPick.add(cardDeck.pickCard());
+        this.goldCardToPick.add(goldCardDeck.pickCard());
+        this.goldCardToPick.add(goldCardDeck.pickCard());
+    }
+
+    /**
+     * Function to create the initial card deck
+     */
+    public void initialCardDeckBuild() {
+        //this.initialCardDeck.deckBuild();
+    }
+
+    /**
+     * Function to create the goals deck
+     */
+    public void goalsDeckBuild() {
+        //this.goalsDeck.deckBuild();
+    }
+
+    /**
+     * Function to create the card deck
+     */
+    public void cardDeckBuild() {
+        //this.cardDeck.deckBuild();
+    }
+
+    /**
+     * Function to create the gold card deck
+     */
+    public void goldCardDeckBuild() {
+        //this.goldCardDeck.deckBuild();
     }
 
     /**
@@ -156,6 +205,18 @@ public class GameTable implements GameTableInterface {
             InitialCard toAdd = (InitialCard) initialCardDeck.pickCard();
             Codex codex = codexMap.get(p);
             codex.setInitialCard(toAdd);
+        }
+    }
+
+    /**
+     * Extract personal goals for each player
+     */
+    public void extractPersonalGoal() {
+        for (Player p : codexMap.keySet()) {
+            ArrayList<Goal> goalsToPick = null;
+            goalsToPick.add(this.goalsDeck.getGoal());
+            goalsToPick.add(this.goalsDeck.getGoal());
+            codexMap.get(p).setGoalsToPick(goalsToPick);
         }
     }
 
