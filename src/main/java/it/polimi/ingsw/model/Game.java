@@ -80,11 +80,6 @@ public class Game implements GameInterface {
      */
     public void addPlayer(Player toAdd) { this.players.add(toAdd); }
 
-    @Override
-    public void removeAvailableColor(int color) {
-
-    }
-
     /**
      * Remove a color after being picked by a player
      * @param color the color picked by the player

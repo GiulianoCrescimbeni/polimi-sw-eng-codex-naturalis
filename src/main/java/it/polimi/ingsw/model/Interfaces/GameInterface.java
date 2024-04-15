@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.Interfaces;
 
+import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Enumerations.GameStatus;
 import it.polimi.ingsw.model.GameComponents.GameTable;
 import it.polimi.ingsw.model.Player.Player;
@@ -14,7 +15,7 @@ public interface GameInterface {
     public Player getWinner();
     public GameTable getGameTable();
     public void addPlayer(Player player);
-    public void removeAvailableColor(int color);
+    public void removeAvailableColor(Color color);
     public void setGameStatus(GameStatus status);
     public void setWinner(Player player);
 
