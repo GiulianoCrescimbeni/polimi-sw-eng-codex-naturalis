@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 public class Controller {
     private Game model;
-    Player currentPlayer = model.getTable().getCurrentPlayer();
-
     public boolean isGameStarted(){
        if ( model.getGameStatus() == GameStatus.RUNNING )
            return true;
@@ -41,6 +39,7 @@ public class Controller {
         }
     }
     public void playWithPickFromGround(Coordinate coordinate, Card cardPlayed, Card cardPicked) {
+        Player currentPlayer = model.getTable().getCurrentPlayer();
         try {
             if(cardPlayed.getClass() == Card.class) {
                 model.getGameTable().getCodex(currentPlayer).placeCard(coordinate, cardPlayed);
@@ -54,6 +53,7 @@ public class Controller {
     }
 
     public void playWithPickFromDeck(Coordinate coordinate, Card cardPlayed, int deckIndex) {
+        Player currentPlayer = model.getTable().getCurrentPlayer();
         try {
             if(cardPlayed.getClass() == Card.class) {
                 model.getGameTable().getCodex(currentPlayer).placeCard(coordinate, cardPlayed);
