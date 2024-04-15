@@ -166,7 +166,10 @@ public class Codex implements CodexInterface {
             return false;
         }
 
-        if(getCard(ul).getAngle(AnglePos.DR).isAttached() || getCard(ur).getAngle(AnglePos.DL).isAttached() || getCard(dl).getAngle(AnglePos.UR).isAttached() || getCard(dr).getAngle(AnglePos.UL).isAttached()) {
+        if( (getCard(ul) != null && getCard(ul).getAngle(AnglePos.DR).isAttached()) ||
+            (getCard(ul) != null && getCard(ur).getAngle(AnglePos.DL).isAttached()) ||
+            (getCard(ul) != null && getCard(dl).getAngle(AnglePos.UR).isAttached()) ||
+            (getCard(ul) != null && getCard(dr).getAngle(AnglePos.UL).isAttached()) ) {
             return false;
         }
 
