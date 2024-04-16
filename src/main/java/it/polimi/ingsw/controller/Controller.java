@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementExcep
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
 import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.model.Player.PlayerHand;
-
 import java.util.ArrayList;
 
 public class Controller {
@@ -52,6 +51,15 @@ public class Controller {
      */
     public void playWithPickFromGround(Coordinate coordinate, Card cardPlayed, Card cardPicked) {
         Player currentPlayer = model.getTable().getCurrentPlayer();
+        ArrayList<Player> players = model.getPlayers();
+        if(model.getGameStatus() == GameStatus.RUNNING) {
+            for (Player p : players) {
+                if (model.getGameTable().getCodex(p).getScore() >= 20) {
+                    model.setGameStatus(GameStatus.LAST_TURN);
+                }
+            }
+        }
+
         try {
             if(cardPlayed.getClass() == Card.class) {
                 model.getGameTable().getCodex(currentPlayer).placeCard(coordinate, cardPlayed);
@@ -62,6 +70,11 @@ public class Controller {
             throw new RuntimeException(e);
         }
         model.getGameTable().pickCardFromGround(cardPicked);
+
+        if(model.getGameStatus() == GameStatus.LAST_TURN && currentPlayer.equals(players.get(players.size() - 1))) {
+            model.setGameStatus(GameStatus.ENDED);
+            endGame();
+        }
     }
 
     /**
@@ -69,6 +82,15 @@ public class Controller {
      */
     public void playWithPickFromDeck(Coordinate coordinate, Card cardPlayed, int deckIndex) {
         Player currentPlayer = model.getTable().getCurrentPlayer();
+        ArrayList<Player> players = model.getPlayers();
+        if(model.getGameStatus() == GameStatus.RUNNING) {
+            for (Player p : players) {
+                if (model.getGameTable().getCodex(p).getScore() >= 20) {
+                    model.setGameStatus(GameStatus.LAST_TURN);
+                }
+            }
+        }
+
         try {
             if(cardPlayed.getClass() == Card.class) {
                 model.getGameTable().getCodex(currentPlayer).placeCard(coordinate, cardPlayed);
@@ -82,6 +104,11 @@ public class Controller {
             model.getGameTable().pickCardFromDeck();
         } else if(deckIndex == 1) {
             model.getGameTable().pickGoldCardFromDeck();
+        }
+
+        if(model.getGameStatus() == GameStatus.LAST_TURN && currentPlayer.equals(players.get(players.size() - 1))) {
+            model.setGameStatus(GameStatus.ENDED);
+            endGame();
         }
     }
 

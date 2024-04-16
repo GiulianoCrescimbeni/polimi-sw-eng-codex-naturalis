@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.Player;
 
 import it.polimi.ingsw.model.Enumerations.Color;
+import it.polimi.ingsw.model.GameComponents.Coordinate;
+
+import java.util.Objects;
 
 /**
  * Player's Class
@@ -48,5 +51,13 @@ public class Player {
      */
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player that = (Player) o;
+        return this.nickname.equals(that.nickname);
     }
 }
