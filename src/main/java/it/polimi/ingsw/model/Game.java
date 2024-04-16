@@ -120,6 +120,7 @@ public class Game implements GameInterface {
         this.table.cardDeckBuild();
         this.table.goldCardDeckBuild();
         this.table.codexBuild();
+        this.table.playerHandBuild();
         this.table.commonGoalsExtraction();
         this.table.pickInitialCard();
         this.table.groundBuild();

@@ -159,6 +159,14 @@ public class GameTable implements GameTableInterface {
         }
     }
 
+    public void playerHandBuild() {
+        for(Player p : gameModel.getPlayers()) {
+            p.getPlayerHand().addCard(cardDeck.pickCard());
+            p.getPlayerHand().addCard(cardDeck.pickCard());
+            p.getPlayerHand().addCard(goldCardDeck.pickCard());
+        }
+    }
+
     /**
      * Function to build the ground
      */
