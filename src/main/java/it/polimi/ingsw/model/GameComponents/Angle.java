@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.Enumerations.AnglePos;
 public class Angle {
 
     private Resource resource;
-    private AnglePos position;
     private boolean hidden;
     private Angle attached;
     private Card card;
@@ -17,14 +16,12 @@ public class Angle {
     /**
      * Constructor
      * @param resource {@link Resource} that the angle contains
-     * @param position {@link AnglePos} of the angle
      * @param hidden parameter to know if the angle is hidden or not
      * @param attached the {@link Angle} that is attached to this one
      * @param card the {@link Card} that contains the angle
      */
-    public Angle(Resource resource, AnglePos position, boolean hidden, Angle attached, Card card) {
+    public Angle(Resource resource, boolean hidden, Angle attached, Card card) {
         this.resource = resource;
-        this.position = position;
         this.hidden = hidden;
         this.attached = attached;
         this.card = card;
@@ -35,13 +32,6 @@ public class Angle {
      */
     public Resource getResource() {
         return this.resource;
-    }
-
-    /**
-     * @return the position of the angle
-     */
-    public AnglePos getPosition() {
-        return position;
     }
 
     /**
