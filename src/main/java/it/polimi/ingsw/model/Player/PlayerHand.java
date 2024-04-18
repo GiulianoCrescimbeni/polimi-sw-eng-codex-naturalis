@@ -11,6 +11,10 @@ public class PlayerHand {
 
     private ArrayList<Card> cards;
 
+    public PlayerHand(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
+
     /**
      * @return cards in the player's hand
      */

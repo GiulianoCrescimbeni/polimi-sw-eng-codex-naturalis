@@ -4,9 +4,9 @@ import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 import junit.framework.TestCase;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
@@ -23,7 +23,6 @@ public class AngleTest extends TestCase {
     public void setup() {
         angleMap.put(AnglePos.UR, new Angle(resource, false, attached, card));
         card.setAngles(angleMap);
-        System.out.println("Setup");
     }
 
     @Test

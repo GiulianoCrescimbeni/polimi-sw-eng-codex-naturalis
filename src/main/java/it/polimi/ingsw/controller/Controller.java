@@ -37,7 +37,8 @@ public class Controller {
     public void addPlayer(String nickname, Color color) {
         if (model.getPlayers().size()<4){
             model.removeAvailableColor(color);
-            PlayerHand ph = new PlayerHand();
+            ArrayList<Card> cards = new ArrayList<>();
+            PlayerHand ph = new PlayerHand(cards);
             Player p = new Player(nickname, color, ph);
             model.addPlayer(p);
         }
