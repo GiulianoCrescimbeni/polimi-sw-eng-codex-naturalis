@@ -16,14 +16,6 @@ public class GoalsDeck implements GoalDeckInterface {
     /**
      * Constructor
      * @param numOfGoals the number of goals in the deck
-     */
-    public GoalsDeck(int numOfGoals) {
-        this.numOfGoals = numOfGoals;
-    }
-
-    /**
-     * Constructor
-     * @param numOfGoals the number of goals in the deck
      * @param goals the stack of goals in the deck
      */
     public GoalsDeck(int numOfGoals, Stack<Goal> goals) {
@@ -44,13 +36,17 @@ public class GoalsDeck implements GoalDeckInterface {
     /**
      * Take a goal from the top of the stack
      */
-    public Goal getGoal(){ return goals.pop(); }
+    public Goal getGoal(){
+        numOfGoals--;
+        return goals.pop();
+    }
 
     /**
      * Add a {@link Goal} in the deck
      * @param goal the goal to add in the deck
      */
     public void addGoal(Goal goal) {
+        numOfGoals++;
         goals.add(goal);
     }
 

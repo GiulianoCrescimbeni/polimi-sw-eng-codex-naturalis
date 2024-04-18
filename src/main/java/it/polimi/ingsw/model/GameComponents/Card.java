@@ -41,6 +41,11 @@ public class Card implements CardInteface {
     }
 
     /**
+     * Constructor
+     */
+    public Card() {}
+
+    /**
      * @return the card ID
      */
     public int getCardID() {

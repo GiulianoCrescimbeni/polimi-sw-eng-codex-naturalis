@@ -15,14 +15,6 @@ public class Deck implements DeckInterface {
     /**
      * Constructor
      * @param numOfCards the number of cards in the deck
-     */
-    public Deck(int numOfCards) {
-        this.numOfCards = numOfCards;
-    }
-
-    /**
-     * Constructor
-     * @param numOfCards the number of cards in the deck
      * @param cards the stack of cards of the deck
      */
     public Deck(int numOfCards, Stack<Card> cards) {
@@ -45,13 +37,17 @@ public class Deck implements DeckInterface {
      * @param card the card to add in the deck
      */
     public void addCard(Card card) {
-        this.cards.add(card);
+        numOfCards++;
+        this.cards.push(card);
     }
 
     /**
      * Take the card at the top of the deck
      */
-    public Card pickCard() { return this.cards.pop(); }
+    public Card pickCard() {
+        numOfCards--;
+        return this.cards.pop();
+    }
 
     /**
      * Verify if there are cards in the deck
