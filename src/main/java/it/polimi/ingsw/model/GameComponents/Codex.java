@@ -91,19 +91,25 @@ public class Codex implements CodexInterface {
     /**
      * Increase the number of resources
      * @param resource the resource to increase
-     * @param ammount the ammount to increase
+     * @param amount the amount to increase
      */
-    public void incrementNumOfResources(Resource resource, int ammount) {
-        this.numOfResources.put(resource, numOfResources.get(resource) + ammount);
+    public void incrementNumOfResources(Resource resource, int amount) {
+        int numOfResource = this.numOfResources.get(resource);
+
+        this.numOfResources.remove(resource);
+        this.numOfResources.put(resource, numOfResource + amount);
     }
 
     /**
      * Decrease the number of resources
      * @param resource the resource to decrease
-     * @param ammount the ammount to decrease
+     * @param amount the amount to decrease
      */
-    public void decreaseNumOfResources(Resource resource, int ammount) {
-        this.numOfResources.put(resource, numOfResources.get(resource) - ammount);
+    public void decreaseNumOfResources(Resource resource, int amount) {
+        int numOfResource = this.numOfResources.get(resource);
+
+        this.numOfResources.remove(resource);
+        this.numOfResources.put(resource, numOfResource - amount);
     }
 
     /**
@@ -238,8 +244,7 @@ public class Codex implements CodexInterface {
      * Get resources from the {@link Card}
      * @param card the card to get the resources from
      */
-    public void getResourcesFromCard(Card card) {
-        ArrayList<Resource> resources = new ArrayList<>();
+    private void getResourcesFromCard(Card card) {
         for(int i = 0; i < card.getAngles().size(); i++) {
             incrementNumOfResources(card.getAngles().get(i).getResource(), 1);
         }

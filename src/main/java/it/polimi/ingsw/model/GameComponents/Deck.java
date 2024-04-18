@@ -23,6 +23,15 @@ public class Deck implements DeckInterface {
     }
 
     /**
+     * Constructor
+     * @param numOfCards the number of cards in the deck
+     * Sets the cards stack to null
+     */
+    public Deck(int numOfCards) {
+        this.numOfCards = numOfCards;
+    }
+
+    /**
      * @return the number of cards in the deck
      */
     public int getNumOfCards() { return this.numOfCards; }

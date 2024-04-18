@@ -23,7 +23,7 @@ public class Card implements CardInteface {
     /**
      * Constructor
      * @param cardID id of the card
-     * @param angles arraylist of {@link Angle} for the card
+     * @param angles map of <{@link AnglePos}, {@link Angle}> for the card
      * @param cardType {@link CardType} of the card
      * @param isTurned parameter that indicates if it is turned or not
      * @param cardScore the score of the card
