@@ -13,6 +13,15 @@ public abstract class Goal {
     private CardType cardType;
     private Resource objectType;
 
+    public Goal() {}
+
+    public Goal(Resource objectType, CardType cardType, int score, int goalId) {
+        this.objectType = objectType;
+        this.cardType = cardType;
+        this.score = score;
+        this.goalId = goalId;
+    }
+
     /**
      * @return the goal id
      */

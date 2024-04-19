@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class GoalsDeckTest extends TestCase {
 
-    private Goal goal1 = new LGoal();
-    private Goal goal2 = new LGoal();
-    private Goal goal3 = new LGoal();
+    private Goal goal1 = new LGoal(null, null, 0, 1);
+    private Goal goal2 = new LGoal(null, null, 0, 1);
+    private Goal goal3 = new LGoal(null, null, 0, 1);
     private Stack<Goal> goalStack = new Stack<Goal>();
     GoalsDeck testDeck = new GoalsDeck(3, goalStack);
 
@@ -45,7 +45,7 @@ public class GoalsDeckTest extends TestCase {
 
     @Test
     public void testAddGoal() {
-        Goal goalToAdd = new LGoal();
+        Goal goalToAdd = new LGoal(null, null, 0, 1);
         testDeck.addGoal(goalToAdd);
         assertEquals(4, testDeck.getNumOfGoals());
         assertEquals(goalToAdd, goalStack.pop());
