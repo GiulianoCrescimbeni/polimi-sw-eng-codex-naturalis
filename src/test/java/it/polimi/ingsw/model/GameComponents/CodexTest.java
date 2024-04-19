@@ -15,7 +15,6 @@ import java.util.*;
 public class CodexTest extends TestCase {
 
     InitialCard initialCard = new InitialCard(12345, null, CardType.PLANT, false, 15, false, false, null);
-    int score = 12;
     ArrayList<Goal> goalsToPick = new ArrayList<Goal>();
     ArrayList<Goal> settedGoalsToPick = new ArrayList<Goal>();
     ArrayList<Resource> playCondition = new ArrayList<Resource>();
@@ -23,29 +22,28 @@ public class CodexTest extends TestCase {
     Goal personalGoal = new DiagonalGoal();
     Map<Resource, Integer> numOfResources = new HashMap<Resource, Integer>();
     Map<Coordinate, Card> cards = new LinkedHashMap<>();
-    Map<AnglePos, Angle> iAngles = new HashMap<>();
-    Map<AnglePos, Angle> angles = new HashMap<>();
-    Map<AnglePos, Angle> anglesGold = new HashMap<>();
-
+    Map<AnglePos, Angle> initialCardAngles = new HashMap<>();
+    Map<AnglePos, Angle> cardAngles = new HashMap<>();
+    Map<AnglePos, Angle> goldCardAngles = new HashMap<>();
 
     Card card1 = new Card(1, null, CardType.INSECT, false, 1, false, false);
     Card card2 = new Card(2, null, CardType.PLANT, false, 1, false, false);
     Card card3 = new Card(3, null, CardType.FUNGI, false, 1, false, false);
-    Card toPlace = new Card(4, null, CardType.ANIMAL, false, 1, false, false);
+    Card cardToPlace = new Card(4, null, CardType.ANIMAL, false, 1, false, false);
     GoldCard goldCardToPlace = new GoldCard(5, null, CardType.FUNGI, false, 2, false, false, playCondition);
 
-    Angle i1 = new Angle(Resource.INSECT, false, null, toPlace);
-    Angle i2 = new Angle(null, false, null, toPlace);
-    Angle i3 = new Angle(null, false, null, toPlace);
-    Angle i4 = new Angle(null, false, null, toPlace);
-    Angle a1 = new Angle(Resource.FUNGI, false, null, toPlace);
-    Angle a2 = new Angle(null, false, null, toPlace);
-    Angle a3 = new Angle(null, false, null, toPlace);
-    Angle a4 = new Angle(Resource.PLANT, false, null, toPlace);
-    Angle b1 = new Angle(Resource.FUNGI, false, null, goldCardToPlace);
-    Angle b2 = new Angle(null, false, null, goldCardToPlace);
-    Angle b3 = new Angle(null, false, null, goldCardToPlace);
-    Angle b4 = new Angle(Resource.PLANT, false, null, goldCardToPlace);
+    Angle initialCardAngle1 = new Angle(Resource.INSECT, false, null, cardToPlace);
+    Angle initialCardAngle2 = new Angle(null, false, null, cardToPlace);
+    Angle initialCardAngle3 = new Angle(null, false, null, cardToPlace);
+    Angle initialCardAngle4 = new Angle(null, false, null, cardToPlace);
+    Angle cardAngle1 = new Angle(Resource.FUNGI, false, null, cardToPlace);
+    Angle cardAngle2 = new Angle(null, false, null, cardToPlace);
+    Angle cardAngle3 = new Angle(null, false, null, cardToPlace);
+    Angle cardAngle4 = new Angle(Resource.PLANT, false, null, cardToPlace);
+    Angle goldCardAngle1 = new Angle(Resource.FUNGI, false, null, goldCardToPlace);
+    Angle goldCardAngle2 = new Angle(null, false, null, goldCardToPlace);
+    Angle goldCardAngle3 = new Angle(null, false, null, goldCardToPlace);
+    Angle goldCardAngle4 = new Angle(Resource.PLANT, false, null, goldCardToPlace);
     Coordinate c = new Coordinate(80, 80);
     Coordinate c1 = new Coordinate(79, 80);
     Coordinate c2 = new Coordinate(85, 79);
@@ -75,23 +73,23 @@ public class CodexTest extends TestCase {
         cards.put(c3, card3);
         cards.put(c, initialCard);
 
-        iAngles.put(AnglePos.UL, i1);
-        iAngles.put(AnglePos.UR, i2);
-        iAngles.put(AnglePos.DL, i3);
-        iAngles.put(AnglePos.DR, i4);
-        initialCard.setAngles(iAngles);
+        initialCardAngles.put(AnglePos.UL, initialCardAngle1);
+        initialCardAngles.put(AnglePos.UR, initialCardAngle2);
+        initialCardAngles.put(AnglePos.DL, initialCardAngle3);
+        initialCardAngles.put(AnglePos.DR, initialCardAngle4);
+        initialCard.setAngles(initialCardAngles);
 
-        angles.put(AnglePos.UL, a1);
-        angles.put(AnglePos.UR, a2);
-        angles.put(AnglePos.DL, a3);
-        angles.put(AnglePos.DR, a4);
-        toPlace.setAngles(angles);
+        cardAngles.put(AnglePos.UL, cardAngle1);
+        cardAngles.put(AnglePos.UR, cardAngle2);
+        cardAngles.put(AnglePos.DL, cardAngle3);
+        cardAngles.put(AnglePos.DR, cardAngle4);
+        cardToPlace.setAngles(cardAngles);
 
-        anglesGold.put(AnglePos.UL, b1);
-        anglesGold.put(AnglePos.UR, b2);
-        anglesGold.put(AnglePos.DL, b3);
-        anglesGold.put(AnglePos.DR, b4);
-        goldCardToPlace.setAngles(anglesGold);
+        goldCardAngles.put(AnglePos.UL, goldCardAngle1);
+        goldCardAngles.put(AnglePos.UR, goldCardAngle2);
+        goldCardAngles.put(AnglePos.DL, goldCardAngle3);
+        goldCardAngles.put(AnglePos.DR, goldCardAngle4);
+        goldCardToPlace.setAngles(goldCardAngles);
 
         playCondition.add(Resource.ANIMAL);
     }
@@ -174,12 +172,12 @@ public class CodexTest extends TestCase {
         assertEquals(4, toTest.getNumOfResources(Resource.INSECT));
         assertEquals(1, toTest.getNumOfResources(Resource.FUNGI));
         assertEquals(2, toTest.getNumOfResources(Resource.PLANT));
-        assertFalse(toTest.getCards().containsValue(toPlace));
-        toTest.placeCard(new Coordinate(79, 81), toPlace);
+        assertFalse(toTest.getCards().containsValue(cardToPlace));
+        toTest.placeCard(new Coordinate(79, 81), cardToPlace);
         assertEquals(3, toTest.getNumOfResources(Resource.INSECT));
         assertEquals(2, toTest.getNumOfResources(Resource.FUNGI));
         assertEquals(3, toTest.getNumOfResources(Resource.PLANT));
-        assertTrue(toTest.getCards().containsValue(toPlace));
+        assertTrue(toTest.getCards().containsValue(cardToPlace));
     }
 
     @Test
