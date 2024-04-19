@@ -275,8 +275,8 @@ public class GameTableTest extends TestCase {
 
         codexMap.put(p1, cx);
 
-        Goal g1 = new LGoal();
-        Goal g2 = new DiagonalGoal();
+        Goal g1 = new LGoal(null, null, 1, 1);
+        Goal g2 = new DiagonalGoal(null, null, 1, 1);
 
         goalsDeck.addGoal(g1);
         goalsDeck.addGoal(g2);
@@ -291,8 +291,8 @@ public class GameTableTest extends TestCase {
 
     @Test
     public void testCommonGoalsExtraction() {
-        Goal g1 = new LGoal();
-        Goal g2 = new DiagonalGoal();
+        Goal g1 = new LGoal(null, null, 1, 1);
+        Goal g2 = new DiagonalGoal(null, null, 1, 1);
 
         goalsDeck.addGoal(g1);
         goalsDeck.addGoal(g2);
