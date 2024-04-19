@@ -1,18 +1,16 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
 import it.polimi.ingsw.model.Goals.*;
-import it.polimi.ingsw.model.GameComponents.Deck;
 import junit.framework.TestCase;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CodexTest extends TestCase {
 
@@ -20,28 +18,44 @@ public class CodexTest extends TestCase {
     int score = 12;
     ArrayList<Goal> goalsToPick = new ArrayList<Goal>();
     ArrayList<Goal> settedGoalsToPick = new ArrayList<Goal>();
+    ArrayList<Resource> playCondition = new ArrayList<Resource>();
+
     Goal personalGoal = new DiagonalGoal();
     Map<Resource, Integer> numOfResources = new HashMap<Resource, Integer>();
-    Map<Coordinate, Card> cards = new HashMap<Coordinate, Card>();
-    Deck cardsDeck = new Deck(5);
+    Map<Coordinate, Card> cards = new LinkedHashMap<>();
+    Map<AnglePos, Angle> iAngles = new HashMap<>();
+    Map<AnglePos, Angle> angles = new HashMap<>();
+    Map<AnglePos, Angle> anglesGold = new HashMap<>();
+
 
     Card card1 = new Card(1, null, CardType.INSECT, false, 1, false, false);
     Card card2 = new Card(2, null, CardType.PLANT, false, 1, false, false);
     Card card3 = new Card(3, null, CardType.FUNGI, false, 1, false, false);
-
     Card toPlace = new Card(4, null, CardType.ANIMAL, false, 1, false, false);
-    GoldCard goldCardToPlace = new GoldCard(5, null, CardType.FUNGI, false, 2, false, false, null);
+    GoldCard goldCardToPlace = new GoldCard(5, null, CardType.FUNGI, false, 2, false, false, playCondition);
 
+    Angle i1 = new Angle(Resource.INSECT, false, null, toPlace);
+    Angle i2 = new Angle(null, false, null, toPlace);
+    Angle i3 = new Angle(null, false, null, toPlace);
+    Angle i4 = new Angle(null, false, null, toPlace);
+    Angle a1 = new Angle(Resource.FUNGI, false, null, toPlace);
+    Angle a2 = new Angle(null, false, null, toPlace);
+    Angle a3 = new Angle(null, false, null, toPlace);
+    Angle a4 = new Angle(Resource.PLANT, false, null, toPlace);
+    Angle b1 = new Angle(Resource.FUNGI, false, null, goldCardToPlace);
+    Angle b2 = new Angle(null, false, null, goldCardToPlace);
+    Angle b3 = new Angle(null, false, null, goldCardToPlace);
+    Angle b4 = new Angle(Resource.PLANT, false, null, goldCardToPlace);
     Coordinate c = new Coordinate(80, 80);
     Coordinate c1 = new Coordinate(79, 80);
-    Coordinate c2 = new Coordinate(81, 80);
+    Coordinate c2 = new Coordinate(85, 79);
     Coordinate c3 = new Coordinate(82, 80);
 
     Resource res1 = Resource.FUNGI;
-    Resource res2 = Resource.JAR;
+    Resource res2 = Resource.ANIMAL;
     Resource res3 = Resource.INSECT;
-
-    Codex toTest = new Codex(initialCard, goalsToPick, personalGoal);
+    Resource res4 = Resource.PLANT;
+    Codex toTest = new Codex(goalsToPick, personalGoal, numOfResources, cards);
 
     @BeforeEach
     public void setup() {
@@ -54,15 +68,32 @@ public class CodexTest extends TestCase {
         numOfResources.put(res1, new Integer(1));
         numOfResources.put(res2, new Integer(3));
         numOfResources.put(res3, new Integer(4));
+        numOfResources.put(res4, new Integer(2));
 
         cards.put(c1, card1);
         cards.put(c2, card2);
         cards.put(c3, card3);
-    }
+        cards.put(c, initialCard);
 
-    @Test
-    public void testGetInitialCard() {
-        assertEquals(initialCard, toTest.getInitialCard());
+        iAngles.put(AnglePos.UL, i1);
+        iAngles.put(AnglePos.UR, i2);
+        iAngles.put(AnglePos.DL, i3);
+        iAngles.put(AnglePos.DR, i4);
+        initialCard.setAngles(iAngles);
+
+        angles.put(AnglePos.UL, a1);
+        angles.put(AnglePos.UR, a2);
+        angles.put(AnglePos.DL, a3);
+        angles.put(AnglePos.DR, a4);
+        toPlace.setAngles(angles);
+
+        anglesGold.put(AnglePos.UL, b1);
+        anglesGold.put(AnglePos.UR, b2);
+        anglesGold.put(AnglePos.DL, b3);
+        anglesGold.put(AnglePos.DR, b4);
+        goldCardToPlace.setAngles(anglesGold);
+
+        playCondition.add(Resource.ANIMAL);
     }
 
     @Test
@@ -83,7 +114,7 @@ public class CodexTest extends TestCase {
     @Test
     public void testGetNumOfResources() {
         assertEquals(1, toTest.getNumOfResources(Resource.FUNGI));
-        assertEquals(3, toTest.getNumOfResources(Resource.JAR));
+        assertEquals(3, toTest.getNumOfResources(Resource.ANIMAL));
         assertEquals(4, toTest.getNumOfResources(Resource.INSECT));
     }
 
@@ -97,11 +128,6 @@ public class CodexTest extends TestCase {
         assertEquals(toTest.getCard(c1), card1);
         assertEquals(toTest.getCard(c2), card2);
         assertEquals(toTest.getCard(c3), card3);
-    }
-
-    @Test
-    public void testGetCardsDeck() {
-        assertEquals(cardsDeck, toTest.getCardsDeck());
     }
 
     @Test
@@ -145,22 +171,35 @@ public class CodexTest extends TestCase {
 
     @Test
     public void testPlaceCard() throws IllegalCoordinatesException, IllegalCardPlacementException {
+        assertEquals(4, toTest.getNumOfResources(Resource.INSECT));
+        assertEquals(1, toTest.getNumOfResources(Resource.FUNGI));
+        assertEquals(2, toTest.getNumOfResources(Resource.PLANT));
         assertFalse(toTest.getCards().containsValue(toPlace));
-        toTest.placeCard(new Coordinate(84, 80), toPlace);
+        toTest.placeCard(new Coordinate(79, 81), toPlace);
+        assertEquals(3, toTest.getNumOfResources(Resource.INSECT));
+        assertEquals(2, toTest.getNumOfResources(Resource.FUNGI));
+        assertEquals(3, toTest.getNumOfResources(Resource.PLANT));
         assertTrue(toTest.getCards().containsValue(toPlace));
     }
 
     @Test
     public void testPlaceGoldCard() throws IllegalCoordinatesException, IllegalCardPlacementException {
+        assertEquals(4, toTest.getNumOfResources(Resource.INSECT));
+        assertEquals(1, toTest.getNumOfResources(Resource.FUNGI));
+        assertEquals(2, toTest.getNumOfResources(Resource.PLANT));
+        assertEquals(0, toTest.getScore());
         assertFalse(toTest.getCards().containsValue(goldCardToPlace));
-        toTest.placeGoldCard(new Coordinate(85, 80), goldCardToPlace);
+        toTest.placeGoldCard(new Coordinate(79, 81), goldCardToPlace);
+        assertEquals(3, toTest.getNumOfResources(Resource.INSECT));
+        assertEquals(2, toTest.getNumOfResources(Resource.FUNGI));
+        assertEquals(3, toTest.getNumOfResources(Resource.PLANT));
+        assertEquals(2, toTest.getScore());
         assertTrue(toTest.getCards().containsValue(goldCardToPlace));
     }
 
     @Test
     public void testSetInitialCard() {
         toTest.setInitialCard(initialCard);
-        assertEquals(initialCard, toTest.getInitialCard());
         assertEquals(initialCard, toTest.getCard(c));
         assertTrue(toTest.getCards().containsValue(initialCard));
     }

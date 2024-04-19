@@ -12,6 +12,7 @@ public class CoordinateTest extends TestCase {
 
     Coordinate toTest = new Coordinate(x1, y1);
     Coordinate other = new Coordinate(x2, y2);
+    Coordinate same = new Coordinate(x1, y1);
 
     @Test
     public void testGetX() {
@@ -26,5 +27,7 @@ public class CoordinateTest extends TestCase {
     @Test
     public void testEquals() {
         assertFalse(toTest.equals(other));
+        assertTrue(toTest.equals(same));
+        assertTrue(same.equals(toTest));
     }
 }

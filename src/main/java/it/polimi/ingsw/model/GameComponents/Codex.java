@@ -12,22 +12,18 @@ import java.util.Map;
 
 public class Codex implements CodexInterface {
 
-    private InitialCard initialCard;
     private int score;
     private ArrayList<Goal> goalsToPick;
     private Goal personalGoal;
     private Map<Resource,Integer> numOfResources;
     private Map<Coordinate, Card> cards;
-    private Deck cardsDeck;
 
     /**
      * Constructor
-     * @param initialCard the {@link InitialCard} of the codex
      * @param goalsToPick the {@link GoalsDeck} of goals to pick the personal goal from
      * @param personalGoal the {@link Goal} that is personal for each codex
      */
-    public Codex(InitialCard initialCard, ArrayList<Goal> goalsToPick, Goal personalGoal) {
-        this.initialCard = initialCard;
+    public Codex(ArrayList<Goal> goalsToPick, Goal personalGoal, Map<Resource, Integer> numOfResources, Map<Coordinate, Card> cards) {
         this.goalsToPick = goalsToPick;
         this.personalGoal = personalGoal;
         this.numOfResources = numOfResources;
@@ -36,11 +32,6 @@ public class Codex implements CodexInterface {
 
 
     public Codex() {}
-
-    /**
-     * @return the intial card of the deck
-     */
-    public InitialCard getInitialCard() { return this.initialCard; }
 
     /**
      * @return the score of the codex
@@ -76,10 +67,9 @@ public class Codex implements CodexInterface {
     public Card getCard(Coordinate coordinate) { return this.cards.get(coordinate); }
 
     /**
-     * @return the cardsDeck
+     * Set goals that can be picked from the player
+     * @param goalsToPick goals that can be picked from the player
      */
-    public Deck getCardsDeck() { return this.cardsDeck; }
-
     public void setGoalsToPick(ArrayList<Goal> goalsToPick) { this.goalsToPick = goalsToPick; }
 
     /**
@@ -181,7 +171,9 @@ public class Codex implements CodexInterface {
 
         if(getCards().containsKey(ul)) {
             Angle DR = cards.get(ul).getAngle(AnglePos.DR);
-            decreaseNumOfResources(DR.getResource(), 1);
+            if(DR.getResource() != null) {
+                decreaseNumOfResources(DR.getResource(), 1);
+            }
             DR.setHidden();
             DR.setAttached(card.getAngle(AnglePos.UL));
             card.getAngle(AnglePos.UL).setAttached(DR);
@@ -189,7 +181,9 @@ public class Codex implements CodexInterface {
 
         if(getCards().containsKey(ur)) {
             Angle DL = cards.get(ur).getAngle(AnglePos.DL);
-            decreaseNumOfResources(DL.getResource(), 1);
+            if(DL.getResource() != null) {
+                decreaseNumOfResources(DL.getResource(), 1);
+            }
             DL.setHidden();
             DL.setAttached(card.getAngle(AnglePos.UR));
             card.getAngle(AnglePos.UR).setAttached(DL);
@@ -197,7 +191,9 @@ public class Codex implements CodexInterface {
 
         if(getCards().containsKey(dl)) {
             Angle UR = cards.get(dl).getAngle(AnglePos.UR);
-            decreaseNumOfResources(UR.getResource(), 1);
+            if(UR.getResource() != null) {
+                decreaseNumOfResources(UR.getResource(), 1);
+            }
             UR.setHidden();
             UR.setAttached(card.getAngle(AnglePos.DL));
             card.getAngle(AnglePos.DL).setAttached(UR);
@@ -205,7 +201,9 @@ public class Codex implements CodexInterface {
 
         if(getCards().containsKey(dr)) {
             Angle UL = cards.get(dr).getAngle(AnglePos.UL);
-            decreaseNumOfResources(UL.getResource(), 1);
+            if(UL.getResource() != null) {
+                decreaseNumOfResources(UL.getResource(), 1);
+            }
             UL.setHidden();
             UL.setAttached(card.getAngle(AnglePos.DR));
             card.getAngle(AnglePos.DR).setAttached(UL);
@@ -245,8 +243,17 @@ public class Codex implements CodexInterface {
      * @param card the card to get the resources from
      */
     private void getResourcesFromCard(Card card) {
-        for(int i = 0; i < card.getAngles().size(); i++) {
-            incrementNumOfResources(card.getAngles().get(i).getResource(), 1);
+        if(card.getAngles().get(AnglePos.UL).getResource() != null) {
+            incrementNumOfResources(card.getAngles().get(AnglePos.UL).getResource(), 1);
+        }
+        if(card.getAngles().get(AnglePos.UR).getResource() != null) {
+            incrementNumOfResources(card.getAngles().get(AnglePos.UR).getResource(), 1);
+        }
+        if(card.getAngles().get(AnglePos.DL).getResource() != null) {
+            incrementNumOfResources(card.getAngles().get(AnglePos.DL).getResource(), 1);
+        }
+        if(card.getAngles().get(AnglePos.DR).getResource() != null) {
+            incrementNumOfResources(card.getAngles().get(AnglePos.DR).getResource(), 1);
         }
     }
 
@@ -269,7 +276,6 @@ public class Codex implements CodexInterface {
      * @param initialCard the initial card of the codex
      */
     public void setInitialCard(InitialCard initialCard) {
-        this.initialCard = initialCard;
         cards.put(new Coordinate(80, 80), (Card) initialCard);
     }
 

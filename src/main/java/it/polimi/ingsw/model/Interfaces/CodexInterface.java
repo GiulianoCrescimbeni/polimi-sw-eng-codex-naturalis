@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 public interface CodexInterface {
 
-    public InitialCard getInitialCard();
-
     public int getNumOfResources(Resource resource);
 
     public Card getCard(Coordinate coordinate);

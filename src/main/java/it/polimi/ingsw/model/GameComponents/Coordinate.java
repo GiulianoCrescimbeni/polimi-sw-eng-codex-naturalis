@@ -48,4 +48,12 @@ public class Coordinate {
         Coordinate that = (Coordinate) o;
         return this.x == that.x && this.y == that.y;
     }
+
+    /**
+     * Override of the hasCode
+     */
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }
