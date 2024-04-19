@@ -19,7 +19,7 @@ public class CodexTest extends TestCase {
     ArrayList<Goal> settedGoalsToPick = new ArrayList<Goal>();
     ArrayList<Resource> playCondition = new ArrayList<Resource>();
 
-    Goal personalGoal = new DiagonalGoal();
+    Goal personalGoal = new DiagonalGoal(null, null, 0, 1);
     Map<Resource, Integer> numOfResources = new HashMap<Resource, Integer>();
     Map<Coordinate, Card> cards = new LinkedHashMap<>();
     Map<AnglePos, Angle> initialCardAngles = new HashMap<>();
@@ -57,11 +57,11 @@ public class CodexTest extends TestCase {
 
     @BeforeEach
     public void setup() {
-        goalsToPick.add(new LGoal());
-        goalsToPick.add(new EqualsObjectGoal());
-        goalsToPick.add(new DifferentObjectGoal());
+        goalsToPick.add(new LGoal(null, null, 0, 1));
+        goalsToPick.add(new EqualsObjectGoal(null, null, 0, 1));
+        goalsToPick.add(new DifferentObjectGoal(null, null, 0, 1));
 
-        settedGoalsToPick.add(new LGoal());
+        settedGoalsToPick.add(new LGoal(null, null, 0, 1));
 
         numOfResources.put(res1, new Integer(1));
         numOfResources.put(res2, new Integer(3));

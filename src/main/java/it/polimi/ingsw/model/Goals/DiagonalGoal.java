@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.Goals;
 
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
+import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Codex;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
@@ -11,6 +12,9 @@ import it.polimi.ingsw.model.GameComponents.Coordinate;
  */
 public class DiagonalGoal extends Goal {
 
+    public DiagonalGoal(Resource objectType, CardType cardType, int score, int goalId) {
+        super(objectType, cardType, score, goalId);
+    }
 
     @Override
     public int check(Codex codex){

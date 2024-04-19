@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.Goals;
 
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
+import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.GameComponents.Codex;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
 
@@ -9,6 +10,10 @@ import it.polimi.ingsw.model.GameComponents.Coordinate;
  * Class that represent the L shaped goal
  */
 public class LGoal extends Goal {
+
+    public LGoal(Resource objectType, CardType cardType, int score, int goalId) {
+        super(objectType, cardType, score, goalId);
+    }
 
     /**
      * Function to check the goal completion
