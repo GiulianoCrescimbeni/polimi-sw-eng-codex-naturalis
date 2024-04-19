@@ -41,6 +41,7 @@ public class GameTable implements GameTableInterface {
         this.goldCardDeck = goldCardDeck;
         this.cardToPick = cardToPick;
         this.goldCardToPick = goldCardToPick;
+        this.commonGoals = new ArrayList<Goal>();
     }
 
     /**
@@ -221,7 +222,7 @@ public class GameTable implements GameTableInterface {
      */
     public void extractPersonalGoal() {
         for (Player p : codexMap.keySet()) {
-            ArrayList<Goal> goalsToPick = null;
+            ArrayList<Goal> goalsToPick = new ArrayList<Goal>();
             goalsToPick.add(this.goalsDeck.getGoal());
             goalsToPick.add(this.goalsDeck.getGoal());
             codexMap.get(p).setGoalsToPick(goalsToPick);

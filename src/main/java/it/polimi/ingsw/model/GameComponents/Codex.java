@@ -30,6 +30,10 @@ public class Codex implements CodexInterface {
         this.cards = cards;
     }
 
+    public Codex(Map<Coordinate, Card> cards) {
+        this.cards = cards;
+    }
+
 
     public Codex() {}
 
