@@ -26,7 +26,7 @@ public class LGoal extends Goal {
         switch (this.getCardType()){
             case INSECT:
                 for (Coordinate i : codex.getCards().keySet()) {
-                    Coordinate j = new Coordinate(i.getX(), i.getY() - 1);
+                    Coordinate j = new Coordinate(i.getX(), i.getY() - 2);
                     if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().getCardType() == CardType.ANIMAL
                             && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()){
                         numOfCompletion++;
@@ -38,7 +38,7 @@ public class LGoal extends Goal {
                 break;
             case ANIMAL:
                 for (Coordinate i : codex.getCards().keySet()) {
-                    Coordinate j = new Coordinate(i.getX(), i.getY() - 1);
+                    Coordinate j = new Coordinate(i.getX(), i.getY() - 2);
                     if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.UR).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard().getCardType() == CardType.FUNGI
                             && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()) {
                         numOfCompletion++;
@@ -52,7 +52,7 @@ public class LGoal extends Goal {
 
             case PLANT:
                 for (Coordinate i : codex.getCards().keySet()) {
-                    Coordinate j = new Coordinate(i.getX(), i.getY() + 1);
+                    Coordinate j = new Coordinate(i.getX(), i.getY() + 2);
                     if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.DL).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.INSECT
                             && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()) {
                         numOfCompletion++;
@@ -65,7 +65,7 @@ public class LGoal extends Goal {
 
             case FUNGI:
                 for (Coordinate i : codex.getCards().keySet()) {
-                    Coordinate j = new Coordinate(i.getX(), i.getY() + 1);
+                    Coordinate j = new Coordinate(i.getX(), i.getY() + 2);
                     if (!codex.getCard(i).isLUsed() && !codex.getCard(j).isLUsed() && !codex.getCard(i).getAngle(AnglePos.DR).getAttached().getCard().isLUsed() && codex.getCard(i).getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.PLANT
                             && codex.getCard(i).getCardType() == codex.getCard(j).getCardType()) {
                         numOfCompletion++;

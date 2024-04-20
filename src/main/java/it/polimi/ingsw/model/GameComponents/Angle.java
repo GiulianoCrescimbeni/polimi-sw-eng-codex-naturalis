@@ -78,4 +78,12 @@ public class Angle {
     public void setAttached(Angle angle) {
         this.attached = angle;
     }
+
+    /**
+     * Set the card of the angle
+     * @param card the angle of the card
+     */
+    public void setCard(Card card) {
+        this.card = card;
+    }
 }
