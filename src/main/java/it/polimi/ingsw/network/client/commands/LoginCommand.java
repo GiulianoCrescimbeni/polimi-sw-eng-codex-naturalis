@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.client.commands;
 
-public class LoginCommand extends Command{
+import java.io.Serializable;
+
+public class LoginCommand extends Command implements Serializable {
 
     @Override
     public void execute() {

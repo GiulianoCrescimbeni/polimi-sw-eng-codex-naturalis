@@ -45,6 +45,12 @@ public class GamesManager {
         return connections.get(clientHandler);
     }
 
+    /**
+     *
+     * @param clientHandler The client handler that received the command
+     * @param command The command to be executed
+     */
+
     public void handleCommand(ClientHandler clientHandler, Command command) {
         Integer gameId = connections.get(clientHandler);
         Controller gameController = controllers.get(gameId);

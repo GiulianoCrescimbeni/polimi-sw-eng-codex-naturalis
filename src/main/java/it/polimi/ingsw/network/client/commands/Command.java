@@ -2,9 +2,18 @@ package it.polimi.ingsw.network.client.commands;
 
 import it.polimi.ingsw.controller.Controller;
 
-public abstract class Command {
+import java.io.Serializable;
+
+public abstract class Command  implements Serializable {
     private String nickname;
     private Controller gameController;
+
+    public Command(String nickname, Controller gameController) {
+        this.nickname = nickname;
+        this.gameController = gameController;
+    }
+
+    public Command() {}
 
     public String getNickname() {
         return nickname;

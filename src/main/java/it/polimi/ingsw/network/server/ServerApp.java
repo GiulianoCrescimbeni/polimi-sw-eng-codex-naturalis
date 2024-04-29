@@ -31,12 +31,13 @@ public class ServerApp extends Thread {
     public void run() {
         try {
             while (!this.isInterrupted()) {
-                socHandlers.add(new SocketClientHandler(socketServer.accept()));
+                socHandlers.add(new SocketClientHandler(socketServer.accept(), manager));
                 socHandlers.get(socHandlers.size() - 1).start();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 }
