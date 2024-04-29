@@ -7,6 +7,7 @@ import it.polimi.ingsw.network.server.handler.ClientHandler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class GamesManager {
     private Map<Integer, Controller> controllers = new HashMap<>();
@@ -14,9 +15,24 @@ public class GamesManager {
 
     public GamesManager() {}
 
-    public void setController(Integer gameId) {
+    public int setController() {
+
+        Random r = new Random();
+        int id = r.nextInt();
+        boolean exists = true;
+
+        while(exists) {
+            if (!controllers.containsKey(id)) {
+                exists = false;
+            } else {
+                id = r.nextInt();
+            }
+        }
+
         Controller gameController = new Controller();
-        controllers.put(gameId, gameController);
+        controllers.put(id, gameController);
+
+        return id;
     }
 
     public Controller getController(Integer gameId) {
