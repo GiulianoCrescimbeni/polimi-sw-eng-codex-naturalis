@@ -26,7 +26,7 @@ public class GameTableTest extends TestCase {
     ArrayList<Card> cardToPick = new ArrayList<Card>();
     ArrayList<Card> goldCardToPick = new ArrayList<Card>();
     ArrayList<Goal> commonGoals = new ArrayList<Goal>();
-    Player currentPlayer = new Player("CurrentPlayer", Color.RED, null);
+    Player currentPlayer = new Player("CurrentPlayer", null);
 
     ArrayList<Player> players = new ArrayList<Player>();
     Game gameModel = new Game(123, players, null, null, null, null);
@@ -35,10 +35,14 @@ public class GameTableTest extends TestCase {
 
     @Test
     public void testGetCodex() {
-        Player p1 = new Player("1", Color.BLUE, null);
+        currentPlayer.setColor(Color.RED);
+
+        Player p1 = new Player("1", null);
+        p1.setColor(Color.BLUE);
         Codex c1 = new Codex();
 
-        Player p2 = new Player("2", Color.GREEN, null);
+        Player p2 = new Player("2", null);
+        p2.setColor(Color.GREEN);
         Codex c2 = new Codex();
 
         codexMap.put(p1, c1);
@@ -115,7 +119,8 @@ public class GameTableTest extends TestCase {
     @Test
     public void testPickCardFromGround() {
 
-        Player p = new Player("Player", Color.RED, new PlayerHand(new ArrayList<Card>()));
+        Player p = new Player("Player", new PlayerHand(new ArrayList<Card>()));
+        p.setColor(Color.RED);
         Card toPick = new Card();
         Card filler = new Card();
         cardToPick.add(toPick);
@@ -141,7 +146,8 @@ public class GameTableTest extends TestCase {
         Card toPickFromDeck = new Card();
         cardDeck.addCard(toPickFromDeck);
 
-        Player p = new Player("Player", Color.RED, new PlayerHand(new ArrayList<Card>()));
+        Player p = new Player("Player", new PlayerHand(new ArrayList<Card>()));
+        p.setColor(Color.RED);
 
         toTest.setCurrentPlayer(p);
         toTest.pickCardFromDeck();
@@ -155,7 +161,8 @@ public class GameTableTest extends TestCase {
         GoldCard toPickFromGoldDeck = new GoldCard(2, null, CardType.INSECT, false, 10, false, false, null);
         goldCardDeck.addCard(toPickFromGoldDeck);
 
-        Player p = new Player("Player", Color.RED, new PlayerHand(new ArrayList<Card>()));
+        Player p = new Player("Player", new PlayerHand(new ArrayList<Card>()));
+        p.setColor(Color.RED);
 
         toTest.setCurrentPlayer(p);
         toTest.pickGoldCardFromDeck();
@@ -165,9 +172,9 @@ public class GameTableTest extends TestCase {
 
     @Test
     public void testCodexBuild() {
-        Player p1 = new Player("1", null, null);
-        Player p2 = new Player("2", null, null);
-        Player p3 = new Player("3", null, null);
+        Player p1 = new Player("1", null);
+        Player p2 = new Player("2", null);
+        Player p3 = new Player("3", null);
 
         players.add(p1);
         players.add(p2);
@@ -186,7 +193,7 @@ public class GameTableTest extends TestCase {
 
     @Test
     public void testPlayerHandBuild() {
-        Player p1 = new Player("1", null, new PlayerHand(new ArrayList<Card>()));
+        Player p1 = new Player("1", new PlayerHand(new ArrayList<Card>()));
 
         players.add(p1);
 
@@ -254,7 +261,7 @@ public class GameTableTest extends TestCase {
 
     @Test
     public void testPickInitialCard() {
-        Player p1 = new Player("1", null, new PlayerHand(new ArrayList<Card>()));
+        Player p1 = new Player("1", new PlayerHand(new ArrayList<Card>()));
         Codex cx = new Codex(new HashMap<Coordinate, Card>());
 
         codexMap.put(p1, cx);
@@ -270,7 +277,7 @@ public class GameTableTest extends TestCase {
     @Test
     public void testExtractPersonalGoal() {
 
-        Player p1 = new Player("1", null, new PlayerHand(new ArrayList<Card>()));
+        Player p1 = new Player("1", new PlayerHand(new ArrayList<Card>()));
         Codex cx = new Codex(new HashMap<Coordinate, Card>());
 
         codexMap.put(p1, cx);

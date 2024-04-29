@@ -16,6 +16,18 @@ import java.util.ArrayList;
 public class Controller {
     private Game model;
 
+    /**
+     * Controller
+     * @param model the {@link Game} for the controller
+     */
+    public Controller(Game model) {
+        this.model = model;
+    }
+
+    /**
+     * Check if the game is started
+     * @return true if the game is running
+     */
     public boolean isGameStarted(){
        if ( model.getGameStatus() == GameStatus.RUNNING )
            return true;
@@ -32,19 +44,23 @@ public class Controller {
     }
 
     /**
-     * Add player and set his color
+     * Add a new player to the game
      */
-    public void addPlayer(String nickname, Color color) {
-        if (model.getPlayers().size()<4){
-            model.removeAvailableColor(color);
-            ArrayList<Card> cards = new ArrayList<>();
-            PlayerHand ph = new PlayerHand(cards);
-            Player p = new Player(nickname, color, ph);
-            model.addPlayer(p);
-        }
-        if (model.getPlayers().size() == 4) {
-            model.initGame();
-        }
+    public void addPlayer(String nickname) {
+        ArrayList<Card> cards = new ArrayList<>();
+        PlayerHand ph = new PlayerHand(cards);
+        Player p = new Player(nickname, ph);
+        model.addPlayer(p);
+    }
+
+    /**
+     * Set the color of a {@link Player}
+     * @param nickname the nickname of the player
+     * @param color the new color
+     */
+    public void setColor(String nickname, Color color) {
+        model.removeAvailableColor(color);
+        model.getPlayerByNickname(nickname).setColor(color);
     }
 
     /**

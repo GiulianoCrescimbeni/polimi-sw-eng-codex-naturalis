@@ -17,11 +17,10 @@ public class Player {
     /**
      * Constructor
      * @param nickname the nickname of the player
-     * @param color color chosen from the player
+     * @param playerHand the {@link PlayerHand} of the player
      */
-    public Player(String nickname, Color color, PlayerHand playerHand) {
+    public Player(String nickname, PlayerHand playerHand) {
         this.nickname = nickname;
-        this.color = color;
         this.playerHand = playerHand;
     }
 

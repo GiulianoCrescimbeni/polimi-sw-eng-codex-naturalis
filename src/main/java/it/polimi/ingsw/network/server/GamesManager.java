@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.server;
 
-import com.sun.security.ntlm.Client;
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.server.handler.ClientHandler;
 
@@ -19,17 +19,15 @@ public class GamesManager {
 
         Random r = new Random();
         int id = r.nextInt();
-        boolean exists = true;
+        boolean exists = controllers.containsKey(id);
 
         while(exists) {
-            if (!controllers.containsKey(id)) {
-                exists = false;
-            } else {
-                id = r.nextInt();
-            }
+            id = r.nextInt();
+            exists = controllers.containsKey(id);
         }
 
-        Controller gameController = new Controller();
+        Game gameModel = new Game();
+        Controller gameController = new Controller(gameModel);
         controllers.put(id, gameController);
 
         return id;
@@ -48,6 +46,9 @@ public class GamesManager {
     }
 
     public void handleCommand(ClientHandler clientHandler, Command command) {
-
+        Integer gameId = connections.get(clientHandler);
+        Controller gameController = controllers.get(gameId);
+        command.setGameController(gameController);
+        command.execute();
     }
 }

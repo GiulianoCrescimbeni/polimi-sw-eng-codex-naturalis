@@ -40,6 +40,11 @@ public class Game implements GameInterface {
     }
 
     /**
+     * Constructor
+     */
+    public Game() {}
+
+    /**
      * @return the game id
      */
     public int getGameID() { return gameID; }
@@ -48,6 +53,15 @@ public class Game implements GameInterface {
      * @return the players of the game
      */
     public ArrayList<Player> getPlayers() { return players; }
+
+    /**
+     * Get a {@link Player} by its nickname
+     * @param nickname the nickname of the player
+     * @return the player with that nickname
+     */
+    public Player getPlayerByNickname(String nickname) {
+        return (Player) players.stream().filter(player ->  player.getNickname().equals(nickname));
+    }
 
     /**
      * @return the colors available for players
@@ -64,6 +78,9 @@ public class Game implements GameInterface {
      */
     public Player getWinner() { return winner; }
 
+    /**
+     * @return the {@link it.polimi.ingsw.model.GameComponents.GameTable} table of the game
+     */
     @Override
     public GameTable getGameTable() {
         return table;
@@ -111,6 +128,9 @@ public class Game implements GameInterface {
         return gameID;
     }
 
+    /**
+     * Create the game
+     */
     public void initGame() {
         this.table = new GameTable();
         this.table.setGameModel(this);
