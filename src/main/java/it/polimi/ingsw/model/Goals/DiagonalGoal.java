@@ -19,29 +19,33 @@ public class DiagonalGoal extends Goal {
     @Override
     public int check(Codex codex){
         int numOfCompletition = 0;
+
         switch(this.getCardType()){
 
             case INSECT:
                 for (Coordinate i : codex.getCards().keySet()) {
                     Card cardUL = null;
+
                     if (codex.getCard(i) != null && !codex.getCard(i).isDUsed() && codex.getCard(i).getCardType() == CardType.INSECT) {
                         cardUL = codex.getCard(i);
-                        while(cardUL.getAngle(AnglePos.UL).getAttached().getCard().getCardType()== CardType.INSECT && !cardUL.getAngle(AnglePos.UL).getAttached().getCard().isDUsed()
-                            && cardUL.getAngle(AnglePos.UL).getAttached().getCard() != null)
-                            cardUL = codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard();
 
-                        if (!cardUL.getAngle(AnglePos.DR).getAttached().getCard().isDUsed()
-                                && cardUL.getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.INSECT &&
-                                cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.INSECT &&
-                                !cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().isDUsed()){
+                        while(cardUL.getAngle(AnglePos.UL).getAttached() != null && cardUL.getAngle(AnglePos.UL).getAttached().getCard().getCardType()== CardType.INSECT && !cardUL.getAngle(AnglePos.UL).getAttached().getCard().isDUsed())
+                            cardUL = cardUL.getAngle(AnglePos.UL).getAttached().getCard();
 
-                            numOfCompletition++;
-                            cardUL.setdUsed();
-                            cardUL.getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
-                            cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
+                        if(cardUL.getAngle(AnglePos.DR).getAttached() != null && cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached() != null) {
 
+                            if (!cardUL.getAngle(AnglePos.DR).getAttached().getCard().isDUsed() &&
+                                    cardUL.getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.INSECT &&
+                                    cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.INSECT &&
+                                    !cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().isDUsed()){
 
+                                numOfCompletition++;
+                                cardUL.setdUsed();
+                                cardUL.getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
+                                cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
+                            }
                         }
+
                     }
                 }
 
@@ -50,23 +54,25 @@ public class DiagonalGoal extends Goal {
             case FUNGI:
                 for (Coordinate i : codex.getCards().keySet()) {
                     Card cardUL = null;
+
                     if (codex.getCard(i) != null && !codex.getCard(i).isDUsed() && codex.getCard(i).getCardType() == CardType.FUNGI) {
                         cardUL = codex.getCard(i);
-                        while(cardUL.getAngle(AnglePos.UR).getAttached().getCard().getCardType()== CardType.FUNGI && !cardUL.getAngle(AnglePos.UR).getAttached().getCard().isDUsed()
-                                && cardUL.getAngle(AnglePos.UR).getAttached().getCard() != null)
-                            cardUL = codex.getCard(i).getAngle(AnglePos.UR).getAttached().getCard();
 
-                        if (!cardUL.getAngle(AnglePos.DL).getAttached().getCard().isDUsed()
-                                && cardUL.getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.FUNGI &&
-                                cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.FUNGI &&
-                                !cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().isDUsed()){
+                        while(cardUL.getAngle(AnglePos.UR).getAttached() != null && cardUL.getAngle(AnglePos.UR).getAttached().getCard().getCardType() == CardType.FUNGI && !cardUL.getAngle(AnglePos.UR).getAttached().getCard().isDUsed())
+                            cardUL = cardUL.getAngle(AnglePos.UR).getAttached().getCard();
 
-                            numOfCompletition++;
-                            cardUL.setdUsed();
-                            cardUL.getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
-                            cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
+                        if(cardUL.getAngle(AnglePos.DL).getAttached() != null && cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached() != null) {
 
+                            if (!cardUL.getAngle(AnglePos.DL).getAttached().getCard().isDUsed() &&
+                                    cardUL.getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.FUNGI &&
+                                    cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.FUNGI &&
+                                    !cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().isDUsed()) {
 
+                                numOfCompletition++;
+                                cardUL.setdUsed();
+                                cardUL.getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
+                                cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
+                            }
                         }
                     }
                 }
@@ -77,54 +83,56 @@ public class DiagonalGoal extends Goal {
             case PLANT:
                 for (Coordinate i : codex.getCards().keySet()) {
                     Card cardUL = null;
+
                     if (codex.getCard(i) != null && !codex.getCard(i).isDUsed() && codex.getCard(i).getCardType() == CardType.PLANT) {
                         cardUL = codex.getCard(i);
-                        while(cardUL.getAngle(AnglePos.UL).getAttached().getCard().getCardType()== CardType.PLANT && !cardUL.getAngle(AnglePos.UL).getAttached().getCard().isDUsed()
-                                && cardUL.getAngle(AnglePos.UL).getAttached().getCard() != null)
-                            cardUL = codex.getCard(i).getAngle(AnglePos.UL).getAttached().getCard();
 
-                        if (!cardUL.getAngle(AnglePos.DR).getAttached().getCard().isDUsed()
-                                && cardUL.getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.PLANT &&
-                                cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.PLANT &&
-                                !cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().isDUsed()){
+                        while(cardUL.getAngle(AnglePos.UL).getAttached() != null && cardUL.getAngle(AnglePos.UL).getAttached().getCard().getCardType()== CardType.PLANT && !cardUL.getAngle(AnglePos.UL).getAttached().getCard().isDUsed())
+                            cardUL = cardUL.getAngle(AnglePos.UL).getAttached().getCard();
 
-                            numOfCompletition++;
-                            cardUL.setdUsed();
-                            cardUL.getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
-                            cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
+                        if(cardUL.getAngle(AnglePos.DR).getAttached() != null && cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached() != null) {
 
+                            if (!cardUL.getAngle(AnglePos.DR).getAttached().getCard().isDUsed() &&
+                                    cardUL.getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.PLANT &&
+                                    cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().getCardType() == CardType.PLANT &&
+                                    !cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().isDUsed()) {
 
+                                numOfCompletition++;
+                                cardUL.setdUsed();
+                                cardUL.getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
+                                cardUL.getAngle(AnglePos.DR).getAttached().getCard().getAngle(AnglePos.DR).getAttached().getCard().setdUsed();
+                            }
                         }
                     }
                 }
-
                 break;
 
 
             case ANIMAL:
                 for (Coordinate i : codex.getCards().keySet()) {
                     Card cardUL = null;
+
                     if (codex.getCard(i) != null && !codex.getCard(i).isDUsed() && codex.getCard(i).getCardType() == CardType.ANIMAL) {
                         cardUL = codex.getCard(i);
-                        while(cardUL.getAngle(AnglePos.UR).getAttached().getCard().getCardType()== CardType.ANIMAL && !cardUL.getAngle(AnglePos.UR).getAttached().getCard().isDUsed()
-                                && cardUL.getAngle(AnglePos.UR).getAttached().getCard() != null)
-                            cardUL = codex.getCard(i).getAngle(AnglePos.UR).getAttached().getCard();
 
-                        if (!cardUL.getAngle(AnglePos.DL).getAttached().getCard().isDUsed()
-                                && cardUL.getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.ANIMAL &&
-                                cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.ANIMAL &&
-                                !cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().isDUsed()){
+                        while(cardUL.getAngle(AnglePos.UR).getAttached() != null && cardUL.getAngle(AnglePos.UR).getAttached().getCard().getCardType()== CardType.ANIMAL && !cardUL.getAngle(AnglePos.UR).getAttached().getCard().isDUsed())
+                            cardUL = cardUL.getAngle(AnglePos.UR).getAttached().getCard();
 
-                            numOfCompletition++;
-                            cardUL.setdUsed();
-                            cardUL.getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
-                            cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
+                        if(cardUL.getAngle(AnglePos.DL).getAttached() != null && cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached() != null) {
 
+                            if (!cardUL.getAngle(AnglePos.DL).getAttached().getCard().isDUsed() &&
+                                    cardUL.getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.ANIMAL &&
+                                    cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().getCardType() == CardType.ANIMAL &&
+                                    !cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().isDUsed()) {
 
+                                numOfCompletition++;
+                                cardUL.setdUsed();
+                                cardUL.getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
+                                cardUL.getAngle(AnglePos.DL).getAttached().getCard().getAngle(AnglePos.DL).getAttached().getCard().setdUsed();
+                            }
                         }
                     }
                 }
-
                 break;
 
             default: return (0);
