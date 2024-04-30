@@ -122,6 +122,7 @@ class LGoalTest {
 
         assertEquals(2, testGoal.check(COD));
     }
+    @Test
     void AnimalCheck() {
 
         Goal testGoal = new LGoal(null,CardType.ANIMAL,0,0);
@@ -229,6 +230,7 @@ class LGoalTest {
 
         assertEquals(2, testGoal.check(COD));
     }
+    @Test
     void InsectCheck() {
 
         Goal testGoal = new LGoal(null,CardType.INSECT,0,0);
@@ -336,6 +338,7 @@ class LGoalTest {
 
         assertEquals(2, testGoal.check(COD));
     }
+    @Test
     void PlantCheck() {
 
         Goal testGoal = new LGoal(null,CardType.PLANT,0,0);
