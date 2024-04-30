@@ -23,7 +23,7 @@ public class Game implements GameInterface {
 
     /**
      * Constructor
-     * @param gameID the id of the game
+     * @param gameID The ID of the game
      * @param players an arraylist of {@link Player} of the game
      * @param availableColors an arraylist of possible {@link Color} that the player can pick
      * @param gameStatus the {@link GameStatus} of the game
@@ -43,6 +43,26 @@ public class Game implements GameInterface {
      * Constructor
      */
     public Game() {}
+
+    /**
+     *
+     * @param gameId The ID for the game
+     *               This constructor fills automatically all the private fields of this class
+     *               Sets the Game Status to "WAITING_TO_START"
+     */
+    public Game(int gameId) {
+        this.gameID = gameId;
+        this.players = new ArrayList<Player>();
+        this.availableColors = new ArrayList<Color>();
+
+        this.availableColors.add(Color.BLUE);
+        this.availableColors.add(Color.RED);
+        this.availableColors.add(Color.GREEN);
+        this.availableColors.add(Color.YELLOW);
+
+        this.gameStatus = GameStatus.WAITING_TO_START;
+        this.table = new GameTable();
+    }
 
     /**
      * @return the game id

@@ -27,7 +27,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
         try {
             while(!this.isInterrupted()) {
                 Command c = (Command) in.readObject();
-                System.out.println("Received Command, type: " + c.getClass().toString());
+                System.out.println("[SOCKET HANDLER] Received Command, type: " + c.getClass().toString());
                 gamesManager.handleCommand(this, c);
             }
         } catch (Exception e) {
