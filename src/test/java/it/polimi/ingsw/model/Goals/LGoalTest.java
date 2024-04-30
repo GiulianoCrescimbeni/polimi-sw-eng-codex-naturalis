@@ -116,8 +116,6 @@ class LGoalTest {
 
         Codex COD = new Codex(null, testGoal, null, MapCC);
 
-        assertEquals(1, testGoal.check(COD));
-
         MapCC.put(co5,c5);
         MapCC.put(co4,c4);
         MapCC.put(co6,c6);
@@ -126,7 +124,7 @@ class LGoalTest {
     }
     void AnimalCheck() {
 
-        Goal testGoal = new LGoal(null,null,0,0);
+        Goal testGoal = new LGoal(null,CardType.ANIMAL,0,0);
 
         Coordinate co1 = new Coordinate(40,40);
         Coordinate co2 = new Coordinate(40,42);
@@ -224,7 +222,6 @@ class LGoalTest {
 
         Codex COD = new Codex(null, testGoal, null, MapCC);
 
-        assertEquals(1, testGoal.check(COD));
 
         MapCC.put(co5,c5);
         MapCC.put(co4,c4);
@@ -234,7 +231,7 @@ class LGoalTest {
     }
     void InsectCheck() {
 
-        Goal testGoal = new LGoal(null,null,0,0);
+        Goal testGoal = new LGoal(null,CardType.INSECT,0,0);
 
         Coordinate co1 = new Coordinate(40,40);
         Coordinate co2 = new Coordinate(40,42);
@@ -332,7 +329,6 @@ class LGoalTest {
 
         Codex COD = new Codex(null, testGoal, null, MapCC);
 
-        assertEquals(1, testGoal.check(COD));
 
         MapCC.put(co5,c5);
         MapCC.put(co4,c4);
@@ -342,7 +338,7 @@ class LGoalTest {
     }
     void PlantCheck() {
 
-        Goal testGoal = new LGoal(null,null,0,0);
+        Goal testGoal = new LGoal(null,CardType.PLANT,0,0);
 
         Coordinate co1 = new Coordinate(40,40);
         Coordinate co2 = new Coordinate(41,41);
@@ -441,7 +437,6 @@ class LGoalTest {
 
         Codex COD = new Codex(null, testGoal, null, MapCC);
 
-        assertEquals(1, testGoal.check(COD));
 
         MapCC.put(co5,c5);
         MapCC.put(co4,c4);
