@@ -44,6 +44,14 @@ public class Controller {
     }
 
     /**
+     *
+     * @return The instance of the game model
+     */
+    public Game getModel() {
+        return this.model;
+    }
+
+    /**
      * Add a new player to the game
      */
     public void addPlayer(String nickname) {

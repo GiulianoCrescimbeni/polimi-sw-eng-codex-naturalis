@@ -15,6 +15,8 @@ import java.util.Random;
 public class GamesManager {
     private Map<Integer, Controller> controllers = new HashMap<>();
     private Map<ClientHandler, Integer> connections = new HashMap<>();
+    private Integer lastGameId;
+    private int lastGameNumOfPartecipants = 0;
 
     public GamesManager() {}
 
@@ -68,25 +70,76 @@ public class GamesManager {
 
         Integer gameId = connections.get(clientHandler);
 
-        if (command instanceof LoginCommand && gameId == null) {
-            System.out.println("[GAMES MANAGER] Game ID is null, creating a new game");
+        if (command instanceof LoginCommand) {
 
-            if (clientHandler instanceof SocketClientHandler) {
-                SocketClientHandler handler = (SocketClientHandler) clientHandler;
-                handler.interruptThread();
-            } else if (clientHandler instanceof RMIClientHandler) {
-                RMIClientHandler handler = (RMIClientHandler) clientHandler;
+            if (lastGameId == null) {
+                System.out.println("[GAMES MANAGER] Last game ID is null, creating a new game");
+
+                if (clientHandler instanceof SocketClientHandler) {
+                    SocketClientHandler handler = (SocketClientHandler) clientHandler;
+                    handler.interruptThread();
+                } else if (clientHandler instanceof RMIClientHandler) {
+                    RMIClientHandler handler = (RMIClientHandler) clientHandler;
+                }
+
+                gameId = setController();
+                setConnection(clientHandler, gameId);
+
+                System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
+
+                Controller gameController = controllers.get(gameId);
+                command.setGameController(gameController);
+                command.execute();
+
+                lastGameId = gameId;
+                lastGameNumOfPartecipants = 1;
+
+            } else if (lastGameId != null && lastGameNumOfPartecipants < 4) {
+
+                if (clientHandler instanceof SocketClientHandler) {
+                    SocketClientHandler handler = (SocketClientHandler) clientHandler;
+                    handler.interruptThread();
+                } else if (clientHandler instanceof RMIClientHandler) {
+                    RMIClientHandler handler = (RMIClientHandler) clientHandler;
+                }
+
+                gameId = lastGameId;
+                setConnection(clientHandler, gameId);
+
+                Controller gameController = controllers.get(gameId);
+                command.setGameController(gameController);
+                command.execute();
+
+                lastGameNumOfPartecipants++;
+
+            } else if (lastGameId != null && lastGameNumOfPartecipants == 4) {
+
+                System.out.println("[GAMES MANAGER] Last game is full, creating a new game");
+
+                if (clientHandler instanceof SocketClientHandler) {
+                    SocketClientHandler handler = (SocketClientHandler) clientHandler;
+                    handler.interruptThread();
+                } else if (clientHandler instanceof RMIClientHandler) {
+                    RMIClientHandler handler = (RMIClientHandler) clientHandler;
+                }
+
+                gameId = setController();
+                setConnection(clientHandler, gameId);
+
+                System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
+
+                Controller gameController = controllers.get(gameId);
+                command.setGameController(gameController);
+                command.execute();
+
+                lastGameId = gameId;
+                lastGameNumOfPartecipants = 1;
+
             }
-
-            gameId = setController();
-            setConnection(clientHandler, gameId);
 
         }
 
-        System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
 
-        Controller gameController = controllers.get(gameId);
-        command.setGameController(gameController);
-        command.execute();
+
     }
 }

@@ -7,6 +7,6 @@ public class LoginCommand extends Command implements Serializable {
     @Override
     public void execute() {
         getGameController().addPlayer(getNickname());
-        System.out.println("[LOGIN] Player added with name:\"" + getNickname() + "\"");
+        System.out.println("[LOGIN] Player \"" + getNickname() + "\" added to game with id: " + getGameController().getModel().getGameId());
     }
 }
