@@ -18,7 +18,19 @@ public class GamesManager {
     private Integer lastGameId;
     private int lastGameNumOfPartecipants = 0;
 
-    public GamesManager() {}
+    private static GamesManager instance;
+
+    private GamesManager() {}
+
+    public static GamesManager getInstance() {
+
+        if (instance == null) {
+            instance = new GamesManager();
+        }
+
+        return instance;
+
+    }
 
     public int setController() {
 
@@ -65,7 +77,6 @@ public class GamesManager {
      * @param clientHandler The client handler that received the command
      * @param command The command to be executed
      */
-
     public void handleCommand(ClientHandler clientHandler, Command command) {
 
         Integer gameId = connections.get(clientHandler);
@@ -88,8 +99,7 @@ public class GamesManager {
                 System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
 
                 Controller gameController = controllers.get(gameId);
-                command.setGameController(gameController);
-                command.execute();
+                command.execute(gameController);
 
                 lastGameId = gameId;
                 lastGameNumOfPartecipants = 1;
@@ -107,8 +117,7 @@ public class GamesManager {
                 setConnection(clientHandler, gameId);
 
                 Controller gameController = controllers.get(gameId);
-                command.setGameController(gameController);
-                command.execute();
+                command.execute(gameController);
 
                 lastGameNumOfPartecipants++;
 
@@ -129,8 +138,7 @@ public class GamesManager {
                 System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
 
                 Controller gameController = controllers.get(gameId);
-                command.setGameController(gameController);
-                command.execute();
+                command.execute(gameController);
 
                 lastGameId = gameId;
                 lastGameNumOfPartecipants = 1;

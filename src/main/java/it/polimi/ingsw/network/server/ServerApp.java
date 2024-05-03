@@ -19,7 +19,7 @@ public class ServerApp extends Thread {
         try {
             socketServer = new ServerSocket(port);
             socHandlers = new ArrayList<>();
-            manager = new GamesManager();
+            manager = GamesManager.getInstance();
             this.start();
             System.out.println("[SOCKET SERVER] Server Socket Ready");
         } catch (IOException e) {
@@ -31,7 +31,7 @@ public class ServerApp extends Thread {
     public void run() {
         try {
             while (!this.isInterrupted()) {
-                socHandlers.add(new SocketClientHandler(socketServer.accept(), manager));
+                socHandlers.add(new SocketClientHandler(socketServer.accept()));
                 socHandlers.get(socHandlers.size() - 1).start();
             }
         } catch (Exception e) {

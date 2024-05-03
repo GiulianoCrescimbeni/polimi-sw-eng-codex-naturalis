@@ -6,11 +6,9 @@ import java.io.Serializable;
 
 public abstract class Command  implements Serializable {
     private String nickname;
-    private Controller gameController;
 
-    public Command(String nickname, Controller gameController) {
+    public Command(String nickname) {
         this.nickname = nickname;
-        this.gameController = gameController;
     }
 
     public Command() {}
@@ -23,13 +21,5 @@ public abstract class Command  implements Serializable {
         this.nickname = nickname;
     }
 
-    public Controller getGameController() {
-        return gameController;
-    }
-
-    public void setGameController(Controller gameController) {
-        this.gameController = gameController;
-    }
-
-    public void execute() {}
+    public void execute(Controller gameController) {}
 }

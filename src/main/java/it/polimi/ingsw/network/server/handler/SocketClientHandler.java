@@ -14,13 +14,19 @@ public class SocketClientHandler extends Thread implements ClientHandler {
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private GamesManager gamesManager;
 
-    public SocketClientHandler(Socket socket, GamesManager gamesManager) throws IOException {
+    public SocketClientHandler(Socket socket) throws IOException {
         this.clientSocket = socket;
         this.in = new ObjectInputStream(clientSocket.getInputStream());
         this.out = new ObjectOutputStream(clientSocket.getOutputStream());
-        this.gamesManager = gamesManager;
+    }
+
+    public ObjectOutputStream getOutputStream() {
+        return this.out;
+    }
+
+    public ObjectInputStream getInputStream() {
+        return this.in;
     }
 
     public void run() {
@@ -28,7 +34,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
             while(!this.isInterrupted()) {
                 Command c = (Command) in.readObject();
                 System.out.println("[SOCKET HANDLER] Received Command, type: " + c.getClass().toString());
-                gamesManager.handleCommand(this, c);
+                GamesManager.getInstance().handleCommand(this, c);
             }
         } catch (Exception e) {
             e.printStackTrace();
