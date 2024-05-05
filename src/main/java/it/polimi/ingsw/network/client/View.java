@@ -34,15 +34,22 @@ public class View {
         System.out.print("Inserisci il tuo username: ");
         String username = s.nextLine();
 
-        System.out.print("Inserisci il numero corrispondente al colore che vuoi scegliere: ");
-        int colorIndex = s.nextInt();
+        if (ClientController.getInstance().getAvailableColors().size() > 1) {
+            System.out.print("Inserisci il numero corrispondente al colore che vuoi scegliere: ");
+            int colorIndex = s.nextInt();
+
+            if (ClientController.getInstance().getAvailableColors().get(colorIndex) != null) {
+                Color c = ClientController.getInstance().getAvailableColors().get(colorIndex);
+                ClientController.getInstance().sendUsernameAndColor(username, c);
+            }
+        } else {
+            Color c = ClientController.getInstance().getAvailableColors().get(0);
+            ClientController.getInstance().sendUsernameAndColor(username, c);
+        }
 
         s.close();
 
-        if (ClientController.getInstance().getAvailableColors().get(colorIndex) != null) {
-            Color c = ClientController.getInstance().getAvailableColors().get(colorIndex);
-            ClientController.getInstance().sendUsernameAndColor(username, c);
-        }
+
     }
 
 }
