@@ -16,7 +16,7 @@ public class ClientManager {
     }
 
     public void handleUpdate(Update update) {
-
+        update.execute(ClientController.getInstance());
     }
 
 }

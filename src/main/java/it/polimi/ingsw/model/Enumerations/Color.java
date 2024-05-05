@@ -7,17 +7,37 @@ public enum Color {
     /**
      * The green player's color
      */
-    GREEN,
+    GREEN {
+        @Override
+        public String toString() {
+            return "Verde";
+        }
+    },
     /**
      * The red player's color
      */
-    RED,
+    RED{
+        @Override
+        public String toString() {
+            return "Rosso";
+        }
+    },
     /**
      * The blue player's color
      */
-    BLUE,
+    BLUE{
+        @Override
+        public String toString() {
+            return "Blu";
+        }
+    },
     /**
      * The yellow player's color
      */
-    YELLOW
+    YELLOW{
+        @Override
+        public String toString() {
+            return "Giallo";
+        }
+    }
 }

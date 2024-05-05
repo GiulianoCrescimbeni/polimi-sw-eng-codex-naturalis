@@ -11,6 +11,8 @@ import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementExcep
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
 import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.model.Player.PlayerHand;
+import it.polimi.ingsw.network.server.updates.AvailableColorsUpdate;
+
 import java.util.ArrayList;
 
 public class Controller {
@@ -40,7 +42,10 @@ public class Controller {
      */
     public ArrayList<Color> getAvailableColors() {
         return model.getAvailableColors();
+    }
 
+    public AvailableColorsUpdate getAvailableColorsUpdate() {
+        return new AvailableColorsUpdate(model.getAvailableColors());
     }
 
     /**
@@ -54,21 +59,13 @@ public class Controller {
     /**
      * Add a new player to the game
      */
-    public void addPlayer(String nickname) {
+    public void addPlayer(String nickname, Color color) {
         ArrayList<Card> cards = new ArrayList<>();
         PlayerHand ph = new PlayerHand(cards);
         Player p = new Player(nickname, ph);
-        model.addPlayer(p);
-    }
-
-    /**
-     * Set the color of a {@link Player}
-     * @param nickname the nickname of the player
-     * @param color the new color
-     */
-    public void setColor(String nickname, Color color) {
         model.removeAvailableColor(color);
-        model.getPlayerByNickname(nickname).setColor(color);
+        p.setColor(color);
+        model.addPlayer(p);
     }
 
     /**

@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.server.handler.ClientHandler;
 import it.polimi.ingsw.network.server.handler.RMIClientHandler;
 import it.polimi.ingsw.network.server.handler.SocketClientHandler;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -23,13 +24,8 @@ public class GamesManager {
     private GamesManager() {}
 
     public static GamesManager getInstance() {
-
-        if (instance == null) {
-            instance = new GamesManager();
-        }
-
+        if (instance == null) instance = new GamesManager();
         return instance;
-
     }
 
     public int setController() {
@@ -72,82 +68,82 @@ public class GamesManager {
         return connections.get(clientHandler);
     }
 
+    public void addConnection(ClientHandler clientHandler) throws IOException {
+
+        Integer gameId = null;
+
+        if (lastGameId == null) {
+            System.out.println("[GAMES MANAGER] Last game ID is null, creating a new game");
+
+            if (clientHandler instanceof SocketClientHandler) {
+                SocketClientHandler handler = (SocketClientHandler) clientHandler;
+                //handler.interruptThread();
+            } else if (clientHandler instanceof RMIClientHandler) {
+                RMIClientHandler handler = (RMIClientHandler) clientHandler;
+            }
+
+            gameId = setController();
+            setConnection(clientHandler, gameId);
+
+            System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
+
+            Controller gameController = controllers.get(gameId);
+
+            lastGameId = gameId;
+            lastGameNumOfPartecipants = 1;
+
+        } else if (lastGameId != null && lastGameNumOfPartecipants < 4) {
+
+            if (clientHandler instanceof SocketClientHandler) {
+                SocketClientHandler handler = (SocketClientHandler) clientHandler;
+                //handler.interruptThread();
+            } else if (clientHandler instanceof RMIClientHandler) {
+                RMIClientHandler handler = (RMIClientHandler) clientHandler;
+            }
+
+            gameId = lastGameId;
+            setConnection(clientHandler, gameId);
+
+            Controller gameController = controllers.get(gameId);
+
+            lastGameNumOfPartecipants++;
+
+        } else if (lastGameId != null && lastGameNumOfPartecipants == 4) {
+
+            System.out.println("[GAMES MANAGER] Last game is full, creating a new game");
+
+            if (clientHandler instanceof SocketClientHandler) {
+                SocketClientHandler handler = (SocketClientHandler) clientHandler;
+                //handler.interruptThread();
+            } else if (clientHandler instanceof RMIClientHandler) {
+                RMIClientHandler handler = (RMIClientHandler) clientHandler;
+            }
+
+            gameId = setController();
+            setConnection(clientHandler, gameId);
+
+            System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
+
+            Controller gameController = controllers.get(gameId);
+
+            lastGameId = gameId;
+            lastGameNumOfPartecipants = 1;
+
+        }
+
+        Controller c = getController(gameId);
+        clientHandler.sendUpdate(c.getAvailableColorsUpdate());
+
+
+    }
+
     /**
      *
      * @param clientHandler The client handler that received the command
      * @param command The command to be executed
      */
     public void handleCommand(ClientHandler clientHandler, Command command) {
-
         Integer gameId = connections.get(clientHandler);
-
-        if (command instanceof LoginCommand) {
-
-            if (lastGameId == null) {
-                System.out.println("[GAMES MANAGER] Last game ID is null, creating a new game");
-
-                if (clientHandler instanceof SocketClientHandler) {
-                    SocketClientHandler handler = (SocketClientHandler) clientHandler;
-                    handler.interruptThread();
-                } else if (clientHandler instanceof RMIClientHandler) {
-                    RMIClientHandler handler = (RMIClientHandler) clientHandler;
-                }
-
-                gameId = setController();
-                setConnection(clientHandler, gameId);
-
-                System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
-
-                Controller gameController = controllers.get(gameId);
-                command.execute(gameController);
-
-                lastGameId = gameId;
-                lastGameNumOfPartecipants = 1;
-
-            } else if (lastGameId != null && lastGameNumOfPartecipants < 4) {
-
-                if (clientHandler instanceof SocketClientHandler) {
-                    SocketClientHandler handler = (SocketClientHandler) clientHandler;
-                    handler.interruptThread();
-                } else if (clientHandler instanceof RMIClientHandler) {
-                    RMIClientHandler handler = (RMIClientHandler) clientHandler;
-                }
-
-                gameId = lastGameId;
-                setConnection(clientHandler, gameId);
-
-                Controller gameController = controllers.get(gameId);
-                command.execute(gameController);
-
-                lastGameNumOfPartecipants++;
-
-            } else if (lastGameId != null && lastGameNumOfPartecipants == 4) {
-
-                System.out.println("[GAMES MANAGER] Last game is full, creating a new game");
-
-                if (clientHandler instanceof SocketClientHandler) {
-                    SocketClientHandler handler = (SocketClientHandler) clientHandler;
-                    handler.interruptThread();
-                } else if (clientHandler instanceof RMIClientHandler) {
-                    RMIClientHandler handler = (RMIClientHandler) clientHandler;
-                }
-
-                gameId = setController();
-                setConnection(clientHandler, gameId);
-
-                System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
-
-                Controller gameController = controllers.get(gameId);
-                command.execute(gameController);
-
-                lastGameId = gameId;
-                lastGameNumOfPartecipants = 1;
-
-            }
-
-        }
-
-
-
+        command.execute(controllers.get(gameId));
     }
 }
