@@ -1,21 +1,19 @@
-package it.polimi.ingsw.network.client;
+package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.Enumerations.Color;
-import it.polimi.ingsw.network.client.commands.LoginCommand;
+import it.polimi.ingsw.network.client.ClientController;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class View {
+public class LoginView {
 
-    private static View instance;
+    private static LoginView instance;
 
-    private View() {}
+    private LoginView() {}
 
-    public static View getInstance() {
+    public static LoginView getInstance() {
         if (instance == null) {
-            instance = new View();
+            instance = new LoginView();
         }
         return instance;
     }

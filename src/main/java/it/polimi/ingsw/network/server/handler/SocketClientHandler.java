@@ -10,31 +10,53 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * Class that represent the handler of a client connected with Socket technology
+ */
 public class SocketClientHandler extends Thread implements ClientHandler {
 
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
+    /**
+     * Constructor
+     * @param socket the {@link Socket} of the client
+     * @throws IOException
+     */
     public SocketClientHandler(Socket socket) throws IOException {
         this.clientSocket = socket;
 
         this.out = new ObjectOutputStream(clientSocket.getOutputStream());
     }
 
+    /**
+     * @return the {@link ObjectOutputStream} of the connection
+     */
     public ObjectOutputStream getOutputStream() {
         return this.out;
     }
 
+    /**
+     * @return the {@link ObjectInputStream} of the connection
+     */
     public ObjectInputStream getInputStream() {
         return this.in;
     }
 
+    /**
+     * Send an update to the client
+     * @param toSend the update to send
+     * @throws IOException
+     */
     @Override
     public void sendUpdate(Update toSend) throws IOException {
         out.writeObject(toSend);
     }
 
+    /**
+     * Handle commands sent by the client
+     */
     public void run() {
         try {
 
@@ -50,6 +72,9 @@ public class SocketClientHandler extends Thread implements ClientHandler {
         }
     }
 
+    /**
+     * Interrupt the thread
+     */
     public void interruptThread() {
         this.interrupt();
     }

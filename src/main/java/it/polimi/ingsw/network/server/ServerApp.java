@@ -7,6 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Server App Class
+ */
 public class ServerApp extends Thread {
 
     private ServerSocket socketServer;
@@ -15,6 +18,11 @@ public class ServerApp extends Thread {
 
     private GamesManager manager;
 
+    /**
+     * Start the socket server and the thread to keep it running
+     * @param port
+     * @throws IOException
+     */
     public void startSocket(int port) throws IOException {
         try {
             socketServer = new ServerSocket(port);

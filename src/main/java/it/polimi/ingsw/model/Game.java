@@ -80,11 +80,11 @@ public class Game implements GameInterface {
      * @return the player with that nickname
      */
     public Player getPlayerByNickname(String nickname) {
-        return (Player) players.stream().filter(player ->  player.getNickname().equals(nickname));
+        return (Player) players.stream().filter(player ->  player.getNickname().equals(nickname)).findFirst().orElse(null);
     }
 
     /**
-     * @return the colors available for players
+     * @return the colors available for p3layers
      */
     public ArrayList<Color> getAvailableColors() { return availableColors; }
 

@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesExcepti
 import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.server.updates.AvailableColorsUpdate;
+import it.polimi.ingsw.network.server.updates.LoginUpdate;
 
 import java.util.ArrayList;
 
@@ -59,13 +60,24 @@ public class Controller {
     /**
      * Add a new player to the game
      */
-    public void addPlayer(String nickname, Color color) {
-        ArrayList<Card> cards = new ArrayList<>();
-        PlayerHand ph = new PlayerHand(cards);
-        Player p = new Player(nickname, ph);
-        model.removeAvailableColor(color);
-        p.setColor(color);
-        model.addPlayer(p);
+    public LoginUpdate addPlayer(String nickname, Color color) {
+        if(model.getPlayerByNickname(nickname) != null) {
+            LoginUpdate loginUpdate = new LoginUpdate("Nickname already in use, pick a new one", false);
+            return loginUpdate;
+        } else if(!model.getAvailableColors().contains(color)) {
+            LoginUpdate loginUpdate = new LoginUpdate("Color already in use, pick a new one", false);
+            return loginUpdate;
+        } else {
+            ArrayList<Card> cards = new ArrayList<>();
+            PlayerHand ph = new PlayerHand(cards);
+            Player p = new Player(nickname, ph);
+            model.removeAvailableColor(color);
+            p.setColor(color);
+            model.addPlayer(p);
+            System.out.println("[LOGIN] Player \"\u001B[35m" + nickname + "\u001B[0m\", with color:\"" + color.toString() + "\" added to game: \u001B[94m" + model.getGameId() + "\u001B[0m");
+            LoginUpdate loginUpdate = new LoginUpdate("Logged in, waiting for player to start", true);
+            return loginUpdate;
+        }
     }
 
     /**

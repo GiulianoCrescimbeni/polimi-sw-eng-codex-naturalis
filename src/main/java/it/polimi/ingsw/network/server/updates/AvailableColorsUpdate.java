@@ -7,6 +7,9 @@ import it.polimi.ingsw.network.server.handler.ClientHandler;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * The class represents the {@link Update} sent from the server after a first connection
+ */
 public class AvailableColorsUpdate extends Update implements Serializable {
 
     private ArrayList<Color> availableColors;
@@ -18,6 +21,10 @@ public class AvailableColorsUpdate extends Update implements Serializable {
         this.availableColors = availableColors;
     }
 
+    /**
+     * Execute the Update on the client showing available colors to choose from
+     * @param clientController
+     */
     @Override
     public void execute(ClientController clientController) {
         clientController.updateAvailableColors(availableColors);
