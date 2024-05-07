@@ -30,7 +30,9 @@ public class LoginView {
 
         Scanner s = new Scanner(System.in);
         System.out.print("Inserisci il tuo username: ");
+
         String username = s.nextLine();
+
 
         if (ClientController.getInstance().getAvailableColors().size() > 1) {
             System.out.print("Inserisci il numero corrispondente al colore che vuoi scegliere: ");
@@ -45,7 +47,7 @@ public class LoginView {
             ClientController.getInstance().sendUsernameAndColor(username, c);
         }
 
-        s.close();
+
 
 
     }

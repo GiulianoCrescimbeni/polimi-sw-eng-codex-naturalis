@@ -11,6 +11,7 @@ public interface ClientHandler {
 
     /**
      * Function that sends an {@link Update} to the Client
+     *
      * @param update the update to send
      * @throws IOException
      */
