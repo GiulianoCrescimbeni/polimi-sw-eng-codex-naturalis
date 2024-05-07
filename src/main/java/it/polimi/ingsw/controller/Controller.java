@@ -13,6 +13,10 @@ import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.server.updates.AvailableColorsUpdate;
 import it.polimi.ingsw.network.server.updates.LoginUpdate;
+import it.polimi.ingsw.network.server.updates.SelectPlayerNumberUpdate;
+import it.polimi.ingsw.network.server.updates.Update;
+import it.polimi.ingsw.view.Messages;
+import it.polimi.ingsw.view.TextColor;
 
 import java.util.ArrayList;
 
@@ -60,12 +64,12 @@ public class Controller {
     /**
      * Add a new player to the game
      */
-    public LoginUpdate addPlayer(String nickname, Color color) {
+    public Update addPlayer(String nickname, Color color) {
         if(model.getPlayerByNickname(nickname) != null) {
-            LoginUpdate loginUpdate = new LoginUpdate("Nickname already in use, pick a new one", false);
+            LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getErrorMessage("Nickname already in use, pick a new one"), false);
             return loginUpdate;
         } else if(!model.getAvailableColors().contains(color)) {
-            LoginUpdate loginUpdate = new LoginUpdate("Color already in use, pick a new one", false);
+            LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getErrorMessage("Color already in use, pick a new one"), false);
             return loginUpdate;
         } else {
             ArrayList<Card> cards = new ArrayList<>();
@@ -74,9 +78,16 @@ public class Controller {
             model.removeAvailableColor(color);
             p.setColor(color);
             model.addPlayer(p);
-            System.out.println("[LOGIN] Player \"\u001B[35m" + nickname + "\u001B[0m\", with color:\"" + color.toString() + "\" added to game: \u001B[94m" + model.getGameId() + "\u001B[0m");
-            LoginUpdate loginUpdate = new LoginUpdate("Logged in, waiting for player to start", true);
-            return loginUpdate;
+            System.out.println(TextColor.BRIGHT_BLUE + "[LOGIN]" + TextColor.RESET + " Player \"\u001B[35m" + nickname + "\u001B[0m\", with color:\"" + color.toString() + "\" added to game: \u001B[94m" + model.getGameId() + "\u001B[0m");
+
+            if (model.getPlayers().size() == 1) {
+                SelectPlayerNumberUpdate selectUpdate = new SelectPlayerNumberUpdate(null);
+                return selectUpdate;
+            } else {
+                LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getInfoMessage("Logged in, waiting for player to start"), true);
+                return loginUpdate;
+            }
+
         }
     }
 
@@ -176,6 +187,12 @@ public class Controller {
 
         this.model.setWinner(winningPlayer);
         this.model.setGameStatus(GameStatus.ENDED);
+    }
+
+    public Update selectMaxPlayers(int maxPlayers) {
+        model.setMaxPlayers(maxPlayers);
+        SelectPlayerNumberUpdate update = new SelectPlayerNumberUpdate(maxPlayers);
+        return update;
     }
 
 }

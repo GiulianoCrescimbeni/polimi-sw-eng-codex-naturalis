@@ -10,7 +10,7 @@ public enum Color {
     GREEN {
         @Override
         public String toString() {
-            return "\u001B[32m" + "Verde" + "\u001B[0m";
+            return "\u001B[32m" + "Green" + "\u001B[0m";
         }
     },
     /**
@@ -19,7 +19,7 @@ public enum Color {
     RED{
         @Override
         public String toString() {
-            return "\u001B[31m" + "Rosso" + "\u001B[0m";
+            return "\u001B[31m" + "Red" + "\u001B[0m";
         }
     },
     /**
@@ -28,7 +28,7 @@ public enum Color {
     BLUE{
         @Override
         public String toString() {
-            return "\u001B[34m" + "Blu" + "\u001B[0m";
+            return "\u001B[34m" + "Blue" + "\u001B[0m";
         }
     },
     /**
@@ -37,7 +37,7 @@ public enum Color {
     YELLOW{
         @Override
         public String toString() {
-            return "\u001B[33m" + "Giallo" + "\u001B[0m";
+            return "\u001B[33m" + "Yelllow" + "\u001B[0m";
         }
     }
 }

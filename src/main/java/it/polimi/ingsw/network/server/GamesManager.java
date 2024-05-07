@@ -7,6 +7,7 @@ import it.polimi.ingsw.network.server.handler.ClientHandler;
 import it.polimi.ingsw.network.server.handler.RMIClientHandler;
 import it.polimi.ingsw.network.server.handler.SocketClientHandler;
 import it.polimi.ingsw.network.server.updates.Update;
+import it.polimi.ingsw.view.TextColor;
 
 import java.io.IOException;
 import java.util.*;
@@ -106,31 +107,31 @@ public class GamesManager {
         Integer gameId = null;
 
         if (lastGameId == null) {
-            System.out.println("[GAMES MANAGER] Last game ID is null, creating a new game");
+            System.out.println(TextColor.BRIGHT_BLUE + "[GAMES MANAGER]" + TextColor.RESET + " Last game ID is null, creating a new game");
 
             gameId = setController();
             setConnection(clientHandler, gameId);
 
-            System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
+            System.out.println(TextColor.BRIGHT_BLUE + "[GAMES MANAGER]" + TextColor.RESET + " New game created with id: " + TextColor.BLUE + gameId + TextColor.RESET);
 
             lastGameId = gameId;
             lastGameNumOfPartecipants = 1;
 
-        } else if (lastGameId != null && lastGameNumOfPartecipants < 4) {
+        } else if (lastGameId != null && lastGameNumOfPartecipants < controllers.get(lastGameId).getModel().getMaxPlayers()) {
 
             gameId = lastGameId;
             setConnection(clientHandler, gameId);
 
             lastGameNumOfPartecipants++;
 
-        } else if (lastGameId != null && lastGameNumOfPartecipants == 4) {
+        } else if (lastGameId != null && lastGameNumOfPartecipants == controllers.get(lastGameId).getModel().getMaxPlayers()) {
 
-            System.out.println("[GAMES MANAGER] Last game is full, creating a new game");
+            System.out.println(TextColor.BRIGHT_BLUE + "[GAMES MANAGER]" + TextColor.RESET + " Last game is full (" + TextColor.BRIGHT_YELLOW + controllers.get(lastGameId).getModel().getMaxPlayers() + " players" + TextColor.RESET + "), creating a new game");
 
             gameId = setController();
             setConnection(clientHandler, gameId);
 
-            System.out.println("[GAMES MANAGER] New game created with id: " + gameId);
+            System.out.println(TextColor.BRIGHT_BLUE + "[GAMES MANAGER]" + TextColor.RESET + " New game created with id: " + gameId);
 
             lastGameId = gameId;
             lastGameNumOfPartecipants = 1;

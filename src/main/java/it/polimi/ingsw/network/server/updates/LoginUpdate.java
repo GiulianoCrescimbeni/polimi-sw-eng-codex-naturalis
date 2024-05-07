@@ -1,8 +1,7 @@
 package it.polimi.ingsw.network.server.updates;
 
 import it.polimi.ingsw.network.client.ClientController;
-import it.polimi.ingsw.network.server.handler.ClientHandler;
-import it.polimi.ingsw.view.LoginView;
+import it.polimi.ingsw.view.View;
 
 import java.io.Serializable;
 
@@ -37,7 +36,7 @@ public class LoginUpdate extends Update implements Serializable {
     public void execute(ClientController clientController) {
         if(logged == false) {
             System.out.println(message);
-            LoginView.getInstance().pickUsernameAndColor();
+            View.getInstance().pickUsernameAndColor();
         } else {
             System.out.println(message);
         }

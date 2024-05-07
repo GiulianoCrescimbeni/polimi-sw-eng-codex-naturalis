@@ -2,7 +2,8 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.network.client.commands.LoginCommand;
-import it.polimi.ingsw.view.LoginView;
+import it.polimi.ingsw.network.client.commands.SelectPlayerNumberCommand;
+import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class ClientController {
 
     public void updateAvailableColors(ArrayList<Color> availableColors) {
         this.availableColors = availableColors;
-        LoginView.getInstance().showColors();
+        View.getInstance().showColors();
     }
 
     public ArrayList<Color> getAvailableColors() {
@@ -50,9 +51,18 @@ public class ClientController {
     public void sendUsernameAndColor(String username, Color color) {
         setUsername(username);
         setColor(color);
+        LoginCommand lgcmd = new LoginCommand(username, color);
         try {
-            LoginCommand lgcmd = new LoginCommand(username, color);
             ClientSR.getInstance().sendCommand(lgcmd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMaxPlayers(int maxPlayers) {
+        SelectPlayerNumberCommand cmd = new SelectPlayerNumberCommand(getUsername(), maxPlayers);
+        try {
+            ClientSR.getInstance().sendCommand(cmd);
         } catch (Exception e) {
             e.printStackTrace();
         }

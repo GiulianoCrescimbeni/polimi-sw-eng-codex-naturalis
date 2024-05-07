@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.server.handler.SocketClientHandler;
+import it.polimi.ingsw.view.TextColor;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -29,10 +30,10 @@ public class ServerApp extends Thread {
             socHandlers = new ArrayList<>();
             manager = GamesManager.getInstance();
             this.start();
-            System.out.println("[SOCKET SERVER] Server Socket Ready");
+            System.out.println(TextColor.BRIGHT_BLUE + "[SOCKET SERVER]" + TextColor.RESET + " Server Socket" + TextColor.GREEN + " Ready");
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("[ERROR] STARTING SOCKET SERVER");
+            System.err.println(TextColor.RED + "[SOCKET SERVER]" + TextColor.RESET + " ERROR WHILE STARTING SOCKET SERVER");
         }
     }
 

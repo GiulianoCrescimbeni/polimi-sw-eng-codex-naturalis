@@ -20,6 +20,7 @@ public class Game implements GameInterface {
     private GameStatus gameStatus;
     private Player winner;
     private GameTable table;
+    private int maxPlayers;
 
     /**
      * Constructor
@@ -30,13 +31,14 @@ public class Game implements GameInterface {
      * @param winner the winner of the game
      * @param table the {@link GameTable} linked to the game
      */
-    public Game(int gameID, ArrayList<Player> players, ArrayList<Color> availableColors, GameStatus gameStatus, Player winner, GameTable table) {
+    public Game(int gameID, ArrayList<Player> players, ArrayList<Color> availableColors, GameStatus gameStatus, Player winner, GameTable table, int maxPlayers) {
         this.gameID = gameID;
         this.players = players;
         this.availableColors = availableColors;
         this.gameStatus = gameStatus;
         this.winner = winner;
         this.table = table;
+        this.maxPlayers = maxPlayers;
     }
 
     /**
@@ -148,6 +150,10 @@ public class Game implements GameInterface {
         return gameID;
     }
 
+    public int getMaxPlayers() {
+        return this.maxPlayers;
+    }
+
     /**
      * Create the game
      */
@@ -187,5 +193,9 @@ public class Game implements GameInterface {
         else{
             this.table.setCurrentPlayer(players.get(currIndex++));
         }
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 }

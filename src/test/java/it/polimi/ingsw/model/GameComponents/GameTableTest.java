@@ -29,7 +29,7 @@ public class GameTableTest extends TestCase {
     Player currentPlayer = new Player("CurrentPlayer", null);
 
     ArrayList<Player> players = new ArrayList<Player>();
-    Game gameModel = new Game(123, players, null, null, null, null);
+    Game gameModel = new Game(123, players, null, null, null, null, 4);
 
     GameTable toTest = new GameTable(codexMap, initialCardDeck, goalsDeck, cardDeck, goldCardDeck, cardToPick, goldCardToPick);
 
