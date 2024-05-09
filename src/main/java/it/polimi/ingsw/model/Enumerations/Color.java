@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.Enumerations;
 
+import it.polimi.ingsw.view.TextColor;
+
 /**
  * The Color enum of the possible color of the player
  */
@@ -10,7 +12,7 @@ public enum Color {
     GREEN {
         @Override
         public String toString() {
-            return "\u001B[32m" + "Green" + "\u001B[0m";
+            return TextColor.GREEN + "Green" + TextColor.RESET;
         }
     },
     /**
@@ -19,7 +21,7 @@ public enum Color {
     RED{
         @Override
         public String toString() {
-            return "\u001B[31m" + "Red" + "\u001B[0m";
+            return TextColor.RED + "Red" + TextColor.RESET;
         }
     },
     /**
@@ -28,7 +30,7 @@ public enum Color {
     BLUE{
         @Override
         public String toString() {
-            return "\u001B[34m" + "Blue" + "\u001B[0m";
+            return TextColor.BLUE + "Blue" + TextColor.RESET;
         }
     },
     /**
@@ -37,7 +39,7 @@ public enum Color {
     YELLOW{
         @Override
         public String toString() {
-            return "\u001B[33m" + "Yelllow" + "\u001B[0m";
+            return TextColor.BRIGHT_YELLOW + "Yellow" + TextColor.RESET;
         }
     }
 }
