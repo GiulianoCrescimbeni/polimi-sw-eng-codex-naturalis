@@ -1,0 +1,1501 @@
+[
+  {
+    "cardID": 41,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "FEATHER"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "FEATHER",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 42,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "JAR"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "JAR",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 43,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "SCROLL"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "SCROLL",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 44,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 45,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 46,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 47,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "JAR"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 48,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "FEATHER"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 49,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "SCROLL"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 50,
+    "cardType": "FUNGI",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 5,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 51,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "FEATHER"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "FEATHER",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 52,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "SCROLL"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "SCROLL",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 53,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "JAR"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "JAR",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 54,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 55,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 56,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 57,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "FEATHER"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 58,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "SCROLL"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 59,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "JAR"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 60,
+    "cardType": "PLANT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 5,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 61,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "JAR"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "JAR",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 62,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "SCROLL"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "SCROLL",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 63,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "FEATHER"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "FEATHER",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 64,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 65,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 66,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 67,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "SCROLL"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 68,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "JAR"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 69,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "FEATHER"
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 70,
+    "cardType": "ANIMAL",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 5,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 71,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "FEATHER"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "FEATHER",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 72,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "SCROLL"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "SCROLL",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 73,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "JAR"
+      }
+    ],
+    "cardScore": 1,
+    "scoringType" : "JAR",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 74,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "ANIMAL"
+      }
+    ]
+  },
+
+  {
+    "cardID": 75,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 76,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 2,
+    "scoringType" : "ANGLE",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 77,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "JAR"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 78,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "SCROLL"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 79,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": null
+      },
+      {
+        "position": "DL",
+        "resource": "FEATHER"
+      },
+      {
+        "position": "UR",
+        "resource": null
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "cardScore": 3,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 80,
+    "cardType": "INSECT",
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "cardScore": 5,
+    "scoringType" : "STATIC",
+    "playCondition": [
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  }
+]

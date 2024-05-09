@@ -1,0 +1,271 @@
+[
+  {
+    "cardID": 81,
+    "frontAngles": [
+      {
+        "position": "UL",
+        "resource": "FUNGI"
+      },
+      {
+        "position": "DL",
+        "resource": "INSECT"
+      },
+      {
+        "position": "UR",
+        "resource": "PLANT"
+      },
+      {
+        "position": "DR",
+        "resource": "ANIMAL"
+      }
+    ],
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "INSECT"
+      },
+      {
+        "position": "UR",
+        "resource": "PLANT"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "backResources": [
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 82,
+    "frontAngles": [
+      {
+        "position": "UL",
+        "resource": "PLANT"
+      },
+      {
+        "position": "DL",
+        "resource": "FUNGI"
+      },
+      {
+        "position": "UR",
+        "resource": "ANIMAL"
+      },
+      {
+        "position": "DR",
+        "resource": "INSECT"
+      }
+    ],
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "ANIMAL"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "FUNGI"
+      }
+    ],
+    "backResources": [
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 83,
+    "frontAngles": [
+      {
+        "position": "UL",
+        "resource": "INSECT"
+      },
+      {
+        "position": "DL",
+        "resource": "FUNGI"
+      },
+      {
+        "position": "UR",
+        "resource": "ANIMAL"
+      },
+      {
+        "position": "DR",
+        "resource": "PLANT"
+      }
+    ],
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "backResources": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  },
+
+  {
+    "cardID": 84,
+    "frontAngles": [
+      {
+        "position": "UL",
+        "resource": "PLANT"
+      },
+      {
+        "position": "DL",
+        "resource": "ANIMAL"
+      },
+      {
+        "position": "UR",
+        "resource": "INSECT"
+      },
+      {
+        "position": "DR",
+        "resource": "FUNGI"
+      }
+    ],
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": "BLANK"
+      }
+    ],
+    "backResources": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "INSECT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 85,
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "INSECT"
+      },
+      {
+        "position": "DL",
+        "resource": "PLANT"
+      },
+      {
+        "position": "UR",
+        "resource": "FUNGI"
+      },
+      {
+        "position": "DR",
+        "resource": "ANIMAL"
+      }
+    ],
+    "backResources": [
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "INSECT"
+      },
+      {
+        "resource": "PLANT"
+      }
+    ]
+  },
+
+  {
+    "cardID": 86,
+    "frontAngles": [
+      {
+        "position": "UL",
+        "resource": "FUNGI"
+      },
+      {
+        "position": "DL",
+        "resource": "PLANT"
+      },
+      {
+        "position": "UR",
+        "resource": "ANIMAL"
+      },
+      {
+        "position": "DR",
+        "resource": "INSECT"
+      }
+    ],
+    "backAngles": [
+      {
+        "position": "UL",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DL",
+        "resource": null
+      },
+      {
+        "position": "UR",
+        "resource": "BLANK"
+      },
+      {
+        "position": "DR",
+        "resource": null
+      }
+    ],
+    "backResources": [
+      {
+        "resource": "PLANT"
+      },
+      {
+        "resource": "ANIMAL"
+      },
+      {
+        "resource": "FUNGI"
+      }
+    ]
+  }
+]

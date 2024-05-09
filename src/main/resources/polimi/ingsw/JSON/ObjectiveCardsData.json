@@ -1,0 +1,132 @@
+[
+  {
+    "cardID": 87,
+    "goalType": "DIAGONAL",
+    "score": 2,
+    "cardType": "FUNGI",
+    "resources": null
+  },
+
+  {
+    "cardID": 88,
+    "goalType": "DIAGONAL",
+    "score": 2,
+    "cardType": "PLANT",
+    "resources": null
+  },
+
+  {
+    "cardID": 89,
+    "goalType": "DIAGONAL",
+    "score": 2,
+    "cardType": "ANIMAL",
+    "resources": null
+  },
+
+  {
+    "cardID": 90,
+    "goalType": "DIAGONAL",
+    "score": 2,
+    "cardType": "INSECT",
+    "resources": null
+  },
+
+
+  {
+    "cardID": 91,
+    "goalType": "L",
+    "score": 3,
+    "cardType": "FUNGI",
+    "resources": null
+  },
+
+  {
+    "cardID": 92,
+    "goalType": "L",
+    "score": 3,
+    "cardType": "PLANT",
+    "resources": null
+  },
+
+  {
+    "cardID": 93,
+    "goalType": "L",
+    "score": 3,
+    "cardType": "ANIMAL",
+    "resources": null
+  },
+
+  {
+    "cardID": 94,
+    "goalType": "L",
+    "score": 3,
+    "cardType": "INSECT",
+    "resources": null
+  },
+
+
+  {
+    "cardID": 95,
+    "goalType": "RESOURCES",
+    "score": 2,
+    "cardType": "FUNGI",
+    "resources": "FUNGI"
+  },
+
+  {
+    "cardID": 96,
+    "goalType": "RESOURCES",
+    "score": 2,
+    "cardType": "PLANT",
+    "resources": "PLANT"
+  },
+
+  {
+    "cardID": 97,
+    "goalType": "RESOURCES",
+    "score": 2,
+    "cardType": "ANIMAL",
+    "resources": "ANIMAL"
+  },
+
+  {
+    "cardID": 98,
+    "goalType": "RESOURCES",
+    "score": 2,
+    "cardType": "INSECT",
+    "resources": "INSECT"
+  },
+
+
+  {
+    "cardID": 99,
+    "goalType": "OBJECT",
+    "score": 3,
+    "cardType": null,
+    "resources": "DISTINCT"
+  },
+
+  {
+    "cardID": 100,
+    "goalType": "OBJECT",
+    "score": 2,
+    "cardType": null,
+    "resources": "SCROLL"
+  },
+
+  {
+    "cardID": 101,
+    "goalType": "OBJECT",
+    "score": 2,
+    "cardType": null,
+    "resources": "JAR"
+  },
+
+  {
+    "cardID": 102,
+    "goalType": "OBJECT",
+    "score": 2,
+    "cardType": null,
+    "resources": "FEATHER"
+  }
+]
