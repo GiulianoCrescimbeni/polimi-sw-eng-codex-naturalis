@@ -1,9 +1,9 @@
 package it.polimi.ingsw.network.server.updates;
 
 import it.polimi.ingsw.network.client.ClientController;
-import it.polimi.ingsw.view.Messages;
-import it.polimi.ingsw.view.TextColor;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.TUI.Messages;
+import it.polimi.ingsw.view.TUI.TextColor;
+import it.polimi.ingsw.view.TUI.View;
 
 import java.io.Serializable;
 

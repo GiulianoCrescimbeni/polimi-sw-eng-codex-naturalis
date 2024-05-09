@@ -247,16 +247,16 @@ public class Codex implements CodexInterface {
      * @param card the card to get the resources from
      */
     private void getResourcesFromCard(Card card) {
-        if(card.getAngles().get(AnglePos.UL).getResource() != null) {
+        if(card.getAngles().get(AnglePos.UL).getResource() != null && card.getAngles().get(AnglePos.UL).getResource() != Resource.BLANK) {
             incrementNumOfResources(card.getAngles().get(AnglePos.UL).getResource(), 1);
         }
-        if(card.getAngles().get(AnglePos.UR).getResource() != null) {
+        if(card.getAngles().get(AnglePos.UR).getResource() != null && card.getAngles().get(AnglePos.UR).getResource() != Resource.BLANK) {
             incrementNumOfResources(card.getAngles().get(AnglePos.UR).getResource(), 1);
         }
-        if(card.getAngles().get(AnglePos.DL).getResource() != null) {
+        if(card.getAngles().get(AnglePos.DL).getResource() != null && card.getAngles().get(AnglePos.DL).getResource() != Resource.BLANK) {
             incrementNumOfResources(card.getAngles().get(AnglePos.DL).getResource(), 1);
         }
-        if(card.getAngles().get(AnglePos.DR).getResource() != null) {
+        if(card.getAngles().get(AnglePos.DR).getResource() != null && card.getAngles().get(AnglePos.DR).getResource() != Resource.BLANK) {
             incrementNumOfResources(card.getAngles().get(AnglePos.DR).getResource(), 1);
         }
     }

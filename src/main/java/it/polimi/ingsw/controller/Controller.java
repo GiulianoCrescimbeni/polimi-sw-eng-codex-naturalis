@@ -15,8 +15,8 @@ import it.polimi.ingsw.network.server.updates.AvailableColorsUpdate;
 import it.polimi.ingsw.network.server.updates.LoginUpdate;
 import it.polimi.ingsw.network.server.updates.SelectPlayerNumberUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
-import it.polimi.ingsw.view.Messages;
-import it.polimi.ingsw.view.TextColor;
+import it.polimi.ingsw.view.TUI.Messages;
+import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.util.ArrayList;
 

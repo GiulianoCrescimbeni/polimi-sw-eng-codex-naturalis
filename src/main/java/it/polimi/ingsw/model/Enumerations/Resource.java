@@ -31,6 +31,10 @@ public enum Resource {
     /**
      * Jar resource
      */
-    JAR
+    JAR,
+    /**
+     * Blank resource
+     */
+    BLANK
 
 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.Enumerations;
 
-import it.polimi.ingsw.view.TextColor;
+import it.polimi.ingsw.view.TUI.TextColor;
 
 /**
  * The Color enum of the possible color of the player

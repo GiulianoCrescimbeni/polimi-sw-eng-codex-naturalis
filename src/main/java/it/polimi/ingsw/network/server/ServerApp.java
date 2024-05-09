@@ -1,11 +1,10 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.network.server.handler.SocketClientHandler;
-import it.polimi.ingsw.view.TextColor;
+import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 
 /**

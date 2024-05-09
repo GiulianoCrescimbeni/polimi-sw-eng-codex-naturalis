@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.TUI;
 
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.network.client.ClientController;

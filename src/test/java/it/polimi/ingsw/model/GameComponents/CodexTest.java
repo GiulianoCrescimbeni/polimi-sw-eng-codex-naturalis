@@ -36,7 +36,7 @@ public class CodexTest extends TestCase {
     Angle initialCardAngle2 = new Angle(null, false, null, cardToPlace);
     Angle initialCardAngle3 = new Angle(null, false, null, cardToPlace);
     Angle initialCardAngle4 = new Angle(null, false, null, cardToPlace);
-    Angle cardAngle1 = new Angle(Resource.FUNGI, false, null, cardToPlace);
+    Angle cardAngle1 = new Angle(Resource.BLANK, false, null, cardToPlace);
     Angle cardAngle2 = new Angle(null, false, null, cardToPlace);
     Angle cardAngle3 = new Angle(null, false, null, cardToPlace);
     Angle cardAngle4 = new Angle(Resource.PLANT, false, null, cardToPlace);
@@ -175,7 +175,7 @@ public class CodexTest extends TestCase {
         assertFalse(toTest.getCards().containsValue(cardToPlace));
         toTest.placeCard(new Coordinate(79, 81), cardToPlace);
         assertEquals(3, toTest.getNumOfResources(Resource.INSECT));
-        assertEquals(2, toTest.getNumOfResources(Resource.FUNGI));
+        assertEquals(1, toTest.getNumOfResources(Resource.FUNGI));
         assertEquals(3, toTest.getNumOfResources(Resource.PLANT));
         assertTrue(toTest.getCards().containsValue(cardToPlace));
     }

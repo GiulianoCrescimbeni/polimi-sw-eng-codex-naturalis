@@ -3,7 +3,7 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.network.client.commands.LoginCommand;
 import it.polimi.ingsw.network.client.commands.SelectPlayerNumberCommand;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.TUI.View;
 
 import java.util.ArrayList;
 

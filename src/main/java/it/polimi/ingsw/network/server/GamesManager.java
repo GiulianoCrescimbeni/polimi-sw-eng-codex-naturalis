@@ -4,10 +4,8 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.server.handler.ClientHandler;
-import it.polimi.ingsw.network.server.handler.RMIClientHandler;
-import it.polimi.ingsw.network.server.handler.SocketClientHandler;
 import it.polimi.ingsw.network.server.updates.Update;
-import it.polimi.ingsw.view.TextColor;
+import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.io.IOException;
 import java.util.*;
