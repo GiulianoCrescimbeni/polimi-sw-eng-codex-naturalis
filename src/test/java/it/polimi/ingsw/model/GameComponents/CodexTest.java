@@ -77,19 +77,19 @@ public class CodexTest extends TestCase {
         initialCardAngles.put(AnglePos.UR, initialCardAngle2);
         initialCardAngles.put(AnglePos.DL, initialCardAngle3);
         initialCardAngles.put(AnglePos.DR, initialCardAngle4);
-        initialCard.setAngles(initialCardAngles);
+        initialCard.setAnglesMap(initialCardAngles);
 
         cardAngles.put(AnglePos.UL, cardAngle1);
         cardAngles.put(AnglePos.UR, cardAngle2);
         cardAngles.put(AnglePos.DL, cardAngle3);
         cardAngles.put(AnglePos.DR, cardAngle4);
-        cardToPlace.setAngles(cardAngles);
+        cardToPlace.setAnglesMap(cardAngles);
 
         goldCardAngles.put(AnglePos.UL, goldCardAngle1);
         goldCardAngles.put(AnglePos.UR, goldCardAngle2);
         goldCardAngles.put(AnglePos.DL, goldCardAngle3);
         goldCardAngles.put(AnglePos.DR, goldCardAngle4);
-        goldCardToPlace.setAngles(goldCardAngles);
+        goldCardToPlace.setAnglesMap(goldCardAngles);
 
         playCondition.add(Resource.ANIMAL);
     }

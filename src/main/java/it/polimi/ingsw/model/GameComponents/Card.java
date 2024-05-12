@@ -1,10 +1,13 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Data.AngleMapDeserializer;
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Interfaces.CardInteface;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,13 +15,21 @@ import java.util.Map;
  */
 public class Card implements CardInteface {
 
+    @SerializedName("cardID")
     private int cardID;
-    private Map<AnglePos, Angle> angles;
+    private Map<AnglePos, Angle> anglesMap;
+    @SerializedName("cardType")
     private CardType cardType;
+    @SerializedName("isTurned")
     private boolean isTurned;
+    @SerializedName("cardScore")
     private int cardScore;
+    @SerializedName("lUsed")
     private boolean lUsed;
+    @SerializedName("dUsed")
     private boolean dUsed;
+    @SerializedName("angles")
+    private ArrayList<AngleMapDeserializer> anglesMapDeserializer;
 
     /**
      * Constructor
@@ -32,7 +43,7 @@ public class Card implements CardInteface {
      */
     public Card(int cardID, Map<AnglePos, Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed) {
         this.cardID = cardID;
-        this.angles = angles;
+        this.anglesMap = angles;
         this.cardType = cardType;
         this.isTurned = isTurned;
         this.cardScore = cardScore;
@@ -55,11 +66,11 @@ public class Card implements CardInteface {
     /**
      * @return the angles of the card
      */
-    public Map<AnglePos, Angle> getAngles() {
-        return angles;
+    public Map<AnglePos, Angle> getAnglesMap() {
+        return anglesMap;
     }
 
-    public Angle getAngle(AnglePos anglePos) { return getAngles().get(anglePos); }
+    public Angle getAngle(AnglePos anglePos) { return getAnglesMap().get(anglePos); }
 
     /**
      * @return the type of the card
@@ -96,11 +107,13 @@ public class Card implements CardInteface {
         return this.dUsed;
     }
 
+    public ArrayList<AngleMapDeserializer> getAnglesMapDeserializer() {return this.anglesMapDeserializer;}
+
     /**
-     * @param angles the angles of the card
+     * @param anglesMap the angles of the card
      */
-    public void setAngles(Map<AnglePos, Angle> angles) {
-        this.angles = angles;
+    public void setAnglesMap(Map<AnglePos, Angle> anglesMap) {
+        this.anglesMap = anglesMap;
     }
 
     /**
@@ -124,6 +137,17 @@ public class Card implements CardInteface {
      */
     public void setdUsed() {
         this.dUsed = true;
+    }
+
+    public void deserializeAnglesMap() {
+
+        anglesMap = new HashMap<AnglePos, Angle>();
+
+        for (AngleMapDeserializer a : anglesMapDeserializer) {
+            anglesMap.put(a.getPosition(), new Angle(a.getResource(), false, null, this));
+        }
+        anglesMapDeserializer.clear();
+        anglesMapDeserializer = null;
     }
 
 }

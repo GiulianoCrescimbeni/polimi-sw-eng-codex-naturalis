@@ -2,7 +2,7 @@
   {
     "cardID": 1,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "FUNGI"
@@ -26,7 +26,7 @@
   {
     "cardID": 2,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "FUNGI"
@@ -50,7 +50,7 @@
   {
     "cardID": 3,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -74,7 +74,7 @@
   {
     "cardID": 4,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -98,7 +98,7 @@
   {
     "cardID": 5,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -122,7 +122,7 @@
   {
     "cardID": 6,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "JAR"
@@ -146,7 +146,7 @@
   {
     "cardID": 7,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "FUNGI"
@@ -170,7 +170,7 @@
   {
     "cardID": 8,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -194,7 +194,7 @@
   {
     "cardID": 9,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "FUNGI"
@@ -218,7 +218,7 @@
   {
     "cardID": 10,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -242,7 +242,7 @@
   {
     "cardID": 11,
     "cardType": "PLANT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "PLANT"
@@ -266,7 +266,7 @@
   {
     "cardID": 12,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "PLANT"
@@ -290,7 +290,7 @@
   {
     "cardID": 13,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -314,7 +314,7 @@
   {
     "cardID": 14,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -338,7 +338,7 @@
   {
     "cardID": 15,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -362,7 +362,7 @@
   {
     "cardID": 16,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "FUNGI"
@@ -386,7 +386,7 @@
   {
     "cardID": 17,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "SCROLL"
@@ -410,7 +410,7 @@
   {
     "cardID": 18,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -434,7 +434,7 @@
   {
     "cardID": 19,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -458,7 +458,7 @@
   {
     "cardID": 20,
     "cardType": "FUNGI",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -482,7 +482,7 @@
   {
     "cardID": 21,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "ANIMAL"
@@ -506,7 +506,7 @@
   {
     "cardID": 22,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -530,7 +530,7 @@
   {
     "cardID": 23,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "ANIMAL"
@@ -554,7 +554,7 @@
   {
     "cardID": 24,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -578,7 +578,7 @@
   {
     "cardID": 25,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -602,7 +602,7 @@
   {
     "cardID": 26,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "PLANT"
@@ -626,7 +626,7 @@
   {
     "cardID": 27,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "FEATHER"
@@ -650,7 +650,7 @@
   {
     "cardID": 28,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -674,7 +674,7 @@
   {
     "cardID": 29,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -698,7 +698,7 @@
   {
     "cardID": 30,
     "cardType": "ANIMAL",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -722,7 +722,7 @@
   {
     "cardID":31,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "INSECT"
@@ -746,7 +746,7 @@
   {
     "cardID": 32,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -770,7 +770,7 @@
   {
     "cardID": 33,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "INSECT"
@@ -794,7 +794,7 @@
   {
     "cardID": 34,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -818,7 +818,7 @@
   {
     "cardID": 35,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null
@@ -842,7 +842,7 @@
   {
     "cardID": 36,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "SCROLL"
@@ -866,7 +866,7 @@
   {
     "cardID": 37,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "INSECT"
@@ -890,7 +890,7 @@
   {
     "cardID": 38,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "INSECT"
@@ -914,7 +914,7 @@
   {
     "cardID": 39,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": "BLANK"
@@ -938,7 +938,7 @@
   {
     "cardID": 40,
     "cardType": "INSECT",
-    "backAngles": [
+    "angles": [
       {
         "position": "UL",
         "resource": null

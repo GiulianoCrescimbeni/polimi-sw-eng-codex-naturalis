@@ -22,7 +22,7 @@ public class AngleTest extends TestCase {
     @BeforeEach
     public void setup() {
         angleMap.put(AnglePos.UR, new Angle(resource, false, attached, card));
-        card.setAngles(angleMap);
+        card.setAnglesMap(angleMap);
     }
 
     @Test

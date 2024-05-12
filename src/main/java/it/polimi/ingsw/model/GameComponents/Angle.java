@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import com.google.gson.annotations.SerializedName;
 import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 
@@ -85,5 +86,21 @@ public class Angle {
      */
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    @Override
+    public String toString() {
+        String resource = "";
+        String hidden = "";
+        String attached = "";
+        String card = "";
+
+        if (this.resource == null) resource = "Resource: Null\n"; else resource = "Resource: " + this.resource.toString() + "\n";
+        if (this.hidden) hidden = "Hidden: True\n"; else hidden = "Hidden: False\n";
+        if (this.attached == null) attached = "Attached: Null\n"; else attached = "Attached: " + this.attached.toString() + "\n";
+        if (this.card == null) card = "Card: Null\n"; else card = "Card: " + this.card.getCardID() + "\n";
+
+        return resource + hidden + attached + card;
+
     }
 }

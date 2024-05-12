@@ -1,9 +1,14 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Data.CardsLoader;
 import it.polimi.ingsw.model.Interfaces.DeckInterface;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
+import com.google.gson.Gson;
 
 /**
  * Class for cards deck
@@ -29,6 +34,15 @@ public class Deck implements DeckInterface {
      */
     public Deck(int numOfCards) {
         this.numOfCards = numOfCards;
+    }
+
+    /**
+     * Constructor
+     * Sets the number of cards to zero
+     * Sets the cards stack to null
+     */
+    public Deck() {
+        this.cards = null;
     }
 
     /**
@@ -71,4 +85,15 @@ public class Deck implements DeckInterface {
     public void deckShuffle(){
         Collections.shuffle(cards);
     }
+
+    /**
+     * Builds the deck using the card loader
+     */
+    public void buildDeck() {
+        this.cards = new Stack<Card>();
+        ArrayList<Card> toAdd = CardsLoader.getInstance().loadCards();
+        this.numOfCards = toAdd.size();
+        this.cards.addAll(toAdd);
+    }
+
 }

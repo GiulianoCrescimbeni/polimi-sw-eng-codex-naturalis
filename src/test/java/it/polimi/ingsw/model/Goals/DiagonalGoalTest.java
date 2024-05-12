@@ -79,9 +79,9 @@ public class DiagonalGoalTest extends TestCase {
         angles3.put(AnglePos.DR, angle3_card3);
         angles3.put(AnglePos.DL, angle4_card3);
 
-        card1.setAngles(angles1);
-        card2.setAngles(angles2);
-        card3.setAngles(angles3);
+        card1.setAnglesMap(angles1);
+        card2.setAnglesMap(angles2);
+        card3.setAnglesMap(angles3);
 
         assertEquals(1, goal.check(codex));
     }
@@ -147,9 +147,9 @@ public class DiagonalGoalTest extends TestCase {
         angles3.put(AnglePos.DR, angle3_card3);
         angles3.put(AnglePos.DL, angle4_card3);
 
-        card1.setAngles(angles1);
-        card2.setAngles(angles2);
-        card3.setAngles(angles3);
+        card1.setAnglesMap(angles1);
+        card2.setAnglesMap(angles2);
+        card3.setAnglesMap(angles3);
 
         assertEquals(1, goal.check(codex));
     }
@@ -215,9 +215,9 @@ public class DiagonalGoalTest extends TestCase {
         angles3.put(AnglePos.DR, angle3_card3);
         angles3.put(AnglePos.DL, angle4_card3);
 
-        card1.setAngles(angles1);
-        card2.setAngles(angles2);
-        card3.setAngles(angles3);
+        card1.setAnglesMap(angles1);
+        card2.setAnglesMap(angles2);
+        card3.setAnglesMap(angles3);
 
         assertEquals(1, goal.check(codex));
     }
@@ -283,9 +283,9 @@ public class DiagonalGoalTest extends TestCase {
         angles3.put(AnglePos.DR, angle3_card3);
         angles3.put(AnglePos.DL, angle4_card3);
 
-        card1.setAngles(angles1);
-        card2.setAngles(angles2);
-        card3.setAngles(angles3);
+        card1.setAnglesMap(angles1);
+        card2.setAnglesMap(angles2);
+        card3.setAnglesMap(angles3);
 
         assertEquals(1, goal.check(codex));
     }
@@ -370,10 +370,10 @@ public class DiagonalGoalTest extends TestCase {
         angles4.put(AnglePos.DL, angle4_card4);
 
 
-        card1.setAngles(angles1);
-        card2.setAngles(angles2);
-        card3.setAngles(angles3);
-        card4.setAngles(angles4);
+        card1.setAnglesMap(angles1);
+        card2.setAnglesMap(angles2);
+        card3.setAnglesMap(angles3);
+        card4.setAnglesMap(angles4);
 
         assertEquals(0, goal.check(codex));
     }

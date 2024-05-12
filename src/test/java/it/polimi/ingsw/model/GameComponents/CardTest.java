@@ -34,7 +34,7 @@ public class CardTest extends TestCase {
 
     @Test
     public void testGetAngles() {
-        assertEquals(angles, testCard.getAngles());
+        assertEquals(angles, testCard.getAnglesMap());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class CardTest extends TestCase {
         mapTest.put(AnglePos.UR, a6);
         mapTest.put(AnglePos.DL, a7);
         mapTest.put(AnglePos.DR, a8);
-        testCard.setAngles(mapTest);
+        testCard.setAnglesMap(mapTest);
         assertEquals(a5, testCard.getAngle(AnglePos.UL));
         assertEquals(a6, testCard.getAngle(AnglePos.UR));
         assertEquals(a7, testCard.getAngle(AnglePos.DL));
