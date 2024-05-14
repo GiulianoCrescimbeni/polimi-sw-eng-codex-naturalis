@@ -35,6 +35,42 @@ public enum Resource {
     /**
      * Blank resource
      */
-    BLANK
+    BLANK;
+
+    /**
+     *
+     * @param name The name of the resource
+     * @return The resource from the name
+     */
+    public static Resource getFromName(String name) {
+        switch (name) {
+            case "PLANT":
+                return PLANT;
+
+            case "ANIMAL":
+                return ANIMAL;
+
+            case "FUNGI":
+                return FUNGI;
+
+            case "INSECT":
+                return INSECT;
+
+            case "SCROLL":
+                return SCROLL;
+
+            case "FEATHER":
+                return FEATHER;
+
+            case "JAR":
+                return JAR;
+
+            case "BLANK":
+                return BLANK;
+
+            default:
+                return null;
+        }
+    }
 
 }

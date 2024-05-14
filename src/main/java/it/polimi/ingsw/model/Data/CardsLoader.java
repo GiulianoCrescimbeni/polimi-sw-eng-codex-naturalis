@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.GameComponents.Angle;
 import it.polimi.ingsw.model.GameComponents.Card;
+import it.polimi.ingsw.model.GameComponents.GoldCard;
 
 import javax.swing.text.Position;
 import java.io.FileReader;
@@ -41,6 +42,29 @@ public class CardsLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public ArrayList<GoldCard> loadGoldCards() {
+        String filePath = "src/main/resources/polimi/ingsw/JSON/GoldCardsData.json";
+
+        try (FileReader reader = new FileReader(filePath)) {
+            Gson gson = new Gson();
+
+            GoldCardDataContainer[] goldCardsContainers = gson.fromJson(reader, GoldCardDataContainer[].class);
+
+            ArrayList<GoldCard> toReturn = new ArrayList<GoldCard>();
+
+            for (GoldCardDataContainer gcd : goldCardsContainers) {
+                toReturn.add(gcd.deserialize());
+            }
+
+            return toReturn;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

@@ -6,7 +6,9 @@ import it.polimi.ingsw.model.GameComponents.Deck;
 public class TestMain {
 
     public static void main(String[] args) {
-        CardsLoader.getInstance().loadCards();
+        Deck d = new Deck();
+        d.buildGoldCardsDeck();
+        System.out.println("" + d.getNumOfCards());
     }
 
 }

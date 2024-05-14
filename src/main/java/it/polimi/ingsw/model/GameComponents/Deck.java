@@ -87,11 +87,21 @@ public class Deck implements DeckInterface {
     }
 
     /**
-     * Builds the deck using the card loader
+     * Builds the deck using the cards loader
      */
     public void buildDeck() {
         this.cards = new Stack<Card>();
         ArrayList<Card> toAdd = CardsLoader.getInstance().loadCards();
+        this.numOfCards = toAdd.size();
+        this.cards.addAll(toAdd);
+    }
+
+    /**
+     * Builds the gold cards deck using the cards loader
+     */
+    public void buildGoldCardsDeck() {
+        this.cards = new Stack<Card>();
+        ArrayList<GoldCard> toAdd = CardsLoader.getInstance().loadGoldCards();
         this.numOfCards = toAdd.size();
         this.cards.addAll(toAdd);
     }
