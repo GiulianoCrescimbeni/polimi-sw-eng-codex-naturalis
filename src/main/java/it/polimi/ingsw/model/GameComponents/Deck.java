@@ -91,9 +91,8 @@ public class Deck implements DeckInterface {
      */
     public void buildDeck() {
         this.cards = new Stack<Card>();
-        ArrayList<Card> toAdd = CardsLoader.getInstance().loadCards();
-        this.numOfCards = toAdd.size();
-        this.cards.addAll(toAdd);
+        cards.addAll(CardsLoader.getInstance().loadCards());
+        this.numOfCards = cards.size();
     }
 
     /**
@@ -101,9 +100,17 @@ public class Deck implements DeckInterface {
      */
     public void buildGoldCardsDeck() {
         this.cards = new Stack<Card>();
-        ArrayList<GoldCard> toAdd = CardsLoader.getInstance().loadGoldCards();
-        this.numOfCards = toAdd.size();
-        this.cards.addAll(toAdd);
+        cards.addAll(CardsLoader.getInstance().loadGoldCards());
+        this.numOfCards = cards.size();
+    }
+
+    /**
+     * Builds the initial cards deck using the cards loader
+     */
+    public void buildInitialCardsDeck() {
+        this.cards = new Stack<Card>();
+        cards.addAll(CardsLoader.getInstance().loadInitialCards());
+        this.numOfCards = cards.size();
     }
 
 }

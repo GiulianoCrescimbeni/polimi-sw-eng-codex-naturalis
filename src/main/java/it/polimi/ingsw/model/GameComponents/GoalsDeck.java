@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Data.CardsLoader;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.GoalDeckInterface;
 
@@ -55,5 +56,11 @@ public class GoalsDeck implements GoalDeckInterface {
      */
     public void goalsShuffle(){
         Collections.shuffle(goals);
+    }
+
+    public void buildDeck() {
+        this.goals = new Stack<Goal>();
+        this.goals.addAll(CardsLoader.getInstance().loadObjectivesCards());
+        this.numOfGoals = this.goals.size();
     }
 }

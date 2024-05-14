@@ -7,7 +7,7 @@ public class TestMain {
 
     public static void main(String[] args) {
         Deck d = new Deck();
-        d.buildGoldCardsDeck();
+        d.buildInitialCardsDeck();
         System.out.println("" + d.getNumOfCards());
     }
 

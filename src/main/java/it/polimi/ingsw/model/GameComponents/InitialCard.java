@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class InitialCard extends Card {
 
+    private Map<AnglePos, Angle> backAngles;
     private ArrayList<Resource> backResources;
 
     /**
@@ -33,4 +34,8 @@ public class InitialCard extends Card {
      * @return the resources on the back of the card
      */
     public ArrayList<Resource> getBackResources() { return this.backResources; }
+
+    public void setBackAngles(Map<AnglePos, Angle> backAngles) {
+        this.backAngles = backAngles;
+    }
 }
