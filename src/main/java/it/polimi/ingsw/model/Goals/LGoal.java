@@ -5,11 +5,15 @@ import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.GameComponents.Codex;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.view.TUI.TextColor;
+import it.polimi.ingsw.view.TUI.View;
+
+import java.io.Serializable;
 
 /**
  * Class that represent the L shaped goal
  */
-public class LGoal extends Goal {
+public class LGoal extends Goal implements Serializable {
 
     public LGoal(Resource objectType, CardType cardType, int score, int goalId) {
         super(objectType, cardType, score, goalId);
@@ -82,7 +86,82 @@ public class LGoal extends Goal {
 
         }
         return numOfCompletion;
-    }}
+    }
+
+    @Override
+    public void draw() {
+        if(this.getCardType().equals(CardType.FUNGI)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             ┌─────────┐                     "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             │         │                     "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             │         │                     "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             └─────────┘                     "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             ┌─────────┐                     "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             │         │                     "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             │       "+ View.getInstance().getReverseCardTypeColor(getCardType()) +"┌─"+ View.getInstance().getCardTypeColor(getCardType()) +"┼"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"───────┐             "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"             └───────"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"┼"+ View.getInstance().getCardTypeColor(getCardType()) +"─┘       "+ View.getInstance().getReverseCardTypeColor(getCardType()) +"│             "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"                     │         │             "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"                     └─────────┘             "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        } else if(this.getCardType().equals(CardType.PLANT)){
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    ┌─────────┐              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    │         │              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    │         │              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    └─────────┘              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    ┌─────────┐              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    │         │              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            ┌───────"+ View.getInstance().getCardTypeColor(getCardType()) +"┼"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"─┐       "+ View.getInstance().getCardTypeColor(getCardType()) +"│              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            │       "+ View.getInstance().getCardTypeColor(getCardType()) +"└─"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"┼"+ View.getInstance().getCardTypeColor(getCardType()) +"───────┘              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            │         │                      "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            └─────────┘                      "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        } else if(this.getCardType().equals(CardType.ANIMAL)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"                      ┌─────────┐            "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"                      │         │            "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              ┌───────"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"┼"+ View.getInstance().getCardTypeColor(getCardType()) +"─┐       "+ View.getInstance().getReverseCardTypeColor(getCardType()) +"│            "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              │       "+ View.getInstance().getReverseCardTypeColor(getCardType()) +"└─"+ View.getInstance().getCardTypeColor(getCardType()) +"┼"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"───────┘            "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              │         │                    "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              └─────────┘                    "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              ┌─────────┐                    "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              │         │                    "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              │         │                    "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"              └─────────┘                    "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        } else if(this.getCardType().equals(CardType.INSECT)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            ┌─────────┐                      "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            │         │                      "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            │       "+ View.getInstance().getCardTypeColor(getCardType()) +"┌─"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"┼"+ View.getInstance().getCardTypeColor(getCardType()) +"───────┐              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"            └───────"+ View.getInstance().getCardTypeColor(getCardType()) +"┼"+ View.getInstance().getReverseCardTypeColor(getCardType()) +"─┘       "+ View.getInstance().getCardTypeColor(getCardType()) +"│              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    │         │              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    └─────────┘              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    ┌─────────┐              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    │         │              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    │         │              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                    └─────────┘              "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        }
+
+    }
+}
 
 
 

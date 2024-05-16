@@ -4,10 +4,12 @@ import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.GameComponents.Codex;
 
+import java.io.Serializable;
+
 /**
  * Abstract class that represents the goal card
  */
-public abstract class Goal {
+public abstract class Goal implements Serializable {
     private int goalId;
     private int score;
     private CardType cardType;
@@ -50,4 +52,9 @@ public abstract class Goal {
     public int check(Codex codex) {
         return 0;
     }
+
+    /**
+     * Function to draw the Goal
+     */
+    public void draw() {}
 }

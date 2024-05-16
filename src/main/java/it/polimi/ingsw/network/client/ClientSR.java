@@ -54,7 +54,7 @@ public class ClientSR extends Thread {
 
             while(!this.isInterrupted()) {
                 Update up = (Update) in.readObject();
-                ClientManager.getInstance().handleUpdate(up);
+                up.execute();
             }
 
             in.close();

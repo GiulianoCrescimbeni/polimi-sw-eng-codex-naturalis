@@ -1,17 +1,20 @@
 package it.polimi.ingsw.network.server.updates;
 
+import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.TUI.View;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * The class represents the {@link Update} sent from the server after a login attempt
  */
 public class LoginUpdate extends Update implements Serializable {
-
+    private String nickname;
     private boolean logged;
     private String message;
+    private ArrayList<Goal> personalGoalsToPick;
 
     /**
      * Constructor
@@ -28,17 +31,41 @@ public class LoginUpdate extends Update implements Serializable {
         this.logged = logged;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    /**
+     * @return login info
+     */
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public ArrayList<Goal> getPersonalGoalsToPick() {
+        return personalGoalsToPick;
+    }
+
+    public void setPersonalGoalsToPick(ArrayList<Goal> personalGoalsToPick) {
+        this.personalGoalsToPick = personalGoalsToPick;
+    }
+
     /**
      * Execute the Update on the client with the result of the login
-     * @param clientController the controller of the client
      */
     @Override
-    public void execute(ClientController clientController) {
-        if(logged == false) {
+    public void execute() {
+        if(isLogged()) {
             System.out.println(message);
-            View.getInstance().pickUsernameAndColor();
+            ClientController.getInstance().updateGoalsToPick(personalGoalsToPick);
+            View.getInstance().selectPersonalGoal();
         } else {
             System.out.println(message);
+            View.getInstance().pickUsernameAndColor();
         }
     }
 }

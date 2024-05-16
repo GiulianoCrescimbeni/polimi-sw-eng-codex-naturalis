@@ -1,7 +1,9 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.model.Enumerations.Color;
+import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.network.client.commands.LoginCommand;
+import it.polimi.ingsw.network.client.commands.SelectPersonalGoalCommand;
 import it.polimi.ingsw.network.client.commands.SelectPlayerNumberCommand;
 import it.polimi.ingsw.view.TUI.View;
 
@@ -10,13 +12,13 @@ import java.util.ArrayList;
 public class ClientController {
 
     private static ClientController instance;
-
     private ArrayList<Color> availableColors = new ArrayList<Color>();
-
-    private ClientController() {}
-
+    private ArrayList<Goal> goalsToPick = new ArrayList<>();
     private String username;
     private Color color;
+    private Goal personalGoal;
+
+    private ClientController() {}
 
     public String getUsername() {
         return username;
@@ -48,6 +50,14 @@ public class ClientController {
         return availableColors;
     }
 
+    public ArrayList<Goal> getGoalsToPick() {
+        return goalsToPick;
+    }
+
+    public void updateGoalsToPick(ArrayList<Goal> goalsToPick) {
+        this.goalsToPick = goalsToPick;
+    }
+
     public void sendUsernameAndColor(String username, Color color) {
         setUsername(username);
         setColor(color);
@@ -66,5 +76,19 @@ public class ClientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void selectPersonalGoal(Goal goal) {
+        SelectPersonalGoalCommand selectPersonalGoalCommand = new SelectPersonalGoalCommand(this.username, goal);
+        try {
+            ClientSR.getInstance().sendCommand(selectPersonalGoalCommand);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setPersonalGoal(Goal personalGoal) {
+        this.personalGoal = personalGoal;
     }
 }

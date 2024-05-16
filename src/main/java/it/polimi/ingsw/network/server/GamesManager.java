@@ -6,9 +6,9 @@ import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.server.handler.ClientHandler;
 import it.polimi.ingsw.network.server.updates.Update;
 import it.polimi.ingsw.view.TUI.TextColor;
-
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class that manage all games and connections.
@@ -21,7 +21,6 @@ public class GamesManager {
     private Map<ClientHandler, Integer> connections = new HashMap<>();
     private Integer lastGameId;
     private int lastGameNumOfPartecipants = 0;
-
     private static GamesManager instance;
 
     /**
@@ -64,6 +63,7 @@ public class GamesManager {
         }
 
         Game gameModel = new Game(id);
+        gameModel.initGame();
         Controller gameController = new Controller(gameModel);
         controllers.put(id, gameController);
 
@@ -100,7 +100,7 @@ public class GamesManager {
      * @param clientHandler the new client handler to handle
      * @throws IOException
      */
-    public void addConnection(ClientHandler clientHandler) throws IOException {
+    public synchronized void addConnection(ClientHandler clientHandler) throws IOException {
 
         Integer gameId = null;
 
@@ -147,16 +147,29 @@ public class GamesManager {
      * @param command The command to be executed
      */
     public void handleCommand(ClientHandler clientHandler, Command command) throws IOException {
-        Integer gameId = connections.get(clientHandler);
+        Integer gameId;
+        synchronized(connections) {
+            gameId = connections.get(clientHandler);
+        }
         Update update = command.execute(controllers.get(gameId));
         clientHandler.sendUpdate(update);
     }
 
     /**
-     * Function to broadcast an update to each client in the game
+     * Function to broadcast an update to each client in the specified game
      * @param gameId the id of the game
      * @param update the update to send
      */
     public void broadcast(int gameId, Update update) {
+        connections.entrySet()
+                .stream()
+                .filter(c -> c.getValue() == gameId)
+                .forEach(c -> {
+                    try {
+                        c.getKey().sendUpdate(update);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 }

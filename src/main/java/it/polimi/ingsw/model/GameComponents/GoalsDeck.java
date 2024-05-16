@@ -25,6 +25,11 @@ public class GoalsDeck implements GoalDeckInterface {
     }
 
     /**
+     * Constructor
+     */
+    public GoalsDeck() {}
+
+    /**
      * @return the number of goals
      */
     public int getNumOfGoals() { return numOfGoals; }

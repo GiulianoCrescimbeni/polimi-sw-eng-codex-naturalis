@@ -2,9 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Enumerations.GameStatus;
+import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.GameTable;
 import it.polimi.ingsw.model.Interfaces.GameInterface;
 import it.polimi.ingsw.model.Player.Player;
+import it.polimi.ingsw.model.Player.PlayerHand;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -86,7 +89,7 @@ public class Game implements GameInterface {
     }
 
     /**
-     * @return the colors available for p3layers
+     * @return the colors available for players
      */
     public ArrayList<Color> getAvailableColors() { return availableColors; }
 
@@ -115,9 +118,21 @@ public class Game implements GameInterface {
 
     /**
      * Add a player to the game
-     * @param toAdd the player that is being added
+     * @param nickname the nickname of the player
+     * @param color the color of the player
      */
-    public void addPlayer(Player toAdd) { this.players.add(toAdd); }
+    public void addPlayer(String nickname, Color color) {
+        ArrayList<Card> cards = new ArrayList<>();
+        PlayerHand ph = new PlayerHand(cards);
+        Player p = new Player(nickname, ph);
+        p.setColor(color);
+
+        this.removeAvailableColor(color);
+        this.players.add(p);
+        this.table.playerHandBuild(p);
+        this.table.pickInitialCard(p);
+        this.table.extractPersonalGoal(p);
+    }
 
     /**
      * Remove a color after being picked by a player
@@ -150,6 +165,9 @@ public class Game implements GameInterface {
         return gameID;
     }
 
+    /**
+     * @return return the max player of the game
+     */
     public int getMaxPlayers() {
         return this.maxPlayers;
     }
@@ -160,18 +178,20 @@ public class Game implements GameInterface {
     public void initGame() {
         this.table = new GameTable();
         this.table.setGameModel(this);
-        selectPlayerOrdering();
         this.table.initialCardDeckBuild();
         this.table.goalsDeckBuild();
         this.table.cardDeckBuild();
         this.table.goldCardDeckBuild();
         this.table.codexBuild();
-        this.table.playerHandBuild();
-        this.table.commonGoalsExtraction();
-        this.table.pickInitialCard();
         this.table.groundBuild();
-        this.table.extractPersonalGoal();
+        this.table.commonGoalsExtraction();
     }
+
+    public void startGame() {
+        this.setGameStatus(GameStatus.RUNNING);
+        selectPlayerOrdering();
+    }
+
     /**
      * Create the order of the players
      */

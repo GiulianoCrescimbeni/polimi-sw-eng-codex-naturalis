@@ -171,27 +171,6 @@ public class GameTableTest extends TestCase {
     }
 
     @Test
-    public void testCodexBuild() {
-        Player p1 = new Player("1", null);
-        Player p2 = new Player("2", null);
-        Player p3 = new Player("3", null);
-
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-
-        toTest.setGameModel(gameModel);
-        toTest.codexBuild();
-
-        for (Player p : gameModel.getPlayers()) {
-            assertTrue(codexMap.containsKey(p));
-            assertNotNull(codexMap.get(p));
-            assertTrue(codexMap.get(p) instanceof Codex);
-        }
-
-    }
-
-    @Test
     public void testPlayerHandBuild() {
         Player p1 = new Player("1", new PlayerHand(new ArrayList<Card>()));
 
@@ -207,11 +186,11 @@ public class GameTableTest extends TestCase {
         cardDeck.addCard(c2);
         goldCardDeck.addCard(c3);
 
-        toTest.playerHandBuild();
+        toTest.playerHandBuild(p1);
 
         assertEquals(3, p1.getPlayerHand().getCards().size());
         assertEquals(c2, p1.getPlayerHand().getCards().get(0));
-        assertEquals(c1, p1.getPlayerHand().getCards().get(1)); //NOTE L'ordine delle carte è c2, c1, c3 perchè utilizziamo Stack
+        assertEquals(c1, p1.getPlayerHand().getCards().get(1));
         assertEquals(c3, p1.getPlayerHand().getCards().get(2));
     }
 
@@ -262,15 +241,13 @@ public class GameTableTest extends TestCase {
     @Test
     public void testPickInitialCard() {
         Player p1 = new Player("1", new PlayerHand(new ArrayList<Card>()));
-        Codex cx = new Codex(new HashMap<Coordinate, Card>());
-
-        codexMap.put(p1, cx);
 
         InitialCard ic = new InitialCard(3, null, CardType.ANIMAL, false, 10, false, false, null);
         initialCardDeck.addCard(ic);
+        toTest.pickInitialCard(p1);
 
-        toTest.pickInitialCard();
-
+        Codex cx = codexMap.get(p1);
+        assertNotNull(cx);
         assertEquals(ic, cx.getCard(new Coordinate(80, 80)));
     }
 
@@ -288,7 +265,7 @@ public class GameTableTest extends TestCase {
         goalsDeck.addGoal(g1);
         goalsDeck.addGoal(g2);
 
-        toTest.extractPersonalGoal();
+        toTest.extractPersonalGoal(p1);
 
         assertEquals(2, codexMap.get(p1).getGoalsToPick().size());
         assertEquals(g2, codexMap.get(p1).getGoalsToPick().get(0));

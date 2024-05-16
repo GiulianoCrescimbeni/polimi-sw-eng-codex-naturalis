@@ -1,11 +1,14 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.GameTableInterface;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Game;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class GameTable implements GameTableInterface {
@@ -19,8 +22,6 @@ public class GameTable implements GameTableInterface {
     private ArrayList<Card> goldCardToPick;
     private ArrayList<Goal> commonGoals;
     private Player currentPlayer;
-
-    //TODO Riferimento al Game Controller per le funzioni. Da sostituire quando scrieremo il game controller manager.
     private Game gameModel;
 
     /**
@@ -146,7 +147,7 @@ public class GameTable implements GameTableInterface {
      * Take the card on the top of the gold deck and add it to the player hand
      */
     public void pickGoldCardFromDeck(){
-       Card picked = goldCardDeck.pickCard();
+        Card picked = goldCardDeck.pickCard();
         currentPlayer.getPlayerHand().addCard(picked);
     }
 
@@ -154,24 +155,24 @@ public class GameTable implements GameTableInterface {
      * For each player, create an empty codex
      */
     public void codexBuild() {
-        for(Player p : gameModel.getPlayers()) {
-            Codex c = new Codex();
-            codexMap.put(p, c);
-        }
+        this.codexMap = new HashMap<>();
     }
 
-    public void playerHandBuild() {
-        for(Player p : gameModel.getPlayers()) {
-            p.getPlayerHand().addCard(cardDeck.pickCard());
-            p.getPlayerHand().addCard(cardDeck.pickCard());
-            p.getPlayerHand().addCard(goldCardDeck.pickCard());
-        }
+    /**
+     * Create the player hand
+     */
+    public void playerHandBuild(Player player) {
+        player.getPlayerHand().addCard(cardDeck.pickCard());
+        player.getPlayerHand().addCard(cardDeck.pickCard());
+        player.getPlayerHand().addCard(goldCardDeck.pickCard());
     }
 
     /**
      * Function to build the ground
      */
     public void groundBuild() {
+        cardToPick = new ArrayList<>();
+        goldCardToPick = new ArrayList<>();
         this.cardToPick.add(cardDeck.pickCard());
         this.cardToPick.add(cardDeck.pickCard());
         this.goldCardToPick.add(goldCardDeck.pickCard());
@@ -182,58 +183,72 @@ public class GameTable implements GameTableInterface {
      * Function to create the initial card deck
      */
     public void initialCardDeckBuild() {
-        //this.initialCardDeck.deckBuild();
+        this.initialCardDeck = new Deck();
+        this.initialCardDeck.buildInitialCardsDeck();
+        this.initialCardDeck.deckShuffle();
     }
 
     /**
      * Function to create the goals deck
      */
     public void goalsDeckBuild() {
-        //this.goalsDeck.deckBuild();
+        this.goalsDeck = new GoalsDeck();
+        this.goalsDeck.buildDeck();
+        this.goalsDeck.goalsShuffle();
     }
 
     /**
      * Function to create the card deck
      */
     public void cardDeckBuild() {
-        //this.cardDeck.deckBuild();
+        this.cardDeck = new Deck();
+        this.cardDeck.buildDeck();
+        this.cardDeck.deckShuffle();
     }
 
     /**
      * Function to create the gold card deck
      */
     public void goldCardDeckBuild() {
-        //this.goldCardDeck.deckBuild();
+        this.goldCardDeck = new Deck();
+        this.goldCardDeck.buildGoldCardsDeck();
+        this.goldCardDeck.deckShuffle();
     }
 
     /**
      * Set the initial card for each player in the game
      */
-    public void pickInitialCard() {
-        for (Player p : codexMap.keySet()) {
-            InitialCard toAdd = (InitialCard) initialCardDeck.pickCard();
-            Codex codex = codexMap.get(p);
-            codex.setInitialCard(toAdd);
-        }
+    public void pickInitialCard(Player player) {
+        InitialCard toAdd = (InitialCard) initialCardDeck.pickCard();
+        Codex codex = new Codex();
+        Map<Resource, Integer> resourcesMap = new HashMap<>();
+        Map<Coordinate, Card> cardsMap = new HashMap<>();
+        Coordinate coordinate = new Coordinate(80, 80);
+
+        codex.setNumOfResources(resourcesMap);
+        codex.setCards(cardsMap);
+        codex.getCards().put(coordinate, toAdd);
+        this.codexMap.put(player, codex);
     }
 
     /**
      * Extract personal goals for each player
      */
-    public void extractPersonalGoal() {
-        for (Player p : codexMap.keySet()) {
-            ArrayList<Goal> goalsToPick = new ArrayList<Goal>();
-            goalsToPick.add(this.goalsDeck.getGoal());
-            goalsToPick.add(this.goalsDeck.getGoal());
-            codexMap.get(p).setGoalsToPick(goalsToPick);
-        }
+    public void extractPersonalGoal(Player p) {
+        ArrayList<Goal> goalsToPick = new ArrayList<Goal>();
+        goalsToPick.add(this.goalsDeck.getGoal());
+        goalsToPick.add(this.goalsDeck.getGoal());
+        codexMap.get(p).setGoalsToPick(goalsToPick);
     }
 
     /**
      * Take randomly the two common goals for all the players
      */
     public void commonGoalsExtraction(){
-        for(int i=0; i<2; i++) {  this.commonGoals.add(goalsDeck.getGoal());   }
+        this.commonGoals = new ArrayList<>();
+        for(int i=0; i<2; i++) {
+            this.commonGoals.add(goalsDeck.getGoal());
+        }
     }
 
 }

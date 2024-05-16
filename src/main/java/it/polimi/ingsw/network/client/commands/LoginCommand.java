@@ -2,6 +2,9 @@ package it.polimi.ingsw.network.client.commands;
 
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.Enumerations.Color;
+import it.polimi.ingsw.model.Player.Player;
+import it.polimi.ingsw.network.server.GamesManager;
+import it.polimi.ingsw.network.server.updates.LoginUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
 
 import java.io.Serializable;
@@ -30,6 +33,10 @@ public class LoginCommand extends Command implements Serializable {
      */
     @Override
     public Update execute(Controller gameController) {
-        return gameController.addPlayer(getNickname(), chosen);
+        Update update = gameController.addPlayer(getNickname(), chosen);
+        if(gameController.getPlayers().size() == gameController.getModel().getMaxPlayers()) {
+            gameController.getModel().startGame();
+        }
+        return update;
     }
 }

@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.server.updates;
 
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.network.client.ClientController;
-import it.polimi.ingsw.network.server.handler.ClientHandler;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,11 +22,10 @@ public class AvailableColorsUpdate extends Update implements Serializable {
 
     /**
      * Execute the Update on the client showing available colors to choose from
-     * @param clientController
      */
     @Override
-    public void execute(ClientController clientController) {
-        clientController.updateAvailableColors(availableColors);
+    public void execute() {
+        ClientController.getInstance().updateAvailableColors(availableColors);
     }
 
 }

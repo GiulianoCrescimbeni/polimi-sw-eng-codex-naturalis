@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Enumerations.GameStatus;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameComponents.Codex;
+import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
@@ -49,6 +50,9 @@ public class Controller {
         return model.getAvailableColors();
     }
 
+    /**
+     * @return the update of available colors
+     */
     public AvailableColorsUpdate getAvailableColorsUpdate() {
         return new AvailableColorsUpdate(model.getAvailableColors());
     }
@@ -62,6 +66,35 @@ public class Controller {
     }
 
     /**
+     * @return players of the game
+     */
+    public ArrayList<Player> getPlayers() {
+        return this.model.getPlayers();
+    }
+
+    /**
+     * @return the max number of players that can play in the game
+     */
+    public int getMaxPlayers() {
+        return this.model.getMaxPlayers();
+    }
+
+    /**
+     * @param maxPlayers the number of max player that can play in the game
+     * @return an update with the maximum number of players
+     */
+    public void selectMaxPlayers(int maxPlayers) {
+        model.setMaxPlayers(maxPlayers);
+    }
+
+    /**
+     * @return the current player of the game
+     */
+    public Player getCurrentPlayer() {
+        return model.getGameTable().getCurrentPlayer();
+    }
+
+    /**
      * Add a new player to the game
      */
     public Update addPlayer(String nickname, Color color) {
@@ -72,19 +105,16 @@ public class Controller {
             LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getErrorMessage("Color already in use, pick a new one"), false);
             return loginUpdate;
         } else {
-            ArrayList<Card> cards = new ArrayList<>();
-            PlayerHand ph = new PlayerHand(cards);
-            Player p = new Player(nickname, ph);
-            model.removeAvailableColor(color);
-            p.setColor(color);
-            model.addPlayer(p);
+            model.addPlayer(nickname, color);
             System.out.println(TextColor.BRIGHT_BLUE + "[LOGIN]" + TextColor.RESET + " Player \"\u001B[35m" + nickname + "\u001B[0m\", with color:\"" + color.toString() + "\" added to game: \u001B[94m" + model.getGameId() + "\u001B[0m");
 
             if (model.getPlayers().size() == 1) {
-                SelectPlayerNumberUpdate selectUpdate = new SelectPlayerNumberUpdate(null);
+                SelectPlayerNumberUpdate selectUpdate = new SelectPlayerNumberUpdate();
                 return selectUpdate;
             } else {
-                LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getInfoMessage("Logged in, waiting for player to start"), true);
+                LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getInfoMessage("Logged in, extract your personal goal"), true);
+                loginUpdate.setNickname(nickname);
+                loginUpdate.setPersonalGoalsToPick(model.getGameTable().getCodex(model.getPlayerByNickname(nickname)).getGoalsToPick());
                 return loginUpdate;
             }
 
@@ -92,9 +122,17 @@ public class Controller {
     }
 
     /**
+     * Pick the personal goal for the player
+     * @param goal the personal goal choosen
+     */
+    public void pickPersonalGoal(String nickname, Goal goal) {
+        this.getModel().getTable().getCodex(getModel().getPlayerByNickname(nickname)).pickPersonalGoal(goal);
+    }
+
+    /**
      * The current player play the turn and then pick a card from the ground
      */
-    public void playWithPickFromGround(Coordinate coordinate, Card cardPlayed, Card cardPicked) {
+    public void playWithPickFromGround(Coordinate coordinate, Card cardPlayed, Card cardPicked) throws IllegalCoordinatesException, IllegalCardPlacementException {
         Player currentPlayer = model.getTable().getCurrentPlayer();
         ArrayList<Player> players = model.getPlayers();
         if(model.getGameStatus() == GameStatus.RUNNING) {
@@ -111,8 +149,10 @@ public class Controller {
             } else if(cardPlayed.getClass() == GoldCard.class) {
                 model.getGameTable().getCodex(currentPlayer).placeGoldCard(coordinate, (GoldCard) cardPlayed);
             }
-        } catch (IllegalCoordinatesException | IllegalCardPlacementException e) {
-            throw new RuntimeException(e);
+        } catch (IllegalCoordinatesException e) {
+            throw new IllegalCoordinatesException(e.getMessage());
+        } catch (IllegalCardPlacementException e) {
+            throw new IllegalCardPlacementException(e.getMessage());
         }
         model.getGameTable().pickCardFromGround(cardPicked);
 
@@ -125,7 +165,7 @@ public class Controller {
     /**
      * The current player play the turn and then pick a card from the top of the deck
      */
-    public void playWithPickFromDeck(Coordinate coordinate, Card cardPlayed, int deckIndex) {
+    public void playWithPickFromDeck(Coordinate coordinate, Card cardPlayed, int deckIndex) throws IllegalCoordinatesException, IllegalCardPlacementException {
         Player currentPlayer = model.getTable().getCurrentPlayer();
         ArrayList<Player> players = model.getPlayers();
         if(model.getGameStatus() == GameStatus.RUNNING) {
@@ -142,8 +182,10 @@ public class Controller {
             } else if(cardPlayed.getClass() == GoldCard.class) {
                 model.getGameTable().getCodex(currentPlayer).placeGoldCard(coordinate, (GoldCard) cardPlayed);
             }
-        } catch (IllegalCoordinatesException | IllegalCardPlacementException e) {
-            throw new RuntimeException(e);
+        } catch (IllegalCoordinatesException e) {
+            throw new IllegalCoordinatesException(e.getMessage());
+        } catch (IllegalCardPlacementException e) {
+            throw new IllegalCardPlacementException(e.getMessage());
         }
         if(deckIndex == 0) {
             model.getGameTable().pickCardFromDeck();
@@ -187,12 +229,6 @@ public class Controller {
 
         this.model.setWinner(winningPlayer);
         this.model.setGameStatus(GameStatus.ENDED);
-    }
-
-    public Update selectMaxPlayers(int maxPlayers) {
-        model.setMaxPlayers(maxPlayers);
-        SelectPlayerNumberUpdate update = new SelectPlayerNumberUpdate(maxPlayers);
-        return update;
     }
 
 }

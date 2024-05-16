@@ -2,12 +2,17 @@ package it.polimi.ingsw.model.Goals;
 
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Resource;
+import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Codex;
+import it.polimi.ingsw.view.TUI.TextColor;
+import it.polimi.ingsw.view.TUI.View;
+
+import java.io.Serializable;
 
 /**
  * Class that represents the equals resource goal
  */
-public class ResourcesGoal extends Goal {
+public class ResourcesGoal extends Goal implements Serializable {
 
     public ResourcesGoal(Resource objectType, CardType cardType, int score, int goalId) {
         super(objectType, cardType, score, goalId);
@@ -25,8 +30,84 @@ public class ResourcesGoal extends Goal {
             case ANIMAL:    return codex.getNumOfResources(Resource.ANIMAL) / 3;
             case FUNGI:     return codex.getNumOfResources(Resource.FUNGI) / 3;
             case INSECT:    return codex.getNumOfResources(Resource.INSECT) / 3;
-            //TODO Gestire eccezione
             default: return 0;
+        }
+    }
+
+    @Override
+    public void draw() {
+        if(this.getCardType().equals(CardType.FUNGI)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐ \n" +
+                            "   │                                             │ \n" +
+                            "   │                                             │ \n" +
+                            "   │                                             │ \n" +
+                            "   │                                             │ \n" +
+                            "   │      .-\"\"\"-.      .-\"\"\"-.      .-\"\"\"-.      │ \n" +
+                            "   │     /* * * *\\    /* * * *\\    /* * * *\\     │ \n" +
+                            "   │    :_.-:`:-._;  :_.-:`:-._;  :_.-:`:-._;    │ \n" +
+                            "   │        (_)          (_)          (_)        │ \n" +
+                            "   │        (_)          (_)          (_)        │ \n" +
+                            "   │                                             │ \n" +
+                            "   │                                             │ \n" +
+                            "   │                                             │ \n" +
+                            "   │                                             │ \n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        } else if(this.getCardType().equals(CardType.PLANT)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType())+
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │         |            |            |         │\n" +
+                            "   │       .'|'.        .'|'.        .'|'.       │\n" +
+                            "   │      /.'|\\ \\      /.'|\\ \\      /.'|\\ \\      │\n" +
+                            "   │      | /|'.|      | /|'.|      | /|'.|      │\n" +
+                            "   │       \\ |\\/        \\ |\\/        \\ |\\/       │\n" +
+                            "   │        \\|/          \\|/          \\|/        │\n" +
+                            "   │         `            `            `         │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        } else if(this.getCardType().equals(CardType.ANIMAL)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType())+
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │      |\\__/|       |\\__/|       |\\__/|       │\n" +
+                            "   │      /     \\      /     \\      /     \\      │\n" +
+                            "   │     /_.~ ~,_\\    /_.~ ~,_\\    /_.~ ~,_\\     │\n" +
+                            "   │        \\@/          \\@/          \\@/        │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        } else if(this.getCardType().equals(CardType.INSECT)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │       ,   ,        ,   ,        ,   ,       │\n" +
+                            "   │      { \\w/ }      { \\w/ }      { \\w/ }      │\n" +
+                            "   │       `>!<`        `>!<`        `>!<`       │\n" +
+                            "   │       (/^\\)        (/^\\)        (/^\\)       │\n" +
+                            "   │       '   '        '   '        '   '       │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
         }
     }
 }

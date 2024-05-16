@@ -14,7 +14,7 @@ public interface GameInterface {
     public GameStatus getGameStatus();
     public Player getWinner();
     public GameTable getGameTable();
-    public void addPlayer(Player player);
+    public void addPlayer(String nickname, Color color);
     public void removeAvailableColor(Color color);
     public void setGameStatus(GameStatus status);
     public void setWinner(Player player);

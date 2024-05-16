@@ -62,6 +62,13 @@ public class Codex implements CodexInterface {
      */
     public Map<Coordinate, Card> getCards() { return this.cards; }
 
+    /**
+     * @param cards the map of cards
+     */
+    public void setCards(Map<Coordinate, Card> cards) {
+        this.cards = cards;
+    }
+
 
     /**
      * Get the card in a specified coordinate
@@ -81,6 +88,21 @@ public class Codex implements CodexInterface {
      * @param score the new score for the codex
      */
     public void incrementScore(int score) { this.score = this.score + score; }
+
+    /**
+     * @return the map of resources
+     */
+    public Map<Resource, Integer> getNumOfResources() {
+        return numOfResources;
+    }
+
+    /**
+     * @param numOfResources the map or resources
+     */
+    public void setNumOfResources(Map<Resource, Integer> numOfResources) {
+        this.numOfResources = numOfResources;
+    }
+
 
     /**
      * Increase the number of resources

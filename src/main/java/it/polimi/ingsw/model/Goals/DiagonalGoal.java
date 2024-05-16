@@ -6,11 +6,15 @@ import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Codex;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.view.TUI.TextColor;
+import it.polimi.ingsw.view.TUI.View;
+
+import java.io.Serializable;
 
 /**
  * Class that represent the diagonal shaped goal card
  */
-public class DiagonalGoal extends Goal {
+public class DiagonalGoal extends Goal implements Serializable {
 
     public DiagonalGoal(Resource objectType, CardType cardType, int score, int goalId) {
         super(objectType, cardType, score, goalId);
@@ -138,5 +142,45 @@ public class DiagonalGoal extends Goal {
             default: return (0);
         }
         return numOfCompletition;
+    }
+    @Override
+    public void draw() {
+        if(this.getCardType().equals(CardType.FUNGI) || this.getCardType().equals(CardType.ANIMAL)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                         ┌───────────┐       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                         │           │       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                ┌────────┼──┐        │       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                │        │  │        │       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       ┌────────┼──┐     └──┼────────┘       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       │        │  │        │                "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       │        └──┼────────┘                "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       │           │                         "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       └───────────┘                         "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        } else if(this.getCardType().equals(CardType.INSECT) || this.getCardType().equals(CardType.PLANT)) {
+            System.out.println(View.getInstance().getCardTypeColor(getCardType()) +
+                            " ┌─────────────────────────────────────────────┐\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       ┌───────────┐                         "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       │           │                         "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       │        ┌──┼────────┐                "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       │        │  │        │                "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"       └────────┼──┘     ┌──┼────────┐       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                │        │  │        │       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                └────────┼──┘        │       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                         │           │       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │"+ View.getInstance().getCardTypeColor(getCardType()) +"                         └───────────┘       "+ View.getInstance().getCardTypeColor(getCardType()) +"│\n" +
+                            "   │                                             │\n" +
+                            "   │                                             │\n" +
+                            "   └─────────────────────────────────────────────┘" + TextColor.RESET
+            );
+        }
     }
 }
