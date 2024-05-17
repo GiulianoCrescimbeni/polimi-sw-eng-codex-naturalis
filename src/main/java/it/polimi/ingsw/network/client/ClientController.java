@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.network.client.commands.LoginCommand;
 import it.polimi.ingsw.network.client.commands.SelectPersonalGoalCommand;
-import it.polimi.ingsw.network.client.commands.SelectPlayerNumberCommand;
 import it.polimi.ingsw.view.TUI.View;
 
 import java.util.ArrayList;
@@ -64,15 +63,6 @@ public class ClientController {
         LoginCommand lgcmd = new LoginCommand(username, color);
         try {
             ClientSR.getInstance().sendCommand(lgcmd);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendMaxPlayers(int maxPlayers) {
-        SelectPlayerNumberCommand cmd = new SelectPlayerNumberCommand(getUsername(), maxPlayers);
-        try {
-            ClientSR.getInstance().sendCommand(cmd);
         } catch (Exception e) {
             e.printStackTrace();
         }
