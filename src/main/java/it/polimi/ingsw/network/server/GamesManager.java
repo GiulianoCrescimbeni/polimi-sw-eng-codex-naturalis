@@ -11,7 +11,6 @@ import it.polimi.ingsw.network.server.updates.AvailableMatchesUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
 import it.polimi.ingsw.view.TUI.Messages;
 import it.polimi.ingsw.view.TUI.TextColor;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.*;

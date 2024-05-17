@@ -78,24 +78,6 @@ public class View {
         s.nextLine();
     }
 
-    public void selectPlayersNumber() {
-
-        int maxPlayers = 0;
-
-        while (maxPlayers < 2 || maxPlayers > 4) {
-            Messages.getInstance().input("Select the maximum number of players that can join the game (from " + TextColor.BRIGHT_YELLOW + "2" + TextColor.RESET + " to " + TextColor.BRIGHT_YELLOW + "4" + TextColor.RESET + "): ");
-            maxPlayers = s.nextInt();
-
-            if (maxPlayers < 2 || maxPlayers > 4) {
-                Messages.getInstance().error("The inserted number must be between " + TextColor.BRIGHT_RED + "2" + TextColor.RESET + " and " + TextColor.BRIGHT_RED + "4" + TextColor.RESET);
-            }
-
-        }
-
-        ClientController.getInstance().sendMaxPlayers(maxPlayers);
-        s.nextLine();
-    }
-
     public void selectPersonalGoal() {
         System.out.print("1)");
         ClientController.getInstance().getGoalsToPick().get(0).draw();
