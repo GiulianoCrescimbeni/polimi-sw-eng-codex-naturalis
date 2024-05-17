@@ -41,7 +41,7 @@ public class ServerApp extends Thread {
             while (!this.isInterrupted()) {
                 socHandlers.add(new SocketClientHandler(socketServer.accept()));
                 socHandlers.get(socHandlers.size() - 1).start();
-                manager.addConnection(socHandlers.get(socHandlers.size() - 1));
+                manager.addConnectionToWaitingList(socHandlers.get(socHandlers.size() - 1));
             }
         } catch (Exception e) {
             e.printStackTrace();

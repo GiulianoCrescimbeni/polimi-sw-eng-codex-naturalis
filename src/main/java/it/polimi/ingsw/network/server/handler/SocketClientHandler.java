@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.server.handler;
 
 import it.polimi.ingsw.network.client.commands.Command;
+import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
+import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 import it.polimi.ingsw.network.client.commands.LoginCommand;
 import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.updates.Update;
@@ -65,7 +67,15 @@ public class SocketClientHandler extends Thread implements ClientHandler {
             while(!this.isInterrupted()) {
                 Command c = (Command) in.readObject();
                 //System.out.println("[SOCKET HANDLER] Received Command, type: " + c.getClass().toString());
-                GamesManager.getInstance().handleCommand(this, c);
+
+                if (c instanceof CreateMatchCommand) {
+                    GamesManager.getInstance().createMatch(this, (CreateMatchCommand) c);
+                } else if (c instanceof JoinMatchCommand) {
+                    GamesManager.getInstance().joinMatch(this, (JoinMatchCommand) c);
+                } else {
+                    GamesManager.getInstance().handleCommand(this, c);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();

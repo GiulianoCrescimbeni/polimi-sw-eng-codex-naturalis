@@ -73,7 +73,7 @@ public class PlaceCardWithPickFromGroundCommand extends Command implements Seria
             update.setPlacedCorrectly(true);
             update.setCard(getCardPlaced());
             update.setCoordinate(getCoordinate());
-            GamesManager.getInstance().broadcast(gameController.getModel().getGameId(), update);
+            GamesManager.getInstance().broadcast(gameController.getModel().getGameID(), update);
             CardPickedUpdate cardPickedUpdate = new CardPickedUpdate();
             cardPickedUpdate.setCardPicked(getCardPicked());
             return cardPickedUpdate;

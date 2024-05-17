@@ -159,17 +159,20 @@ public class Game implements GameInterface {
     }
 
     /**
-     * return the ID of the game
-     */
-    public int getGameId() {
-        return gameID;
-    }
-
-    /**
      * @return return the max player of the game
      */
     public int getMaxPlayers() {
         return this.maxPlayers;
+    }
+
+    /**
+     *
+     * @return true if the game is full
+     */
+    public boolean isFull() {
+        if (this.players.size() == this.maxPlayers) {
+            return true;
+        } else return false;
     }
 
     /**

@@ -1,12 +1,19 @@
 package it.polimi.ingsw.view.TUI;
 
+import it.polimi.ingsw.model.Data.SerializedGame;
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Enumerations.Resource;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameComponents.*;
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.network.client.ClientSR;
+import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
+import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -104,6 +111,66 @@ public class View {
             ClientController.getInstance().selectPersonalGoal(ClientController.getInstance().getGoalsToPick().get(0));
         } else if(optionChoosen == 2) {
             ClientController.getInstance().selectPersonalGoal(ClientController.getInstance().getGoalsToPick().get(1));
+        }
+
+    }
+
+    public void joinOrCreateMatch(ArrayList<SerializedGame> availableMatches) {
+
+        if (availableMatches.isEmpty()) {
+            createMatch();
+            return;
+        }
+
+        Messages.getInstance().input("Do you want to join or create a match? \nJoin: 1\nCreate: 2\n");
+        int input = getOptionsInput(2);
+
+        if (input == 1) {
+            selectAvailableMatch(availableMatches, null);
+        } else {
+            createMatch();
+        }
+
+    }
+
+    public void createMatch() {
+        int maxPlayers = 0;
+
+        while (maxPlayers < 2 || maxPlayers > 4) {
+            Messages.getInstance().input("Select the maximum number of players that can join the game (from " + TextColor.BRIGHT_YELLOW + "2" + TextColor.RESET + " to " + TextColor.BRIGHT_YELLOW + "4" + TextColor.RESET + "): ");
+            maxPlayers = s.nextInt();
+
+            if (maxPlayers < 2 || maxPlayers > 4) {
+                Messages.getInstance().error("The inserted number must be between " + TextColor.BRIGHT_RED + "2" + TextColor.RESET + " and " + TextColor.BRIGHT_RED + "4" + TextColor.RESET);
+            }
+
+        }
+
+        s.nextLine();
+
+        CreateMatchCommand cmd = new CreateMatchCommand(maxPlayers);
+        try {
+            ClientSR.getInstance().sendCommand(cmd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
+        if (error != null) System.out.println(error);
+        Messages.getInstance().info("Here's a list of the available matches: ");
+        for (int i = 0; i < availableMatches.size(); i++) {
+            SerializedGame g = availableMatches.get(i);
+            System.out.println((i+1) + ": " + TextColor.BRIGHT_BLUE + g.getGameID() + TextColor.RESET + " (" + TextColor.BRIGHT_YELLOW + g.getCurrentPlayers() + TextColor.RESET + "/" + TextColor.BRIGHT_YELLOW + g.getMaxPlayers() + TextColor.RESET + ")");
+        }
+        int match = getOptionsInput(availableMatches.size()) - 1;
+        JoinMatchCommand cmd = new JoinMatchCommand(availableMatches.get(match).getGameID());
+
+        try {
+            ClientSR.getInstance().sendCommand(cmd);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

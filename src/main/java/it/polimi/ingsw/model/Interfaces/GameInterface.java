@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface GameInterface {
 
-    public int getGameId();
+    public int getGameID();
     public ArrayList<Player> getPlayers();
     public GameStatus getGameStatus();
     public Player getWinner();

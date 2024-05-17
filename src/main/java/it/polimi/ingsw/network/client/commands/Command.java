@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.client.commands;
 
 import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.network.server.updates.LoginUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
 
 import java.io.Serializable;

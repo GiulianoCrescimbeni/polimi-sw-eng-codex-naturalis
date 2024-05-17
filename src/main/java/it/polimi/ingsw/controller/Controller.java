@@ -106,17 +106,13 @@ public class Controller {
             return loginUpdate;
         } else {
             model.addPlayer(nickname, color);
-            System.out.println(TextColor.BRIGHT_BLUE + "[LOGIN]" + TextColor.RESET + " Player \"\u001B[35m" + nickname + "\u001B[0m\", with color:\"" + color.toString() + "\" added to game: \u001B[94m" + model.getGameId() + "\u001B[0m");
+            System.out.println(TextColor.BRIGHT_BLUE + "[LOGIN]" + TextColor.RESET + " Player \"\u001B[35m" + nickname + "\u001B[0m\", with color:\"" + color.toString() + "\" added to game: " + TextColor.BLUE + model.getGameID() + "\u001B[0m");
 
-            if (model.getPlayers().size() == 1) {
-                SelectPlayerNumberUpdate selectUpdate = new SelectPlayerNumberUpdate();
-                return selectUpdate;
-            } else {
-                LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getInfoMessage("Logged in, extract your personal goal"), true);
-                loginUpdate.setNickname(nickname);
-                loginUpdate.setPersonalGoalsToPick(model.getGameTable().getCodex(model.getPlayerByNickname(nickname)).getGoalsToPick());
-                return loginUpdate;
-            }
+            LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getInfoMessage("Logged in, extract your personal goal"), true);
+            loginUpdate.setNickname(nickname);
+            loginUpdate.setPersonalGoalsToPick(model.getGameTable().getCodex(model.getPlayerByNickname(nickname)).getGoalsToPick());
+            return loginUpdate;
+
 
         }
     }

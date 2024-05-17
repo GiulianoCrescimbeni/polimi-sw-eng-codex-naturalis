@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.GameTableInterface;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Game;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.HashMap;
