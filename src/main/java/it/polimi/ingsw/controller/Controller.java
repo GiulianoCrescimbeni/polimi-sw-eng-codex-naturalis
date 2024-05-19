@@ -97,11 +97,9 @@ public class Controller {
      */
     public Update addPlayer(String nickname, Color color) {
         if(model.getPlayerByNickname(nickname) != null) {
-            LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getErrorMessage("Nickname already in use, pick a new one"), false);
-            return loginUpdate;
+            return new LoginUpdate(Messages.getInstance().getErrorMessage("Nickname already in use, pick a new one"), false);
         } else if(!model.getAvailableColors().contains(color)) {
-            LoginUpdate loginUpdate = new LoginUpdate(Messages.getInstance().getErrorMessage("Color already in use, pick a new one"), false);
-            return loginUpdate;
+            return new LoginUpdate(Messages.getInstance().getErrorMessage("Color already in use, pick a new one"), false);
         } else {
             model.addPlayer(nickname, color);
             System.out.println(TextColor.BRIGHT_BLUE + "[LOGIN]" + TextColor.RESET + " Player \"\u001B[35m" + nickname + "\u001B[0m\", with color:\"" + color.toString() + "\" added to game: " + TextColor.BLUE + model.getGameID() + "\u001B[0m");
@@ -121,6 +119,20 @@ public class Controller {
      */
     public void pickPersonalGoal(String nickname, Goal goal) {
         this.getModel().getTable().getCodex(getModel().getPlayerByNickname(nickname)).pickPersonalGoal(goal);
+    }
+
+    /**
+     * Set the player to ready
+     */
+    public void playerReady() {
+        this.getModel().incrementPlayersReady();
+    }
+
+    /**
+     * @return the number of ready player
+     */
+    public int getReadyPlayer() {
+        return this.getModel().getPlayersReady();
     }
 
     /**

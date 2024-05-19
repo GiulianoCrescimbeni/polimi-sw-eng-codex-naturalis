@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.updates;
 
+import it.polimi.ingsw.model.Enumerations.GameStatus;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.TUI.Messages;
@@ -28,6 +29,8 @@ public class PersonalGoalUpdate extends Update implements Serializable {
     @Override
     public void execute() {
         ClientController.getInstance().setPersonalGoal(this.personalGoal);
-        Messages.getInstance().info("Personal goal choosen, waiting for other players!");
+        if(ClientController.getInstance().getGameStatus() != GameStatus.RUNNING) {
+            Messages.getInstance().info("Personal goal choosen, waiting for other players!");
+        }
     }
 }

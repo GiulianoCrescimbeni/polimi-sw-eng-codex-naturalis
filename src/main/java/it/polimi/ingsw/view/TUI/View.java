@@ -5,14 +5,14 @@ import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Enumerations.Resource;
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameComponents.*;
+import it.polimi.ingsw.model.Player.Player;
+import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.ClientSR;
 import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -48,19 +48,13 @@ public class View {
         );
     }
 
-    public void showColors() {
-        Messages.getInstance().info("Here's a list of the available colors: ");
-        for(int i = 0; i < ClientController.getInstance().getAvailableColors().size(); i++) {
-            System.out.println(i + ": " + ClientController.getInstance().getAvailableColors().get(i).toString());
-        }
-        pickUsernameAndColor();
-    }
-
     public void pickUsernameAndColor() {
 
         Messages.getInstance().input("Insert your username: ");
 
         String username = s.nextLine();
+
+        showColors();
 
         if (ClientController.getInstance().getAvailableColors().size() > 1) {
             Messages.getInstance().input("Insert the number representing the color you would like to choose: ");
@@ -76,6 +70,13 @@ public class View {
         }
 
         s.nextLine();
+    }
+
+    public void showColors() {
+        Messages.getInstance().info("Here's a list of the available colors: ");
+        for(int i = 0; i < ClientController.getInstance().getAvailableColors().size(); i++) {
+            System.out.println(i + ": " + ClientController.getInstance().getAvailableColors().get(i).toString());
+        }
     }
 
     public void selectPersonalGoal() {
@@ -157,8 +158,211 @@ public class View {
 
     }
 
+    public void menu() {
+        clear();
+
+        System.out.println("Current Player: " + printPlayer(ClientController.getInstance().getCurrentPlayer()));
+        if(isMyTurn()) {
+            System.out.println("1) Play a card");
+            System.out.println("2) Inspect Codex");
+            System.out.println("3) Inspect Hand");
+            System.out.println("4) Inspect Ground");
+            System.out.println("5) View Goals");
+            System.out.println("6) View Scores");
+            System.out.println("7) Chat");
+            int option = getOptionsInput(7);
+            switch (option) {
+                case 1: playCard();
+                case 2: inspectCodex();
+                case 3: inspectHand();
+                case 4: inspectGround();
+                case 5: viewGoals();
+                case 6: viewScores();
+                case 7: chat();
+            }
+        } else {
+            System.out.println("1) Inspect Codex");
+            System.out.println("2) Inspect Hand");
+            System.out.println("3) Inspect Ground");
+            System.out.println("4) View Goals");
+            System.out.println("5) View Scores");
+            System.out.println("6) Chat");
+            int option = getOptionsInput(6);
+            switch (option) {
+                case 1: inspectCodex();
+                case 2: inspectHand();
+                case 3: inspectGround();
+                case 4: viewGoals();
+                case 5: viewScores();
+                case 6: chat();
+            }
+        }
+
+    }
+
+    public void playCard() {
+        clear();
+        System.out.println("Which card you want to play?");
+        PlayerHand playerHand = ClientController.getInstance().getPlayerHand();
+        int possibleOption = 1;
+        for(Card c : playerHand.getCards()) {
+            String cardString = "";
+            if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
+                cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
+            } else {
+                cardString = getCardColor(c) + "Card" + TextColor.RESET;
+            }
+            System.out.println(possibleOption + ") " + cardString);
+            possibleOption++;
+        }
+        System.out.println(possibleOption + ") Back to the menu");
+        int option = getOptionsInput(possibleOption);
+        if(option == possibleOption) {
+            menu();
+            return;
+        }
+
+        Card card = playerHand.getCards().get(option - 1);
+        System.out.print("Currently playing the card on the ");
+        if(!card.isTurned()) {
+            System.out.print(TextColor.BRIGHT_BLACK + "Front\n" + TextColor.RESET);
+        } else {
+            System.out.print(TextColor.BRIGHT_BLACK + "Back\n" + TextColor.RESET);
+        }
+        System.out.println("Do you want to turn it?");
+        System.out.println("1) Yes");
+        System.out.println("2) No");
+        option = getOptionsInput(2);
+        if(option == 1) {
+            card.turn();
+        }
+        Coordinate coordinates = getCoordinates();
+        System.out.println("Where do you want to pick a new card?");
+        System.out.println("1) Ground");
+        System.out.println("2) Resource Deck");
+        System.out.println("3) Gold Deck");
+    }
+
+    public void inspectCodex() {
+        clear();
+        System.out.println("Which codex you want to inspect?");
+        int possibleOption = 1;
+        for(Player player : ClientController.getInstance().getPlayers()) {
+            System.out.println(possibleOption + ") " + printPlayer(player));
+            possibleOption++;
+        }
+        System.out.println(possibleOption + ") Back to the menu");
+        int option = getOptionsInput(possibleOption);
+        if(option == possibleOption) {
+            menu();
+        } else {
+            printCodex(ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayers().get(option - 1)));
+        }
+    }
+
+    public void inspectHand() {
+        clear();
+        PlayerHand playerHand = ClientController.getInstance().getPlayerHand();
+        System.out.println("Which card you want to inspect?");
+        int possibleOption = 1;
+        for(Card c : playerHand.getCards()) {
+            String cardString = "";
+            if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
+                cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
+            } else {
+                cardString = getCardColor(c) + "Card" + TextColor.RESET;
+            }
+            System.out.println(possibleOption + ") " + cardString);
+            possibleOption++;
+        }
+        System.out.println(possibleOption + ") Back to the menu");
+        int option = getOptionsInput(possibleOption);
+        if(option == possibleOption) {
+            menu();
+        } else {
+            clear();
+            printCardCoverage(playerHand.getCards().get(option - 1));
+            printCardStatistics(playerHand.getCards().get(option - 1));
+            System.out.println("1) Back to hand");
+            System.out.println("2) Back to menu");
+            option = getOptionsInput(2);
+            if(option == 1) {
+                inspectHand();
+            } else if(option == 2) {
+                 menu();
+            }
+        }
+
+    }
+
+    void inspectGround() {
+        clear();
+        ArrayList<Card> cardsToPick = new ArrayList<Card>();
+        cardsToPick.addAll(ClientController.getInstance().getCardToPick());
+        cardsToPick.addAll(ClientController.getInstance().getGoldCardToPick());
+        System.out.println("Which card you want to inspect?");
+        int possibleOption = 1;
+        for(Card c : cardsToPick) {
+            String cardString = "";
+            if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
+                cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
+            } else {
+                cardString = getCardColor(c) + "Card" + TextColor.RESET;
+            }
+            System.out.println(possibleOption + ") " + cardString);
+            possibleOption++;
+        }
+        System.out.println(possibleOption + ") Back to the menu");
+        int option = getOptionsInput(possibleOption);
+        if(option == possibleOption) {
+            menu();
+        } else {
+            clear();
+            printCardCoverage(cardsToPick.get(option - 1));
+            printCardStatistics(cardsToPick.get(option - 1));
+            System.out.println("1) Back to Ground");
+            System.out.println("2) Back to menu");
+            option = getOptionsInput(2);
+            if(option == 1) {
+                inspectGround();
+            } else if(option == 2) {
+                menu();
+            }
+        }
+    }
+
+    public void viewGoals() {
+        clear();
+        System.out.println("Common Goals: ");
+        System.out.print("1)");
+        ClientController.getInstance().getCommonGoals().get(0).draw();
+        System.out.print("2)");
+        ClientController.getInstance().getCommonGoals().get(1).draw();
+        System.out.println("Personal Goal: ");
+        System.out.print("  ");
+        ClientController.getInstance().getPersonalGoal().draw();
+        System.out.println("");
+        System.out.println("1) Go back to the menu");
+        getOptionsInput(1);
+        menu();
+    }
+
+    public void viewScores() {
+        clear();
+        for(Player player : ClientController.getInstance().getPlayers()) {
+            System.out.println(printPlayer(player) + " Score: " + TextColor.BRIGHT_YELLOW + ClientController.getInstance().getCodexMap().get(player).getScore() + TextColor.RESET);
+        }
+        System.out.println("1) Back to menu");
+        getOptionsInput(1);
+        menu();
+    }
+
+    public void chat() {
+
+    }
 
     public void printCodex(Codex codex) {
+        clear();
         List<Integer> xCoordinates = codex.getCards().keySet().stream().map(Coordinate::getX).distinct().sorted().collect(Collectors.toList());
         List<Integer> yCoordinates = codex.getCards().keySet().stream().map(Coordinate::getY).distinct().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
@@ -179,11 +383,23 @@ public class View {
             }
             System.out.printf("\n\n");
         }
+        System.out.println("1) Inspect Card");
+        System.out.println("2) Back to menu");
+        int option = getOptionsInput(2);
+        if(option == 1) {
+            inspectCard(codex);
+        } else {
+            menu();
+        }
     }
 
-    public void inspectCard(Card card) {
+    public void inspectCard(Codex codex) {
+        Card card = getCard(codex);
         printCardCoverage(card);
         printCardStatistics(card);
+        System.out.println("1) Back to codex");
+        getOptionsInput(1);
+        printCodex(codex);
     }
 
     private void printCardCoverage(Card card) {
@@ -326,8 +542,19 @@ public class View {
                 for(Resource r : ((GoldCard) card).getPlayCondition()) {
                     System.out.printf(printResource(r) + " ");
                 }
+                System.out.printf("\n");
             }
         }
+    }
+
+    public String printPlayer(Player player) {
+        switch(player.getColor()) {
+            case RED: return TextColor.RED + player.getNickname() + TextColor.RESET;
+            case BLUE: return TextColor.BLUE + player.getNickname() + TextColor.RESET;
+            case GREEN: return TextColor.GREEN + player.getNickname() + TextColor.RESET;
+            case YELLOW: return TextColor.BRIGHT_YELLOW + player.getNickname() + TextColor.RESET;
+        }
+        return null;
     }
 
     public String printResource(Resource resource) {
@@ -358,6 +585,9 @@ public class View {
     }
 
     public String getCardColor(Card card) {
+        if(card.getCardType() == null) {
+            return TextColor.WHITE.toString();
+        }
         switch (card.getCardType()) {
             case FUNGI:
                 return TextColor.RED.toString();
@@ -402,6 +632,14 @@ public class View {
         }
     }
 
+    public boolean isMyTurn() {
+        if(ClientController.getInstance().getUsername().equals(ClientController.getInstance().getCurrentPlayer().getNickname())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int getOptionsInput(int numOfOptions) {
         Messages.getInstance().input("Choose an option (1 to "+numOfOptions+"): ");
         int option = s.nextInt();
@@ -412,5 +650,27 @@ public class View {
         }
         s.nextLine();
         return option;
+    }
+
+    public Card getCard(Codex codex) {
+        Messages.getInstance().input("Write the coordinate of the card you want to inspect (x y): ");
+        int x = s.nextInt();
+        int y = s.nextInt();
+        Coordinate coordinate = new Coordinate(x, y);
+        Card card = codex.getCard(coordinate);
+        if(card != null) {
+            return card;
+        } else {
+            Messages.getInstance().error("Coordinates not valid, try again!");
+            getCard(codex);
+        }
+        return null;
+    }
+
+    public Coordinate getCoordinates() {
+        Messages.getInstance().input("Write the coordinate where you want to place the card (x y): ");
+        int x = s.nextInt();
+        int y = s.nextInt();
+        return new Coordinate(x, y);
     }
 }

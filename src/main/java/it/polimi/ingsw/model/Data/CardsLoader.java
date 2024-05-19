@@ -36,13 +36,16 @@ public class CardsLoader {
         try (FileReader reader = new FileReader(filePath)) {
             Gson gson = new Gson();
 
-            Card[] cards = gson.fromJson(reader, Card[].class);
+            CardDataContainer[] cards = gson.fromJson(reader, CardDataContainer[].class);
 
-            for (Card card : cards) {
-                card.deserializeAnglesMap();
+            ArrayList<Card> toReturn = new ArrayList<Card>();
+
+            for (CardDataContainer card : cards) {
+                toReturn.add(card.deserialize());
+
             }
 
-            return new ArrayList<Card>(Arrays.asList(cards));
+            return toReturn;
         } catch (IOException e) {
             e.printStackTrace();
         }

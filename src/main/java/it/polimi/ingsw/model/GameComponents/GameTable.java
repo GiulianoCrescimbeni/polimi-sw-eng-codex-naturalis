@@ -56,6 +56,13 @@ public class GameTable implements GameTableInterface {
     public Codex getCodex(Player player) { return this.codexMap.get(player); }
 
     /**
+     * @return the codex map
+     */
+    public Map<Player, Codex> getCodexMap() {
+        return codexMap;
+    }
+
+    /**
      * @return the current player
      */
     public Player getCurrentPlayer() {return currentPlayer; }

@@ -7,10 +7,11 @@ import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesExcepti
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Interfaces.CodexInterface;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Codex implements CodexInterface {
+public class Codex implements CodexInterface, Serializable {
 
     private int score;
     private ArrayList<Goal> goalsToPick;

@@ -28,8 +28,8 @@ public class InitialCardDataContainer {
     private boolean lUsed;
     @SerializedName("dUsed")
     private boolean dUsed;
-    @SerializedName("angles")
-    private ArrayList<AngleMapDeserializer> angles;
+    @SerializedName("backAngles")
+    private ArrayList<AngleMapDeserializer> backAngles;
     @SerializedName("frontAngles")
     private ArrayList<AngleMapDeserializer> frontAngles;
     @SerializedName("backResources")
@@ -73,11 +73,11 @@ public class InitialCardDataContainer {
 
         backAnglesMap = new HashMap<AnglePos, Angle>();
 
-        for (AngleMapDeserializer a : angles) {
+        for (AngleMapDeserializer a : backAngles) {
             backAnglesMap.put(a.getPosition(), new Angle(a.getResource(), false, null, null));
         }
-        angles.clear();
-        angles = null;
+        backAngles.clear();
+        backAngles = null;
     }
 
     private void deserializeBackResources() {

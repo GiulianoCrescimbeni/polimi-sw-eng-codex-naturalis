@@ -4,10 +4,12 @@ import com.google.gson.annotations.SerializedName;
 import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.Enumerations.AnglePos;
 
+import java.io.Serializable;
+
 /**
  * Class for angles of a card
  */
-public class Angle {
+public class Angle implements Serializable {
 
     private Resource resource;
     private boolean hidden;

@@ -2,12 +2,13 @@ package it.polimi.ingsw.model.Player;
 
 import it.polimi.ingsw.model.GameComponents.Card;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * PlayerHand's class
  */
-public class PlayerHand {
+public class PlayerHand implements Serializable {
 
     private ArrayList<Card> cards;
 

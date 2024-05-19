@@ -3,12 +3,13 @@ package it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Player's Class
  */
-public class Player {
+public class Player implements Serializable {
 
     private String nickname;
     private Color color;

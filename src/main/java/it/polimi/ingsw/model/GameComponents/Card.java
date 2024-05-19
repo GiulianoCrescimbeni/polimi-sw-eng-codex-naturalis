@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Interfaces.CardInteface;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,23 +14,15 @@ import java.util.Map;
 /**
  * Class that represents the card
  */
-public class Card implements CardInteface {
+public class Card implements CardInteface,Serializable {
 
-    @SerializedName("cardID")
     private int cardID;
     private Map<AnglePos, Angle> anglesMap;
-    @SerializedName("cardType")
     private CardType cardType;
-    @SerializedName("isTurned")
     private boolean isTurned;
-    @SerializedName("cardScore")
     private int cardScore;
-    @SerializedName("lUsed")
     private boolean lUsed;
-    @SerializedName("dUsed")
     private boolean dUsed;
-    @SerializedName("angles")
-    private ArrayList<AngleMapDeserializer> anglesMapDeserializer;
 
     /**
      * Constructor
@@ -107,8 +100,6 @@ public class Card implements CardInteface {
         return this.dUsed;
     }
 
-    public ArrayList<AngleMapDeserializer> getAnglesMapDeserializer() {return this.anglesMapDeserializer;}
-
     /**
      * @param anglesMap the angles of the card
      */
@@ -138,16 +129,4 @@ public class Card implements CardInteface {
     public void setdUsed() {
         this.dUsed = true;
     }
-
-    public void deserializeAnglesMap() {
-
-        anglesMap = new HashMap<AnglePos, Angle>();
-
-        for (AngleMapDeserializer a : anglesMapDeserializer) {
-            anglesMap.put(a.getPosition(), new Angle(a.getResource(), false, null, this));
-        }
-        anglesMapDeserializer.clear();
-        anglesMapDeserializer = null;
-    }
-
 }

@@ -16,7 +16,6 @@ import java.util.Collections;
  * Class that represents the game model
  */
 public class Game implements GameInterface {
-
     private int gameID;
     private ArrayList<Player> players;
     private ArrayList<Color> availableColors;
@@ -24,6 +23,7 @@ public class Game implements GameInterface {
     private Player winner;
     private GameTable table;
     private int maxPlayers;
+    private int playersReady;
 
     /**
      * Constructor
@@ -42,6 +42,7 @@ public class Game implements GameInterface {
         this.winner = winner;
         this.table = table;
         this.maxPlayers = maxPlayers;
+        this.playersReady = 0;
     }
 
     /**
@@ -50,7 +51,6 @@ public class Game implements GameInterface {
     public Game() {}
 
     /**
-     *
      * @param gameId The ID for the game
      *               This constructor fills automatically all the private fields of this class
      *               Sets the Game Status to "WAITING_TO_START"
@@ -173,6 +173,20 @@ public class Game implements GameInterface {
         if (this.players.size() == this.maxPlayers) {
             return true;
         } else return false;
+    }
+
+    /**
+     * @return the number of ready players
+     */
+    public int getPlayersReady() {
+        return playersReady;
+    }
+
+    /**
+     * Increment the number of readu players
+     */
+    public void incrementPlayersReady() {
+        this.playersReady++;
     }
 
     /**

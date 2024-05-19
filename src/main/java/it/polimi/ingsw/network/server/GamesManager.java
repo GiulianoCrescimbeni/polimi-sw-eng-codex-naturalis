@@ -186,7 +186,7 @@ public class GamesManager {
      * @param gameId the id of the game
      * @param update the update to send
      */
-    public void broadcast(int gameId, Update update) {
+    public synchronized void broadcast(int gameId, Update update) {
         connections.entrySet()
                 .stream()
                 .filter(c -> c.getValue() == gameId)

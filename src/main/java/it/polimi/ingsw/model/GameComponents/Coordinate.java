@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import java.io.Serializable;
+
 /**
  * Class that represents the codex's coordinate of each card
  */
-public class Coordinate {
+public class Coordinate implements Serializable {
     private int x;
     private int y;
 
