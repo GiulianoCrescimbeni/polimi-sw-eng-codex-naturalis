@@ -161,6 +161,7 @@ public class Controller {
             throw new IllegalCardPlacementException(e.getMessage());
         }
         model.getGameTable().pickCardFromGround(cardPicked);
+        model.switchCurrentPlayer();
 
         if(model.getGameStatus() == GameStatus.LAST_TURN && currentPlayer.equals(players.get(players.size() - 1))) {
             model.setGameStatus(GameStatus.ENDED);
@@ -198,6 +199,7 @@ public class Controller {
         } else if(deckIndex == 1) {
             model.getGameTable().pickGoldCardFromDeck();
         }
+        model.switchCurrentPlayer();
 
         if(model.getGameStatus() == GameStatus.LAST_TURN && currentPlayer.equals(players.get(players.size() - 1))) {
             model.setGameStatus(GameStatus.ENDED);

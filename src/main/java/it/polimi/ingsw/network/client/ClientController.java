@@ -4,18 +4,23 @@ import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Enumerations.GameStatus;
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Codex;
+import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
+import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.client.commands.LoginCommand;
+import it.polimi.ingsw.network.client.commands.PlaceCardWithPickFromDeckCommand;
+import it.polimi.ingsw.network.client.commands.PlaceCardWithPickFromGroundCommand;
 import it.polimi.ingsw.network.client.commands.SelectPersonalGoalCommand;
 import it.polimi.ingsw.view.TUI.View;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class ClientController {
-
     private static ClientController instance;
     private ArrayList<Color> availableColors = new ArrayList<Color>();
     private ArrayList<Goal> goalsToPick = new ArrayList<>();
@@ -137,6 +142,10 @@ public class ClientController {
         return players.stream().filter(player ->  player.getNickname().equals(this.getUsername())).findFirst().map(Player::getPlayerHand).orElse(null);
     }
 
+    public void setPlayerHand(PlayerHand playerHand) {
+        Objects.requireNonNull(players.stream().filter(player -> player.getNickname().equals(this.getUsername())).findFirst().orElse(null)).setPlayerHand(playerHand);
+    }
+
     public void updateGameData(Map<Player, Codex> codexMap, ArrayList<Card> cardToPick, ArrayList<Card> goldCardToPick, ArrayList<Player> players, Player currentPlayer, ArrayList<Goal> commonGoals) {
         gameStatus = GameStatus.RUNNING;
         setCodexMap(codexMap);
@@ -162,10 +171,51 @@ public class ClientController {
         SelectPersonalGoalCommand selectPersonalGoalCommand = new SelectPersonalGoalCommand(this.username, goal);
         try {
             ClientSR.getInstance().sendCommand(selectPersonalGoalCommand);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void playWithPickFromGround(Coordinate coordinate, Card cardPlaced, Card cardPicked) {
+        PlaceCardWithPickFromGroundCommand command = new PlaceCardWithPickFromGroundCommand();
+        command.setNickname(ClientController.getInstance().getUsername());
+        command.setCoordinate(coordinate);
+        command.setCardPlaced(cardPlaced);
+        command.setCardPicked(cardPicked);
+        try {
+            ClientSR.getInstance().sendCommand(command);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void playWithPickFromDeck(Coordinate coordinate, Card cardPlaced, int deckIndex) {
+        PlaceCardWithPickFromDeckCommand command = new PlaceCardWithPickFromDeckCommand();
+        command.setNickname(ClientController.getInstance().getUsername());
+        command.setCoordinate(coordinate);
+        command.setCardPlaced(cardPlaced);
+        command.setDeckIndex(deckIndex);
+        try {
+            ClientSR.getInstance().sendCommand(command);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTurn(String username, Coordinate coordinate, Card cardPlaced, Player currentPlayer) {
+        ClientController.getInstance().setCurrentPlayer(currentPlayer);
+        Player player = getPlayerByUsername(username);
+        Codex codex = ClientController.getInstance().getCodexMap().get(player);
+        try {
+            codex.placeCard(coordinate, cardPlaced);
+        } catch (IllegalCardPlacementException | IllegalCoordinatesException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Player getPlayerByUsername(String nickname) {
+        return (Player) getPlayers().stream().filter(player ->  player.getNickname().equals(nickname)).findFirst().orElse(null);
     }
 
     public synchronized void addMessage(String message) {

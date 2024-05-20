@@ -27,18 +27,20 @@ public class ChatMessageUpdate extends Update implements Serializable {
         return receiver;
     }
 
+    public String getSender() { return sender; }
+
     @Override
     public void execute() {
-        if (receiver.equals(ClientController.getInstance().getUsername()) || sender.equals(ClientController.getInstance().getUsername()) || receiver.equals("public")) {
+        if (getReceiver().equals(ClientController.getInstance().getUsername()) || getSender().equals(ClientController.getInstance().getUsername()) || getReceiver().equals("public")) {
 
             String toAdd = "";
 
             if (receiver.equals("public")) {
-                toAdd = Messages.getInstance().getMessage(TextColor.BRIGHT_BLUE + "[" + sender + "]: " + TextColor.RESET + message, false);
+                toAdd = Messages.getInstance().getMessage(TextColor.BRIGHT_BLUE + "[" + getSender() + "]: " + TextColor.RESET + message, false);
             } else if (receiver.equals(ClientController.getInstance().getUsername())) {
-                toAdd = Messages.getInstance().getMessage(TextColor.BRIGHT_BLUE + "[" + sender + "]: " + TextColor.RESET + message, true);
+                toAdd = Messages.getInstance().getMessage(TextColor.BRIGHT_BLUE + "[" + getSender() + "]: " + TextColor.RESET + message, true);
             } else if (sender.equals(ClientController.getInstance().getUsername()) && !receiver.equals("public")) {
-                toAdd = Messages.getInstance().getMessage(TextColor.BRIGHT_BLUE + "[You to " + receiver + "]: " + TextColor.RESET + message, true);
+                toAdd = Messages.getInstance().getMessage(TextColor.BRIGHT_BLUE + "[You to " + getReceiver() + "]: " + TextColor.RESET + message, true);
             }
             ClientController.getInstance().addMessage(toAdd);
         }

@@ -221,14 +221,12 @@ public class Game implements GameInterface {
      * Select the next player
      */
     public void switchCurrentPlayer(){
-        int lastIndex = players.size() - 1;
-        int currIndex = players.indexOf( this.table.getCurrentPlayer() );
-
-        if(  currIndex == lastIndex ){
+        int currIndex = players.indexOf(this.table.getCurrentPlayer());
+        if(currIndex + 1 > players.size() - 1){
             this.table.setCurrentPlayer(players.get(0));
-        }
-        else{
-            this.table.setCurrentPlayer(players.get(currIndex++));
+        }  else{
+            currIndex++;
+            this.table.setCurrentPlayer(players.get(currIndex));
         }
     }
 

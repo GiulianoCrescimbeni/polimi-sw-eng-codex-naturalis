@@ -2,6 +2,10 @@ package it.polimi.ingsw.network.server.updates;
 
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.model.Player.Player;
+import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.TUI.Messages;
+import it.polimi.ingsw.view.TUI.View;
 
 import java.io.Serializable;
 
@@ -9,8 +13,9 @@ public class PlaceCardUpdate extends Update implements Serializable {
     private String nickname;
     private boolean placedCorrectly;
     private String message;
-    private Card card;
+    private Card cardPlaced;
     private Coordinate coordinate;
+    private Player currentPlayer;
 
     public String getNickname() {
         return nickname;
@@ -36,12 +41,12 @@ public class PlaceCardUpdate extends Update implements Serializable {
         this.message = message;
     }
 
-    public Card getCard() {
-        return card;
+    public Card getCardPlaced() {
+        return cardPlaced;
     }
 
     public void setCard(Card card) {
-        this.card = card;
+        this.cardPlaced = card;
     }
 
     public Coordinate getCoordinate() {
@@ -52,5 +57,17 @@ public class PlaceCardUpdate extends Update implements Serializable {
         this.coordinate = coordinate;
     }
 
-    //TODO: Execute del comando
+    public Player getCurrentPlayer() { return currentPlayer; }
+
+    public void setCurrentPlayer(Player currentPlayer) { this.currentPlayer = currentPlayer; }
+
+    @Override
+    public void execute() {
+        if(!isPlacedCorrectly()) {
+            View.getInstance().updateChatView(getMessage());
+        } else {
+            ClientController.getInstance().updateTurn(getNickname(), getCoordinate(), getCardPlaced(), getCurrentPlayer());
+            View.getInstance().updateInfo(null, true);
+        }
+    }
 }

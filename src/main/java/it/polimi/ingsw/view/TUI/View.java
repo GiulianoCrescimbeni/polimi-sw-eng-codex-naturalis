@@ -166,175 +166,212 @@ public class View extends Thread {
     }
 
     public void menu() {
-        clear();
+        showCommands();
+        while(true) {
+            updateInfo(null, false);
+            String input = s.nextLine().trim();
+            String[] args = input.split(" ");
+            String command = args[0].toLowerCase();
+            switch (command) {
+                case "playcard":
+                    if (args.length == 5) {
+                        int x = Integer.parseInt(args[1]);
+                        int y = Integer.parseInt(args[2]);
+                        int cardToPlay = Integer.parseInt(args[3]);
+                        String cardToPick = args[4];
+                        playCard(x, y, cardToPlay, cardToPick);
+                    } else {
+                        Messages.getInstance().error("Format error. Use: playcard [#x] [#y] [#CardToPlay] [#CardToPick]");
+                    }
+                    continue;
 
-        System.out.println("Current Player: " + printPlayer(ClientController.getInstance().getCurrentPlayer()));
-        if(isMyTurn()) {
-            System.out.println("1) Play a card");
-            System.out.println("2) Inspect Codex");
-            System.out.println("3) Inspect Hand");
-            System.out.println("4) Inspect Ground");
-            System.out.println("5) View Goals");
-            System.out.println("6) View Scores");
-            System.out.println("7) Chat");
-            int option = getOptionsInput(7);
-            switch (option) {
-                case 1: playCard();
-                case 2: inspectCodex();
-                case 3: inspectHand();
-                case 4: inspectGround();
-                case 5: viewGoals();
-                case 6: viewScores();
-                case 7: chat();
+                case "inspectcodex":
+                    String nameOfPlayer = args.length > 1 ? args[1] : ClientController.getInstance().getUsername();
+                    inspectCodex(nameOfPlayer);
+                    continue;
+
+                case "inspectcard":
+                    if (args.length == 4) {
+                        nameOfPlayer = args[1];
+                        int x = Integer.parseInt(args[2]);
+                        int y = Integer.parseInt(args[3]);
+                        inspectCard(nameOfPlayer, x, y);
+                    } else if (args.length == 3) {
+                        int x = Integer.parseInt(args[1]);
+                        int y = Integer.parseInt(args[2]);
+                        inspectCard(ClientController.getInstance().getUsername(), x, y);
+                    } else {
+                        Messages.getInstance().error("Format error. Use: inspectCard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]");
+                    }
+                    continue;
+
+                case "inspecthand":
+                    if (args.length == 2) {
+                        int cardToInspectFromHand = Integer.parseInt(args[1]);
+                        inspectHand(cardToInspectFromHand);
+                    } else {
+                        inspectHand(-1);
+                    }
+                    continue;
+
+                case "inspectground":
+                    if (args.length == 2) {
+                        int cardToInspectFromGround = Integer.parseInt(args[1]);
+                        inspectGround(cardToInspectFromGround);
+                    } else {
+                        inspectGround(-1);
+                    }
+                    continue;
+
+                case "viewgoals":
+                    viewGoals();
+                    continue;
+
+                case "viewscores":
+                    viewScores();
+                    continue;
+
+                case "chat":
+                    chat();
+                    continue;
+
+                case "commands":
+                    showCommands();
+                    continue;
+
+                default:
+                    Messages.getInstance().error("Command not valid");
+                    continue;
             }
-        } else {
-            System.out.println("1) Inspect Codex");
-            System.out.println("2) Inspect Hand");
-            System.out.println("3) Inspect Ground");
-            System.out.println("4) View Goals");
-            System.out.println("5) View Scores");
-            System.out.println("6) Chat");
-            int option = getOptionsInput(6);
-            switch (option) {
-                case 1: inspectCodex();
-                case 2: inspectHand();
-                case 3: inspectGround();
-                case 4: viewGoals();
-                case 5: viewScores();
-                case 6: chat();
-            }
-        }
-
-    }
-
-    public void playCard() {
-        clear();
-        System.out.println("Which card you want to play?");
-        PlayerHand playerHand = ClientController.getInstance().getPlayerHand();
-        int possibleOption = 1;
-        for(Card c : playerHand.getCards()) {
-            String cardString = "";
-            if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
-                cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
-            } else {
-                cardString = getCardColor(c) + "Card" + TextColor.RESET;
-            }
-            System.out.println(possibleOption + ") " + cardString);
-            possibleOption++;
-        }
-        System.out.println(possibleOption + ") Back to the menu");
-        int option = getOptionsInput(possibleOption);
-        if(option == possibleOption) {
-            menu();
-            return;
-        }
-
-        Card card = playerHand.getCards().get(option - 1);
-        System.out.print("Currently playing the card on the ");
-        if(!card.isTurned()) {
-            System.out.print(TextColor.BRIGHT_BLACK + "Front\n" + TextColor.RESET);
-        } else {
-            System.out.print(TextColor.BRIGHT_BLACK + "Back\n" + TextColor.RESET);
-        }
-        System.out.println("Do you want to turn it?");
-        System.out.println("1) Yes");
-        System.out.println("2) No");
-        option = getOptionsInput(2);
-        if(option == 1) {
-            card.turn();
-        }
-        Coordinate coordinates = getCoordinates();
-        System.out.println("Where do you want to pick a new card?");
-        System.out.println("1) Ground");
-        System.out.println("2) Resource Deck");
-        System.out.println("3) Gold Deck");
-    }
-
-    public void inspectCodex() {
-        clear();
-        System.out.println("Which codex you want to inspect?");
-        int possibleOption = 1;
-        for(Player player : ClientController.getInstance().getPlayers()) {
-            System.out.println(possibleOption + ") " + printPlayer(player));
-            possibleOption++;
-        }
-        System.out.println(possibleOption + ") Back to the menu");
-        int option = getOptionsInput(possibleOption);
-        if(option == possibleOption) {
-            menu();
-        } else {
-            printCodex(ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayers().get(option - 1)));
         }
     }
 
-    public void inspectHand() {
+    public void showCommands() {
         clear();
-        PlayerHand playerHand = ClientController.getInstance().getPlayerHand();
-        System.out.println("Which card you want to inspect?");
-        int possibleOption = 1;
-        for(Card c : playerHand.getCards()) {
-            String cardString = "";
-            if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
-                cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
-            } else {
-                cardString = getCardColor(c) + "Card" + TextColor.RESET;
-            }
-            System.out.println(possibleOption + ") " + cardString);
-            possibleOption++;
-        }
-        System.out.println(possibleOption + ") Back to the menu");
-        int option = getOptionsInput(possibleOption);
-        if(option == possibleOption) {
-            menu();
-        } else {
+        System.out.println(
+                        "╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n" +
+                        "║                                           Commands                                           ║\n" +
+                        "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n" +
+                        "║ - playcard [#x] [#y] [#CardToPlayFromHand] [#CardToPickFromGround / ResourceDeck / GoldDeck] ║\n" +
+                        "║ - inspectCodex [optional: {NameOfPlayer}, default:{You}]                                     ║\n" +
+                        "║ - inspectCard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]                            ║\n" +
+                        "║ - inspectHand [optional: #CardToInspectFromHand]                                             ║\n" +
+                        "║ - inspectGround [optional: #CardToInspectFromGround]                                         ║\n" +
+                        "║ - viewGoals                                                                                  ║\n" +
+                        "║ - viewScores                                                                                 ║\n" +
+                        "║ - chat                                                                                       ║\n" +
+                        "║ - commands                                                                                   ║\n" +
+                        "╚══════════════════════════════════════════════════════════════════════════════════════════════╝"
+        );
+
+    }
+
+    public void updateInfo(String message, boolean clear) {
+        if(clear)
             clear();
-            printCardCoverage(playerHand.getCards().get(option - 1));
-            printCardStatistics(playerHand.getCards().get(option - 1));
-            System.out.println("1) Back to hand");
-            System.out.println("2) Back to menu");
-            option = getOptionsInput(2);
-            if(option == 1) {
-                inspectHand();
-            } else if(option == 2) {
-                 menu();
-            }
+        Messages.getInstance().info("Current Player: " + printPlayer(ClientController.getInstance().getCurrentPlayer()));
+        if(message != null) {
+            Messages.getInstance().error(message);
         }
-
+        Messages.getInstance().input("Command: ");
     }
 
-    void inspectGround() {
+    public void playCard(int x, int y, int cardToPlay, String cardToPick) {
+        if(isMyTurn()) {
+            Coordinate coordinate = new Coordinate(x, y);
+            Card cardPlaced = ClientController.getInstance().getPlayerHand().getCards().get(cardToPlay - 1);
+            if(cardToPick.equals("ResourceDeck")) {
+                ClientController.getInstance().playWithPickFromDeck(coordinate, cardPlaced, 0);
+            } else if(cardToPick.equals("GoldDeck")) {
+                ClientController.getInstance().playWithPickFromDeck(coordinate, cardPlaced, 1);
+            } else {
+                Card cardPicked = ClientController.getInstance().getPlayerHand().getCards().get(Integer.parseInt(cardToPick) - 1);
+                ClientController.getInstance().playWithPickFromGround(coordinate, cardPlaced, cardPicked);
+            }
+        } else {
+            updateInfo("Wait your turn before playing!", false);
+        }
+    }
+
+    public void inspectCodex(String username) {
+        clear();
+        Player player = ClientController.getInstance().getPlayerByUsername(username);
+        Codex codex = ClientController.getInstance().getCodexMap().get(player);
+        List<Integer> xCoordinates = codex.getCards().keySet().stream().map(Coordinate::getX).distinct().sorted().collect(Collectors.toList());
+        List<Integer> yCoordinates = codex.getCards().keySet().stream().map(Coordinate::getY).distinct().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+
+        System.out.printf("    ");
+        for(Integer i : xCoordinates) {
+            System.out.printf("     " + i);
+        }
+        System.out.printf("\n");
+        for(Integer j : yCoordinates) {
+            System.out.printf("    " + j + "   ");
+            for(Integer i : xCoordinates) {
+                Coordinate c = new Coordinate(i, j);
+                if(codex.getCard(c) != null) {
+                    System.out.printf(getCardColor(codex.getCard(c)) + "██     " + TextColor.RESET);
+                } else {
+                    System.out.printf("       ");
+                }
+            }
+            System.out.printf("\n\n");
+        }
+    }
+
+    public void inspectCard(String username, int x, int y) {
+        clear();
+        Player player = ClientController.getInstance().getPlayerByUsername(username);
+        Codex codex = ClientController.getInstance().getCodexMap().get(player);
+        Coordinate coordinate = new Coordinate(x, y);
+        Card card = codex.getCard(coordinate);
+        printCardCoverage(card);
+        printCardStatistics(card);
+    }
+
+    public void inspectHand(int cardToInspect) {
+        clear();
+        PlayerHand playerHand = ClientController.getInstance().getPlayerHand();
+        if(cardToInspect == -1) {
+            int cardNumber = 1;
+            for(Card c : playerHand.getCards()) {
+                String cardString = "";
+                if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
+                    cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
+                } else {
+                    cardString = getCardColor(c) + "Card" + TextColor.RESET;
+                }
+                System.out.println(cardNumber + ") " + cardString);
+                cardNumber++;
+            }
+        } else {
+            Card card = playerHand.getCards().get(cardToInspect - 1);
+            printCardCoverage(card);
+            printCardStatistics(card);
+        }
+    }
+
+    public void inspectGround(int cardToInspectFromGround) {
         clear();
         ArrayList<Card> cardsToPick = new ArrayList<Card>();
         cardsToPick.addAll(ClientController.getInstance().getCardToPick());
         cardsToPick.addAll(ClientController.getInstance().getGoldCardToPick());
-        System.out.println("Which card you want to inspect?");
-        int possibleOption = 1;
-        for(Card c : cardsToPick) {
-            String cardString = "";
-            if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
-                cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
-            } else {
-                cardString = getCardColor(c) + "Card" + TextColor.RESET;
+        if(cardToInspectFromGround == -1) {
+            int cardNumber = 1;
+            for(Card c : cardsToPick) {
+                String cardString = "";
+                if(c.getClass() == GoldCard.class || c.getClass() == AngleGoldCard.class || c.getClass() == ResourceGoldCard.class) {
+                    cardString = TextColor.BRIGHT_YELLOW + "Gold Card" + TextColor.RESET;
+                } else {
+                    cardString = getCardColor(c) + "Card" + TextColor.RESET;
+                }
+                System.out.println(cardNumber + ") " + cardString);
+                cardNumber++;
             }
-            System.out.println(possibleOption + ") " + cardString);
-            possibleOption++;
-        }
-        System.out.println(possibleOption + ") Back to the menu");
-        int option = getOptionsInput(possibleOption);
-        if(option == possibleOption) {
-            menu();
         } else {
-            clear();
-            printCardCoverage(cardsToPick.get(option - 1));
-            printCardStatistics(cardsToPick.get(option - 1));
-            System.out.println("1) Back to Ground");
-            System.out.println("2) Back to menu");
-            option = getOptionsInput(2);
-            if(option == 1) {
-                inspectGround();
-            } else if(option == 2) {
-                menu();
-            }
+            Card cardToInspect = cardsToPick.get(cardToInspectFromGround - 1);
+            printCardCoverage(cardToInspect);
+            printCardStatistics(cardToInspect);
         }
     }
 
@@ -348,10 +385,6 @@ public class View extends Thread {
         System.out.println("Personal Goal: ");
         System.out.print("  ");
         ClientController.getInstance().getPersonalGoal().draw();
-        System.out.println("");
-        System.out.println("1) Go back to the menu");
-        getOptionsInput(1);
-        menu();
     }
 
     public void viewScores() {
@@ -359,9 +392,6 @@ public class View extends Thread {
         for(Player player : ClientController.getInstance().getPlayers()) {
             System.out.println(printPlayer(player) + " Score: " + TextColor.BRIGHT_YELLOW + ClientController.getInstance().getCodexMap().get(player).getScore() + TextColor.RESET);
         }
-        System.out.println("1) Back to menu");
-        getOptionsInput(1);
-        menu();
     }
 
     public void chat() {
@@ -456,47 +486,6 @@ public class View extends Thread {
 
             Messages.getInstance().input("Message: ");
         }
-    }
-
-    public void printCodex(Codex codex) {
-        clear();
-        List<Integer> xCoordinates = codex.getCards().keySet().stream().map(Coordinate::getX).distinct().sorted().collect(Collectors.toList());
-        List<Integer> yCoordinates = codex.getCards().keySet().stream().map(Coordinate::getY).distinct().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-
-        System.out.printf("    ");
-        for(Integer i : xCoordinates) {
-            System.out.printf("     " + i);
-        }
-        System.out.printf("\n");
-        for(Integer j : yCoordinates) {
-            System.out.printf("    " + j + "   ");
-            for(Integer i : xCoordinates) {
-                Coordinate c = new Coordinate(i, j);
-                if(codex.getCard(c) != null) {
-                    System.out.printf(getCardColor(codex.getCard(c)) + "██     " + TextColor.RESET);
-                } else {
-                    System.out.printf("       ");
-                }
-            }
-            System.out.printf("\n\n");
-        }
-        System.out.println("1) Inspect Card");
-        System.out.println("2) Back to menu");
-        int option = getOptionsInput(2);
-        if(option == 1) {
-            inspectCard(codex);
-        } else {
-            menu();
-        }
-    }
-
-    public void inspectCard(Codex codex) {
-        Card card = getCard(codex);
-        printCardCoverage(card);
-        printCardStatistics(card);
-        System.out.println("1) Back to codex");
-        getOptionsInput(1);
-        printCodex(codex);
     }
 
     private void printCardCoverage(Card card) {
@@ -749,25 +738,4 @@ public class View extends Thread {
         return option;
     }
 
-    public Card getCard(Codex codex) {
-        Messages.getInstance().input("Write the coordinate of the card you want to inspect (x y): ");
-        int x = s.nextInt();
-        int y = s.nextInt();
-        Coordinate coordinate = new Coordinate(x, y);
-        Card card = codex.getCard(coordinate);
-        if(card != null) {
-            return card;
-        } else {
-            Messages.getInstance().error("Coordinates not valid, try again!");
-            getCard(codex);
-        }
-        return null;
-    }
-
-    public Coordinate getCoordinates() {
-        Messages.getInstance().input("Write the coordinate where you want to place the card (x y): ");
-        int x = s.nextInt();
-        int y = s.nextInt();
-        return new Coordinate(x, y);
-    }
 }

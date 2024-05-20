@@ -47,6 +47,11 @@ public class Player implements Serializable {
     }
 
     /**
+     * @param playerHand the player hand
+     */
+    public void setPlayerHand(PlayerHand playerHand) { this.playerHand = playerHand; }
+
+    /**
      * @param color set the color of the player
      */
     public void setColor(Color color) {

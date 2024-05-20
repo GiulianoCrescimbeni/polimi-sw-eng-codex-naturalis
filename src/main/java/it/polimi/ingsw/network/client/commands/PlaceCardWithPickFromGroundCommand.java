@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
+import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.updates.CardPickedUpdate;
 import it.polimi.ingsw.network.server.updates.PlaceCardUpdate;
@@ -66,19 +67,20 @@ public class PlaceCardWithPickFromGroundCommand extends Command implements Seria
      */
     @Override
     public Update execute(Controller gameController) {
+        PlaceCardUpdate update = new PlaceCardUpdate();
         try {
-            gameController.playWithPickFromGround(getCoordinate(), getCardPlaced(), getCardPlaced());
-            PlaceCardUpdate update = new PlaceCardUpdate();
+            PlayerHand playerHand = gameController.getCurrentPlayer().getPlayerHand();
             update.setNickname(gameController.getCurrentPlayer().getNickname());
+            gameController.playWithPickFromGround(getCoordinate(), getCardPlaced(), getCardPlaced());
             update.setPlacedCorrectly(true);
             update.setCard(getCardPlaced());
             update.setCoordinate(getCoordinate());
+            update.setCurrentPlayer(gameController.getCurrentPlayer());
             GamesManager.getInstance().broadcast(gameController.getModel().getGameID(), update);
             CardPickedUpdate cardPickedUpdate = new CardPickedUpdate();
-            cardPickedUpdate.setCardPicked(getCardPicked());
+            cardPickedUpdate.setPlayerHand(playerHand);
             return cardPickedUpdate;
         } catch (IllegalCoordinatesException | IllegalCardPlacementException e) {
-            PlaceCardUpdate update = new PlaceCardUpdate();
             update.setMessage(e.getMessage());
             update.setPlacedCorrectly(false);
             return update;

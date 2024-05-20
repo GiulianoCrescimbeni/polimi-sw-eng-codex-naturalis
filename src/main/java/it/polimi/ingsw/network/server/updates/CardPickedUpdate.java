@@ -1,19 +1,21 @@
 package it.polimi.ingsw.network.server.updates;
 
-import it.polimi.ingsw.model.GameComponents.Card;
+import it.polimi.ingsw.model.Player.PlayerHand;
+import it.polimi.ingsw.network.client.ClientController;
 
 import java.io.Serializable;
 
 public class CardPickedUpdate extends Update implements Serializable {
-    private Card cardPicked;
+    private PlayerHand playerHand;
 
-    public Card getCardPicked() {
-        return cardPicked;
+    public PlayerHand getPlayerHand() { return this.playerHand; }
+
+    public void setPlayerHand(PlayerHand playerHand) {
+        this.playerHand = playerHand;
     }
 
-    public void setCardPicked(Card cardPicked) {
-        this.cardPicked = cardPicked;
+    @Override
+    public void execute() {
+        ClientController.getInstance().setPlayerHand(getPlayerHand());
     }
-
-    //TODO: Execute
 }

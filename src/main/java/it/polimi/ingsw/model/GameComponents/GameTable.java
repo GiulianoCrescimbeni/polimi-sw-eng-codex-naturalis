@@ -228,6 +228,13 @@ public class GameTable implements GameTableInterface {
         InitialCard toAdd = (InitialCard) initialCardDeck.pickCard();
         Codex codex = new Codex();
         Map<Resource, Integer> resourcesMap = new HashMap<>();
+        resourcesMap.put(Resource.PLANT, 0);
+        resourcesMap.put(Resource.ANIMAL, 0);
+        resourcesMap.put(Resource.FUNGI, 0);
+        resourcesMap.put(Resource.INSECT, 0);
+        resourcesMap.put(Resource.SCROLL, 0);
+        resourcesMap.put(Resource.FEATHER, 0);
+        resourcesMap.put(Resource.JAR, 0);
         Map<Coordinate, Card> cardsMap = new HashMap<>();
         Coordinate coordinate = new Coordinate(80, 80);
 
