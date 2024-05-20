@@ -29,6 +29,7 @@ public class ClientController {
     private ArrayList<Player> players;
     private Player currentPlayer;
     private ArrayList<Goal> commonGoals;
+    private ArrayList<String> messageHistory;
 
     private ClientController() {}
 
@@ -165,5 +166,17 @@ public class ClientController {
             e.printStackTrace();
         }
 
+    }
+
+    public synchronized void addMessage(String message) {
+
+        if (this.messageHistory == null) messageHistory = new ArrayList<String>();
+
+        this.messageHistory.add(message);
+        View.getInstance().updateChatView("");
+    }
+
+    public ArrayList<String> getMessages() {
+        return this.messageHistory;
     }
 }

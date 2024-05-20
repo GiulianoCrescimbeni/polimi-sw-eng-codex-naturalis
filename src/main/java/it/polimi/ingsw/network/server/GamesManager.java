@@ -178,6 +178,7 @@ public class GamesManager {
             gameId = connections.get(clientHandler);
         }
         Update update = command.execute(controllers.get(gameId));
+        if (update == null) return;
         clientHandler.sendUpdate(update);
     }
 

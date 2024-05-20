@@ -108,6 +108,6 @@ public class GameDataUpdate extends Update implements Serializable {
     @Override
     public void execute() {
         ClientController.getInstance().updateGameData(getCodexMap(), getCardToPick(), getGoldCardToPick(), getPlayers(), getCurrentPlayer(), getCommonGoals());
-        View.getInstance().menu();
+        View.getInstance().start();
     }
 }

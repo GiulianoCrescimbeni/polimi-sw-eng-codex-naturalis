@@ -23,6 +23,14 @@ public class Messages {
         System.out.print(TextColor.BRIGHT_YELLOW + "[INPUT] " + TextColor.RESET + message);
     }
 
+    public void message(String message, boolean isPrivate) {
+        if (isPrivate) {
+            System.out.println(TextColor.BRIGHT_PURPLE + "[PRIVATE MESSAGE]: " + TextColor.RESET + message);
+        } else {
+            System.out.println(TextColor.BRIGHT_PURPLE + "[MESSAGE]: " + TextColor.RESET + message);
+        }
+    }
+
     public String getInfoMessage(String message) {
         return TextColor.BRIGHT_BLUE + "[INFO] " + TextColor.RESET + message;
     }
@@ -33,6 +41,14 @@ public class Messages {
 
     public String getInputMessage(String message) {
         return TextColor.BRIGHT_YELLOW + "[INPUT] " + TextColor.RESET + message;
+    }
+
+    public String getMessage(String message, boolean isPrivate) {
+        if (isPrivate) {
+            return TextColor.BRIGHT_PURPLE + "[PRIVATE MESSAGE] " + TextColor.RESET + message;
+        } else {
+            return TextColor.BRIGHT_PURPLE + "[MESSAGE] " + TextColor.RESET + message;
+        }
     }
 
 }

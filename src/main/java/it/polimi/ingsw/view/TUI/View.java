@@ -10,28 +10,35 @@ import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.ClientSR;
+import it.polimi.ingsw.network.client.commands.ChatMessageCommand;
 import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class View {
+public class View extends Thread {
 
     private static View instance;
 
     private Scanner s = new Scanner(System.in);
 
+    private boolean chatMode = false;
+
     private View() {}
 
     public static View getInstance() {
-        if (instance == null) {
-            instance = new View();
+        synchronized (View.class) {
+            if (instance == null) {
+                instance = new View();
+            }
         }
         return instance;
+    }
+
+    @Override
+    public void run() {
+        menu();
     }
 
     public void clear() {
@@ -358,7 +365,97 @@ public class View {
     }
 
     public void chat() {
+        chatMode = true;
+        updateChatView("");
 
+        while (chatMode) {
+            String text = s.nextLine();
+            String[] args = text.split(" ");
+
+            if (args.length == 1) {
+
+                if (args[0].equals("0")) {
+                    chatMode = false;
+                    menu();
+                    return;
+                }
+
+                updateChatView("The message is too short");
+                continue;
+            }
+
+            if (args[0].equals("public")) {
+
+                String[] message = new String[args.length - 1];
+                for (int i = 1; i < args.length; i++) {
+                    message[i - 1] = args[i];
+                }
+
+                String toSend = String.join(" ", message);
+
+                ChatMessageCommand cmd = new ChatMessageCommand(toSend, "public", ClientController.getInstance().getUsername());
+
+                try {
+                    ClientSR.getInstance().sendCommand(cmd);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                updateChatView("");
+
+            } else {
+                boolean found = false;
+
+                for (Player p : ClientController.getInstance().getPlayers()) {
+                    if (p.getNickname().equals(args[0])) found = true;
+                }
+
+                if (!found) {
+                    updateChatView("The specified player does not exists");
+                    continue;
+                }
+
+                String[] message = new String[args.length - 1];
+                for (int i = 1; i < args.length; i++) {
+                    message[i - 1] = args[i];
+                }
+
+                String toSend = String.join(" ", message);
+
+                ChatMessageCommand cmd = new ChatMessageCommand(toSend, args[0], ClientController.getInstance().getUsername());
+
+                try {
+                    ClientSR.getInstance().sendCommand(cmd);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                updateChatView("");
+
+            }
+
+        }
+
+    }
+
+    public synchronized void updateChatView(String error) {
+        if (chatMode) {
+            clear();
+            Messages.getInstance().info("You're in the chat section");
+
+            if (!error.equals("")) {
+                Messages.getInstance().error(error);
+            }
+
+            if (ClientController.getInstance().getMessages() != null) {
+                for (String s : ClientController.getInstance().getMessages()) {
+                    System.out.println(s);
+                }
+            }
+
+
+            Messages.getInstance().input("Message: ");
+        }
     }
 
     public void printCodex(Codex codex) {
