@@ -76,7 +76,7 @@ public class View extends Thread {
             ClientController.getInstance().sendUsernameAndColor(username, c);
         }
 
-        s.nextLine();
+        //s.nextLine();
     }
 
     public void showColors() {

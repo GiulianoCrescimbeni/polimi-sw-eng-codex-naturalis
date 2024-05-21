@@ -1,12 +1,19 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.client.commands.Command;
+import it.polimi.ingsw.network.server.RMIServerInterface;
+import it.polimi.ingsw.network.server.handler.RMIClientHandler;
+import it.polimi.ingsw.network.server.handler.RMIClientHandlerImplementation;
 import it.polimi.ingsw.network.server.updates.Update;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class ClientSR extends Thread {
 
@@ -14,28 +21,52 @@ public class ClientSR extends Thread {
     private String host;
     private int port;
 
+    private boolean isSocket;
+
     private ObjectInputStream in;
     private ObjectOutputStream out;
+
+    private RMIServerInterface server;
+    private RMIClientHandlerImplementation clientHandler;
 
     private static ClientSR instance;
 
     private ClientSR() {}
 
-    public void startSR(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public synchronized void startSR(String host, int port, boolean isSocket) {
+        this.isSocket = isSocket;
 
-        try{
+        if (isSocket) {
+            this.host = host;
+            this.port = port;
 
-            s = new Socket(host, port);
+            try{
 
-            out = new ObjectOutputStream(s.getOutputStream());
+                s = new Socket(host, port);
 
-            this.start();
+                out = new ObjectOutputStream(s.getOutputStream());
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                this.start();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                Registry registry = LocateRegistry.getRegistry(host, port);
+                this.server = (RMIServerInterface) registry.lookup("RMIServer");
+
+                this.clientHandler = new RMIClientHandlerImplementation();
+                server.registerClient(clientHandler);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
+
+
+
     }
 
     public static ClientSR getInstance() {
@@ -44,7 +75,22 @@ public class ClientSR extends Thread {
     }
 
     public void sendCommand(Command command) throws IOException {
-        out.writeObject(command);
+        if (isSocket) {
+            out.writeObject(command);
+        } else {
+            try {
+                server.receiveCommand(this.clientHandler, command);
+            } catch (Exception e) {
+                System.err.println("Client exception: " + e.toString());
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    public void handleUpdate(Update update) {
+        update.execute();
     }
 
     public void run() {
