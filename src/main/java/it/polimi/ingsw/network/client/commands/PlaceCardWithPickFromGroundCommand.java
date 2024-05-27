@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
-import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.updates.CardPickedUpdate;
 import it.polimi.ingsw.network.server.updates.PlaceCardUpdate;
@@ -69,21 +68,39 @@ public class PlaceCardWithPickFromGroundCommand extends Command implements Seria
     public Update execute(Controller gameController) {
         PlaceCardUpdate update = new PlaceCardUpdate();
         try {
-            PlayerHand playerHand = gameController.getCurrentPlayer().getPlayerHand();
-            update.setNickname(gameController.getCurrentPlayer().getNickname());
-            gameController.playWithPickFromGround(getCoordinate(), getCardPlaced(), getCardPlaced());
-            update.setPlacedCorrectly(true);
-            update.setCard(getCardPlaced());
-            update.setCoordinate(getCoordinate());
-            update.setCurrentPlayer(gameController.getCurrentPlayer());
+            gameController.playCard(getCoordinate(), getCardPlaced());
+            Card newGroundCard = gameController.pickCardFromGround(getCardPicked());
+            fillCardUpdate(getCardPicked(), newGroundCard, update, gameController);
             GamesManager.getInstance().broadcast(gameController.getModel().getGameID(), update);
-            CardPickedUpdate cardPickedUpdate = new CardPickedUpdate();
-            cardPickedUpdate.setPlayerHand(playerHand);
-            return cardPickedUpdate;
+            return getCardPickedUpdate();
         } catch (IllegalCoordinatesException | IllegalCardPlacementException e) {
             update.setMessage(e.getMessage());
             update.setPlacedCorrectly(false);
             return update;
         }
+    }
+
+    /**
+     * @param update the update to fill
+     * @param gameController the game controller to get data
+     */
+    private void fillCardUpdate(Card cardPicked, Card newGroundCard, PlaceCardUpdate update, Controller gameController) {
+        update.setNickname(getNickname());
+        update.setPlacedCorrectly(true);
+        update.setCard(getCardPlaced());
+        update.setCoordinate(getCoordinate());
+        update.setCurrentPlayer(gameController.getCurrentPlayer());
+        update.setCardPicked(cardPicked);
+        update.setNewGroundCard(newGroundCard);
+    }
+
+    /**
+     * @return the update to send to the client
+     */
+    private CardPickedUpdate getCardPickedUpdate() {
+        CardPickedUpdate cardPickedUpdate = new CardPickedUpdate();
+        cardPickedUpdate.setCardPlaced(getCardPlaced());
+        cardPickedUpdate.setCardPicked(getCardPicked());
+        return cardPickedUpdate;
     }
 }

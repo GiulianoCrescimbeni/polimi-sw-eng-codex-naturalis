@@ -129,4 +129,15 @@ public class Card implements CardInteface,Serializable {
     public void setdUsed() {
         this.dUsed = true;
     }
+
+    /**
+     * Override of the equals method, 2 cards are equals if their id is equals
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card that = (Card) o;
+        return this.cardID == that.cardID;
+    }
 }

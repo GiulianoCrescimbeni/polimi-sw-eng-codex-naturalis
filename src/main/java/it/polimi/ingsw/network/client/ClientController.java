@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.GameComponents.Codex;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
+import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
@@ -142,8 +143,12 @@ public class ClientController {
         return players.stream().filter(player ->  player.getNickname().equals(this.getUsername())).findFirst().map(Player::getPlayerHand).orElse(null);
     }
 
-    public void setPlayerHand(PlayerHand playerHand) {
-        Objects.requireNonNull(players.stream().filter(player -> player.getNickname().equals(this.getUsername())).findFirst().orElse(null)).setPlayerHand(playerHand);
+    public void removeCardPlayed(Card cardPlayed) {
+        Objects.requireNonNull(players.stream().filter(player -> player.getNickname().equals(this.getUsername())).findFirst().orElse(null)).getPlayerHand().removeCard(cardPlayed);
+    }
+
+    public void addCardPicked(Card cardPicked) {
+        Objects.requireNonNull(players.stream().filter(player -> player.getNickname().equals(this.getUsername())).findFirst().orElse(null)).getPlayerHand().addCard(cardPicked);
     }
 
     public void updateGameData(Map<Player, Codex> codexMap, ArrayList<Card> cardToPick, ArrayList<Card> goldCardToPick, ArrayList<Player> players, Player currentPlayer, ArrayList<Goal> commonGoals) {
@@ -203,7 +208,7 @@ public class ClientController {
         }
     }
 
-    public void updateTurn(String username, Coordinate coordinate, Card cardPlaced, Player currentPlayer) {
+    public void updateTurn(String username, Coordinate coordinate, Card cardPlaced, Player currentPlayer, Card cardPicked, Card newGroundCard) {
         ClientController.getInstance().setCurrentPlayer(currentPlayer);
         Player player = getPlayerByUsername(username);
         Codex codex = ClientController.getInstance().getCodexMap().get(player);
@@ -211,6 +216,19 @@ public class ClientController {
             codex.placeCard(coordinate, cardPlaced);
         } catch (IllegalCardPlacementException | IllegalCoordinatesException e) {
             e.printStackTrace();
+        }
+
+        if(cardPicked != null && newGroundCard != null) {
+            if(cardPicked.getClass() == Card.class) {
+                getCardToPick().remove(cardPicked);
+            } else if(cardPicked.getClass() == GoldCard.class) {
+                getGoldCardToPick().remove(cardPicked);
+            }
+            if(newGroundCard.getClass() == Card.class) {
+                getCardToPick().add(newGroundCard);
+            } else if(newGroundCard.getClass() == GoldCard.class) {
+                getGoldCardToPick().remove(newGroundCard);
+            }
         }
     }
 

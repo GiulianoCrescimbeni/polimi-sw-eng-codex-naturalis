@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.server;
+package it.polimi.ingsw.network.server.RMI;
 
 import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.server.handler.RMIClientHandler;

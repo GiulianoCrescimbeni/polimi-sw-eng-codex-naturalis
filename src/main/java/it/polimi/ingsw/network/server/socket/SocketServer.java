@@ -1,5 +1,6 @@
-package it.polimi.ingsw.network.server;
+package it.polimi.ingsw.network.server.socket;
 
+import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.handler.SocketClientHandler;
 import it.polimi.ingsw.view.TUI.TextColor;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Server App Class
  */
-public class ServerApp extends Thread {
+public class SocketServer extends Thread {
 
     private ServerSocket socketServer;
 
@@ -47,6 +48,5 @@ public class ServerApp extends Thread {
             e.printStackTrace();
         }
     }
-
 
 }

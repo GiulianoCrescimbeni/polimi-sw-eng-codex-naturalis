@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class GameTable implements GameTableInterface {
@@ -129,32 +130,39 @@ public class GameTable implements GameTableInterface {
      * Pick a card from the ground
      * @param card the card that the player wants to pick
      */
-    public void pickCardFromGround(Card card) {
+    public Card pickCardFromGround(Card card) {
+        Card cardPicked = null;
         if (cardToPick.contains(card)) {
             currentPlayer.getPlayerHand().addCard(card);
             cardToPick.remove(card);
-            cardToPick.add(cardDeck.pickCard());
+            cardPicked = cardDeck.pickCard();
+            cardToPick.add(cardPicked);
+
         } else if (goldCardToPick.contains(card)) {
             currentPlayer.getPlayerHand().addCard(card);
             goldCardToPick.remove(card);
-            goldCardToPick.add(goldCardDeck.pickCard());
+            cardPicked = goldCardDeck.pickCard();
+            goldCardToPick.add(cardPicked);
         }
+        return cardPicked;
     }
 
     /**
      * Take the card on the top of the deck and add it to the player hand
      */
-    public void pickCardFromDeck(){
+    public Card pickCardFromDeck(){
         Card picked = cardDeck.pickCard();
         currentPlayer.getPlayerHand().addCard(picked);
+        return picked;
     }
 
     /**
      * Take the card on the top of the gold deck and add it to the player hand
      */
-    public void pickGoldCardFromDeck(){
+    public Card pickGoldCardFromDeck(){
         Card picked = goldCardDeck.pickCard();
         currentPlayer.getPlayerHand().addCard(picked);
+        return picked;
     }
 
     /**
@@ -227,7 +235,7 @@ public class GameTable implements GameTableInterface {
     public void pickInitialCard(Player player) {
         InitialCard toAdd = (InitialCard) initialCardDeck.pickCard();
         Codex codex = new Codex();
-        Map<Resource, Integer> resourcesMap = new HashMap<>();
+        Map<Resource, Integer> resourcesMap = new LinkedHashMap<>();
         resourcesMap.put(Resource.PLANT, 0);
         resourcesMap.put(Resource.ANIMAL, 0);
         resourcesMap.put(Resource.FUNGI, 0);
@@ -242,6 +250,7 @@ public class GameTable implements GameTableInterface {
         codex.setCards(cardsMap);
         codex.getCards().put(coordinate, toAdd);
         this.codexMap.put(player, codex);
+        this.codexMap.get(player).getResourcesFromCard(toAdd);
     }
 
     /**

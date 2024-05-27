@@ -138,7 +138,7 @@ public class Controller {
     /**
      * The current player play the turn and then pick a card from the ground
      */
-    public void playWithPickFromGround(Coordinate coordinate, Card cardPlayed, Card cardPicked) throws IllegalCoordinatesException, IllegalCardPlacementException {
+    public void playCard(Coordinate coordinate, Card cardPlayed) throws IllegalCoordinatesException, IllegalCardPlacementException {
         Player currentPlayer = model.getTable().getCurrentPlayer();
         ArrayList<Player> players = model.getPlayers();
         if(model.getGameStatus() == GameStatus.RUNNING) {
@@ -155,13 +155,12 @@ public class Controller {
             } else if(cardPlayed.getClass() == GoldCard.class) {
                 model.getGameTable().getCodex(currentPlayer).placeGoldCard(coordinate, (GoldCard) cardPlayed);
             }
+            getCurrentPlayer().getPlayerHand().removeCard(cardPlayed);
         } catch (IllegalCoordinatesException e) {
             throw new IllegalCoordinatesException(e.getMessage());
         } catch (IllegalCardPlacementException e) {
             throw new IllegalCardPlacementException(e.getMessage());
         }
-        model.getGameTable().pickCardFromGround(cardPicked);
-        model.switchCurrentPlayer();
 
         if(model.getGameStatus() == GameStatus.LAST_TURN && currentPlayer.equals(players.get(players.size() - 1))) {
             model.setGameStatus(GameStatus.ENDED);
@@ -170,41 +169,30 @@ public class Controller {
     }
 
     /**
-     * The current player play the turn and then pick a card from the top of the deck
+     * Pick a card from the ground
+     * @param cardPicked the card picked by the player
+     * @return the new card on the ground
      */
-    public void playWithPickFromDeck(Coordinate coordinate, Card cardPlayed, int deckIndex) throws IllegalCoordinatesException, IllegalCardPlacementException {
-        Player currentPlayer = model.getTable().getCurrentPlayer();
-        ArrayList<Player> players = model.getPlayers();
-        if(model.getGameStatus() == GameStatus.RUNNING) {
-            for (Player p : players) {
-                if (model.getGameTable().getCodex(p).getScore() >= 20) {
-                    model.setGameStatus(GameStatus.LAST_TURN);
-                }
-            }
-        }
+    public Card pickCardFromGround(Card cardPicked) {
+        Card newGroundCard = model.getGameTable().pickCardFromGround(cardPicked);
+        model.switchCurrentPlayer();
+        return newGroundCard;
+    }
 
-        try {
-            if(cardPlayed.getClass() == Card.class) {
-                model.getGameTable().getCodex(currentPlayer).placeCard(coordinate, cardPlayed);
-            } else if(cardPlayed.getClass() == GoldCard.class) {
-                model.getGameTable().getCodex(currentPlayer).placeGoldCard(coordinate, (GoldCard) cardPlayed);
-            }
-        } catch (IllegalCoordinatesException e) {
-            throw new IllegalCoordinatesException(e.getMessage());
-        } catch (IllegalCardPlacementException e) {
-            throw new IllegalCardPlacementException(e.getMessage());
-        }
+    /**
+     * Pick a card from the deck
+     * @param deckIndex the deck specified by the player
+     * @return the card picked from the player
+     */
+    public Card pickCardFromDeck(int deckIndex) {
+        Card cardPicked = null;
         if(deckIndex == 0) {
-            model.getGameTable().pickCardFromDeck();
+            cardPicked = model.getGameTable().pickCardFromDeck();
         } else if(deckIndex == 1) {
-            model.getGameTable().pickGoldCardFromDeck();
+            cardPicked = model.getGameTable().pickGoldCardFromDeck();
         }
         model.switchCurrentPlayer();
-
-        if(model.getGameStatus() == GameStatus.LAST_TURN && currentPlayer.equals(players.get(players.size() - 1))) {
-            model.setGameStatus(GameStatus.ENDED);
-            endGame();
-        }
+        return cardPicked;
     }
 
     /**

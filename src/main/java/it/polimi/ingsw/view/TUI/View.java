@@ -253,12 +253,12 @@ public class View extends Thread {
                         "║                                           Commands                                           ║\n" +
                         "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n" +
                         "║ - playcard [#x] [#y] [#CardToPlayFromHand] [#CardToPickFromGround / ResourceDeck / GoldDeck] ║\n" +
-                        "║ - inspectCodex [optional: {NameOfPlayer}, default:{You}]                                     ║\n" +
-                        "║ - inspectCard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]                            ║\n" +
-                        "║ - inspectHand [optional: #CardToInspectFromHand]                                             ║\n" +
-                        "║ - inspectGround [optional: #CardToInspectFromGround]                                         ║\n" +
-                        "║ - viewGoals                                                                                  ║\n" +
-                        "║ - viewScores                                                                                 ║\n" +
+                        "║ - inspectcodex [optional: {NameOfPlayer}, default:{You}]                                     ║\n" +
+                        "║ - inspectcard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]                            ║\n" +
+                        "║ - inspecthand [optional: #CardToInspectFromHand]                                             ║\n" +
+                        "║ - inspectground [optional: #CardToInspectFromGround]                                         ║\n" +
+                        "║ - viewgoals                                                                                  ║\n" +
+                        "║ - viewscores                                                                                 ║\n" +
                         "║ - chat                                                                                       ║\n" +
                         "║ - commands                                                                                   ║\n" +
                         "╚══════════════════════════════════════════════════════════════════════════════════════════════╝"
@@ -285,11 +285,14 @@ public class View extends Thread {
             } else if(cardToPick.equals("GoldDeck")) {
                 ClientController.getInstance().playWithPickFromDeck(coordinate, cardPlaced, 1);
             } else {
-                Card cardPicked = ClientController.getInstance().getPlayerHand().getCards().get(Integer.parseInt(cardToPick) - 1);
+                ArrayList<Card> cardsToPick = new ArrayList<Card>();
+                cardsToPick.addAll(ClientController.getInstance().getCardToPick());
+                cardsToPick.addAll(ClientController.getInstance().getGoldCardToPick());
+                Card cardPicked = cardsToPick.get(Integer.parseInt(cardToPick) - 1);
                 ClientController.getInstance().playWithPickFromGround(coordinate, cardPlaced, cardPicked);
             }
         } else {
-            updateInfo("Wait your turn before playing!", false);
+            Messages.getInstance().error("Wait your turn before playing!");
         }
     }
 
@@ -316,6 +319,32 @@ public class View extends Thread {
                 }
             }
             System.out.printf("\n\n");
+        }
+
+        for(Resource r : codex.getNumOfResources().keySet()) {
+            switch (r) {
+                case FUNGI:
+                    System.out.println(TextColor.RED + "Fungi: " + TextColor.RESET + codex.getNumOfResources(r));
+                    break;
+                case PLANT:
+                    System.out.println(TextColor.GREEN + "Plant: " + TextColor.RESET + codex.getNumOfResources(r));
+                    break;
+                case INSECT:
+                    System.out.println(TextColor.PURPLE + "Insect: " + TextColor.RESET + codex.getNumOfResources(r));
+                    break;
+                case ANIMAL:
+                    System.out.println(TextColor.BRIGHT_BLUE + "Animal: " + TextColor.RESET + codex.getNumOfResources(r));
+                    break;
+                case FEATHER:
+                    System.out.println(TextColor.BRIGHT_YELLOW + "Feather: " + TextColor.RESET + codex.getNumOfResources(r));
+                    break;
+                case JAR:
+                    System.out.println(TextColor.BRIGHT_YELLOW + "Jar: " + TextColor.RESET + codex.getNumOfResources(r));
+                    break;
+                case SCROLL:
+                    System.out.println(TextColor.BRIGHT_YELLOW + "Scroll: " + TextColor.RESET + codex.getNumOfResources(r));
+                    break;
+            }
         }
     }
 
@@ -473,16 +502,15 @@ public class View extends Thread {
             clear();
             Messages.getInstance().info("You're in the chat section");
 
-            if (!error.equals("")) {
-                Messages.getInstance().error(error);
-            }
-
             if (ClientController.getInstance().getMessages() != null) {
                 for (String s : ClientController.getInstance().getMessages()) {
                     System.out.println(s);
                 }
             }
 
+            if (!error.equals("")) {
+                Messages.getInstance().error(error);
+            }
 
             Messages.getInstance().input("Message: ");
         }

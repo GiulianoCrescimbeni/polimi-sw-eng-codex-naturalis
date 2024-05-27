@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class PlaceCardWithPickFromDeckCommand extends Command implements Serializable {
     private Coordinate coordinate;
     private Card cardPlaced;
+    private Card cardPicked;
     private int deckIndex;
 
     /**
@@ -46,6 +47,16 @@ public class PlaceCardWithPickFromDeckCommand extends Command implements Seriali
     }
 
     /**
+     * @return the card picked from the deck
+     */
+    public Card getCardPicked() { return cardPicked; }
+
+    /**
+     * @param cardPicked the card picked from the deck
+     */
+    public void setCardPicked(Card cardPicked) { this.cardPicked = cardPicked; }
+
+    /**
      * @return the index of the deck (0: Resource Card Deck, 1: Gold Card Deck)
      */
     public int getDeckIndex() {
@@ -66,23 +77,41 @@ public class PlaceCardWithPickFromDeckCommand extends Command implements Seriali
      */
     @Override
     public Update execute(Controller gameController) {
+        PlaceCardUpdate update = new PlaceCardUpdate();
         try {
-            gameController.playWithPickFromDeck(getCoordinate(), getCardPlaced(), getDeckIndex());
-            PlaceCardUpdate update = new PlaceCardUpdate();
-            update.setNickname(gameController.getCurrentPlayer().getNickname());
-            update.setPlacedCorrectly(true);
-            update.setCard(getCardPlaced());
-            update.setCoordinate(getCoordinate());
+            gameController.playCard(getCoordinate(), getCardPlaced());
+            Card cardPicked = gameController.pickCardFromDeck(getDeckIndex());
+            fillCardUpdate(update, gameController);
             GamesManager.getInstance().broadcast(gameController.getModel().getGameID(), update);
-            CardPickedUpdate cardPickedUpdate = new CardPickedUpdate();
-            //TODO: Implementare il set della carta cambiando la funzione con return della carta pescata
-            //cardPickedUpdate.setCardPicked();
-            return cardPickedUpdate;
+            return getCardPickedUpdate(cardPicked);
         } catch (IllegalCoordinatesException | IllegalCardPlacementException e) {
-            PlaceCardUpdate update = new PlaceCardUpdate();
             update.setMessage(e.getMessage());
             update.setPlacedCorrectly(false);
             return update;
         }
+    }
+
+    /**
+     * @param update the update to fill
+     * @param gameController the game controller to get data
+     */
+    private void fillCardUpdate(PlaceCardUpdate update, Controller gameController) {
+        update.setNickname(getNickname());
+        update.setPlacedCorrectly(true);
+        update.setCard(getCardPlaced());
+        update.setCoordinate(getCoordinate());
+        update.setCurrentPlayer(gameController.getCurrentPlayer());
+        update.setCardPicked(null);
+        update.setNewGroundCard(null);
+    }
+
+    /**
+     * @return the update to send to the client
+     */
+    private CardPickedUpdate getCardPickedUpdate(Card cardPicked) {
+        CardPickedUpdate cardPickedUpdate = new CardPickedUpdate();
+        cardPickedUpdate.setCardPlaced(getCardPlaced());
+        cardPickedUpdate.setCardPicked(cardPicked);
+        return cardPickedUpdate;
     }
 }

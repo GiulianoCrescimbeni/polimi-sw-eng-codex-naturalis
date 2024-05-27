@@ -190,9 +190,9 @@ public class Codex implements CodexInterface, Serializable {
         }
 
         if( (getCard(ul) != null && getCard(ul).getAngle(AnglePos.DR).isAttached()) ||
-            (getCard(ul) != null && getCard(ur).getAngle(AnglePos.DL).isAttached()) ||
-            (getCard(ul) != null && getCard(dl).getAngle(AnglePos.UR).isAttached()) ||
-            (getCard(ul) != null && getCard(dr).getAngle(AnglePos.UL).isAttached()) ) {
+            (getCard(ur) != null && getCard(ur).getAngle(AnglePos.DL).isAttached()) ||
+            (getCard(dl) != null && getCard(dl).getAngle(AnglePos.UR).isAttached()) ||
+            (getCard(dr) != null && getCard(dr).getAngle(AnglePos.UL).isAttached()) ) {
             return false;
         }
 
@@ -269,7 +269,7 @@ public class Codex implements CodexInterface, Serializable {
      * Get resources from the {@link Card}
      * @param card the card to get the resources from
      */
-    private void getResourcesFromCard(Card card) {
+    public void getResourcesFromCard(Card card) {
         if(card.getAnglesMap().get(AnglePos.UL).getResource() != null && card.getAnglesMap().get(AnglePos.UL).getResource() != Resource.BLANK) {
             incrementNumOfResources(card.getAnglesMap().get(AnglePos.UL).getResource(), 1);
         }

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.client.commands.Command;
-import it.polimi.ingsw.network.server.RMIServerInterface;
-import it.polimi.ingsw.network.server.handler.RMIClientHandler;
+import it.polimi.ingsw.network.server.RMI.RMIServerInterface;
 import it.polimi.ingsw.network.server.handler.RMIClientHandlerImplementation;
 import it.polimi.ingsw.network.server.updates.Update;
 
@@ -10,10 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 public class ClientSR extends Thread {
 

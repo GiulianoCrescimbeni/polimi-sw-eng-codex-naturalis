@@ -1,8 +1,9 @@
-package it.polimi.ingsw.network.server;
+package it.polimi.ingsw.network.server.RMI;
 
 import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
+import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.handler.RMIClientHandler;
 import it.polimi.ingsw.network.server.handler.SocketClientHandler;
 import it.polimi.ingsw.view.TUI.TextColor;
