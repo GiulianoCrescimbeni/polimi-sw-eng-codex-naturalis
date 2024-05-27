@@ -196,6 +196,13 @@ public class Codex implements CodexInterface, Serializable {
             return false;
         }
 
+        if( (getCard(ul) != null && getCard(ul).getAngle(AnglePos.DR).getResource() == null) ||
+            (getCard(ur) != null && getCard(ur).getAngle(AnglePos.DL).getResource() == null) ||
+            (getCard(dl) != null && getCard(dl).getAngle(AnglePos.UR).getResource() == null) ||
+            (getCard(dr) != null && getCard(dr).getAngle(AnglePos.UL).getResource() == null) )  {
+            return false;
+        }
+
         if(getCards().containsKey(ul)) {
             Angle DR = cards.get(ul).getAngle(AnglePos.DR);
             if(DR.getResource() != null) {
