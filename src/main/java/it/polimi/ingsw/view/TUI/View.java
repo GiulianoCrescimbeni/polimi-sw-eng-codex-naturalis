@@ -13,11 +13,12 @@ import it.polimi.ingsw.network.client.ClientSR;
 import it.polimi.ingsw.network.client.commands.ChatMessageCommand;
 import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
+import it.polimi.ingsw.view.ViewInterface;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class View extends Thread {
+public class View extends Thread implements ViewInterface {
 
     private static View instance;
 
