@@ -16,6 +16,7 @@ import it.polimi.ingsw.network.client.commands.PlaceCardWithPickFromDeckCommand;
 import it.polimi.ingsw.network.client.commands.PlaceCardWithPickFromGroundCommand;
 import it.polimi.ingsw.network.client.commands.SelectPersonalGoalCommand;
 import it.polimi.ingsw.view.TUI.View;
+import it.polimi.ingsw.view.ViewInterface;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,6 +24,7 @@ import java.util.Objects;
 
 public class ClientController {
     private static ClientController instance;
+    private ViewInterface viewInterface;
     private ArrayList<Color> availableColors = new ArrayList<Color>();
     private ArrayList<Goal> goalsToPick = new ArrayList<>();
     private String username;
@@ -42,6 +44,14 @@ public class ClientController {
     public static ClientController getInstance() {
         if (instance == null) instance = new ClientController();
         return instance;
+    }
+
+    public ViewInterface getViewInterface() {
+        return viewInterface;
+    }
+
+    public void setViewInterface(ViewInterface viewInterface) {
+        this.viewInterface = viewInterface;
     }
 
     public String getUsername() {
@@ -68,7 +78,6 @@ public class ClientController {
 
     public void updateAvailableColors(ArrayList<Color> availableColors) {
         this.availableColors = availableColors;
-        View.getInstance().pickUsernameAndColor();
     }
 
     public ArrayList<Color> getAvailableColors() {
@@ -241,7 +250,6 @@ public class ClientController {
         if (this.messageHistory == null) messageHistory = new ArrayList<String>();
 
         this.messageHistory.add(message);
-        View.getInstance().updateChatView("");
     }
 
     public ArrayList<String> getMessages() {

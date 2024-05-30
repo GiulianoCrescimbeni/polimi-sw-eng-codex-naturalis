@@ -43,6 +43,7 @@ public class ChatMessageUpdate extends Update implements Serializable {
                 toAdd = Messages.getInstance().getMessage(TextColor.BRIGHT_BLUE + "[You to " + getReceiver() + "]: " + TextColor.RESET + message, true);
             }
             ClientController.getInstance().addMessage(toAdd);
+            ClientController.getInstance().getViewInterface().updateChatView("");
         }
     }
 }

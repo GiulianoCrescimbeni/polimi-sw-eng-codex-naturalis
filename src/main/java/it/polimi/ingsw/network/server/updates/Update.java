@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.updates;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**

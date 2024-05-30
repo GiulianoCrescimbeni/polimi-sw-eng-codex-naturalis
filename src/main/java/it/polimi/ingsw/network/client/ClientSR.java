@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -32,17 +33,15 @@ public class ClientSR extends Thread {
 
     public synchronized void startSR(String host, int port, boolean isSocket) {
         this.isSocket = isSocket;
+        this.host = host;
+        this.port = port;
 
         if (isSocket) {
-            this.host = host;
-            this.port = port;
 
             try{
 
                 s = new Socket(host, port);
-
                 out = new ObjectOutputStream(s.getOutputStream());
-
                 this.start();
 
             } catch (Exception e) {
@@ -52,6 +51,7 @@ public class ClientSR extends Thread {
             try {
                 Registry registry = LocateRegistry.getRegistry(host, port);
                 this.server = (RMIServerInterface) registry.lookup("RMIServer");
+                //this.server = (RMIServerInterface) Naming.lookup("rmi://" + this.host + ":" + this.port + "/RMIServerInterface");
 
                 this.clientHandler = new RMIClientHandlerImplementation();
                 server.registerClient(clientHandler);
@@ -59,11 +59,7 @@ public class ClientSR extends Thread {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-
-
-
     }
 
     public static ClientSR getInstance() {

@@ -5,9 +5,11 @@ import it.polimi.ingsw.model.GameComponents.Codex;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.GUI.GUIApplication;
+import it.polimi.ingsw.view.GUI.SceneEnum;
 import it.polimi.ingsw.view.TUI.View;
 
-import javax.lang.model.type.ArrayType;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
@@ -108,6 +110,10 @@ public class GameDataUpdate extends Update implements Serializable {
     @Override
     public void execute() {
         ClientController.getInstance().updateGameData(getCodexMap(), getCardToPick(), getGoldCardToPick(), getPlayers(), getCurrentPlayer(), getCommonGoals());
-        View.getInstance().start();
+        if(ClientController.getInstance().getViewInterface().getClass() == View.getInstance().getClass()) {
+            View.getInstance().start();
+        } else {
+
+        }
     }
 }

@@ -2,6 +2,8 @@ package it.polimi.ingsw.network.server.updates;
 
 import it.polimi.ingsw.model.Data.SerializedGame;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.GUI.GUIApplication;
 import it.polimi.ingsw.view.TUI.View;
 
 import java.io.Serializable;
@@ -22,9 +24,9 @@ public class AvailableMatchesUpdate extends Update implements Serializable {
     @Override
     public void execute() {
         if (select) {
-            View.getInstance().selectAvailableMatch(availableMatches, message);
+            ClientController.getInstance().getViewInterface().selectAvailableMatch(availableMatches, message);
         } else {
-            View.getInstance().joinOrCreateMatch(availableMatches);
+            ClientController.getInstance().getViewInterface().joinOrCreateMatch(availableMatches);
         }
 
     }

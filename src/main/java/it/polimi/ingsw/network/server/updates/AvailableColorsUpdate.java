@@ -26,6 +26,7 @@ public class AvailableColorsUpdate extends Update implements Serializable {
     @Override
     public void execute() {
         ClientController.getInstance().updateAvailableColors(availableColors);
+        ClientController.getInstance().getViewInterface().pickUsernameAndColor();
     }
 
 }

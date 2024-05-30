@@ -1,23 +1,16 @@
 package it.polimi.ingsw.model.Data;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Resource;
-import it.polimi.ingsw.model.GameComponents.Angle;
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.model.GameComponents.InitialCard;
 import it.polimi.ingsw.model.Goals.*;
 
-import javax.swing.text.Position;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 
 public class CardsLoader {
 

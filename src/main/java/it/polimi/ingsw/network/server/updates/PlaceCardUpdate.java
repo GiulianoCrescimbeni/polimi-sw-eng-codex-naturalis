@@ -76,10 +76,10 @@ public class PlaceCardUpdate extends Update implements Serializable {
     @Override
     public void execute() {
         if(!isPlacedCorrectly()) {
-            View.getInstance().updateInfo(getMessage(), false);
+            ClientController.getInstance().getViewInterface().updateInfo(getMessage(), false);
         } else {
             ClientController.getInstance().updateTurn(getNickname(), getCoordinate(), getCardPlaced(), getCurrentPlayer(), getCardPicked(), getNewGroundCard());
-            View.getInstance().updateInfo(null, true);
+            ClientController.getInstance().getViewInterface().updateInfo(null, true);
         }
     }
 }

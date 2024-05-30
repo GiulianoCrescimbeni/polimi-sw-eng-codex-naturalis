@@ -92,7 +92,7 @@ public class GamesManager {
     }
 
     /**
-     * @param clientHandler
+     * @param clientHandler the {@link ClientHandler} of the player
      * @return the id of the game linked to that client handler
      */
     public Integer getGameId(ClientHandler clientHandler) {

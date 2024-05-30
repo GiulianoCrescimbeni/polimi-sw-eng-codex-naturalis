@@ -63,10 +63,10 @@ public class LoginUpdate extends Update implements Serializable {
             System.out.println(message);
             ClientController.getInstance().updateGoalsToPick(personalGoalsToPick);
             ClientController.getInstance().setUsername(nickname);
-            View.getInstance().selectPersonalGoal();
+            ClientController.getInstance().getViewInterface().selectPersonalGoal();
         } else {
             System.out.println(message);
-            View.getInstance().pickUsernameAndColor();
+            ClientController.getInstance().getViewInterface().pickUsernameAndColor();
         }
     }
 }

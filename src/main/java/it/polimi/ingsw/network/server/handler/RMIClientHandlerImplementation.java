@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.server.handler;
 
-import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.server.updates.Update;
 
 import java.rmi.RemoteException;
