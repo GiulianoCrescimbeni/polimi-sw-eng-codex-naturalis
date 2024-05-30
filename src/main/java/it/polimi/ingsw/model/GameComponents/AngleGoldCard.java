@@ -24,7 +24,13 @@ public class AngleGoldCard extends GoldCard {
      */
     public AngleGoldCard(int cardID, Map<AnglePos, Angle> angles, CardType cardType, boolean isTurned, int cardScore, boolean lUsed, boolean dUsed, ArrayList<Resource> playCondition) {
         super(cardID, angles, cardType, isTurned, cardScore, lUsed, dUsed, playCondition);
+        this.numOfAnglesCovered = 0;
     }
+
+    /**
+     * @param numOfAnglesCovered the number of angles covered
+     */
+    public void setNumOfAnglesCovered(int numOfAnglesCovered) { this.numOfAnglesCovered = numOfAnglesCovered; }
 
     /**
      * @return the number of angles covered

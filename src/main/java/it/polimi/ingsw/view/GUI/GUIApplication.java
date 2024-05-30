@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,9 +21,9 @@ public class GUIApplication extends Application implements ViewInterface {
     @Override
     public void start(Stage stage) throws Exception {
         ClientController.getInstance().setViewInterface(this);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/polimi/ingsw/fxml/menu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/polimi/ingsw/fxml/MainMenu.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 1290, 790);
+        Scene scene = new Scene(root);
         mainStage = stage;
         mainStage.setScene(scene);
         this.mainStage.setTitle("Codex Naturalis");
@@ -33,18 +34,23 @@ public class GUIApplication extends Application implements ViewInterface {
     public void setMainScene(SceneEnum sceneName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName.value()));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 1290, 790);
+        Scene scene = new Scene(root);
         this.mainStage.setScene(scene);
     }
 
-    public void openPopup(Scene scene) {
+    public void openPopup(SceneEnum sceneName) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName.value()));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
         popUpStage = new Stage();
         popUpStage.setTitle("Info");
         popUpStage.setResizable(false);
         popUpStage.setScene(scene);
-        popUpStage.setOnCloseRequest(we -> System.exit(0));
         popUpStage.setX(mainStage.getX() + (mainStage.getWidth() - scene.getWidth()) * 0.5);
         popUpStage.setY(mainStage.getY() + (mainStage.getHeight() - scene.getHeight()) * 0.5);
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        popUpStage.initOwner(mainStage);
+        popUpStage.show();
     }
 
     @Override

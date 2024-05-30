@@ -2,12 +2,9 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Enumerations.GameStatus;
-import it.polimi.ingsw.model.GameComponents.Card;
-import it.polimi.ingsw.model.GameComponents.Codex;
-import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.model.GameComponents.*;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
-import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
@@ -221,22 +218,31 @@ public class ClientController {
         ClientController.getInstance().setCurrentPlayer(currentPlayer);
         Player player = getPlayerByUsername(username);
         Codex codex = ClientController.getInstance().getCodexMap().get(player);
-        try {
-            codex.placeCard(coordinate, cardPlaced);
-        } catch (IllegalCardPlacementException | IllegalCoordinatesException e) {
-            e.printStackTrace();
+        if(cardPlaced.getClass() == Card.class) {
+            try {
+                codex.placeCard(coordinate, cardPlaced);
+            } catch (IllegalCardPlacementException | IllegalCoordinatesException e) {
+                e.printStackTrace();
+            }
+        } else if(cardPlaced.getClass() == GoldCard.class || cardPlaced.getClass() == ResourceGoldCard.class || cardPlaced.getClass() == AngleGoldCard.class){
+            try {
+                codex.placeGoldCard(coordinate, (GoldCard) cardPlaced);
+            } catch (IllegalCardPlacementException | IllegalCoordinatesException e) {
+                e.printStackTrace();
+            }
         }
+
 
         if(cardPicked != null && newGroundCard != null) {
             if(cardPicked.getClass() == Card.class) {
                 getCardToPick().remove(cardPicked);
-            } else if(cardPicked.getClass() == GoldCard.class) {
+            } else if(cardPicked.getClass() == GoldCard.class || cardPicked.getClass() == ResourceGoldCard.class || cardPicked.getClass() == AngleGoldCard.class) {
                 getGoldCardToPick().remove(cardPicked);
             }
             if(newGroundCard.getClass() == Card.class) {
                 getCardToPick().add(newGroundCard);
-            } else if(newGroundCard.getClass() == GoldCard.class) {
-                getGoldCardToPick().remove(newGroundCard);
+            } else if(newGroundCard.getClass() == GoldCard.class || newGroundCard.getClass() == ResourceGoldCard.class || newGroundCard.getClass() == AngleGoldCard.class) {
+                getGoldCardToPick().add(newGroundCard);
             }
         }
     }

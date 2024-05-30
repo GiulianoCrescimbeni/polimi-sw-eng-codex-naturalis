@@ -3,14 +3,11 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Enumerations.GameStatus;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameComponents.Codex;
+import it.polimi.ingsw.model.GameComponents.*;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
-import it.polimi.ingsw.model.GameComponents.Card;
-import it.polimi.ingsw.model.GameComponents.Coordinate;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
-import it.polimi.ingsw.model.GameComponents.GoldCard;
 import it.polimi.ingsw.network.server.updates.AvailableColorsUpdate;
 import it.polimi.ingsw.network.server.updates.LoginUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
@@ -152,7 +149,7 @@ public class Controller {
         try {
             if(cardPlayed.getClass() == Card.class) {
                 model.getGameTable().getCodex(currentPlayer).placeCard(coordinate, cardPlayed);
-            } else if(cardPlayed.getClass() == GoldCard.class) {
+            } else if(cardPlayed.getClass() == GoldCard.class || cardPlayed.getClass() == ResourceGoldCard.class || cardPlayed.getClass() == AngleGoldCard.class) {
                 model.getGameTable().getCodex(currentPlayer).placeGoldCard(coordinate, (GoldCard) cardPlayed);
             }
             getCurrentPlayer().getPlayerHand().removeCard(cardPlayed);

@@ -2,8 +2,7 @@ package it.polimi.ingsw.view.GUI;
 
 public enum SceneEnum {
 
-    MENU("/polimi/ingsw/fxml/menu.fxml"),
-    MENU2("/polimi/ingsw/fxml/menu2.fxml");
+    MAINMENU("/polimi/ingsw/fxml/MainMenu.fxml");
 
     private final String value;
 

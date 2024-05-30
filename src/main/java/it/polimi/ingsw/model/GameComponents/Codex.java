@@ -297,6 +297,12 @@ public class Codex implements CodexInterface, Serializable {
      */
     private void addPoints(GoldCard goldCard) {
         if(goldCard.getClass() == AngleGoldCard.class) {
+            ((AngleGoldCard) goldCard).setNumOfAnglesCovered(0);
+            for(AnglePos p : goldCard.getAnglesMap().keySet()) {
+                if(goldCard.getAngle(p) != null && goldCard.getAngle(p).isAttached()) {
+                    ((AngleGoldCard) goldCard).addAngleCovered();
+                }
+            }
             incrementScore(goldCard.getCardScore() * ((AngleGoldCard) goldCard).getNumOfAnglesCovered());
         } else if(goldCard.getClass() == ResourceGoldCard.class) {
             incrementScore(goldCard.getCardScore() * getNumOfResources(((ResourceGoldCard) goldCard).getResourceType()));

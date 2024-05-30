@@ -47,8 +47,6 @@ public class MainClient{
                 ClientSR.getInstance().startSR(host, 25566, socket);
             }
 
-
-
             while (true);
         } catch (Exception e) {
             e.printStackTrace();
