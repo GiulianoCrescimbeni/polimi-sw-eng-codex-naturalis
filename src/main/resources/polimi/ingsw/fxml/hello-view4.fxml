@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="790.0" fitWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../ICONA.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="295.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INSERISCI NOME" textAlignment="CENTER" wrappingWidth="200.0">
+         <font>
+            <Font name="Luminari" size="18.0" />
+         </font>
+      </Text>
+      <TextArea layoutX="295.0" layoutY="348.0" prefHeight="24.0" prefWidth="200.0" />
+      <MenuButton layoutX="295.0" layoutY="417.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="200.0" text="SELEZIONA COLORE" textAlignment="CENTER">
+        <items>
+          <MenuItem mnemonicParsing="false" text="ROSSO" />
+          <MenuItem mnemonicParsing="false" text="VERDE" />
+            <MenuItem mnemonicParsing="false" text="GIALLO" />
+            <MenuItem mnemonicParsing="false" text="BLU" />
+        </items>
+         <font>
+            <Font name="Luminari" size="14.0" />
+         </font>
+      </MenuButton>
+      <Button layoutX="694.0" layoutY="17.0" mnemonicParsing="false" text="START">
+         <font>
+            <Font name="Luminari" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="600.0" layoutY="17.0" mnemonicParsing="false" text="BACK" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="120.0">
+         <font>
+            <Font name="Luminari" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
