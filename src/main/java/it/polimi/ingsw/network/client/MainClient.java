@@ -33,12 +33,6 @@ public class MainClient{
         Messages.getInstance().input("Insert 1 for TUI or 2 for GUI: ");
         selection = s.nextInt();
 
-        if(selection == 1) {
-            ClientController.getInstance().setViewInterface(View.getInstance());
-        } else if (selection == 2) {
-            Application.launch(GUIApplication.class);
-        }
-
         try {
 
             if (socket) {
@@ -47,10 +41,16 @@ public class MainClient{
                 ClientSR.getInstance().startSR(host, 25566, socket);
             }
 
-            while (true);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if(selection == 1) {
+            ClientController.getInstance().setViewInterface(View.getInstance());
+        } else if (selection == 2) {
+            Application.launch(GUIApplication.class);
+        }
+        while (true);
     }
 
 }

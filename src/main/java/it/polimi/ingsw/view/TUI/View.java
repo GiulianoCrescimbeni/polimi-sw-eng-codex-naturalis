@@ -242,7 +242,6 @@ public class View extends Thread implements ViewInterface {
 
                 default:
                     Messages.getInstance().error("Command not valid");
-                    continue;
             }
         }
     }
@@ -299,6 +298,14 @@ public class View extends Thread implements ViewInterface {
 
     public void inspectCodex(String username) {
         clear();
+        System.out.println(getPlayerColor() +
+                        " ▄▄·       ·▄▄▄▄  ▄▄▄ .▐▄• ▄ \n" +
+                        "▐█ ▌▪▪     ██▪ ██ ▀▄.▀· █▌█▌▪\n" +
+                        "██ ▄▄ ▄█▀▄ ▐█· ▐█▌▐▀▀▪▄ ·██· \n" +
+                        "▐███▌▐█▌.▐▌██. ██ ▐█▄▄▌▪▐█·█▌\n" +
+                        "·▀▀▀  ▀█▄▀▪▀▀▀▀▀•  ▀▀▀ •▀▀ ▀▀\n"
+                + TextColor.RESET
+        );
         Player player = ClientController.getInstance().getPlayerByUsername(username);
         Codex codex = ClientController.getInstance().getCodexMap().get(player);
         List<Integer> xCoordinates = codex.getCards().keySet().stream().map(Coordinate::getX).distinct().sorted().collect(Collectors.toList());
@@ -361,6 +368,14 @@ public class View extends Thread implements ViewInterface {
 
     public void inspectHand(int cardToInspect) {
         clear();
+        System.out.println(getPlayerColor() +
+                        " ▄ .▄ ▄▄▄·  ▐ ▄ ·▄▄▄▄  \n" +
+                        "██▪▐█▐█ ▀█ •█▌▐███▪ ██ \n" +
+                        "██▀▐█▄█▀▀█ ▐█▐▐▌▐█· ▐█▌\n" +
+                        "██▌▐▀▐█ ▪▐▌██▐█▌██. ██ \n" +
+                        "▀▀▀ · ▀  ▀ ▀▀ █▪▀▀▀▀▀•\n"
+                + TextColor.RESET
+        );
         PlayerHand playerHand = ClientController.getInstance().getPlayerHand();
         if(cardToInspect == -1) {
             int cardNumber = 1;
@@ -383,6 +398,14 @@ public class View extends Thread implements ViewInterface {
 
     public void inspectGround(int cardToInspectFromGround) {
         clear();
+        System.out.println(getPlayerColor() +
+                        " ▄▄ • ▄▄▄        ▄• ▄▌ ▐ ▄ ·▄▄▄▄  \n" +
+                        "▐█ ▀ ▪▀▄ █·▪     █▪██▌•█▌▐███▪ ██ \n" +
+                        "▄█ ▀█▄▐▀▀▄  ▄█▀▄ █▌▐█▌▐█▐▐▌▐█· ▐█▌\n" +
+                        "▐█▄▪▐█▐█•█▌▐█▌.▐▌▐█▄█▌██▐█▌██. ██ \n" +
+                        "·▀▀▀▀ .▀  ▀ ▀█▄▀▪ ▀▀▀ ▀▀ █▪▀▀▀▀▀•\n"
+                + TextColor.RESET
+        );
         ArrayList<Card> cardsToPick = new ArrayList<Card>();
         cardsToPick.addAll(ClientController.getInstance().getCardToPick());
         cardsToPick.addAll(ClientController.getInstance().getGoldCardToPick());
@@ -407,6 +430,14 @@ public class View extends Thread implements ViewInterface {
 
     public void viewGoals() {
         clear();
+        System.out.println(getPlayerColor() +
+                        " ▄▄ •        ▄▄▄· ▄▄▌  .▄▄ · \n" +
+                        "▐█ ▀ ▪▪     ▐█ ▀█ ██•  ▐█ ▀. \n" +
+                        "▄█ ▀█▄ ▄█▀▄ ▄█▀▀█ ██▪  ▄▀▀▀█▄\n" +
+                        "▐█▄▪▐█▐█▌.▐▌▐█ ▪▐▌▐█▌▐▌▐█▄▪▐█\n" +
+                        "·▀▀▀▀  ▀█▄▀▪ ▀  ▀ .▀▀▀  ▀▀▀▀\n"
+                + TextColor.RESET
+        );
         System.out.println("Common Goals: ");
         System.out.print("1)");
         ClientController.getInstance().getCommonGoals().get(0).draw();
@@ -419,6 +450,14 @@ public class View extends Thread implements ViewInterface {
 
     public void viewScores() {
         clear();
+        System.out.println(getPlayerColor() +
+                    ".▄▄ ·  ▄▄·       ▄▄▄  ▄▄▄ ..▄▄ · \n" +
+                    "▐█ ▀. ▐█ ▌▪▪     ▀▄ █·▀▄.▀·▐█ ▀. \n" +
+                    "▄▀▀▀█▄██ ▄▄ ▄█▀▄ ▐▀▀▄ ▐▀▀▪▄▄▀▀▀█▄\n" +
+                    "▐█▄▪▐█▐███▌▐█▌.▐▌▐█•█▌▐█▄▄▌▐█▄▪▐█\n" +
+                    " ▀▀▀▀ ·▀▀▀  ▀█▄▀▪.▀  ▀ ▀▀▀  ▀▀▀▀\n"
+                + TextColor.RESET
+        );
         for(Player player : ClientController.getInstance().getPlayers()) {
             System.out.println(printPlayer(player) + " Score: " + TextColor.BRIGHT_YELLOW + ClientController.getInstance().getCodexMap().get(player).getScore() + TextColor.RESET);
         }
@@ -670,6 +709,16 @@ public class View extends Thread implements ViewInterface {
             case YELLOW: return TextColor.BRIGHT_YELLOW + player.getNickname() + TextColor.RESET;
         }
         return null;
+    }
+
+    public String getPlayerColor() {
+        switch(ClientController.getInstance().getColor()) {
+            case RED: return TextColor.RED + "";
+            case BLUE: return TextColor.BLUE + "";
+            case GREEN: return TextColor.GREEN + "";
+            case YELLOW: return TextColor.BRIGHT_YELLOW + "";
+        }
+        return "";
     }
 
     public String printResource(Resource resource) {

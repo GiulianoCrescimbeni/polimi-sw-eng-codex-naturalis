@@ -55,7 +55,7 @@ public class GUIApplication extends Application implements ViewInterface {
 
     @Override
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
-
+        System.out.println("Prova");
     }
 
     @Override
