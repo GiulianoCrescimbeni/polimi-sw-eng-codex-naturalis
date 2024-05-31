@@ -82,7 +82,7 @@ public class ClientSR extends Thread {
 
     }
 
-    public void handleUpdate(Update update) {
+    public void handleUpdate(Update update) throws IOException {
         update.execute();
     }
 

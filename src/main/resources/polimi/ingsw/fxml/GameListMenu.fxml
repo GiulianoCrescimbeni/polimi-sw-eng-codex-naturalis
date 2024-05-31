@@ -20,7 +20,7 @@
             <Font name="Luminari" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="449.0" layoutY="38.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="90.0" text="REFRESH">
+      <Button layoutX="449.0" layoutY="38.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="90.0" text="REFRESH" onAction="#refresh">
          <font>
             <Font name="Luminari" size="14.0" />
          </font>

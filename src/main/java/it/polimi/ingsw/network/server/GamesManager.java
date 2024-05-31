@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
+import it.polimi.ingsw.network.client.commands.RefreshAvailableGamesCommand;
 import it.polimi.ingsw.network.server.handler.ClientHandler;
 import it.polimi.ingsw.network.server.updates.AvailableMatchesUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
@@ -100,21 +101,24 @@ public class GamesManager {
     }
 
     /**
-     * @param clientHandler The client handler added to the waiting list
-     * @throws IOException
+     * Get all the available games
+     * @return an arraylist of {@link SerializedGame}
      */
-    public void addConnectionToWaitingList(ClientHandler clientHandler) throws IOException {
+    public ArrayList<SerializedGame> getAvailableGames() {
         ArrayList<SerializedGame> availableMatches = new ArrayList<SerializedGame>();
-
         for (int gameId : controllers.keySet()) {
             SerializedGame sg = new SerializedGame(gameId, controllers.get(gameId).getModel().getPlayers().size(), controllers.get(gameId).getModel().getMaxPlayers());
             availableMatches.add(sg);
         }
+        return availableMatches;
+    }
 
+    /**
+     * @param clientHandler The client handler added to the waiting list
+     * @throws IOException
+     */
+    public void addConnectionToWaitingList(ClientHandler clientHandler) throws IOException {
         waitingToJoin.add(clientHandler);
-
-        AvailableMatchesUpdate up = new AvailableMatchesUpdate(availableMatches, false, null);
-        clientHandler.sendUpdate(up);
     }
 
     /**
@@ -147,15 +151,7 @@ public class GamesManager {
     public void joinMatch(ClientHandler clientHandler, JoinMatchCommand command) throws IOException {
         int gameId = command.getGameId();
         if (getController(gameId).getModel().isFull()) {
-
-            ArrayList<SerializedGame> availableMatches = new ArrayList<SerializedGame>();
-
-            for (int id : controllers.keySet()) {
-                SerializedGame sg = new SerializedGame(id, controllers.get(id).getModel().getPlayers().size(), controllers.get(id).getModel().getMaxPlayers());
-                availableMatches.add(sg);
-            }
-
-            AvailableMatchesUpdate up = new AvailableMatchesUpdate(availableMatches, true, Messages.getInstance().getErrorMessage("The match you're trying to join is full. Try another match"));
+            AvailableMatchesUpdate up = new AvailableMatchesUpdate(getAvailableGames(), Messages.getInstance().getErrorMessage("The match you're trying to join is full. Try another match"));
             clientHandler.sendUpdate(up);
         } else {
 
@@ -173,12 +169,17 @@ public class GamesManager {
      * @param command The command to be executed
      */
     public void handleCommand(ClientHandler clientHandler, Command command) throws IOException {
-        Integer gameId;
-        synchronized(connections) {
-            gameId = connections.get(clientHandler);
+        Update update;
+        if(command.getClass() == RefreshAvailableGamesCommand.class) {
+            update = new AvailableMatchesUpdate(getAvailableGames(), null);
+        } else {
+            Integer gameId;
+            synchronized(connections) {
+                gameId = connections.get(clientHandler);
+            }
+            update = command.execute(controllers.get(gameId));
+            if (update == null) return;
         }
-        Update update = command.execute(controllers.get(gameId));
-        if (update == null) return;
         clientHandler.sendUpdate(update);
     }
 

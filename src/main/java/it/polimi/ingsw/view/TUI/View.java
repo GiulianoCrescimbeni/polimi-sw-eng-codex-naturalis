@@ -10,9 +10,7 @@ import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.ClientSR;
-import it.polimi.ingsw.network.client.commands.ChatMessageCommand;
-import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
-import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
+import it.polimi.ingsw.network.client.commands.*;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.util.*;
@@ -106,18 +104,18 @@ public class View extends Thread implements ViewInterface {
 
     }
 
-    public void joinOrCreateMatch(ArrayList<SerializedGame> availableMatches) {
-
-        if (availableMatches.isEmpty()) {
-            createMatch();
-            return;
-        }
+    public void joinOrCreateMatch() {
 
         Messages.getInstance().input("Do you want to join or create a match? \nJoin: 1\nCreate: 2\n");
         int input = getOptionsInput(2);
 
         if (input == 1) {
-            selectAvailableMatch(availableMatches, null);
+            RefreshAvailableGamesCommand cmd = new RefreshAvailableGamesCommand();
+            try {
+                ClientSR.getInstance().sendCommand(cmd);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             createMatch();
         }
@@ -150,15 +148,36 @@ public class View extends Thread implements ViewInterface {
 
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
         if (error != null) System.out.println(error);
-        Messages.getInstance().info("Here's a list of the available matches: ");
-        for (int i = 0; i < availableMatches.size(); i++) {
-            SerializedGame g = availableMatches.get(i);
-            System.out.println((i+1) + ": " + TextColor.BRIGHT_BLUE + g.getGameID() + TextColor.RESET + " (" + TextColor.BRIGHT_YELLOW + g.getCurrentPlayers() + TextColor.RESET + "/" + TextColor.BRIGHT_YELLOW + g.getMaxPlayers() + TextColor.RESET + ")");
+        int possibleChoice = 1;
+        if(!availableMatches.isEmpty()) {
+            Messages.getInstance().info("Here's a list of the available matches: ");
+            for (int i = 0; i < availableMatches.size(); i++) {
+                SerializedGame g = availableMatches.get(i);
+                System.out.println(possibleChoice + ": " + TextColor.BRIGHT_BLUE + g.getGameID() + TextColor.RESET + " (" + TextColor.BRIGHT_YELLOW + g.getCurrentPlayers() + TextColor.RESET + "/" + TextColor.BRIGHT_YELLOW + g.getMaxPlayers() + TextColor.RESET + ")");
+                possibleChoice++;
+            }
+        } else {
+            System.out.println(TextColor.BRIGHT_RED + "[INFO] " + TextColor.RESET + "No matches available" + TextColor.RESET);
         }
-        int match = getOptionsInput(availableMatches.size()) - 1;
-        JoinMatchCommand cmd = new JoinMatchCommand(availableMatches.get(match).getGameID());
+        System.out.println(possibleChoice + ": " + TextColor.BRIGHT_BLUE + "Refresh" + TextColor.RESET);
+        possibleChoice++;
+        System.out.println(possibleChoice + ": " + TextColor.BRIGHT_BLUE + "Back to main menu" + TextColor.RESET);
+        int optionChoosen = getOptionsInput(availableMatches.size() + 2);
+        if(optionChoosen == availableMatches.size() + 1) {
+            try {
+                RefreshAvailableGamesCommand cmd = new RefreshAvailableGamesCommand();
+                ClientSR.getInstance().sendCommand(cmd);
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(optionChoosen == availableMatches.size() + 2) {
+            joinOrCreateMatch();
+            return;
+        }
 
         try {
+            JoinMatchCommand cmd = new JoinMatchCommand(availableMatches.get(optionChoosen - 1).getGameID());
             ClientSR.getInstance().sendCommand(cmd);
         } catch (Exception e) {
             e.printStackTrace();

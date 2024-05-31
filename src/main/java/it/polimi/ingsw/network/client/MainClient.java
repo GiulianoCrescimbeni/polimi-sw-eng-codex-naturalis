@@ -47,6 +47,7 @@ public class MainClient{
 
         if(selection == 1) {
             ClientController.getInstance().setViewInterface(View.getInstance());
+            View.getInstance().joinOrCreateMatch();
         } else if (selection == 2) {
             Application.launch(GUIApplication.class);
         }

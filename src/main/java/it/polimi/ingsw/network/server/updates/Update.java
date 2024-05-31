@@ -18,6 +18,6 @@ public abstract class Update implements Serializable {
      * This method has to be overwrtitten
      * It defines the behaviour of the update
      */
-    public void execute() {}
+    public void execute() throws IOException {}
 
 }

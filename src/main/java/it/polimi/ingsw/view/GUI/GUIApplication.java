@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Data.SerializedGame;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.ViewInterface;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -55,12 +56,13 @@ public class GUIApplication extends Application implements ViewInterface {
 
     @Override
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
-        System.out.println("Prova");
-    }
-
-    @Override
-    public void joinOrCreateMatch(ArrayList<SerializedGame> availableMatches) {
-
+        Platform.runLater(() -> {
+                    try {
+                        ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.GAME_LIST_MENU);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 
     @Override

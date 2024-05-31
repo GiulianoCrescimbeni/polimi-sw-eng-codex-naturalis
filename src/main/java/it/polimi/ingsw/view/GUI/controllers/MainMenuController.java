@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view.GUI.controllers;
 
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.network.client.ClientSR;
+import it.polimi.ingsw.network.client.commands.RefreshAvailableGamesCommand;
 import it.polimi.ingsw.view.GUI.GUIApplication;
 import it.polimi.ingsw.view.GUI.SceneEnum;
 import javafx.fxml.FXML;
@@ -11,7 +13,12 @@ public class MainMenuController {
 
     @FXML
     public void game_list() throws IOException {
-        ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.GAME_LIST_MENU);
+        try {
+            RefreshAvailableGamesCommand cmd = new RefreshAvailableGamesCommand();
+            ClientSR.getInstance().sendCommand(cmd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
