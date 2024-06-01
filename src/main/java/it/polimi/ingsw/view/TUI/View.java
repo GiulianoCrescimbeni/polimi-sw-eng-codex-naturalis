@@ -175,14 +175,7 @@ public class View extends Thread implements ViewInterface {
             joinOrCreateMatch();
             return;
         }
-
-        try {
-            JoinMatchCommand cmd = new JoinMatchCommand(availableMatches.get(optionChoosen - 1).getGameID());
-            ClientSR.getInstance().sendCommand(cmd);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        ClientController.getInstance().JoinGame(availableMatches.get(optionChoosen - 1).getGameID());
     }
 
     public void menu() {

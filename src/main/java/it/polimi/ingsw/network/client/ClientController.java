@@ -8,13 +8,11 @@ import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesExcepti
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
-import it.polimi.ingsw.network.client.commands.LoginCommand;
-import it.polimi.ingsw.network.client.commands.PlaceCardWithPickFromDeckCommand;
-import it.polimi.ingsw.network.client.commands.PlaceCardWithPickFromGroundCommand;
-import it.polimi.ingsw.network.client.commands.SelectPersonalGoalCommand;
+import it.polimi.ingsw.network.client.commands.*;
 import it.polimi.ingsw.view.TUI.View;
 import it.polimi.ingsw.view.ViewInterface;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
@@ -155,6 +153,15 @@ public class ClientController {
 
     public void addCardPicked(Card cardPicked) {
         Objects.requireNonNull(players.stream().filter(player -> player.getNickname().equals(this.getUsername())).findFirst().orElse(null)).getPlayerHand().addCard(cardPicked);
+    }
+
+    public void JoinGame(int gameId) {
+        JoinMatchCommand cmd = new JoinMatchCommand(gameId);
+        try {
+            ClientSR.getInstance().sendCommand(cmd);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateGameData(Map<Player, Codex> codexMap, ArrayList<Card> cardToPick, ArrayList<Card> goldCardToPick, ArrayList<Player> players, Player currentPlayer, ArrayList<Goal> commonGoals) {

@@ -4,7 +4,8 @@ public enum SceneEnum {
 
     MAIN_MENU("/polimi/ingsw/fxml/MainMenu.fxml"),
     CREATE_GAME_MENU("/polimi/ingsw/fxml/CreateGameMenu.fxml"),
-    GAME_LIST_MENU("/polimi/ingsw/fxml/GameListMenu.fxml");
+    GAME_LIST_MENU("/polimi/ingsw/fxml/GameListMenu.fxml"),
+    LOGIN_MENU("/polimi/ingsw/fxml/LoginMenu.fxml");
     private final String value;
 
 

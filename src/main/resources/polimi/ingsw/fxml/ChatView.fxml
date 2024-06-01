@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox style="-fx-background-color: #5b2529;" spacing="5" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.ChatViewController">
+    <children>
+        <ScrollPane fx:id="scrollPane" prefHeight="265.0" prefWidth="592.0" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="chatLog"/>
+            </content>
+        </ScrollPane>
+        <HBox spacing="5">
+            <TextArea fx:id="messageBox" onKeyPressed="#onEnterSend" prefHeight="47.0" promptText="enter message..." HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#setSendButtonAction" prefHeight="47.0" minWidth="52.0" text="Send"/>
+        </HBox>
+    </children>
+    <padding>
+        <Insets topRightBottomLeft="5"/>
+    </padding>
+</VBox>

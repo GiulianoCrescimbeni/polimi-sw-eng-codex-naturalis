@@ -2,6 +2,9 @@ package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.model.Data.SerializedGame;
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.GUI.controllers.GameListMenuController;
+import it.polimi.ingsw.view.GUI.controllers.ViewController;
+import it.polimi.ingsw.view.TUI.View;
 import it.polimi.ingsw.view.ViewInterface;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,11 +35,12 @@ public class GUIApplication extends Application implements ViewInterface {
         root = new StackPane();
     }
 
-    public void setMainScene(SceneEnum sceneName) throws IOException {
+    public ViewController setMainScene(SceneEnum sceneName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName.value()));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         this.mainStage.setScene(scene);
+        return loader.getController();
     }
 
     public void openPopup(SceneEnum sceneName) throws IOException {
@@ -58,7 +62,8 @@ public class GUIApplication extends Application implements ViewInterface {
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
         Platform.runLater(() -> {
                     try {
-                        ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.GAME_LIST_MENU);
+                        GameListMenuController controller = (GameListMenuController) ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.GAME_LIST_MENU);
+                        controller.populateGamesList(availableMatches);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -67,7 +72,13 @@ public class GUIApplication extends Application implements ViewInterface {
 
     @Override
     public void pickUsernameAndColor() {
-
+        Platform.runLater(() -> {
+            try {
+                ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.LOGIN_MENU);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override

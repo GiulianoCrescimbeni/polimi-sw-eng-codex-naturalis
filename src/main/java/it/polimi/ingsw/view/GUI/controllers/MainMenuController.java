@@ -5,12 +5,12 @@ import it.polimi.ingsw.network.client.ClientSR;
 import it.polimi.ingsw.network.client.commands.RefreshAvailableGamesCommand;
 import it.polimi.ingsw.view.GUI.GUIApplication;
 import it.polimi.ingsw.view.GUI.SceneEnum;
+import it.polimi.ingsw.view.TUI.View;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
 
-public class MainMenuController {
-
+public class MainMenuController extends ViewController {
     @FXML
     public void game_list() throws IOException {
         try {
