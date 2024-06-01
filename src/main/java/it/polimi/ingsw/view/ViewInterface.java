@@ -9,6 +9,7 @@ public interface ViewInterface {
     void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) throws IOException;
     void pickUsernameAndColor();
     void selectPersonalGoal();
+    void waitingRoom();
     void updateInfo(String message, boolean clear);
     void updateChatView(String error);
 }

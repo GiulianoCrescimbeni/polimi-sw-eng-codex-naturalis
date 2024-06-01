@@ -70,7 +70,6 @@ public class LoginMenuController extends ViewController {
         String name = nameTextField.getText();
         Color color;
         if (name != null && !name.isEmpty() && selectedColor != null) {
-            System.out.println("Name: " + name + ", Color: " + selectedColor);
             switch (selectedColor) {
                 case "Blue":
                     ClientController.getInstance().sendUsernameAndColor(name, Color.Blue);

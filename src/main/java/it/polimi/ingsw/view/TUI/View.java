@@ -178,6 +178,10 @@ public class View extends Thread implements ViewInterface {
         ClientController.getInstance().JoinGame(availableMatches.get(optionChoosen - 1).getGameID());
     }
 
+    public void waitingRoom() {
+        Messages.getInstance().info("Personal goal choosen, waiting for other players!");
+    }
+
     public void menu() {
         showCommands();
         while(true) {

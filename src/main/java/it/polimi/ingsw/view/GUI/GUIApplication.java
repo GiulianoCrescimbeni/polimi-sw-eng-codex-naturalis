@@ -58,7 +58,6 @@ public class GUIApplication extends Application implements ViewInterface {
         popUpStage.show();
     }
 
-    @Override
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
         Platform.runLater(() -> {
                     try {
@@ -70,7 +69,6 @@ public class GUIApplication extends Application implements ViewInterface {
                 });
     }
 
-    @Override
     public void pickUsernameAndColor() {
         Platform.runLater(() -> {
             try {
@@ -81,18 +79,36 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
-    @Override
     public void selectPersonalGoal() {
-        System.out.println(ClientController.getInstance().getUsername());
-        System.out.println(ClientController.getInstance().getColor());
+        Platform.runLater(() -> {
+            try {
+                ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.PERSONAL_GOAL_SELECTION_MENU);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    @Override
+    public void waitingRoom() {
+        Platform.runLater(() -> {
+            try {
+                ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.WAITING_ROOM);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
     public void updateInfo(String message, boolean clear) {
-
+        Platform.runLater(() -> {
+            try {
+                ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.CODEX);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    @Override
     public void updateChatView(String error) {
 
     }

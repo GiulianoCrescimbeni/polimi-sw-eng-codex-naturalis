@@ -30,7 +30,7 @@ public class PersonalGoalUpdate extends Update implements Serializable {
     public void execute() {
         ClientController.getInstance().setPersonalGoal(this.personalGoal);
         if(ClientController.getInstance().getGameStatus() != GameStatus.RUNNING) {
-            Messages.getInstance().info("Personal goal choosen, waiting for other players!");
+            ClientController.getInstance().getViewInterface().waitingRoom();
         }
     }
 }
