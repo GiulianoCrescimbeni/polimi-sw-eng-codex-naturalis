@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Luminari';
+}
+
+.text-field {
+    -fx-background-color: #f9f2e7, white, white;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 10, 9, 8;
+    -fx-padding: 5 10 5 10;
+    -fx-border-color: #b89873;
+    -fx-border-radius: 8;
+    -fx-border-width: 2;
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-font-family: 'Luminari';
+    -fx-alignment: center;
+}
+
+.menu-button {
+    -fx-background-color: #f9f2e7;
+    -fx-border-color: #b89873;
+    -fx-border-radius: 8;
+    -fx-border-width: 2;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10 5 10;
+    -fx-font-family: 'Luminari';
+}
+
+.menu-item {
+    -fx-background-color: #f9f2e7;
+    -fx-font-family: 'Luminari';
+}

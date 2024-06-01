@@ -35,14 +35,14 @@ public class GameTableTest extends TestCase {
 
     @Test
     public void testGetCodex() {
-        currentPlayer.setColor(Color.RED);
+        currentPlayer.setColor(Color.Red);
 
         Player p1 = new Player("1", null);
-        p1.setColor(Color.BLUE);
+        p1.setColor(Color.Blue);
         Codex c1 = new Codex();
 
         Player p2 = new Player("2", null);
-        p2.setColor(Color.GREEN);
+        p2.setColor(Color.Green);
         Codex c2 = new Codex();
 
         codexMap.put(p1, c1);
@@ -120,7 +120,7 @@ public class GameTableTest extends TestCase {
     public void testPickCardFromGround() {
 
         Player p = new Player("Player", new PlayerHand(new ArrayList<Card>()));
-        p.setColor(Color.RED);
+        p.setColor(Color.Red);
         Card toPick = new Card();
         Card filler = new Card();
         cardToPick.add(toPick);
@@ -147,7 +147,7 @@ public class GameTableTest extends TestCase {
         cardDeck.addCard(toPickFromDeck);
 
         Player p = new Player("Player", new PlayerHand(new ArrayList<Card>()));
-        p.setColor(Color.RED);
+        p.setColor(Color.Red);
 
         toTest.setCurrentPlayer(p);
         toTest.pickCardFromDeck();
@@ -162,7 +162,7 @@ public class GameTableTest extends TestCase {
         goldCardDeck.addCard(toPickFromGoldDeck);
 
         Player p = new Player("Player", new PlayerHand(new ArrayList<Card>()));
-        p.setColor(Color.RED);
+        p.setColor(Color.Red);
 
         toTest.setCurrentPlayer(p);
         toTest.pickGoldCardFromDeck();

@@ -9,7 +9,7 @@ public enum Color {
     /**
      * The green player's color
      */
-    GREEN {
+    Green {
         @Override
         public String toString() {
             return TextColor.GREEN + "Green" + TextColor.RESET;
@@ -18,7 +18,7 @@ public enum Color {
     /**
      * The red player's color
      */
-    RED{
+    Red {
         @Override
         public String toString() {
             return TextColor.RED + "Red" + TextColor.RESET;
@@ -27,7 +27,7 @@ public enum Color {
     /**
      * The blue player's color
      */
-    BLUE{
+    Blue {
         @Override
         public String toString() {
             return TextColor.BLUE + "Blue" + TextColor.RESET;
@@ -36,10 +36,10 @@ public enum Color {
     /**
      * The yellow player's color
      */
-    YELLOW{
+    Yellow {
         @Override
         public String toString() {
             return TextColor.BRIGHT_YELLOW + "Yellow" + TextColor.RESET;
         }
-    }
+    };
 }

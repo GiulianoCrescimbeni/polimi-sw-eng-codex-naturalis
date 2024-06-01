@@ -715,20 +715,20 @@ public class View extends Thread implements ViewInterface {
 
     public String printPlayer(Player player) {
         switch(player.getColor()) {
-            case RED: return TextColor.RED + player.getNickname() + TextColor.RESET;
-            case BLUE: return TextColor.BLUE + player.getNickname() + TextColor.RESET;
-            case GREEN: return TextColor.GREEN + player.getNickname() + TextColor.RESET;
-            case YELLOW: return TextColor.BRIGHT_YELLOW + player.getNickname() + TextColor.RESET;
+            case Red: return TextColor.RED + player.getNickname() + TextColor.RESET;
+            case Blue: return TextColor.BLUE + player.getNickname() + TextColor.RESET;
+            case Green: return TextColor.GREEN + player.getNickname() + TextColor.RESET;
+            case Yellow: return TextColor.BRIGHT_YELLOW + player.getNickname() + TextColor.RESET;
         }
         return null;
     }
 
     public String getPlayerColor() {
         switch(ClientController.getInstance().getColor()) {
-            case RED: return TextColor.RED + "";
-            case BLUE: return TextColor.BLUE + "";
-            case GREEN: return TextColor.GREEN + "";
-            case YELLOW: return TextColor.BRIGHT_YELLOW + "";
+            case Red: return TextColor.RED + "";
+            case Blue: return TextColor.BLUE + "";
+            case Green: return TextColor.GREEN + "";
+            case Yellow: return TextColor.BRIGHT_YELLOW + "";
         }
         return "";
     }

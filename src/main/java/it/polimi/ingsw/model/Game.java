@@ -60,10 +60,10 @@ public class Game implements GameInterface {
         this.players = new ArrayList<Player>();
         this.availableColors = new ArrayList<Color>();
 
-        this.availableColors.add(Color.BLUE);
-        this.availableColors.add(Color.YELLOW);
-        this.availableColors.add(Color.GREEN);
-        this.availableColors.add(Color.RED);
+        this.availableColors.add(Color.Blue);
+        this.availableColors.add(Color.Yellow);
+        this.availableColors.add(Color.Green);
+        this.availableColors.add(Color.Red);
 
         this.gameStatus = GameStatus.WAITING_TO_START;
         this.table = new GameTable();

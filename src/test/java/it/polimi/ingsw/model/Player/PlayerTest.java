@@ -12,7 +12,7 @@ public class PlayerTest extends TestCase {
 
     @BeforeEach
     public void setup() {
-        p.setColor(Color.BLUE);
+        p.setColor(Color.Blue);
     }
 
     @Test
@@ -22,7 +22,7 @@ public class PlayerTest extends TestCase {
 
     @Test
     public void testGetColor() {
-        assertEquals(Color.BLUE, p.getColor());
+        assertEquals(Color.Blue, p.getColor());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class PlayerTest extends TestCase {
 
     @Test
     public void testSetColor() {
-        assertEquals(Color.BLUE, p.getColor());
+        assertEquals(Color.Blue, p.getColor());
     }
 
     @Test

@@ -83,7 +83,8 @@ public class GUIApplication extends Application implements ViewInterface {
 
     @Override
     public void selectPersonalGoal() {
-
+        System.out.println(ClientController.getInstance().getUsername());
+        System.out.println(ClientController.getInstance().getColor());
     }
 
     @Override
