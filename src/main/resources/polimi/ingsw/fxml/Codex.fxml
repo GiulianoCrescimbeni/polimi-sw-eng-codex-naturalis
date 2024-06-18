@@ -124,12 +124,12 @@
             </DropShadow>
          </effect>
       </Rectangle>
-      <Button layoutX="35.0" layoutY="21.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="130.0" text="Chat" textFill="#b52727">
+      <Button layoutX="35.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleChat" prefHeight="51.0" prefWidth="130.0" text="Chat" textFill="#b52727">
          <font>
             <Font name="Luminari" size="11.0" />
          </font>
       </Button>
-      <Button fx:id="plateauButton" layoutX="191.0" layoutY="22.0" mnemonicParsing="false" onAction="#handlePlateau" prefHeight="51.0" prefWidth="130.0" text="Plateau" textFill="#b52727">
+      <Button fx:id="PlateauButton" layoutX="191.0" layoutY="22.0" mnemonicParsing="false" onAction="#handlePlateau" prefHeight="51.0" prefWidth="130.0" text="Plateau" textFill="#b52727">
          <font>
             <Font name="Luminari" size="11.0" />
          </font>

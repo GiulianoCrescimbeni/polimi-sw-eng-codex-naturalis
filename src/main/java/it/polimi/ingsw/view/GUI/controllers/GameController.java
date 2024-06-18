@@ -3,6 +3,8 @@ package it.polimi.ingsw.view.GUI.controllers;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.GUI.GUIApplication;
+import it.polimi.ingsw.view.GUI.SceneEnum;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,32 +76,30 @@ public class GameController {
 
     @FXML
     private Text CurrentPlayerNameText;
-
     @FXML
-    private Button plateauButton;
-
+    private Button ChatButton;
+    @FXML
+    private Button PlateauButton;
 
     @FXML
     public void handlePlateau(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Plateau.fxml"));
-            Parent root = loader.load();
-
-            Stage popupStage = new Stage();
-            popupStage.setTitle("Score");
-            popupStage.setScene(new Scene(root));
-            popupStage.setResizable(false);
-
-           popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.initOwner(stage);
-
-            popupStage.showAndWait();
+            GUIApplication viewInterface = (GUIApplication) ClientController.getInstance().getViewInterface();
+            viewInterface.openPopup(SceneEnum.PLATEAU);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
+    @FXML
+    public void handleChat(ActionEvent event) {
+        try {
+            GUIApplication viewInterface = (GUIApplication) ClientController.getInstance().getViewInterface();
+            viewInterface.openPopup(SceneEnum.CHAT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private boolean isValidPosition(double x, double y) {
         //TODO
@@ -159,7 +159,7 @@ public class GameController {
     public void initialize() {
         updateLimits();
         background.imageProperty().addListener((observable, oldValue, newValue) -> updateLimits());
-        setCardImage(PersonalGoal, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(new Coordinate(80, 80)).getCardID() +".png");
+        setCardImage(InitialCard, "/polimi/ingsw/Cards/Backs/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(new Coordinate(80, 80)).getCardID() +".png");
         setCardImage(Hand1, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getPlayerHand().getCards().get(0).getCardID() +".png");
         setCardImage(Hand2, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getPlayerHand().getCards().get(1).getCardID() +".png");
         setCardImage(Hand3, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getPlayerHand().getCards().get(2).getCardID() +".png");
@@ -188,11 +188,9 @@ public class GameController {
         double offsetX = event.getSceneX() - mouseX;
         double offsetY = event.getSceneY() - mouseY;
 
-        // Calcolo le nuove coordinate
         double newLayoutX = background.getLayoutX() + offsetX;
         double newLayoutY = background.getLayoutY() + offsetY;
 
-        // Verifico che le nuove coordinate siano nei limiti
         if (newLayoutX >= minX && newLayoutX <= maxX) {
             background.setLayoutX(newLayoutX);
             InitialCard.setLayoutX(newLayoutX);

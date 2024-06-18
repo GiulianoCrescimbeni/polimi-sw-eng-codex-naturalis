@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="761.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.GameController">
+<AnchorPane prefHeight="761.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextArea layoutX="13.0" layoutY="698.0" prefHeight="47.0" prefWidth="417.0">
          <font>

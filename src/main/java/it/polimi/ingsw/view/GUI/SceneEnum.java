@@ -8,7 +8,9 @@ public enum SceneEnum {
     LOGIN_MENU("/polimi/ingsw/fxml/LoginMenu.fxml"),
     PERSONAL_GOAL_SELECTION_MENU("/polimi/ingsw/fxml/PersonalGoalSelectionMenu.fxml"),
     WAITING_ROOM("/polimi/ingsw/fxml/WaitingRoom.fxml"),
-    CODEX("/polimi/ingsw/fxml/Codex.fxml");
+    CODEX("/polimi/ingsw/fxml/Codex.fxml"),
+    CHAT("/polimi/ingsw/fxml/Chat.fxml"),
+    PLATEAU("/polimi/ingsw/fxml/Plateau.fxml");
     private final String value;
 
 
