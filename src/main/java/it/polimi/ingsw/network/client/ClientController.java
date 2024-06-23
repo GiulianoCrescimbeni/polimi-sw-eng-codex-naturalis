@@ -164,6 +164,14 @@ public class ClientController {
         }
     }
 
+    public boolean isMyTurn() {
+        if(ClientController.getInstance().getUsername().equals(ClientController.getInstance().getCurrentPlayer().getNickname())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void updateGameData(Map<Player, Codex> codexMap, ArrayList<Card> cardToPick, ArrayList<Card> goldCardToPick, ArrayList<Player> players, Player currentPlayer, ArrayList<Goal> commonGoals) {
         gameStatus = GameStatus.RUNNING;
         setCodexMap(codexMap);

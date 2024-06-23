@@ -25,14 +25,6 @@
             <Cursor fx:constant="MOVE" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="InitialCard" fitHeight="133.0" fitWidth="200.0" layoutX="683.0" layoutY="266.0" onMouseDragged="#handleBackground" onMousePressed="#handleMousePressed" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
-         <image>
-            <Image url="@../../../placeholder.png" />
-         </image>
-         <effect>
-            <DropShadow />
-         </effect>
-      </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#783f2f5c" height="653.0" layoutX="15.0" layoutY="105.0" stroke="#783f2fe0" strokeLineJoin="ROUND" strokeType="INSIDE" width="331.0">
          <effect>
             <DropShadow height="23.59" offsetX="10.0" offsetY="10.0" radius="15.715" spread="0.2" width="41.27">
@@ -51,7 +43,7 @@
             </DropShadow>
          </effect>
       </Rectangle>
-      <ImageView fx:id="GoldDeck" fitHeight="133.0" fitWidth="200.0" layoutX="159.0" layoutY="131.0" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="GoldDeck" fitHeight="133.0" fitWidth="200.0" layoutX="159.0" layoutY="131.0" onMouseClicked="#handleGoldCardDeck" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../Cards/Backs/Deck.png" />
          </image>
@@ -59,7 +51,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="GroundCard1" fitHeight="133.0" fitWidth="200.0" layoutX="3.0" layoutY="264.0" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="GroundCard1" fitHeight="133.0" fitWidth="200.0" layoutX="3.0" layoutY="264.0" onMouseClicked="#handleGroundCard1" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../../../placeholder.png" />
          </image>
@@ -67,7 +59,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="GroundGoldCard1" fitHeight="133.0" fitWidth="200.0" layoutX="157.0" layoutY="265.0" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="GroundGoldCard1" fitHeight="133.0" fitWidth="200.0" layoutX="157.0" layoutY="265.0" onMouseClicked="#handleGroundGoldCard1" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../../../placeholder.png" />
          </image>
@@ -75,7 +67,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="GroundCard2" fitHeight="133.0" fitWidth="200.0" layoutX="3.0" layoutY="367.0" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="GroundCard2" fitHeight="133.0" fitWidth="200.0" layoutX="3.0" layoutY="367.0" onMouseClicked="#handleGroundCard2" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../../../placeholder.png" />
          </image>
@@ -83,7 +75,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="GroundGoldCard2" fitHeight="133.0" fitWidth="200.0" layoutX="156.0" layoutY="368.0" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="GroundGoldCard2" fitHeight="133.0" fitWidth="200.0" layoutX="156.0" layoutY="368.0" onMouseClicked="#handleGroundGoldCard2" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../../../placeholder.png" />
          </image>
@@ -91,7 +83,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="Hand1" fitHeight="133.0" fitWidth="200.0" layoutX="546.0" layoutY="641.0" onMouseDragged="#handleDrag10" onMousePressed="#handleMousePressed" onMouseReleased="#handleRelease10" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="Hand1" fitHeight="133.0" fitWidth="200.0" layoutX="546.0" layoutY="641.0" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../../../placeholder.png" />
          </image>
@@ -107,7 +99,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="ResourceDeck" fitHeight="133.0" fitWidth="200.0" layoutX="2.0" layoutY="131.0" onMouseDragged="#handleDrag" onMousePressed="#handleMousePressed" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="ResourceDeck" fitHeight="133.0" fitWidth="200.0" layoutX="2.0" layoutY="131.0" onMouseClicked="#handleResourceCardDeck" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../Cards/Backs/Deck.png" />
          </image>
@@ -115,7 +107,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#783f2f5c" height="74.0" layoutX="15.0" layoutY="11.0" stroke="#783f2fe0" strokeLineJoin="ROUND" strokeType="INSIDE" width="331.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#783f2f5c" height="74.0" layoutX="15.0" layoutY="11.0" stroke="#783f2fe0" strokeLineJoin="ROUND" strokeType="INSIDE" width="501.0">
          <effect>
             <DropShadow height="23.59" offsetX="10.0" offsetY="10.0" radius="15.715" spread="0.2" width="41.27">
                <color>
@@ -129,7 +121,7 @@
             <Font name="Luminari" size="11.0" />
          </font>
       </Button>
-      <Button fx:id="PlateauButton" layoutX="191.0" layoutY="22.0" mnemonicParsing="false" onAction="#handlePlateau" prefHeight="51.0" prefWidth="130.0" text="Plateau" textFill="#b52727">
+      <Button fx:id="PlateauButton" layoutX="190.0" layoutY="22.0" mnemonicParsing="false" onAction="#handlePlateau" prefHeight="51.0" prefWidth="130.0" text="Plateau" textFill="#b52727">
          <font>
             <Font name="Luminari" size="11.0" />
          </font>
@@ -215,6 +207,19 @@
             <Font name="Luminari" size="13.0" />
          </font>
       </Text>
+      <ImageView fx:id="previewImageView" fitHeight="133.0" fitWidth="200.0" layoutX="684.0" layoutY="437.0" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@../../../placeholder.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Button fx:id="PlateauButton1" layoutX="345.0" layoutY="22.0" mnemonicParsing="false" onAction="#handlePlateau" prefHeight="51.0" prefWidth="149.0" text="Inspect Codex" textFill="#b52727">
+         <font>
+            <Font name="Luminari" size="11.0" />
+         </font>
+      </Button>
 
    </children>
 </AnchorPane>

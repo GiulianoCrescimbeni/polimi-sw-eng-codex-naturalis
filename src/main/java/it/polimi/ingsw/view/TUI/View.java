@@ -293,7 +293,7 @@ public class View extends Thread implements ViewInterface {
     }
 
     public void playCard(int x, int y, int cardToPlay, String cardToPick) {
-        if(isMyTurn()) {
+        if(ClientController.getInstance().isMyTurn()) {
             Coordinate coordinate = new Coordinate(x, y);
             Card cardPlaced = ClientController.getInstance().getPlayerHand().getCards().get(cardToPlay - 1);
             if(cardToPick.equals("ResourceDeck")) {
@@ -809,14 +809,6 @@ public class View extends Thread implements ViewInterface {
                 return TextColor.RED.toString();
             default:
                 return "";
-        }
-    }
-
-    public boolean isMyTurn() {
-        if(ClientController.getInstance().getUsername().equals(ClientController.getInstance().getCurrentPlayer().getNickname())) {
-            return true;
-        } else {
-            return false;
         }
     }
 
