@@ -269,11 +269,46 @@ public class ClientController {
     public synchronized void addMessage(String message) {
 
         if (this.messageHistory == null) messageHistory = new ArrayList<String>();
+        if (message == null || message.equals("")) return;
 
         this.messageHistory.add(message);
     }
 
     public ArrayList<String> getMessages() {
         return this.messageHistory;
+    }
+
+    public void sendPublicMessage(String[] args) {
+        String[] message = new String[args.length - 1];
+        for (int i = 1; i < args.length; i++) {
+            message[i - 1] = args[i];
+        }
+
+        String toSend = String.join(" ", message);
+
+        ChatMessageCommand cmd = new ChatMessageCommand(toSend, "public", getUsername());
+
+        try {
+            ClientSR.getInstance().sendCommand(cmd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendPrivateMessage(String[] args) {
+        String[] message = new String[args.length - 1];
+        for (int i = 1; i < args.length; i++) {
+            message[i - 1] = args[i];
+        }
+
+        String toSend = String.join(" ", message);
+
+        ChatMessageCommand cmd = new ChatMessageCommand(toSend, args[0], ClientController.getInstance().getUsername());
+
+        try {
+            ClientSR.getInstance().sendCommand(cmd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

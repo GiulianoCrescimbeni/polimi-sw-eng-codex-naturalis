@@ -501,20 +501,7 @@ public class View extends Thread implements ViewInterface {
 
             if (args[0].equals("public")) {
 
-                String[] message = new String[args.length - 1];
-                for (int i = 1; i < args.length; i++) {
-                    message[i - 1] = args[i];
-                }
-
-                String toSend = String.join(" ", message);
-
-                ChatMessageCommand cmd = new ChatMessageCommand(toSend, "public", ClientController.getInstance().getUsername());
-
-                try {
-                    ClientSR.getInstance().sendCommand(cmd);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                ClientController.getInstance().sendPublicMessage(args);
 
                 updateChatView("");
 
@@ -530,20 +517,7 @@ public class View extends Thread implements ViewInterface {
                     continue;
                 }
 
-                String[] message = new String[args.length - 1];
-                for (int i = 1; i < args.length; i++) {
-                    message[i - 1] = args[i];
-                }
-
-                String toSend = String.join(" ", message);
-
-                ChatMessageCommand cmd = new ChatMessageCommand(toSend, args[0], ClientController.getInstance().getUsername());
-
-                try {
-                    ClientSR.getInstance().sendCommand(cmd);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                ClientController.getInstance().sendPrivateMessage(args);
 
                 updateChatView("");
 

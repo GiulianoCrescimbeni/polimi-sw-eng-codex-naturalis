@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.model.Data.SerializedGame;
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.GUI.controllers.ChatViewController;
 import it.polimi.ingsw.view.GUI.controllers.GameListMenuController;
 import it.polimi.ingsw.view.GUI.controllers.ViewController;
 import it.polimi.ingsw.view.TUI.View;
@@ -110,6 +111,9 @@ public class GUIApplication extends Application implements ViewInterface {
     }
 
     public void updateChatView(String error) {
-
+        Platform.runLater(() -> {
+            if (ChatViewController.getInstance() == null) return;
+            ChatViewController.getInstance().updateMessageHistory();
+        });
     }
 }

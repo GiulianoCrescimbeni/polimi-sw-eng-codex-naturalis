@@ -9,7 +9,7 @@ public enum SceneEnum {
     PERSONAL_GOAL_SELECTION_MENU("/polimi/ingsw/fxml/PersonalGoalSelectionMenu.fxml"),
     WAITING_ROOM("/polimi/ingsw/fxml/WaitingRoom.fxml"),
     CODEX("/polimi/ingsw/fxml/Codex.fxml"),
-    CHAT("/polimi/ingsw/fxml/Chat.fxml"),
+    CHAT("/polimi/ingsw/fxml/ChatView.fxml"),
     PLATEAU("/polimi/ingsw/fxml/Plateau.fxml");
     private final String value;
 
