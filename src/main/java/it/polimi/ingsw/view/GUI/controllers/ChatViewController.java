@@ -83,7 +83,7 @@ public class ChatViewController {
     }
 
     private void sendMessage() {
-        String message = messageBox.getText();
+        String message = messageBox.getText().trim();
         if (!message.isEmpty()) {
 
             if (channelBox.getValue().equals("Public")) {
@@ -97,9 +97,10 @@ public class ChatViewController {
                 }
 
                 ClientController.getInstance().sendPublicMessage(toSend);
+                Messages.getInstance().info(message);
             } else {
                 messageBox.clear();
-                String[] toSend = new String[message.split(" ").length + 2];
+                String[] toSend = new String[message.split(" ").length + 1];
                 for (int i = 0; i < message.split(" ").length; i++) {
                     if (i == 0) {
                         toSend[i] = channelBox.getValue();
@@ -108,6 +109,7 @@ public class ChatViewController {
                 }
 
                 ClientController.getInstance().sendPrivateMessage(toSend);
+                Messages.getInstance().info(message);
             }
 
         }
