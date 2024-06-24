@@ -4,12 +4,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.PlateauController">
    <children>
       <ImageView fitHeight="701.0" fitWidth="351.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../plateau_score.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="72.0" fitWidth="70.0" layoutX="140.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../placeholder_green.png" />
          </image>
       </ImageView>
    </children>
