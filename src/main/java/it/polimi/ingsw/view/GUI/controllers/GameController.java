@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.GUI.GUIApplication;
 import it.polimi.ingsw.view.GUI.SceneEnum;
+import it.polimi.ingsw.view.TUI.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;

@@ -108,7 +108,7 @@ public class GameDataUpdate extends Update implements Serializable {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         ClientController.getInstance().updateGameData(getCodexMap(), getCardToPick(), getGoldCardToPick(), getPlayers(), getCurrentPlayer(), getCommonGoals());
         if(ClientController.getInstance().getViewInterface().getClass() == View.getInstance().getClass()) {
             View.getInstance().start();

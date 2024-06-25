@@ -14,6 +14,7 @@ import it.polimi.ingsw.network.client.commands.*;
 import it.polimi.ingsw.network.server.updates.InitialCardSideUpdate;
 import it.polimi.ingsw.view.ViewInterface;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,11 @@ public class View extends Thread implements ViewInterface {
 
     @Override
     public void run() {
-        selectInitialCardSide();
+        try {
+            selectInitialCardSide();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         menu();
     }
 
@@ -184,7 +189,7 @@ public class View extends Thread implements ViewInterface {
         Messages.getInstance().info("Personal goal choosen, waiting for other players!");
     }
 
-    public void selectInitialCardSide() {
+    public void selectInitialCardSide() throws IOException {
         clear();
         Messages.getInstance().info("Initial Card back side:");
         InitialCard initialCard = (InitialCard) ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(new Coordinate(80, 80));
@@ -222,7 +227,9 @@ public class View extends Thread implements ViewInterface {
         Messages.getInstance().input("Do you want to flip the initial card on the back? (1: Yes, 2:No)\n");
         int input = getOptionsInput(2);
         if(input == 1) {
-            ClientController.getInstance().turnInitialCard();
+            ClientController.getInstance().selectInitialCardSide(1);
+        } else {
+            ClientController.getInstance().selectInitialCardSide(0);
         }
     }
 
