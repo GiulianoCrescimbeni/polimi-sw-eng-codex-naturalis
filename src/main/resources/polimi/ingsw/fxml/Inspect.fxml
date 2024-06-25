@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchor" prefHeight="790.0" prefWidth="1290.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.CodexInspectorController">
+   <stylesheets>
+      <URL value="@css/Button.css" />
+   </stylesheets>
+   <children>
+      <ImageView fx:id="background" fitHeight="200.0" fitWidth="250.0" layoutX="520.0" layoutY="210.0" onMouseDragged="#handleBackground" onMousePressed="#handleMousePressed" pickOnBounds="true" preserveRatio="true" scaleX="13.0" scaleY="13.0">
+         <image>
+            <Image url="@../../../codex_background.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#783f2f5c" height="74.0" layoutX="480.0" stroke="#783f2fe0" strokeLineJoin="ROUND" strokeType="INSIDE" width="331.0">
+         <effect>
+            <DropShadow height="23.59" offsetX="10.0" offsetY="10.0" radius="15.715" spread="0.2" width="41.27">
+               <color>
+                  <Color opacity="0.6195029020309448" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Rectangle>
+      <Text fx:id="CurrentPlayer" layoutX="516.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codex:" textAlignment="CENTER" wrappingWidth="130.0">
+         <font>
+            <Font name="Luminari" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="playerInspected" layoutX="620.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="130.0">
+         <font>
+            <Font name="Luminari" size="18.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="previewImageView" fitHeight="133.0" fitWidth="200.0" layoutX="545.0" layoutY="329.0" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@../../../placeholder.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+
+   </children>
+</AnchorPane>

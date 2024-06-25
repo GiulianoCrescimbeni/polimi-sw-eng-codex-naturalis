@@ -4,11 +4,13 @@ import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
 import it.polimi.ingsw.model.Goals.Goal;
+import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.GUI.GUIApplication;
 import it.polimi.ingsw.view.GUI.SceneEnum;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class GameController {
+public class GameController extends ViewController {
 
     private double mouseX;
     private double mouseY;
@@ -74,6 +76,9 @@ public class GameController {
     @FXML
     private ImageView previewImageView;
 
+    @FXML
+    private ComboBox<String> codexSelection;
+
     private double initialX;
     private double initialY;
     private double initialLayoutX;
@@ -117,6 +122,8 @@ public class GameController {
         placedCards = new HashMap<>();
         placeCardsOnScene();
 
+        setupCodexes();
+
         isPlacing = false;
         isPicking = false;
         if(ClientController.getInstance().isMyTurn())
@@ -128,6 +135,14 @@ public class GameController {
     public void handleMousePressed(MouseEvent event) {
         mouseX = event.getSceneX();
         mouseY = event.getSceneY();
+    }
+
+    private void setupCodexes() {
+        for (Player p : ClientController.getInstance().getPlayers()) {
+            if (!p.getNickname().equals(ClientController.getInstance().getUsername())) {
+                codexSelection.getItems().add(p.getNickname());
+            }
+        }
     }
 
     private void setGoalShadow(ImageView goalImage, Card card) {
@@ -463,6 +478,19 @@ public class GameController {
     public void handleGroundGoldCard2(MouseEvent event) {
         if(isPicking) {
             ClientController.getInstance().playWithPickFromGround(placedCoordinate, placedCard, ClientController.getInstance().getGoldCardToPick().get(1));
+        }
+    }
+
+    @FXML
+    public void handleInspectCodex(ActionEvent event) {
+        if (codexSelection.getValue() == null) return;
+
+        try {
+            GUIApplication viewInterface = (GUIApplication) ClientController.getInstance().getViewInterface();
+            viewInterface.openPopup(SceneEnum.INSPECT_CODEX);
+            CodexInspectorController.getInstance().setPlayerToInspect(codexSelection.getValue());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
