@@ -145,10 +145,6 @@ public class ClientController {
         this.currentPlayer = currentPlayer;
     }
 
-    public void turnInitialCard() {
-        this.getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(new Coordinate(80,80)).turn();
-    }
-
     public ArrayList<Goal> getCommonGoals() {
         return commonGoals;
     }

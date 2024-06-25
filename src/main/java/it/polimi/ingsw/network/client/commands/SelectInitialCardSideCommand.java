@@ -2,6 +2,8 @@ package it.polimi.ingsw.network.client.commands;
 
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.updates.InitialCardSideUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
 
@@ -29,10 +31,14 @@ public class SelectInitialCardSideCommand extends Command implements Serializabl
     @Override
     public Update execute(Controller clientController) {
         InitialCardSideUpdate initialCardSideUpdate = new InitialCardSideUpdate();
+        initialCardSideUpdate.setNickname(getNickname());
         if(isTurned()) {
             clientController.getModel().getTable().getCodex(clientController.getModel().getPlayerByNickname(getNickname())).getCard(new Coordinate(80,80)).turn();
             initialCardSideUpdate.setTurned();
+            GamesManager.getInstance().broadcast(clientController.getModel().getGameID(), initialCardSideUpdate);
+            return null;
+        } else {
+            return initialCardSideUpdate;
         }
-        return initialCardSideUpdate;
     }
 }

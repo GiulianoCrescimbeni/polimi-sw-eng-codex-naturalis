@@ -4,9 +4,24 @@ import it.polimi.ingsw.network.client.ClientController;
 import java.io.Serializable;
 
 public class InitialCardSideUpdate extends Update implements Serializable {
+    String nickname;
     boolean isTurned;
     public InitialCardSideUpdate() {
         super();
+    }
+
+    /**
+     * @param nickname the nickname of the player
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    /**
+     * @return the nickname of the player
+     */
+    public String getNickname() {
+        return this.nickname;
     }
 
     /**
@@ -23,9 +38,12 @@ public class InitialCardSideUpdate extends Update implements Serializable {
 
     public void execute() {
         if(isTurned) {
-            ClientController.getInstance().turnInitialCard();
+            ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(getNickname())).turnInitialCard();
         }
-        ClientController.getInstance().setInitialSideChoosen();
-        ClientController.getInstance().getViewInterface().updateInfo(null, false);
+
+        if(ClientController.getInstance().getUsername().equals(getNickname())) {
+            ClientController.getInstance().setInitialSideChoosen();
+            ClientController.getInstance().getViewInterface().updateInfo(null, false);
+        }
     }
 }

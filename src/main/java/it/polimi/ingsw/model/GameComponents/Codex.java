@@ -138,6 +138,59 @@ public class Codex implements CodexInterface, Serializable {
     }
 
     /**
+     * Function to turn the initial card and calculate the number of resources in the codex
+     */
+    public void turnInitialCard() {
+        this.getCard(new Coordinate(80, 80)).turn();
+        this.getCard(new Coordinate(80, 80)).setAnglesMap(((InitialCard) this.getCard(new Coordinate(80,80))).getBackAngles());
+        for(Resource r : this.getNumOfResources().keySet()) {
+            if(((InitialCard) this.getCard(new Coordinate(80,80))).getBackResources().contains(r)) {
+                this.numOfResources.put(r, 1);
+            } else {
+                this.numOfResources.put(r, 0);
+            }
+        }
+        for(Angle a : this.getCard(new Coordinate(80,80)).getAnglesMap().values()) {
+            switch(a.getResource()) {
+                case INSECT -> {
+                    this.incrementNumOfResources(Resource.INSECT, 1);
+                    break;
+                }
+                case PLANT -> {
+                    this.incrementNumOfResources(Resource.PLANT, 1);
+                    break;
+                }
+                case ANIMAL -> {
+                    this.incrementNumOfResources(Resource.ANIMAL, 1);
+                    break;
+                }
+                case FUNGI -> {
+                    this.incrementNumOfResources(Resource.FUNGI, 1);
+                    break;
+                }
+                case SCROLL -> {
+                    this.incrementNumOfResources(Resource.SCROLL, 1);
+                    break;
+                }
+                case FEATHER -> {
+                    this.incrementNumOfResources(Resource.FEATHER, 1);
+                    break;
+                }
+                case JAR -> {
+                    this.incrementNumOfResources(Resource.JAR, 1);
+                    break;
+                }
+                case BLANK -> {
+                    break;
+                }
+                case null -> {
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
      * Place a {@link Card} in the specified {@link Coordinate}
      * @param coordinate the coordinates of the card
      * @param card the card to be placed
