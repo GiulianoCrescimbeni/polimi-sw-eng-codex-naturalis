@@ -38,4 +38,7 @@ public class InitialCard extends Card {
     public void setBackAngles(Map<AnglePos, Angle> backAngles) {
         this.backAngles = backAngles;
     }
+
+    public Map<AnglePos, Angle> getBackAngles() { return this.backAngles; }
+    public Angle getBackAngle(AnglePos anglePos) { return this.backAngles.get(anglePos); }
 }

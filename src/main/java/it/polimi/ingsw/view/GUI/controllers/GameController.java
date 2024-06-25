@@ -42,6 +42,12 @@ public class GameController {
     private ImageView Hand3;
 
     @FXML
+    private ImageView ResourceDeck;
+
+    @FXML
+    private ImageView GoldDeck;
+
+    @FXML
     private ImageView GroundCard1;
 
     @FXML
@@ -101,8 +107,6 @@ public class GameController {
         makeDraggable(Hand3);
         addHoverEffect(GroundCard1, ClientController.getInstance().getCardToPick().get(0));
         addHoverEffect(GroundCard2, ClientController.getInstance().getCardToPick().get(1));
-        System.out.println(ClientController.getInstance().getCardToPick().get(0).getCardType());
-        System.out.println(ClientController.getInstance().getCardToPick().get(1).getCardType());
         addHoverEffect(GroundGoldCard1, ClientController.getInstance().getGoldCardToPick().get(0));
         addHoverEffect(GroundGoldCard2, ClientController.getInstance().getGoldCardToPick().get(1));
         printCurrentPlayer();
@@ -147,6 +151,30 @@ public class GameController {
                 imageView.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);");
             }
         });
+    }
+
+    @FXML
+    private void addResourceDeckHoverEffect(MouseEvent mouseEvent) {
+        if(isPicking)
+            ResourceDeck.setStyle("-fx-effect: dropshadow(three-pass-box, WHITE, 10, 0, 0, 5);");
+    }
+
+    @FXML
+    private void removeResourceDeckHoverEffect(MouseEvent mouseEvent) {
+        if(isPicking)
+            ResourceDeck.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);");
+    }
+
+    @FXML
+    private void addGoldDeckHoverEffect(MouseEvent mouseEvent) {
+        if(isPicking)
+            GoldDeck.setStyle("-fx-effect: dropshadow(three-pass-box, WHITE, 10, 0, 0, 5);");
+    }
+
+    @FXML
+    private void removeGoldDeckHoverEffect(MouseEvent mouseEvent) {
+        if(isPicking)
+            GoldDeck.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);");
     }
 
     private void makeDraggable(ImageView imageView) {
@@ -222,7 +250,11 @@ public class GameController {
 
     private void placeCard(Coordinate cardCoordinates, Card card, double x, double y) {
         ImageView cardImageView = new ImageView();
-        setCardImage(cardImageView, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(cardCoordinates).getCardID() +".png");
+        if(!ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(cardCoordinates).isTurned()) {
+            setCardImage(cardImageView, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(cardCoordinates).getCardID() +".png");
+        } else {
+            setCardImage(cardImageView, "/polimi/ingsw/Cards/Backs/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(cardCoordinates).getCardID() +".png");
+        }
 
         cardImageView.setScaleX(0.7);
         cardImageView.setScaleY(0.7);

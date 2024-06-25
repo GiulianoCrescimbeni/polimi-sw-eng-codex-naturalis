@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.ClientSR;
 import it.polimi.ingsw.network.client.commands.*;
+import it.polimi.ingsw.network.server.updates.InitialCardSideUpdate;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.util.*;
@@ -37,6 +38,7 @@ public class View extends Thread implements ViewInterface {
 
     @Override
     public void run() {
+        selectInitialCardSide();
         menu();
     }
 
@@ -180,6 +182,48 @@ public class View extends Thread implements ViewInterface {
 
     public void waitingRoom() {
         Messages.getInstance().info("Personal goal choosen, waiting for other players!");
+    }
+
+    public void selectInitialCardSide() {
+        clear();
+        Messages.getInstance().info("Initial Card back side:");
+        InitialCard initialCard = (InitialCard) ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(new Coordinate(80, 80));
+        Angle UL = initialCard.getBackAngle(AnglePos.UL);
+        Angle UR = initialCard.getBackAngle(AnglePos.UR);
+        Angle DL = initialCard.getBackAngle(AnglePos.DL);
+        Angle DR = initialCard.getBackAngle(AnglePos.DR);
+
+        if(UL.getResource() == null) {
+            System.out.println("Top Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Top Left Corner : " + printResource(UL.getResource()) + TextColor.RESET);
+        }
+        if(UR.getResource() == null) {
+            System.out.println("Top Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Top Right Corner : " + printResource(UR.getResource()) + TextColor.RESET);
+        }
+        if(DL.getResource() == null) {
+            System.out.println("Bottom Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Bottom Left Corner : " + printResource(DL.getResource()) + TextColor.RESET);
+        }
+        if(DR.getResource() == null) {
+            System.out.println("Bottom Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Bottom Right Corner : " + printResource(DR.getResource()) + TextColor.RESET);
+        }
+        System.out.print("Back resources:");
+        for(Resource resource : initialCard.getBackResources()) {
+            System.out.print(" " + printResource(resource));
+        }
+
+        System.out.println("\n");
+        Messages.getInstance().input("Do you want to flip the initial card on the back? (1: Yes, 2:No)\n");
+        int input = getOptionsInput(2);
+        if(input == 1) {
+            ClientController.getInstance().turnInitialCard();
+        }
     }
 
     public void menu() {
@@ -655,38 +699,48 @@ public class View extends Thread implements ViewInterface {
             System.out.println("Resource Type: " + printResource(((ResourceGoldCard) card).getResourceType()) + TextColor.RESET);
         }
 
-        if(isULHidden || UL.getResource() == null) {
-            System.out.println("Top Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-        } else {
-            System.out.println("Top Left Corner : " + printResource(UL.getResource()) + TextColor.RESET);
-        }
-        if(isURHidden || UR.getResource() == null) {
-            System.out.println("Top Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-        } else {
-            System.out.println("Top Right Corner : " + printResource(UR.getResource()) + TextColor.RESET);
-        }
-        if(isDLHidden || DL.getResource() == null) {
-            System.out.println("Bottom Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-        } else {
-            System.out.println("Bottom Left Corner : " + printResource(DL.getResource()) + TextColor.RESET);
-        }
-        if(isDRHidden || DR.getResource() == null) {
-            System.out.println("Bottom Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-        } else {
-            System.out.println("Bottom Right Corner : " + printResource(DR.getResource()) + TextColor.RESET);
-        }
         if(card.isTurned()) {
-            System.out.println(TextColor.WHITE + "Card Turned");
+            System.out.println(TextColor.BRIGHT_WHITE + "Card Turned" + TextColor.RESET);
+            if(card.getClass() == InitialCard.class) {
+                System.out.print("Back Resources:");
+                for(Resource resource : ((InitialCard) card).getBackResources()) {
+                    System.out.print(" " + printResource(resource));
+                }
+                System.out.print("\n");
+            }
         } else {
+            if(isULHidden || UL.getResource() == null) {
+                System.out.println("Top Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+            } else {
+                System.out.println("Top Left Corner : " + printResource(UL.getResource()) + TextColor.RESET);
+            }
+            if(isURHidden || UR.getResource() == null) {
+                System.out.println("Top Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+            } else {
+                System.out.println("Top Right Corner : " + printResource(UR.getResource()) + TextColor.RESET);
+            }
+            if(isDLHidden || DL.getResource() == null) {
+                System.out.println("Bottom Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+            } else {
+                System.out.println("Bottom Left Corner : " + printResource(DL.getResource()) + TextColor.RESET);
+            }
+            if(isDRHidden || DR.getResource() == null) {
+                System.out.println("Bottom Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+            } else {
+                System.out.println("Bottom Right Corner : " + printResource(DR.getResource()) + TextColor.RESET);
+            }
+
             if(card.getCardScore() != 0) {
                 System.out.println("Card Score : " + TextColor.BRIGHT_YELLOW+card.getCardScore()+TextColor.RESET);
             }
+
             if(card.getClass() == GoldCard.class || card.getClass() == AngleGoldCard.class || card.getClass() == ResourceGoldCard.class) {
                 System.out.printf("Play Condition: ");
                 for(Resource r : ((GoldCard) card).getPlayCondition()) {
                     System.out.printf(printResource(r) + " ");
                 }
                 System.out.printf("\n");
+
             }
         }
     }

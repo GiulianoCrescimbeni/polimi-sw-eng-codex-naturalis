@@ -205,7 +205,7 @@ public class Codex implements CodexInterface, Serializable {
 
         if(getCards().containsKey(ul)) {
             Angle DR = cards.get(ul).getAngle(AnglePos.DR);
-            if(DR.getResource() != null) {
+            if(DR.getResource() != null && DR.getResource() != Resource.BLANK) {
                 decreaseNumOfResources(DR.getResource(), 1);
             }
             DR.setHidden();
@@ -215,7 +215,7 @@ public class Codex implements CodexInterface, Serializable {
 
         if(getCards().containsKey(ur)) {
             Angle DL = cards.get(ur).getAngle(AnglePos.DL);
-            if(DL.getResource() != null) {
+            if(DL.getResource() != null && DL.getResource() != Resource.BLANK) {
                 decreaseNumOfResources(DL.getResource(), 1);
             }
             DL.setHidden();
@@ -225,7 +225,7 @@ public class Codex implements CodexInterface, Serializable {
 
         if(getCards().containsKey(dl)) {
             Angle UR = cards.get(dl).getAngle(AnglePos.UR);
-            if(UR.getResource() != null) {
+            if(UR.getResource() != null && UR.getResource() != Resource.BLANK) {
                 decreaseNumOfResources(UR.getResource(), 1);
             }
             UR.setHidden();
@@ -235,7 +235,7 @@ public class Codex implements CodexInterface, Serializable {
 
         if(getCards().containsKey(dr)) {
             Angle UL = cards.get(dr).getAngle(AnglePos.UL);
-            if(UL.getResource() != null) {
+            if(UL.getResource() != null && UL.getResource() != Resource.BLANK) {
                 decreaseNumOfResources(UL.getResource(), 1);
             }
             UL.setHidden();

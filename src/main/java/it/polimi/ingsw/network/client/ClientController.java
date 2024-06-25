@@ -23,6 +23,7 @@ public class ClientController {
     private ViewInterface viewInterface;
     private ArrayList<Color> availableColors = new ArrayList<Color>();
     private ArrayList<Goal> goalsToPick = new ArrayList<>();
+    private boolean initialSideChoosen;
     private String username;
     private Color color;
     private Goal personalGoal;
@@ -88,6 +89,14 @@ public class ClientController {
         this.goalsToPick = goalsToPick;
     }
 
+    public boolean isInitialSideChoosen() {
+        return initialSideChoosen;
+    }
+
+    public void setInitialSideChoosen() {
+        this.initialSideChoosen = true;
+    }
+
     public GameStatus getGameStatus() {
         return gameStatus;
     }
@@ -134,6 +143,10 @@ public class ClientController {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public void turnInitialCard() {
+        this.getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(new Coordinate(80,80)).turn();
     }
 
     public ArrayList<Goal> getCommonGoals() {
@@ -192,6 +205,17 @@ public class ClientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void selectInitialCardSide(int side) throws IOException {
+        SelectInitialCardSideCommand selectInitialCardSideCommand;
+        if(side == 0) {
+            selectInitialCardSideCommand = new SelectInitialCardSideCommand(ClientController.getInstance().getUsername(), false);
+        } else {
+            selectInitialCardSideCommand = new SelectInitialCardSideCommand(ClientController.getInstance().getUsername(), true);
+        }
+        ClientSR.getInstance().sendCommand(selectInitialCardSideCommand);
+
     }
 
     public void selectPersonalGoal(Goal goal) {

@@ -113,7 +113,7 @@ public class GameDataUpdate extends Update implements Serializable {
         if(ClientController.getInstance().getViewInterface().getClass() == View.getInstance().getClass()) {
             View.getInstance().start();
         } else {
-            ClientController.getInstance().getViewInterface().updateInfo(null, false);
+            ClientController.getInstance().getViewInterface().selectInitialCardSide();
         }
     }
 }

@@ -97,7 +97,6 @@ public class ChatViewController {
                 }
 
                 ClientController.getInstance().sendPublicMessage(toSend);
-                Messages.getInstance().info(message);
             } else {
                 messageBox.clear();
                 String[] toSend = new String[message.split(" ").length + 1];
@@ -109,7 +108,6 @@ public class ChatViewController {
                 }
 
                 ClientController.getInstance().sendPrivateMessage(toSend);
-                Messages.getInstance().info(message);
             }
 
         }

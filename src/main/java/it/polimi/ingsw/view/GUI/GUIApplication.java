@@ -100,6 +100,16 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    public void selectInitialCardSide() {
+        Platform.runLater(() -> {
+            try {
+                ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.INITIAL_CARD_SIDE_SELECTION_MENU);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
     public void updateInfo(String message, boolean clear) {
         Platform.runLater(() -> {
             try {

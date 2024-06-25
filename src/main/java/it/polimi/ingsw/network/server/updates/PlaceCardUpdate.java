@@ -79,7 +79,8 @@ public class PlaceCardUpdate extends Update implements Serializable {
             ClientController.getInstance().getViewInterface().updateInfo(getMessage(), false);
         } else {
             ClientController.getInstance().updateTurn(getNickname(), getCoordinate(), getCardPlaced(), getCurrentPlayer(), getCardPicked(), getNewGroundCard());
-            ClientController.getInstance().getViewInterface().updateInfo(null, true);
+            if(ClientController.getInstance().isInitialSideChoosen())
+                ClientController.getInstance().getViewInterface().updateInfo(null, true);
         }
     }
 }

@@ -42,6 +42,7 @@ public class InitialCardDataContainer {
         deserializeBackResources();
 
         InitialCard toReturn = new InitialCard(cardID, frontAnglesMap, cardType, isTurned, cardScore, lUsed, dUsed, backResourcesArray);
+        toReturn.setBackAngles(backAnglesMap);
 
         if (frontAngles != null) {
             for (AnglePos ap : frontAnglesMap.keySet()) {

@@ -43,7 +43,7 @@
             </DropShadow>
          </effect>
       </Rectangle>
-      <ImageView fx:id="GoldDeck" fitHeight="133.0" fitWidth="200.0" layoutX="159.0" layoutY="131.0" onMouseClicked="#handleGoldCardDeck" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="GoldDeck" fitHeight="133.0" fitWidth="200.0" layoutX="159.0" layoutY="131.0" onMouseClicked="#handleGoldCardDeck" onMouseEntered="#addGoldDeckHoverEffect" onMouseExited="#removeGoldDeckHoverEffect" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../Cards/Backs/Deck.png" />
          </image>
@@ -99,7 +99,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="ResourceDeck" fitHeight="133.0" fitWidth="200.0" layoutX="2.0" layoutY="131.0" onMouseClicked="#handleResourceCardDeck" scaleX="0.7" scaleY="0.7">
+      <ImageView fx:id="ResourceDeck" fitHeight="133.0" fitWidth="200.0" layoutX="2.0" layoutY="131.0" onMouseClicked="#handleResourceCardDeck" onMouseEntered="#addResourceDeckHoverEffect" onMouseExited="#removeResourceDeckHoverEffect" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@../Cards/Backs/Deck.png" />
          </image>
@@ -197,12 +197,12 @@
             <Font name="Luminari" size="18.0" />
          </font>
       </Text>
-      <Text fill="#ebdf80" layoutX="214.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gold Card Deck">
+      <Text fill="#ebdf80" layoutX="214.0" layoutY="203.0" onMouseClicked="#handleGoldCardDeck" onMouseEntered="#addGoldDeckHoverEffect" onMouseExited="#removeGoldDeckHoverEffect" strokeType="OUTSIDE" strokeWidth="0.0" text="Gold Card Deck">
          <font>
             <Font name="Luminari" size="13.0" />
          </font>
       </Text>
-      <Text fill="#ebdf80" layoutX="41.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resource Card Deck">
+      <Text fill="#ebdf80" layoutX="41.0" layoutY="203.0" onMouseClicked="#handleResourceCardDeck" onMouseEntered="#addResourceDeckHoverEffect" onMouseExited="#removeResourceDeckHoverEffect" strokeType="OUTSIDE" strokeWidth="0.0" text="Resource Card Deck">
          <font>
             <Font name="Luminari" size="13.0" />
          </font>
