@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.Player.PlayerHand;
 import it.polimi.ingsw.network.client.commands.*;
+import it.polimi.ingsw.network.server.ping.Pong;
 import it.polimi.ingsw.view.TUI.Messages;
 import it.polimi.ingsw.view.TUI.View;
 import it.polimi.ingsw.view.ViewInterface;
@@ -333,5 +334,15 @@ public class ClientController {
             e.printStackTrace();
         }
 
+    }
+
+    public void sendPong() {
+        Pong pong = new Pong();
+
+        try {
+            ClientSR.getInstance().sendCommand(pong);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

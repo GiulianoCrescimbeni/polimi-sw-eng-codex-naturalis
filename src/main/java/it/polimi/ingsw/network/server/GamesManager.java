@@ -3,18 +3,26 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.Data.SerializedGame;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 import it.polimi.ingsw.network.client.commands.RefreshAvailableGamesCommand;
 import it.polimi.ingsw.network.server.handler.ClientHandler;
+import it.polimi.ingsw.network.server.ping.Ping;
+import it.polimi.ingsw.network.server.ping.Pong;
 import it.polimi.ingsw.network.server.updates.AvailableMatchesUpdate;
+import it.polimi.ingsw.network.server.updates.EndGameUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
 import it.polimi.ingsw.view.TUI.Messages;
 import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Class that manage all games and connections.
@@ -27,6 +35,8 @@ public class GamesManager {
     private Map<ClientHandler, Integer> connections = new HashMap<>();
     private ArrayList<ClientHandler> waitingToJoin = new ArrayList<ClientHandler>();
     private static GamesManager instance;
+
+    private ArrayList<ClientHandler> pinged;
 
     /**
      * Constructor
@@ -170,8 +180,12 @@ public class GamesManager {
      */
     public void handleCommand(ClientHandler clientHandler, Command command) throws IOException {
         Update update;
-        if(command.getClass() == RefreshAvailableGamesCommand.class) {
+        if(command instanceof RefreshAvailableGamesCommand) {
             update = new AvailableMatchesUpdate(getAvailableGames(), null);
+        } else if (command instanceof Pong) {
+            pinged.remove(clientHandler);
+            Messages.getInstance().info("Pong received");
+            return;
         } else {
             Integer gameId;
             synchronized(connections) {
@@ -199,5 +213,67 @@ public class GamesManager {
                         throw new RuntimeException(e);
                     }
                 });
+    }
+
+    public void startPing() {
+        System.out.println(TextColor.BRIGHT_BLUE + "[CODEX PINGER]" + TextColor.RESET + " Pinging" + TextColor.GREEN + " Started");
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                if (connections.isEmpty()) return;
+                pinged = new ArrayList<ClientHandler>();
+
+                for (ClientHandler client : connections.keySet()) {
+                    pinged.add(client);
+                }
+
+                for (Integer gameId : controllers.keySet()) {
+                    broadcast(gameId, new Ping());
+                }
+
+                Messages.getInstance().info("Ping sent");
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                for (ClientHandler c : pinged) {
+                    System.out.println("Element");
+                }
+
+                //Crea l'array dei giochi da finire in base ai client che non hanno risposto
+                ArrayList<Integer> gamesToEnd = new ArrayList<Integer>();
+
+                for (ClientHandler disconnected : pinged) {
+                    gamesToEnd.add(connections.get(disconnected));
+                    connections.remove(disconnected);
+                }
+
+                //Pulisce l'array da eventuali duplicati
+
+                for (int i = 0; i < gamesToEnd.size(); i++) {
+                    for (int j = 0; j < gamesToEnd.size(); j++) {
+                        if (gamesToEnd.get(i) == gamesToEnd.get(j) && i != j) {
+                            gamesToEnd.remove(j);
+                        }
+                    }
+                }
+
+                //Manda a tutti i game id rimanenti l'update di fine gioco
+                for (Integer toEnd : gamesToEnd) {
+                    broadcast(toEnd, new EndGameUpdate());
+                    controllers.remove(toEnd);
+                }
+            }
+        };
+
+        executorService.scheduleAtFixedRate(task, 0, 10, TimeUnit.SECONDS);
+
+
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.server.RMI.RMIServer;
 import it.polimi.ingsw.network.server.socket.SocketServer;
 
@@ -14,9 +15,12 @@ public class MainServer {
 
         RMIServer rmiserver = new RMIServer(25566);
         rmiserver.startRMI();
-        }
 
+        GamesManager.getInstance().startPing();
 
     }
+
+
+}
 
 
