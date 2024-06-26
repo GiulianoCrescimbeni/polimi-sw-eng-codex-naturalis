@@ -12,7 +12,8 @@ public enum SceneEnum {
     CODEX("/polimi/ingsw/fxml/Codex.fxml"),
     CHAT("/polimi/ingsw/fxml/ChatView.fxml"),
     PLATEAU("/polimi/ingsw/fxml/Plateau.fxml"),
-    INSPECT_CODEX("/polimi/ingsw/fxml/Inspect.fxml");
+    INSPECT_CODEX("/polimi/ingsw/fxml/Inspect.fxml"),
+    ERROR("/polimi/ingsw/fxml/Error.fxml");
     private final String value;
 
 

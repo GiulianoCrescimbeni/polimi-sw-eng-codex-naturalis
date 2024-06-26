@@ -607,6 +607,10 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    public void showError(String error) {
+        Messages.getInstance().error(error);
+    }
+
     private void printCardCoverage(Card card) {
         String cardColor = getCardColor(card);
         String black = TextColor.BRIGHT_BLACK.toString();

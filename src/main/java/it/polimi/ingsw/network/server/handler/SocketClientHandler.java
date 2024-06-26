@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.updates.Update;
+import it.polimi.ingsw.view.TUI.Messages;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -77,7 +78,16 @@ public class SocketClientHandler extends Thread implements ClientHandler {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Messages.getInstance().error("Error while communicating with client, disconnecting...");
+            if (GamesManager.getInstance().getGameId(this) != null) {
+                GamesManager.getInstance().endMatch(GamesManager.getInstance().getGameId( this));
+            }
+            try {
+                clientSocket.close();
+                interruptThread();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

@@ -13,4 +13,5 @@ public interface ViewInterface {
     void selectInitialCardSide() throws IOException;
     void updateInfo(String message, boolean clear);
     void updateChatView(String error);
+    void showError(String error);
 }

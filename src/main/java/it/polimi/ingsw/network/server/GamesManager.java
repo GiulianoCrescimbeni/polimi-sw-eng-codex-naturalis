@@ -217,7 +217,7 @@ public class GamesManager {
                     try {
                         c.getKey().sendUpdate(update);
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+
                     }
                 });
     }
@@ -262,7 +262,6 @@ public class GamesManager {
                 }
 
                 //Pulisce l'array da eventuali duplicati
-
                 for (int i = 0; i < gamesToEnd.size(); i++) {
                     for (int j = 0; j < gamesToEnd.size(); j++) {
                         if (gamesToEnd.get(i) == gamesToEnd.get(j) && i != j) {

@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.GUI;
 import it.polimi.ingsw.model.Data.SerializedGame;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.GUI.controllers.ChatViewController;
+import it.polimi.ingsw.view.GUI.controllers.ErrorViewController;
 import it.polimi.ingsw.view.GUI.controllers.GameListMenuController;
 import it.polimi.ingsw.view.GUI.controllers.ViewController;
 import it.polimi.ingsw.view.TUI.View;
@@ -44,7 +45,7 @@ public class GUIApplication extends Application implements ViewInterface {
         return loader.getController();
     }
 
-    public void openPopup(SceneEnum sceneName) throws IOException {
+    public ViewController openPopup(SceneEnum sceneName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName.value()));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -57,6 +58,7 @@ public class GUIApplication extends Application implements ViewInterface {
         popUpStage.initModality(Modality.APPLICATION_MODAL);
         popUpStage.initOwner(mainStage);
         popUpStage.show();
+        return loader.getController();
     }
 
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
@@ -113,6 +115,9 @@ public class GUIApplication extends Application implements ViewInterface {
     public void updateInfo(String message, boolean clear) {
         Platform.runLater(() -> {
             try {
+                if(message != null) {
+                    showError(message);
+                }
                 ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.CODEX);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -124,6 +129,17 @@ public class GUIApplication extends Application implements ViewInterface {
         Platform.runLater(() -> {
             if (ChatViewController.getInstance() == null) return;
             ChatViewController.getInstance().updateMessageHistory();
+        });
+    }
+
+    public void showError(String error) {
+        Platform.runLater(() -> {
+            try {
+                ViewController viewController = ((GUIApplication) ClientController.getInstance().getViewInterface()).openPopup(SceneEnum.ERROR);
+                ((ErrorViewController) viewController).setErrorMessage(error);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }
