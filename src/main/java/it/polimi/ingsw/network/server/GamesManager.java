@@ -9,6 +9,8 @@ import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 import it.polimi.ingsw.network.client.commands.RefreshAvailableGamesCommand;
 import it.polimi.ingsw.network.server.handler.ClientHandler;
+import it.polimi.ingsw.network.server.handler.RMIClientHandler;
+import it.polimi.ingsw.network.server.handler.SocketClientHandler;
 import it.polimi.ingsw.network.server.ping.Ping;
 import it.polimi.ingsw.network.server.ping.Pong;
 import it.polimi.ingsw.network.server.updates.AvailableMatchesUpdate;
@@ -18,6 +20,7 @@ import it.polimi.ingsw.view.TUI.Messages;
 import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -36,7 +39,7 @@ public class GamesManager {
     private ArrayList<ClientHandler> waitingToJoin = new ArrayList<ClientHandler>();
     private static GamesManager instance;
 
-    private ArrayList<ClientHandler> pinged;
+    public ArrayList<ClientHandler> pinged;
 
     /**
      * Constructor
@@ -173,6 +176,11 @@ public class GamesManager {
         }
     }
 
+    public void endMatch(Integer gameID) {
+        broadcast(gameID, new EndGameUpdate());
+        controllers.remove(gameID);
+    }
+
     /**
      * Function to handle a command recieved from the client
      * @param clientHandler The client handler that received the command
@@ -184,7 +192,6 @@ public class GamesManager {
             update = new AvailableMatchesUpdate(getAvailableGames(), null);
         } else if (command instanceof Pong) {
             pinged.remove(clientHandler);
-            Messages.getInstance().info("Pong received");
             return;
         } else {
             Integer gameId;
@@ -228,22 +235,22 @@ public class GamesManager {
 
                 for (ClientHandler client : connections.keySet()) {
                     pinged.add(client);
+                    try {
+                        if (client instanceof SocketClientHandler) {
+                            client.sendUpdate(new Ping());
+                        } else {
+                            RMIClientHandler rmiClient = (RMIClientHandler) client;
+                            rmiClient.receivePing();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-                for (Integer gameId : controllers.keySet()) {
-                    broadcast(gameId, new Ping());
-                }
-
-                Messages.getInstance().info("Ping sent");
 
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }
-
-                for (ClientHandler c : pinged) {
-                    System.out.println("Element");
                 }
 
                 //Crea l'array dei giochi da finire in base ai client che non hanno risposto
@@ -266,9 +273,10 @@ public class GamesManager {
 
                 //Manda a tutti i game id rimanenti l'update di fine gioco
                 for (Integer toEnd : gamesToEnd) {
-                    broadcast(toEnd, new EndGameUpdate());
-                    controllers.remove(toEnd);
+                    endMatch(toEnd);
                 }
+
+                pinged.clear();
             }
         };
 

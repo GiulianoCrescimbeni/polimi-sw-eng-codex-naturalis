@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.handler;
 
+import it.polimi.ingsw.network.client.ClientSR;
 import it.polimi.ingsw.network.server.updates.Update;
 
 import java.io.IOException;
@@ -16,4 +17,11 @@ public class RMIClientHandlerImplementation extends UnicastRemoteObject implemen
     public void sendUpdate(Update update) throws IOException {
         update.execute();
     }
+
+    @Override
+    public void receivePing() throws IOException {
+        ClientSR.getInstance().sendPong();
+    }
+
+
 }

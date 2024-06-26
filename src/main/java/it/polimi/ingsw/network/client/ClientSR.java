@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -84,6 +85,10 @@ public class ClientSR extends Thread {
 
     public void handleUpdate(Update update) throws IOException {
         update.execute();
+    }
+
+    public void sendPong() throws RemoteException {
+        server.receviePong(clientHandler);
     }
 
     public void run() {

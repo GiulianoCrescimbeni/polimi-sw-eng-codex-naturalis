@@ -18,4 +18,6 @@ public interface RMIClientHandler extends Remote, ClientHandler {
      */
     @Override
     void sendUpdate(Update update) throws IOException;
+
+    void receivePing() throws IOException;
 }

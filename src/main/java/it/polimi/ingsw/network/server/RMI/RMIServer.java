@@ -4,19 +4,17 @@ import it.polimi.ingsw.network.client.commands.Command;
 import it.polimi.ingsw.network.client.commands.CreateMatchCommand;
 import it.polimi.ingsw.network.client.commands.JoinMatchCommand;
 import it.polimi.ingsw.network.server.GamesManager;
+import it.polimi.ingsw.network.server.handler.ClientHandler;
 import it.polimi.ingsw.network.server.handler.RMIClientHandler;
-import it.polimi.ingsw.network.server.handler.SocketClientHandler;
 import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 
 public class RMIServer extends UnicastRemoteObject implements RMIServerInterface {
 
-    //private ArrayList<SocketClientHandler> socHandlers;
 
     private GamesManager manager;
 
@@ -33,7 +31,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
             Registry registry = LocateRegistry.createRegistry(this.port);
             registry.rebind("RMIServer", stub);
 
-            //socHandlers = new ArrayList<>();
             manager = GamesManager.getInstance();
 
             System.out.println(TextColor.BRIGHT_BLUE + "[RMI SERVER] " + TextColor.RESET + " RMI Server" + TextColor.GREEN + " Ready");
@@ -65,5 +62,10 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void receviePong(ClientHandler clientHandler) {
+        GamesManager.getInstance().pinged.remove(clientHandler);
     }
 }
