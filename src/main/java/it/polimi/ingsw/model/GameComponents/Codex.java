@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.Interfaces.CodexInterface;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Codex implements CodexInterface, Serializable {
@@ -202,7 +203,26 @@ public class Codex implements CodexInterface, Serializable {
         if(!verifyPlacement(coordinate, card)) {
             throw new IllegalCardPlacementException("Can't place the card here");
         }
-        getResourcesFromCard(card);
+
+        if(!card.isTurned()) {
+            getResourcesFromCard(card);
+            addPoints(card);
+        } else {
+            Resource resourceToAdd = null;
+            Map<AnglePos, Angle> newAngleMap = new HashMap<>();
+            newAngleMap.put(AnglePos.UL, new Angle(Resource.BLANK, false, null, card));
+            newAngleMap.put(AnglePos.UR, new Angle(Resource.BLANK, false, null, card));
+            newAngleMap.put(AnglePos.DL, new Angle(Resource.BLANK, false, null, card));
+            newAngleMap.put(AnglePos.DR, new Angle(Resource.BLANK, false, null, card));
+            card.setAnglesMap(newAngleMap);
+            switch(card.getCardType()) {
+                case INSECT -> resourceToAdd = Resource.INSECT;
+                case PLANT -> resourceToAdd = Resource.PLANT;
+                case ANIMAL -> resourceToAdd = Resource.ANIMAL;
+                case FUNGI -> resourceToAdd = Resource.FUNGI;
+            }
+            this.incrementNumOfResources(resourceToAdd, 1);
+        }
         cards.put(coordinate, card);
     }
 
@@ -216,14 +236,33 @@ public class Codex implements CodexInterface, Serializable {
         if(cards.containsKey(coordinate)) {
             throw new IllegalCoordinatesException("The coordinates are not free to use");
         }
-        if(!verifyPlayCondition(goldCard)) {
-            throw new IllegalCardPlacementException("You don't have enough resources to play the card");
-        }
+
         if(!verifyPlacement(coordinate, goldCard)) {
             throw new IllegalCardPlacementException("Can't place the card here");
         }
-        getResourcesFromCard(goldCard);
-        addPoints(goldCard);
+
+        if(!goldCard.isTurned()) {
+            if(!verifyPlayCondition(goldCard)) {
+                throw new IllegalCardPlacementException("You don't have enough resources to play the card");
+            }
+            getResourcesFromCard(goldCard);
+            addPoints(goldCard);
+        } else {
+            Resource resourceToAdd = null;
+            Map<AnglePos, Angle> newAngleMap = new HashMap<>();
+            newAngleMap.put(AnglePos.UL, new Angle(Resource.BLANK, false, null, goldCard));
+            newAngleMap.put(AnglePos.UR, new Angle(Resource.BLANK, false, null, goldCard));
+            newAngleMap.put(AnglePos.DL, new Angle(Resource.BLANK, false, null, goldCard));
+            newAngleMap.put(AnglePos.DR, new Angle(Resource.BLANK, false, null, goldCard));
+            goldCard.setAnglesMap(newAngleMap);
+            switch(goldCard.getCardType()) {
+                case INSECT -> resourceToAdd = Resource.INSECT;
+                case PLANT -> resourceToAdd = Resource.PLANT;
+                case ANIMAL -> resourceToAdd = Resource.ANIMAL;
+                case FUNGI -> resourceToAdd = Resource.FUNGI;
+            }
+            this.incrementNumOfResources(resourceToAdd, 1);
+        }
         cards.put(coordinate, goldCard);
     }
 
@@ -345,22 +384,22 @@ public class Codex implements CodexInterface, Serializable {
     }
 
     /**
-     * Add points after placing a {@link GoldCard}
-     * @param goldCard the gold card that needs to be calculated
+     * Add points after placing a {@link Card}
+     * @param card the card that needs to be calculated
      */
-    private void addPoints(GoldCard goldCard) {
-        if(goldCard.getClass() == AngleGoldCard.class) {
-            ((AngleGoldCard) goldCard).setNumOfAnglesCovered(0);
-            for(AnglePos p : goldCard.getAnglesMap().keySet()) {
-                if(goldCard.getAngle(p) != null && goldCard.getAngle(p).isAttached()) {
-                    ((AngleGoldCard) goldCard).addAngleCovered();
+    private void addPoints(Card card) {
+        if(card.getClass() == AngleGoldCard.class) {
+            ((AngleGoldCard) card).setNumOfAnglesCovered(0);
+            for(AnglePos p : card.getAnglesMap().keySet()) {
+                if(card.getAngle(p) != null && card.getAngle(p).isAttached()) {
+                    ((AngleGoldCard) card).addAngleCovered();
                 }
             }
-            incrementScore(goldCard.getCardScore() * ((AngleGoldCard) goldCard).getNumOfAnglesCovered());
-        } else if(goldCard.getClass() == ResourceGoldCard.class) {
-            incrementScore(goldCard.getCardScore() * getNumOfResources(((ResourceGoldCard) goldCard).getResourceType()));
-        } else if(goldCard.getClass() == GoldCard.class) {
-            incrementScore(goldCard.getCardScore());
+            incrementScore(card.getCardScore() * ((AngleGoldCard) card).getNumOfAnglesCovered());
+        } else if(card.getClass() == ResourceGoldCard.class) {
+            incrementScore(card.getCardScore() * getNumOfResources(((ResourceGoldCard) card).getResourceType()));
+        } else {
+            incrementScore(card.getCardScore());
         }
     }
 
