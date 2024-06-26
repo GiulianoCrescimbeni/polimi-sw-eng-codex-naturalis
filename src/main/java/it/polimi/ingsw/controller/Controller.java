@@ -154,8 +154,12 @@ public class Controller {
             }
             getCurrentPlayer().getPlayerHand().removeCard(cardPlayed);
         } catch (IllegalCoordinatesException e) {
+            if(cardPlayed.isTurned())
+                cardPlayed.turn();
             throw new IllegalCoordinatesException(e.getMessage());
         } catch (IllegalCardPlacementException e) {
+            if(cardPlayed.isTurned())
+                cardPlayed.turn();
             throw new IllegalCardPlacementException(e.getMessage());
         }
 

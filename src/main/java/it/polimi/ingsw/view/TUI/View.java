@@ -15,6 +15,7 @@ import it.polimi.ingsw.network.server.updates.InitialCardSideUpdate;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.IOException;
+import java.security.MessageDigestSpi;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -247,9 +248,15 @@ public class View extends Thread implements ViewInterface {
                         int y = Integer.parseInt(args[2]);
                         int cardToPlay = Integer.parseInt(args[3]);
                         String cardToPick = args[4];
-                        playCard(x, y, cardToPlay, cardToPick);
+                        playCard(x, y, cardToPlay, cardToPick, false);
+                    } else if(args.length == 6 && args[5].equals("Turn")) {
+                        int x = Integer.parseInt(args[1]);
+                        int y = Integer.parseInt(args[2]);
+                        int cardToPlay = Integer.parseInt(args[3]);
+                        String cardToPick = args[4];
+                        playCard(x, y, cardToPlay, cardToPick, true);
                     } else {
-                        Messages.getInstance().error("Format error. Use: playcard [#x] [#y] [#CardToPlay] [#CardToPick]");
+                        Messages.getInstance().error("Format error. Use: playcard [#x] [#y] [#CardToPlayFromHand] [#CardToPickFromGround / ResourceDeck / GoldDeck] [optional: Turn]");
                     }
                     continue;
 
@@ -316,19 +323,19 @@ public class View extends Thread implements ViewInterface {
     public void showCommands() {
         clear();
         System.out.println(
-                        "╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n" +
-                        "║                                           Commands                                           ║\n" +
-                        "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n" +
-                        "║ - playcard [#x] [#y] [#CardToPlayFromHand] [#CardToPickFromGround / ResourceDeck / GoldDeck] ║\n" +
-                        "║ - inspectcodex [optional: {NameOfPlayer}, default:{You}]                                     ║\n" +
-                        "║ - inspectcard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]                            ║\n" +
-                        "║ - inspecthand [optional: #CardToInspectFromHand]                                             ║\n" +
-                        "║ - inspectground [optional: #CardToInspectFromGround]                                         ║\n" +
-                        "║ - viewgoals                                                                                  ║\n" +
-                        "║ - viewscores                                                                                 ║\n" +
-                        "║ - chat                                                                                       ║\n" +
-                        "║ - commands                                                                                   ║\n" +
-                        "╚══════════════════════════════════════════════════════════════════════════════════════════════╝"
+                        "╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n" +
+                        "║                                                   Commands                                                    ║\n" +
+                        "╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n" +
+                        "║ - playcard [#x] [#y] [#CardToPlayFromHand] [#CardToPickFromGround / ResourceDeck / GoldDeck] [optional: Turn] ║\n" +
+                        "║ - inspectcodex [optional: {NameOfPlayer}, default:{You}]                                                      ║\n" +
+                        "║ - inspectcard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]                                             ║\n" +
+                        "║ - inspecthand [optional: #CardToInspectFromHand]                                                              ║\n" +
+                        "║ - inspectground [optional: #CardToInspectFromGround]                                                          ║\n" +
+                        "║ - viewgoals                                                                                                   ║\n" +
+                        "║ - viewscores                                                                                                  ║\n" +
+                        "║ - chat                                                                                                        ║\n" +
+                        "║ - commands                                                                                                    ║\n" +
+                        "╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝"
         );
 
     }
@@ -343,10 +350,13 @@ public class View extends Thread implements ViewInterface {
         Messages.getInstance().input("Command: ");
     }
 
-    public void playCard(int x, int y, int cardToPlay, String cardToPick) {
+    public void playCard(int x, int y, int cardToPlay, String cardToPick, boolean turn) {
         if(ClientController.getInstance().isMyTurn()) {
             Coordinate coordinate = new Coordinate(x, y);
             Card cardPlaced = ClientController.getInstance().getPlayerHand().getCards().get(cardToPlay - 1);
+            if(turn) {
+                cardPlaced.turn();
+            }
             if(cardToPick.equals("ResourceDeck")) {
                 ClientController.getInstance().playWithPickFromDeck(coordinate, cardPlaced, 0);
             } else if(cardToPick.equals("GoldDeck")) {
@@ -706,50 +716,51 @@ public class View extends Thread implements ViewInterface {
             System.out.println("Resource Type: " + printResource(((ResourceGoldCard) card).getResourceType()) + TextColor.RESET);
         }
 
-        if(card.isTurned()) {
-            System.out.println(TextColor.BRIGHT_WHITE + "Card Turned" + TextColor.RESET);
-            if(card.getClass() == InitialCard.class) {
-                System.out.print("Back Resources:");
-                for(Resource resource : ((InitialCard) card).getBackResources()) {
-                    System.out.print(" " + printResource(resource));
-                }
-                System.out.print("\n");
-            }
-        } else {
-            if(isULHidden || UL.getResource() == null) {
-                System.out.println("Top Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-            } else {
-                System.out.println("Top Left Corner : " + printResource(UL.getResource()) + TextColor.RESET);
-            }
-            if(isURHidden || UR.getResource() == null) {
-                System.out.println("Top Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-            } else {
-                System.out.println("Top Right Corner : " + printResource(UR.getResource()) + TextColor.RESET);
-            }
-            if(isDLHidden || DL.getResource() == null) {
-                System.out.println("Bottom Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-            } else {
-                System.out.println("Bottom Left Corner : " + printResource(DL.getResource()) + TextColor.RESET);
-            }
-            if(isDRHidden || DR.getResource() == null) {
-                System.out.println("Bottom Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
-            } else {
-                System.out.println("Bottom Right Corner : " + printResource(DR.getResource()) + TextColor.RESET);
-            }
 
+        System.out.println(TextColor.BRIGHT_WHITE + "Card Turned" + TextColor.RESET);
+        if(card.getClass() == InitialCard.class) {
+            System.out.print("Back Resources:");
+            for (Resource resource : ((InitialCard) card).getBackResources()) {
+                System.out.print(" " + printResource(resource));
+            }
+            System.out.print("\n");
+        }
+
+
+        if(isULHidden || UL.getResource() == null) {
+            System.out.println("Top Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Top Left Corner : " + printResource(UL.getResource()) + TextColor.RESET);
+        }
+        if(isURHidden || UR.getResource() == null) {
+            System.out.println("Top Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Top Right Corner : " + printResource(UR.getResource()) + TextColor.RESET);
+        }
+        if(isDLHidden || DL.getResource() == null) {
+            System.out.println("Bottom Left Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Bottom Left Corner : " + printResource(DL.getResource()) + TextColor.RESET);
+        }
+        if(isDRHidden || DR.getResource() == null) {
+            System.out.println("Bottom Right Corner : "+TextColor.BRIGHT_BLACK+"Blocked"+TextColor.RESET);
+        } else {
+            System.out.println("Bottom Right Corner : " + printResource(DR.getResource()) + TextColor.RESET);
+        }
+
+        if(!card.isTurned()) {
             if(card.getCardScore() != 0) {
                 System.out.println("Card Score : " + TextColor.BRIGHT_YELLOW+card.getCardScore()+TextColor.RESET);
             }
-
             if(card.getClass() == GoldCard.class || card.getClass() == AngleGoldCard.class || card.getClass() == ResourceGoldCard.class) {
                 System.out.printf("Play Condition: ");
                 for(Resource r : ((GoldCard) card).getPlayCondition()) {
                     System.out.printf(printResource(r) + " ");
                 }
                 System.out.printf("\n");
-
             }
         }
+
     }
 
     public String printPlayer(Player player) {

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchor" prefHeight="790.0" prefWidth="1290.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.GameController">
+<AnchorPane fx:id="anchor" prefHeight="790.0" prefWidth="1290.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.GameController">
    <stylesheets>
       <URL value="@css/Button.css" />
    </stylesheets>
@@ -222,6 +222,12 @@
          </font>
       </Button>
       <ComboBox fx:id="codexSelection" layoutX="346.0" layoutY="73.0" prefHeight="25.0" prefWidth="149.0" promptText="       Choose a codex" />
+      <Button layoutX="1064.0" layoutY="715.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0" />
+      <ImageView fx:id="FlipCard" fitHeight="50.0" fitWidth="50.0" layoutX="1064.0" layoutY="716.0" onMouseClicked="#handleTurnCard" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../rotate.png" />
+         </image>
+      </ImageView>
 
    </children>
 </AnchorPane>

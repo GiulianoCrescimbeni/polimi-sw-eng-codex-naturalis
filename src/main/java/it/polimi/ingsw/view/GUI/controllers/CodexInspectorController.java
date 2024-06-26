@@ -1,9 +1,8 @@
 package it.polimi.ingsw.view.GUI.controllers;
 
-import it.polimi.ingsw.model.GameComponents.Card;
-import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.model.Enumerations.Color;
+import it.polimi.ingsw.model.GameComponents.*;
 import it.polimi.ingsw.network.client.ClientController;
-import it.polimi.ingsw.view.TUI.Messages;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -63,7 +62,7 @@ public class CodexInspectorController{
             Coordinate coordinates = entry.getKey();
             Card card = entry.getValue();
             if (coordinates.equals(new Coordinate(80, 80))) {
-                placeCard(coordinates, card, 683, 266);
+                placeCard(coordinates, card, 551, 328);
             } else {
                 placeCardRelativeToCenter(coordinates, card);
             }
@@ -84,10 +83,10 @@ public class CodexInspectorController{
 
     private void placeCard(Coordinate cardCoordinates, Card card, double x, double y) {
         ImageView cardImageView = new ImageView();
-        if(!ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(playerToInspect)).getCard(cardCoordinates).isTurned()) {
-            setCardImage(cardImageView, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(playerToInspect)).getCard(cardCoordinates).getCardID() +".png");
+        if(!card.isTurned()) {
+            setCardImage(cardImageView, "/polimi/ingsw/Cards/Fronts/"+ card.getCardID() +".png");
         } else {
-            setCardImage(cardImageView, "/polimi/ingsw/Cards/Backs/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(playerToInspect)).getCard(cardCoordinates).getCardID() +".png");
+            loadBack(cardImageView, card);
         }
 
         cardImageView.setScaleX(0.7);
@@ -111,6 +110,26 @@ public class CodexInspectorController{
         }
     }
 
+    private void loadBack(ImageView imageView, Card card) {
+        if(card instanceof GoldCard) {
+            switch (card.getCardType()) {
+                case ANIMAL -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/AnimalGold.png");
+                case FUNGI -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/FungiGold.png");
+                case PLANT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/PlantGold.png");
+                case INSECT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/InsectGold.png");
+            }
+        } else if(card instanceof InitialCard) {
+            setCardImage(imageView, "/polimi/ingsw/Cards/Backs/"+card.getCardID()+".png");
+        } else {
+            switch(card.getCardType()) {
+                case ANIMAL -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Animal.png");
+                case FUNGI -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Fungi.png");
+                case PLANT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Plant.png");
+                case INSECT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Insect.png");
+            }
+        }
+    }
+
     private void updateLimits() {
 
         double imageWidth = background.getImage().getWidth();
@@ -123,8 +142,23 @@ public class CodexInspectorController{
     }
 
     public void setPlayerToInspect(String username) {
+        Color playerColor = ClientController.getInstance().getPlayerByUsername(username).getColor();
         this.playerToInspect = username;
         playerInspected.setText(playerToInspect);
+        switch(playerColor) {
+            case Color.Blue:
+                playerInspected.setFill(javafx.scene.paint.Color.BLUE);
+                break;
+            case Color.Red:
+                playerInspected.setFill(javafx.scene.paint.Color.RED);
+                break;
+            case Color.Yellow:
+                playerInspected.setFill(javafx.scene.paint.Color.web("#edb009"));
+                break;
+            case Color.Green:
+                playerInspected.setFill(javafx.scene.paint.Color.GREEN);
+                break;
+        }
         placeCardsOnScene();
     }
 

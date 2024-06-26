@@ -3,6 +3,8 @@ package it.polimi.ingsw.view.GUI.controllers;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.GameComponents.Card;
 import it.polimi.ingsw.model.GameComponents.Coordinate;
+import it.polimi.ingsw.model.GameComponents.GoldCard;
+import it.polimi.ingsw.model.GameComponents.InitialCard;
 import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.network.client.ClientController;
@@ -92,6 +94,7 @@ public class GameController extends ViewController {
     private Boolean isPlacing;
     private Coordinate placedCoordinate;
     private Card placedCard;
+    private Boolean turnCard;
     private Boolean isPicking;
 
     @FXML
@@ -116,6 +119,7 @@ public class GameController extends ViewController {
         addHoverEffect(GroundGoldCard1, ClientController.getInstance().getGoldCardToPick().get(0));
         addHoverEffect(GroundGoldCard2, ClientController.getInstance().getGoldCardToPick().get(1));
         printCurrentPlayer();
+        turnCard = false;
 
         previewImageView.setVisible(false);
         previewImageView.setOpacity(0.5);
@@ -266,10 +270,10 @@ public class GameController extends ViewController {
 
     private void placeCard(Coordinate cardCoordinates, Card card, double x, double y) {
         ImageView cardImageView = new ImageView();
-        if(!ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(cardCoordinates).isTurned()) {
-            setCardImage(cardImageView, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(cardCoordinates).getCardID() +".png");
+        if(!card.isTurned()) {
+            setCardImage(cardImageView, "/polimi/ingsw/Cards/Fronts/"+ card.getCardID() +".png");
         } else {
-            setCardImage(cardImageView, "/polimi/ingsw/Cards/Backs/"+ ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCard(cardCoordinates).getCardID() +".png");
+            loadBack(cardImageView, card);
         }
 
         cardImageView.setScaleX(0.7);
@@ -441,8 +445,45 @@ public class GameController extends ViewController {
     }
 
     @FXML
+    public void handleTurnCard(MouseEvent event) {
+        if(!turnCard) {
+            loadBack(Hand1, ClientController.getInstance().getPlayerHand().getCards().get(0));
+            loadBack(Hand2, ClientController.getInstance().getPlayerHand().getCards().get(1));
+            loadBack(Hand3, ClientController.getInstance().getPlayerHand().getCards().get(2));
+            turnCard = true;
+        } else {
+            setCardImage(Hand1, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getPlayerHand().getCards().get(0).getCardID() +".png");
+            setCardImage(Hand2, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getPlayerHand().getCards().get(1).getCardID() +".png");
+            setCardImage(Hand3, "/polimi/ingsw/Cards/Fronts/"+ ClientController.getInstance().getPlayerHand().getCards().get(2).getCardID() +".png");
+            turnCard = false;
+        }
+    }
+
+    private void loadBack(ImageView imageView, Card card) {
+        if(card instanceof GoldCard) {
+            switch (card.getCardType()) {
+                case ANIMAL -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/AnimalGold.png");
+                case FUNGI -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/FungiGold.png");
+                case PLANT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/PlantGold.png");
+                case INSECT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/InsectGold.png");
+            }
+        } else if(card instanceof InitialCard) {
+            setCardImage(imageView, "/polimi/ingsw/Cards/Backs/"+card.getCardID()+".png");
+        } else {
+            switch(card.getCardType()) {
+                case ANIMAL -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Animal.png");
+                case FUNGI -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Fungi.png");
+                case PLANT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Plant.png");
+                case INSECT -> setCardImage(imageView, "/polimi/ingsw/Cards/Backs/Insect.png");
+            }
+        }
+    }
+
+    @FXML
     public void handleResourceCardDeck(MouseEvent event) {
         if(isPicking) {
+            if(turnCard)
+                placedCard.turn();
             ClientController.getInstance().playWithPickFromDeck(placedCoordinate, placedCard, 0);
         }
     }
@@ -450,6 +491,8 @@ public class GameController extends ViewController {
     @FXML
     public void handleGoldCardDeck(MouseEvent event) {
         if(isPicking) {
+            if(turnCard)
+                placedCard.turn();
             ClientController.getInstance().playWithPickFromDeck(placedCoordinate, placedCard, 1);
         }
     }
@@ -457,6 +500,8 @@ public class GameController extends ViewController {
     @FXML
     public void handleGroundCard1(MouseEvent event) {
         if(isPicking) {
+            if(turnCard)
+                placedCard.turn();
             ClientController.getInstance().playWithPickFromGround(placedCoordinate, placedCard, ClientController.getInstance().getCardToPick().get(0));
         }
     }
@@ -464,6 +509,8 @@ public class GameController extends ViewController {
     @FXML
     public void handleGroundCard2(MouseEvent event) {
         if(isPicking) {
+            if(turnCard)
+                placedCard.turn();
             ClientController.getInstance().playWithPickFromGround(placedCoordinate, placedCard, ClientController.getInstance().getCardToPick().get(1));
         }
     }
@@ -471,6 +518,8 @@ public class GameController extends ViewController {
     @FXML
     public void handleGroundGoldCard1(MouseEvent event) {
         if(isPicking) {
+            if(turnCard)
+                placedCard.turn();
             ClientController.getInstance().playWithPickFromGround(placedCoordinate, placedCard, ClientController.getInstance().getGoldCardToPick().get(0));
         }
     }
@@ -478,6 +527,8 @@ public class GameController extends ViewController {
     @FXML
     public void handleGroundGoldCard2(MouseEvent event) {
         if(isPicking) {
+            if(turnCard)
+                placedCard.turn();
             ClientController.getInstance().playWithPickFromGround(placedCoordinate, placedCard, ClientController.getInstance().getGoldCardToPick().get(1));
         }
     }
