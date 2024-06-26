@@ -14,5 +14,5 @@
       <font>
          <Font name="Luminari" size="13.0" />
       </font></Label>
-    <Button fx:id="closeButton" layoutX="80.0" layoutY="63.0" prefHeight="30.0" prefWidth="87.0" styleClass="close-button" text="Close" />
+    <Button fx:id="closeButton" layoutX="80.0" layoutY="63.0" onMouseClicked="#handleCloseButtonAction" prefHeight="30.0" prefWidth="87.0" styleClass="close-button" text="Close" />
 </AnchorPane>

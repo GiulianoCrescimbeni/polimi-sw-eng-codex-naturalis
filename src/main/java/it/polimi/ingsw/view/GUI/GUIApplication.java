@@ -34,6 +34,7 @@ public class GUIApplication extends Application implements ViewInterface {
         mainStage.setScene(scene);
         this.mainStage.setTitle("Codex Naturalis");
         mainStage.show();
+        mainStage.setOnCloseRequest(event -> { System.exit(0); });
         root = new StackPane();
     }
 

@@ -179,6 +179,16 @@ public class GamesManager {
 
     public void endMatch(Integer gameID) {
         broadcast(gameID, new EndGameUpdate());
+
+       /* synchronized(connections) {
+            connections.entrySet()
+                    .stream()
+                    .filter(c -> c.getValue() == gameID)
+                    .forEach(c -> {
+                        removeConnection(c.getKey());
+                    });
+        }*/
+
         controllers.remove(gameID);
     }
 
@@ -191,9 +201,6 @@ public class GamesManager {
         Update update;
         if(command instanceof RefreshAvailableGamesCommand) {
             update = new AvailableMatchesUpdate(getAvailableGames(), null);
-        } else if (command instanceof Pong) {
-            pinged.remove(clientHandler);
-            return;
         } else {
             Integer gameId;
             synchronized(connections) {
@@ -210,15 +217,24 @@ public class GamesManager {
      * @param gameId the id of the game
      * @param update the update to send
      */
-    public synchronized void broadcast(int gameId, Update update) {
-        connections.entrySet()
-                .stream()
-                .filter(c -> c.getValue() == gameId)
-                .forEach(c -> {
-                    try {
-                        c.getKey().sendUpdate(update);
-                    } catch (IOException e) {}
-                });
+    public void broadcast(int gameId, Update update) {
+        synchronized(connections) {
+            connections.entrySet()
+                    .stream()
+                    .filter(c -> c.getValue() == gameId)
+                    .forEach(c -> {
+                        try {
+                            c.getKey().sendUpdate(update);
+                        } catch (IOException e) {
+                        }
+                    });
+        }
+    }
+
+    public synchronized void removeConnection(ClientHandler clientHandler) {
+        synchronized(connections) {
+            connections.remove(clientHandler);
+        }
     }
 
     public void startRMIPing() {
@@ -229,20 +245,30 @@ public class GamesManager {
         Runnable task = new Runnable() {
             @Override
             public void run() {
-                if (connections.isEmpty()) return;
-                pinged = new ArrayList<ClientHandler>();
+                while (true) {
+                    Map<ClientHandler, Integer> connectionCopy = new HashMap<>();
+                    synchronized(connections) {
+                        connectionCopy.putAll(connections);
+                    }
+                    for (ClientHandler client : connectionCopy.keySet()) {
+                        if (!(client instanceof RMIClientHandler)) continue;
+                        try {
+                            RMIClientHandler rmiClient = (RMIClientHandler) client;
+                            rmiClient.receivePing();
+                        } catch (IOException e) {
+                            endMatch(getGameId(client));
+                            Messages.getInstance().error("Error while communicating with RMI client, disconnecting...");
+                            removeConnection(client);
+                        }
+                    }
 
-                for (ClientHandler client : connections.keySet()) {
-                    if (!(client instanceof RMIClientHandler)) return;
-                    //pinged.add(client);
                     try {
-                        RMIClientHandler rmiClient = (RMIClientHandler) client;
-                        rmiClient.receivePing();
-                    } catch (IOException e) {
-                        endMatch(getGameId(client));
-                        Messages.getInstance().error("Error while communicating with RMI client, disconnecting...");
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 }
+
 
                 /*try {
                     Thread.sleep(2000);
@@ -276,7 +302,7 @@ public class GamesManager {
             }
         };
 
-        executorService.scheduleAtFixedRate(task, 0, 10, TimeUnit.SECONDS);
+        new Thread(task).start();
 
 
     }

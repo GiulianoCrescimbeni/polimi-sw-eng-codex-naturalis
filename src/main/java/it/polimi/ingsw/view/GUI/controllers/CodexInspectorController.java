@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.GUI.controllers;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.GameComponents.*;
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.TUI.View;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,7 +14,7 @@ import javafx.scene.text.Text;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CodexInspectorController{
+public class CodexInspectorController extends ViewController {
 
     @FXML
     private ImageView previewImageView;

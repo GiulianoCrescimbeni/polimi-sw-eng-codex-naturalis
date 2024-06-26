@@ -15,7 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.scene.text.TextFlow;
 
-public class ChatViewController {
+public class ChatViewController extends ViewController {
 
     @FXML
     private ScrollPane scrollPane;

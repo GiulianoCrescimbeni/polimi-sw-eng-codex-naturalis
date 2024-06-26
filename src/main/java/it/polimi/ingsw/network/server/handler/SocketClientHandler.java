@@ -84,6 +84,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
             }
             try {
                 clientSocket.close();
+                GamesManager.getInstance().removeConnection(this);
                 interruptThread();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
