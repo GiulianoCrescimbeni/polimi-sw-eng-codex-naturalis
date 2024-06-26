@@ -16,7 +16,7 @@ public class MainServer {
         RMIServer rmiserver = new RMIServer(25566);
         rmiserver.startRMI();
 
-        //GamesManager.getInstance().startPing();
+        GamesManager.getInstance().startRMIPing();
 
     }
 

@@ -66,6 +66,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
 
     @Override
     public void receviePong(ClientHandler clientHandler) {
-        GamesManager.getInstance().pinged.remove(clientHandler);
+        //GamesManager.getInstance().pinged.remove(clientHandler);
     }
 }

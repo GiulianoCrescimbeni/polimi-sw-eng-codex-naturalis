@@ -20,6 +20,7 @@ import it.polimi.ingsw.view.TUI.Messages;
 import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.io.IOException;
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -216,14 +217,12 @@ public class GamesManager {
                 .forEach(c -> {
                     try {
                         c.getKey().sendUpdate(update);
-                    } catch (IOException e) {
-
-                    }
+                    } catch (IOException e) {}
                 });
     }
 
-    public void startPing() {
-        System.out.println(TextColor.BRIGHT_BLUE + "[CODEX PINGER]" + TextColor.RESET + " Pinging" + TextColor.GREEN + " Started");
+    public void startRMIPing() {
+        System.out.println(TextColor.BRIGHT_BLUE + "[RMI PINGER]" + TextColor.RESET + " RMI Pinging" + TextColor.GREEN + " Started");
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
@@ -234,20 +233,18 @@ public class GamesManager {
                 pinged = new ArrayList<ClientHandler>();
 
                 for (ClientHandler client : connections.keySet()) {
-                    pinged.add(client);
+                    if (!(client instanceof RMIClientHandler)) return;
+                    //pinged.add(client);
                     try {
-                        if (client instanceof SocketClientHandler) {
-                            client.sendUpdate(new Ping());
-                        } else {
-                            RMIClientHandler rmiClient = (RMIClientHandler) client;
-                            rmiClient.receivePing();
-                        }
+                        RMIClientHandler rmiClient = (RMIClientHandler) client;
+                        rmiClient.receivePing();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        endMatch(getGameId(client));
+                        Messages.getInstance().error("Error while communicating with RMI client, disconnecting...");
                     }
                 }
 
-                try {
+                /*try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -275,7 +272,7 @@ public class GamesManager {
                     endMatch(toEnd);
                 }
 
-                pinged.clear();
+                pinged.clear();*/
             }
         };
 
