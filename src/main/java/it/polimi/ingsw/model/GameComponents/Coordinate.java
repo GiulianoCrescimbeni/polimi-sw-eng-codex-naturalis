@@ -19,12 +19,7 @@ public class Coordinate implements Serializable {
         this.y = y;
     }
 
-    /**
-     * Constructor
-     */
-    public Coordinate() {
 
-    }
 
     /**
      * @return the x coordinate of the card

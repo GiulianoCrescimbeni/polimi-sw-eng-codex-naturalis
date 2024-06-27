@@ -18,6 +18,7 @@ public class CardTest extends TestCase {
 
     Map<AnglePos, Angle> angles = new HashMap<AnglePos, Angle>();
     Card testCard = new Card(1, angles, CardType.ANIMAL, false, 1, false, false);
+    Card testCard2 = new Card(1, angles, CardType.ANIMAL, false, 1, false, false);
 
     @BeforeEach
     public void setup() {
@@ -104,5 +105,10 @@ public class CardTest extends TestCase {
     public void testSetdUsed() {
         testCard.setdUsed();
         assertTrue(testCard.isDUsed());
+    }
+
+    @Test
+    public void testEquals() {
+        assertEquals(testCard,testCard2);
     }
 }

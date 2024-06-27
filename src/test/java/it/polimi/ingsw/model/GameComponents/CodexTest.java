@@ -63,10 +63,10 @@ public class CodexTest extends TestCase {
 
         settedGoalsToPick.add(new LGoal(null, null, 0, 1));
 
-        numOfResources.put(res1, new Integer(1));
-        numOfResources.put(res2, new Integer(3));
-        numOfResources.put(res3, new Integer(4));
-        numOfResources.put(res4, new Integer(2));
+        numOfResources.put(res1, 1);
+        numOfResources.put(res2, 3);
+        numOfResources.put(res3, 4);
+        numOfResources.put(res4, 2);
 
         cards.put(c1, card1);
         cards.put(c2, card2);

@@ -61,7 +61,7 @@ public class DeckTest extends TestCase {
         Stack<Card> stackToShuffle = new Stack<Card>();
         stackToShuffle.addAll(cardStack);
         testDeck.deckShuffle();
-        assertNotEquals(cardStack, stackToShuffle);
+        assertNotEquals(cardStack,stackToShuffle);
         assertEquals(cardStack.size(), stackToShuffle.size());
     }
 }

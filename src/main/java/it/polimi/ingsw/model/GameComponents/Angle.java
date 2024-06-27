@@ -90,19 +90,5 @@ public class Angle implements Serializable {
         this.card = card;
     }
 
-    @Override
-    public String toString() {
-        String resource = "";
-        String hidden = "";
-        String attached = "";
-        String card = "";
 
-        if (this.resource == null) resource = "Resource: Null\n"; else resource = "Resource: " + this.resource.toString() + "\n";
-        if (this.hidden) hidden = "Hidden: True\n"; else hidden = "Hidden: False\n";
-        if (this.attached == null) attached = "Attached: Null\n"; else attached = "Attached: " + this.attached.toString() + "\n";
-        if (this.card == null) card = "Card: Null\n"; else card = "Card: " + this.card.getCardID() + "\n";
-
-        return resource + hidden + attached + card;
-
-    }
 }

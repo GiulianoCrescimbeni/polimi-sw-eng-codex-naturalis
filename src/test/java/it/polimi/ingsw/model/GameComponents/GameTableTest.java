@@ -211,13 +211,13 @@ public class GameTableTest extends TestCase {
 
         toTest.groundBuild();
 
-        assertEquals(2, cardToPick.size());
-        assertEquals(c2, cardToPick.get(0));
-        assertEquals(c1, cardToPick.get(1));
+        assertEquals(2, toTest.getCardToPick().size());
+        assertEquals(c2, toTest.getCardToPick().get(0));
+        assertEquals(c1, toTest.getCardToPick().get(1));
 
-        assertEquals(2, goldCardToPick.size());
-        assertEquals(g2, goldCardToPick.get(0));
-        assertEquals(g1, goldCardToPick.get(1));
+        assertEquals(2, toTest.getGoldCardToPick().size());
+        assertEquals(g2, toTest.getGoldCardToPick().get(0));
+        assertEquals(g1, toTest.getGoldCardToPick().get(1));
     }
 
     /* FIXME: Test non eseguiti sulle funzioni commentate nella classe GameTable

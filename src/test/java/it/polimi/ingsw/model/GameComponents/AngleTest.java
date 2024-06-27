@@ -63,4 +63,8 @@ public class AngleTest extends TestCase {
         assertEquals(attached, toTest.getAttached());
         assertEquals(true, toTest.isAttached());
     }
+    @Test
+    public void testSetCard(){
+
+    }
 }

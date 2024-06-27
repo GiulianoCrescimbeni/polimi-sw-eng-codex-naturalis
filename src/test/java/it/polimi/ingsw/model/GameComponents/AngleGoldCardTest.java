@@ -15,4 +15,10 @@ public class AngleGoldCardTest extends TestCase {
         testCard.addAngleCovered();
         assertEquals(3, testCard.getNumOfAnglesCovered());
     }
+    @Test
+    public void testsetNumOfAnglesCovered(){
+        testCard.setNumOfAnglesCovered(3);
+        assertEquals(3, testCard.getNumOfAnglesCovered());
+
+    }
 }
