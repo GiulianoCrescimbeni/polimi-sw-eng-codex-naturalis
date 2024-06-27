@@ -83,6 +83,7 @@ public class DiagonalGoalTest extends TestCase {
         card2.setAnglesMap(angles2);
         card3.setAnglesMap(angles3);
 
+        goal.draw();
         assertEquals(1, goal.check(codex));
     }
 
@@ -151,6 +152,7 @@ public class DiagonalGoalTest extends TestCase {
         card2.setAnglesMap(angles2);
         card3.setAnglesMap(angles3);
 
+        goal.draw();
         assertEquals(1, goal.check(codex));
     }
 
@@ -219,6 +221,7 @@ public class DiagonalGoalTest extends TestCase {
         card2.setAnglesMap(angles2);
         card3.setAnglesMap(angles3);
 
+        goal.draw();
         assertEquals(1, goal.check(codex));
     }
 
@@ -287,6 +290,7 @@ public class DiagonalGoalTest extends TestCase {
         card2.setAnglesMap(angles2);
         card3.setAnglesMap(angles3);
 
+        goal.draw();
         assertEquals(1, goal.check(codex));
     }
 
@@ -375,6 +379,7 @@ public class DiagonalGoalTest extends TestCase {
         card3.setAnglesMap(angles3);
         card4.setAnglesMap(angles4);
 
+        goal.draw();
         assertEquals(0, goal.check(codex));
     }
 }
