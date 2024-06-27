@@ -13,7 +13,9 @@ public enum SceneEnum {
     CHAT("/polimi/ingsw/fxml/ChatView.fxml"),
     PLATEAU("/polimi/ingsw/fxml/Plateau.fxml"),
     INSPECT_CODEX("/polimi/ingsw/fxml/Inspect.fxml"),
-    ERROR("/polimi/ingsw/fxml/Error.fxml");
+    ERROR("/polimi/ingsw/fxml/Error.fxml"),
+    WINNING_SCREEN("/polimi/ingsw/fxml/WinningScreen.fxml"),
+    LOOSING_SCREEN("/polimi/ingsw/fxml/LoosingScreen.fxml");
     private final String value;
 
 

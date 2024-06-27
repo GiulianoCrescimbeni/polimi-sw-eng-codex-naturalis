@@ -66,7 +66,6 @@ public class SocketClientHandler extends Thread implements ClientHandler {
 
             while(!this.isInterrupted()) {
                 Command c = (Command) in.readObject();
-                //System.out.println("[SOCKET HANDLER] Received Command, type: " + c.getClass().toString());
 
                 if (c instanceof CreateMatchCommand) {
                     GamesManager.getInstance().createMatch(this, (CreateMatchCommand) c);
@@ -80,7 +79,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
         } catch (Exception e) {
             Messages.getInstance().error("Error while communicating with socket client, disconnecting...");
             if (GamesManager.getInstance().getGameId(this) != null) {
-                GamesManager.getInstance().endMatch(GamesManager.getInstance().getGameId( this));
+                GamesManager.getInstance().endMatch(GamesManager.getInstance().getGameId( this), null);
             }
             try {
                 clientSocket.close();

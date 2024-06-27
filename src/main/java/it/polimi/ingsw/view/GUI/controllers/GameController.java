@@ -11,6 +11,7 @@ import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.GUI.GUIApplication;
 import it.polimi.ingsw.view.GUI.SceneEnum;
 import it.polimi.ingsw.view.TUI.View;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -80,7 +81,7 @@ public class GameController extends ViewController {
     private ImageView previewImageView;
 
     @FXML
-    private ComboBox<String> codexSelection;
+    private ComboBox<String> codexComboBox;
 
     private double initialX;
     private double initialY;
@@ -119,6 +120,7 @@ public class GameController extends ViewController {
         addHoverEffect(GroundGoldCard1, ClientController.getInstance().getGoldCardToPick().get(0));
         addHoverEffect(GroundGoldCard2, ClientController.getInstance().getGoldCardToPick().get(1));
         printCurrentPlayer();
+        setupCodexComboBox();
         turnCard = false;
 
         previewImageView.setVisible(false);
@@ -126,8 +128,6 @@ public class GameController extends ViewController {
 
         placedCards = new HashMap<>();
         placeCardsOnScene();
-
-        setupCodexes();
 
         isPlacing = false;
         isPicking = false;
@@ -140,14 +140,6 @@ public class GameController extends ViewController {
     public void handleMousePressed(MouseEvent event) {
         mouseX = event.getSceneX();
         mouseY = event.getSceneY();
-    }
-
-    private void setupCodexes() {
-        for (Player p : ClientController.getInstance().getPlayers()) {
-            if (!p.getNickname().equals(ClientController.getInstance().getUsername())) {
-                codexSelection.getItems().add(p.getNickname());
-            }
-        }
     }
 
     private void setGoalShadow(ImageView goalImage, Card card) {
@@ -284,8 +276,8 @@ public class GameController extends ViewController {
         cardImageView.setLayoutX(x);
         cardImageView.setLayoutY(y);
 
-        anchor.getChildren().add(cardImageView);
         placedCards.put(cardCoordinates, cardImageView);
+        anchor.getChildren().add(placedCards.size(), cardImageView);
     }
 
     private Coordinate getOverlappingCard(double dropX, double dropY, double cardWidth, double cardHeight) {
@@ -332,6 +324,8 @@ public class GameController extends ViewController {
             placedCard = ClientController.getInstance().getCurrentPlayer().getPlayerHand().getCards().get(2);
         }
         placedCards.put(new Coordinate(targetCoordinates[0], targetCoordinates[1]), imageView);
+        anchor.getChildren().remove(imageView);
+        anchor.getChildren().add(placedCards.size(), imageView);
     }
 
     private void showPreview(double dropX, double dropY, ImageView imageView, Coordinate overlappingCard) {
@@ -533,18 +527,6 @@ public class GameController extends ViewController {
         }
     }
 
-    @FXML
-    public void handleInspectCodex(ActionEvent event) {
-        if (codexSelection.getValue() == null) return;
-
-        try {
-            GUIApplication viewInterface = (GUIApplication) ClientController.getInstance().getViewInterface();
-            viewInterface.openPopup(SceneEnum.INSPECT_CODEX);
-            CodexInspectorController.getInstance().setPlayerToInspect(codexSelection.getValue());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void handlePlateau(ActionEvent event) {
@@ -565,5 +547,38 @@ public class GameController extends ViewController {
             e.printStackTrace();
         }
     }
+
+    private void setupCodexComboBox() {
+        for (Player p : ClientController.getInstance().getPlayers()) {
+            if (!p.getNickname().equals(ClientController.getInstance().getUsername())) {
+                codexComboBox.getItems().add(p.getNickname());
+            }
+        }
+
+        codexComboBox.setOnAction(event -> handleInspectCodex());
+    }
+
+    @FXML
+    public void handleInspectCodex() {
+        String selectedPlayer = codexComboBox.getValue();
+        if (selectedPlayer == null) return;
+
+        try {
+            GUIApplication viewInterface = (GUIApplication) ClientController.getInstance().getViewInterface();
+            viewInterface.openPopup(SceneEnum.INSPECT_CODEX);
+            CodexInspectorController.getInstance().setPlayerToInspect(selectedPlayer);
+
+            Platform.runLater(() -> {
+                codexComboBox.getSelectionModel().clearSelection();
+                codexComboBox.setValue(null);
+                codexComboBox.setPromptText("Inspect Codex");
+
+                codexComboBox.requestFocus();
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

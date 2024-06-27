@@ -234,6 +234,54 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    public void winScreen() {
+        clear();
+        System.out.println(
+                        "\n" +
+                        "                                                                          \n" +
+                        "                                                                          \n" +
+                        "____     ___                      ____              ___                8  \n" +
+                        "`MM(     )M'                      `Mb(      db      )d' 68b           (M) \n" +
+                        " `MM.    d'                        YM.     ,PM.     ,P  Y89           (M) \n" +
+                        "  `MM.  d' _____  ___   ___        `Mb     d'Mb     d'  ___ ___  __   (M) \n" +
+                        "   `MM d' 6MMMMMb `MM    MM         YM.   ,P YM.   ,P   `MM `MM 6MMb   M  \n" +
+                        "    `MM' 6M'   `Mb MM    MM         `Mb   d' `Mb   d'    MM  MMM9 `Mb  M  \n" +
+                        "     MM  MM     MM MM    MM          YM. ,P   YM. ,P     MM  MM'   MM  M  \n" +
+                        "     MM  MM     MM MM    MM          `Mb d'   `Mb d'     MM  MM    MM  8  \n" +
+                        "     MM  MM     MM MM    MM           YM,P     YM,P      MM  MM    MM     \n" +
+                        "     MM  YM.   ,M9 YM.   MM           `MM'     `MM'      MM  MM    MM 68b \n" +
+                        "    _MM_  YMMMMM9   YMMM9MM_           YP       YP      _MM__MM_  _MM_Y89 \n" +
+                        "                                                                          \n" +
+                        "                                                                          \n" +
+                        "                                                                          \n"
+        );
+        System.exit(0);
+    }
+
+    public void looseScreen() {
+        clear();
+        System.out.println(
+                        "\n" +
+                        "                                                                                     \n" +
+                        "                                                                                     \n" +
+                        "____     ___                      ____                                            8  \n" +
+                        "`MM(     )M'                      `MM'                                           (M) \n" +
+                        " `MM.    d'                        MM                                            (M) \n" +
+                        "  `MM.  d' _____  ___   ___        MM        _____     _____     ____     ____   (M) \n" +
+                        "   `MM d' 6MMMMMb `MM    MM        MM       6MMMMMb   6MMMMMb   6MMMMb\\  6MMMMb   M  \n" +
+                        "    `MM' 6M'   `Mb MM    MM        MM      6M'   `Mb 6M'   `Mb MM'    ` 6M'  `Mb  M  \n" +
+                        "     MM  MM     MM MM    MM        MM      MM     MM MM     MM YM.      MM    MM  M  \n" +
+                        "     MM  MM     MM MM    MM        MM      MM     MM MM     MM  YMMMMb  MMMMMMMM  8  \n" +
+                        "     MM  MM     MM MM    MM        MM      MM     MM MM     MM      `Mb MM           \n" +
+                        "     MM  YM.   ,M9 YM.   MM        MM    / YM.   ,M9 YM.   ,M9 L    ,MM YM    d9 68b \n" +
+                        "    _MM_  YMMMMM9   YMMM9MM_      _MMMMMMM  YMMMMM9   YMMMMM9  MYMMMM9   YMMMM9  Y89 \n" +
+                        "                                                                                     \n" +
+                        "                                                                                     \n" +
+                        "                                                                                     \n"
+        );
+        System.exit(0);
+    }
+
     public void menu() {
         showCommands();
         while(true) {

@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox style="-fx-background-color: #5b2529;" spacing="5" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.ChatViewController">
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="5" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.controllers.ChatViewController">
+    <stylesheets>
+        <URL value="@css/Chat.css" />
+    </stylesheets>
     <children>
-        <ScrollPane fx:id="scrollPane" prefHeight="265.0" prefWidth="592.0" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="265.0" prefWidth="592.0" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
             <content>
-                <VBox fx:id="chatLog"/>
+                <VBox fx:id="chatLog" styleClass="chat-log" />
             </content>
         </ScrollPane>
         <HBox spacing="5">
-            <ComboBox fx:id="channelBox" promptText="Select channel" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="channelBox" promptText="Select channel" styleClass="channel-box" HBox.hgrow="ALWAYS" />
         </HBox>
         <HBox spacing="5">
-            <TextArea fx:id="messageBox" onKeyPressed="#onEnterSend" prefHeight="47.0" promptText="enter message..." HBox.hgrow="ALWAYS" />
-            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#setSendButtonAction" prefHeight="47.0" minWidth="52.0" text="Send"/>
+            <TextArea fx:id="messageBox" onKeyPressed="#onEnterSend" prefHeight="47.0" promptText="enter message..." styleClass="message-box" HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton" minWidth="52.0" mnemonicParsing="false" onAction="#setSendButtonAction" prefHeight="70.0" styleClass="send-button" text="Send">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
         </HBox>
     </children>
     <padding>
-        <Insets topRightBottomLeft="5"/>
+        <Insets topRightBottomLeft="5" />
     </padding>
 </VBox>

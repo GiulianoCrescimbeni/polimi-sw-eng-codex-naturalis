@@ -1,0 +1,81 @@
+.root {
+    -fx-background-color: #5b2529;
+    -fx-padding: 10;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #5b2529;
+}
+
+.chat-log {
+    -fx-spacing: 10;
+}
+
+.chat-log .chat-message {
+    -fx-background-color: #d9c8a1;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-font-family: Luminari;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #b89873;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+}
+
+.channel-box {
+    -fx-background-color: #d9c8a1;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-font-family: Luminari;
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #b89873;
+    -fx-border-width: 2;
+}
+
+.channel-box:hover {
+    -fx-background-color: #cbb794;
+}
+
+.channel-box:pressed {
+    -fx-background-color: #b89873;
+}
+
+.message-box {
+    -fx-background-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-font-family: Luminari;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #b89873;
+    -fx-border-width: 2;
+}
+
+.send-button {
+    -fx-background-color: #d9c8a1;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-font-family: Luminari;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #b89873;
+    -fx-border-width: 2;
+}
+
+.send-button:hover {
+    -fx-background-color: #cbb794;
+}
+
+.send-button:pressed {
+    -fx-background-color: #b89873;
+}

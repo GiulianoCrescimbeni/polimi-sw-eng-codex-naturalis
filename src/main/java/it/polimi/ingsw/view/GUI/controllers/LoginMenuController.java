@@ -2,8 +2,12 @@ package it.polimi.ingsw.view.GUI.controllers;
 
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.network.client.ClientController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -48,21 +52,24 @@ public class LoginMenuController extends ViewController {
     private void handleColorSelection(javafx.event.ActionEvent event) {
         MenuItem selectedItem = (MenuItem) event.getSource();
         selectedColor = selectedItem.getText();
-        colorMenuButton.setText(selectedColor);
-        switch (selectedColor) {
-            case "Blue":
-                colorMenuButton.setStyle("-fx-text-fill: blue;");
-                break;
-            case "Red":
-                colorMenuButton.setStyle("-fx-text-fill: red;");
-                break;
-            case "Yellow":
-                colorMenuButton.setStyle("-fx-text-fill: #edb009;");
-                break;
-            case "Green":
-                colorMenuButton.setStyle("-fx-text-fill: green;");
-                break;
-        }
+        Platform.runLater(() -> {
+            colorMenuButton.setText(selectedColor);
+            switch (selectedColor) {
+                case "Blue":
+                    colorMenuButton.setStyle("-fx-text-fill: blue;");
+                    break;
+                case "Red":
+                    colorMenuButton.setStyle("-fx-text-fill: red;");
+                    break;
+                case "Yellow":
+                    colorMenuButton.setStyle("-fx-text-fill: #edb009;");
+                    break;
+                case "Green":
+                    colorMenuButton.setStyle("-fx-text-fill: green;");
+                    break;
+            }
+            colorMenuButton.requestFocus();
+        });
     }
 
     @FXML

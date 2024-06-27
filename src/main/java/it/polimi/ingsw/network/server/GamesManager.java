@@ -177,10 +177,11 @@ public class GamesManager {
         }
     }
 
-    public void endMatch(Integer gameID) {
+    public void endMatch(Integer gameID, String winner) {
+        EndGameUpdate endGameUpdate = new EndGameUpdate();
+        endGameUpdate.setWinner(winner);
         broadcast(gameID, new EndGameUpdate());
-
-       /* synchronized(connections) {
+        /*synchronized(connections) {
             connections.entrySet()
                     .stream()
                     .filter(c -> c.getValue() == gameID)
@@ -231,7 +232,7 @@ public class GamesManager {
         }
     }
 
-    public synchronized void removeConnection(ClientHandler clientHandler) {
+    public void removeConnection(ClientHandler clientHandler) {
         synchronized(connections) {
             connections.remove(clientHandler);
         }
@@ -256,7 +257,7 @@ public class GamesManager {
                             RMIClientHandler rmiClient = (RMIClientHandler) client;
                             rmiClient.receivePing();
                         } catch (IOException e) {
-                            endMatch(getGameId(client));
+                            endMatch(getGameId(client), null);
                             Messages.getInstance().error("Error while communicating with RMI client, disconnecting...");
                             removeConnection(client);
                         }
@@ -268,37 +269,6 @@ public class GamesManager {
                         throw new RuntimeException(e);
                     }
                 }
-
-
-                /*try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                //Crea l'array dei giochi da finire in base ai client che non hanno risposto
-                ArrayList<Integer> gamesToEnd = new ArrayList<Integer>();
-
-                for (ClientHandler disconnected : pinged) {
-                    gamesToEnd.add(connections.get(disconnected));
-                    connections.remove(disconnected);
-                }
-
-                //Pulisce l'array da eventuali duplicati
-                for (int i = 0; i < gamesToEnd.size(); i++) {
-                    for (int j = 0; j < gamesToEnd.size(); j++) {
-                        if (gamesToEnd.get(i) == gamesToEnd.get(j) && i != j) {
-                            gamesToEnd.remove(j);
-                        }
-                    }
-                }
-
-                //Manda a tutti i game id rimanenti l'update di fine gioco
-                for (Integer toEnd : gamesToEnd) {
-                    endMatch(toEnd);
-                }
-
-                pinged.clear();*/
             }
         };
 

@@ -143,4 +143,24 @@ public class GUIApplication extends Application implements ViewInterface {
             }
         });
     }
+
+    public void winScreen() {
+        Platform.runLater(() -> {
+            try {
+                ((GUIApplication) ClientController.getInstance().getViewInterface()).openPopup(SceneEnum.WINNING_SCREEN);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public void looseScreen() {
+        Platform.runLater(() -> {
+            try {
+                ((GUIApplication) ClientController.getInstance().getViewInterface()).openPopup(SceneEnum.LOOSING_SCREEN);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }

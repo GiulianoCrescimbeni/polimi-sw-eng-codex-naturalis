@@ -14,4 +14,6 @@ public interface ViewInterface {
     void updateInfo(String message, boolean clear);
     void updateChatView(String error);
     void showError(String error);
+    void winScreen();
+    void looseScreen();
 }

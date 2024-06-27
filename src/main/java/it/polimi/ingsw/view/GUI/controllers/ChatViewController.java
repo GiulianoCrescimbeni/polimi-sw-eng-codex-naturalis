@@ -3,6 +3,9 @@ package it.polimi.ingsw.view.GUI.controllers;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.network.client.ClientController;
 import it.polimi.ingsw.view.TUI.Messages;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.scene.text.TextFlow;
+import javafx.util.Duration;
 
 public class ChatViewController extends ViewController {
 
@@ -52,10 +56,10 @@ public class ChatViewController extends ViewController {
         ClientController clientController = ClientController.getInstance();
         for (String message : clientController.getMessages()) {
             TextFlow text = parseColoredText(message);
+            text.getStyleClass().add("chat-message");
             chatLog.getChildren().add(text);
         }
-        scrollPane.layout();
-        scrollPane.setVvalue(1.0); // Scroll to the bottom
+        scrollToBottom();
 
     }
 
@@ -77,7 +81,7 @@ public class ChatViewController extends ViewController {
     @FXML
     private void onEnterSend(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            event.consume(); // Prevents the textarea from adding a new line
+            event.consume();
             sendMessage();
         }
     }
@@ -118,9 +122,20 @@ public class ChatViewController extends ViewController {
         if (ClientController.getInstance().getMessages() == null) return;
         String message = ClientController.getInstance().getMessages().getLast();
         TextFlow text = parseColoredText(message);
+        text.getStyleClass().add("chat-message");
         chatLog.getChildren().add(text);
-        scrollPane.layout();
-        scrollPane.setVvalue(1.0);
+        scrollToBottom();
+    }
+
+    private void scrollToBottom() {
+        Platform.runLater(() -> {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
+                scrollPane.layout();
+                scrollPane.setVvalue(1.0);
+            }));
+            timeline.setCycleCount(1);
+            timeline.play();
+        });
     }
 
     private TextFlow parseColoredText(String message) {
@@ -139,7 +154,6 @@ public class ChatViewController extends ViewController {
                     case "35": text.setStyle("-fx-fill: magenta;"); break;
                     case "36": text.setStyle("-fx-fill: cyan;"); break;
                     case "37": text.setStyle("-fx-fill: white;"); break;
-                    // Add more cases as needed for different colors
                     default: text.setStyle("-fx-fill: black;"); break;
                 }
             }

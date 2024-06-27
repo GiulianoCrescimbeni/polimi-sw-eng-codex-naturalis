@@ -98,8 +98,8 @@ public class CodexInspectorController extends ViewController {
         cardImageView.setLayoutX(x);
         cardImageView.setLayoutY(y);
 
-        anchor.getChildren().add(cardImageView);
         placedCards.put(cardCoordinates, cardImageView);
+        anchor.getChildren().add(placedCards.size(), cardImageView);
     }
 
     private void setCardImage(ImageView imageView, String imagePath) {

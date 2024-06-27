@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Goals.Goal;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCardPlacementException;
 import it.polimi.ingsw.model.GameComponents.Exceptions.IllegalCoordinatesException;
+import it.polimi.ingsw.network.server.GamesManager;
 import it.polimi.ingsw.network.server.updates.AvailableColorsUpdate;
 import it.polimi.ingsw.network.server.updates.LoginUpdate;
 import it.polimi.ingsw.network.server.updates.Update;
@@ -226,6 +227,8 @@ public class Controller {
 
         this.model.setWinner(winningPlayer);
         this.model.setGameStatus(GameStatus.ENDED);
+        assert winningPlayer != null;
+        GamesManager.getInstance().endMatch(this.model.getGameID(), winningPlayer.getNickname());
     }
 
 }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.GUI.controllers;
 import it.polimi.ingsw.model.Enumerations.Color;
 import it.polimi.ingsw.model.Player.Player;
 import it.polimi.ingsw.network.client.ClientController;
+import it.polimi.ingsw.view.TUI.View;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlateauController {
+public class PlateauController extends ViewController {
 
     @FXML
     private AnchorPane anchor;
