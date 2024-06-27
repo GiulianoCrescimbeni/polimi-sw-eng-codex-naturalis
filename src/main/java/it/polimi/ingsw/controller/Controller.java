@@ -200,14 +200,14 @@ public class Controller {
     /**
      * Set the game's status at "Last Turn" for each player
      */
-    private void setFinalTurn(){
+    public void setFinalTurn(){
         this.model.setGameStatus(GameStatus.LAST_TURN);
     }
 
     /**
      * Set the winning player and the status game at END
      */
-    private void endGame(){
+    public void endGame(){
         int maxScore = 0;
         Player winningPlayer = null;
 
