@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.GameComponents;
 
+import it.polimi.ingsw.model.Enumerations.AnglePos;
 import it.polimi.ingsw.model.Enumerations.CardType;
 import it.polimi.ingsw.model.Enumerations.Color;
+import it.polimi.ingsw.model.Enumerations.Resource;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Goals.DiagonalGoal;
 import it.polimi.ingsw.model.Goals.Goal;
@@ -242,7 +244,14 @@ public class GameTableTest extends TestCase {
     public void testPickInitialCard() {
         Player p1 = new Player("1", new PlayerHand(new ArrayList<Card>()));
 
-        InitialCard ic = new InitialCard(3, null, CardType.ANIMAL, false, 10, false, false, null);
+        Map<AnglePos, Angle> angles = new HashMap<AnglePos, Angle>();
+
+        angles.put(AnglePos.UR, new Angle(Resource.FUNGI, false, null, null));
+        angles.put(AnglePos.DR, new Angle(Resource.FEATHER, false, null, null));
+        angles.put(AnglePos.UL, new Angle(Resource.ANIMAL, false, null, null));
+        angles.put(AnglePos.DL, new Angle(Resource.PLANT, false, null, null));
+
+        InitialCard ic = new InitialCard(3, angles, CardType.ANIMAL, false, 10, false, false, null);
         initialCardDeck.addCard(ic);
         toTest.pickInitialCard(p1);
 

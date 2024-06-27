@@ -3,12 +3,8 @@ package it.polimi.ingsw.model.GameComponents;
 import it.polimi.ingsw.model.Data.CardsLoader;
 import it.polimi.ingsw.model.Interfaces.DeckInterface;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
-import com.google.gson.Gson;
 
 /**
  * Class for cards deck

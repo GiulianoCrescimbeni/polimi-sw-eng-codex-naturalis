@@ -181,15 +181,6 @@ public class GamesManager {
         EndGameUpdate endGameUpdate = new EndGameUpdate();
         endGameUpdate.setWinner(winner);
         broadcast(gameID, new EndGameUpdate());
-        /*synchronized(connections) {
-            connections.entrySet()
-                    .stream()
-                    .filter(c -> c.getValue() == gameID)
-                    .forEach(c -> {
-                        removeConnection(c.getKey());
-                    });
-        }*/
-
         controllers.remove(gameID);
     }
 
@@ -271,9 +262,6 @@ public class GamesManager {
                 }
             }
         };
-
         new Thread(task).start();
-
-
     }
 }

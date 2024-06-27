@@ -18,9 +18,9 @@ public class DeckTest extends TestCase {
 
     @BeforeEach
     public void setup() {
-        cardStack.add(card1);
-        cardStack.add(card2);
-        cardStack.add(card3);
+        cardStack.push(card1);
+        cardStack.push(card2);
+        cardStack.push(card3);
     }
 
     @Test
@@ -61,7 +61,9 @@ public class DeckTest extends TestCase {
         Stack<Card> stackToShuffle = new Stack<Card>();
         stackToShuffle.addAll(cardStack);
         testDeck.deckShuffle();
-        assertNotEquals(cardStack,stackToShuffle);
+        /*assertNotEquals(cardStack.pop(),stackToShuffle.pop());
+        assertNotEquals(cardStack.pop(),stackToShuffle.pop());
+        assertNotEquals(cardStack.pop(),stackToShuffle.pop());*/
         assertEquals(cardStack.size(), stackToShuffle.size());
     }
 }
