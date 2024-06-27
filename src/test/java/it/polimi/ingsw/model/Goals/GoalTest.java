@@ -34,5 +34,5 @@ public class GoalTest {
 
         assertEquals(null,testGoal3.getObjectType());
     }
-
+//
 }

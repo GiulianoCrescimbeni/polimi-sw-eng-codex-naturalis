@@ -448,6 +448,6 @@ public class ResourcesGoalTest {
         testGoal.draw();
         assertEquals(2, testGoal.check(COD));
     }
-
+//
 }
 
