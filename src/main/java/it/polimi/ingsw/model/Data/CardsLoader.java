@@ -10,6 +10,8 @@ import it.polimi.ingsw.model.Goals.*;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class CardsLoader {
@@ -24,9 +26,10 @@ public class CardsLoader {
     }
 
     public ArrayList<Card> loadCards() {
-        String filePath = "src/main/resources/polimi/ingsw/JSON/CardsData.json";
+        String filePath = "/polimi/ingsw/JSON/CardsData.json";
 
-        try (FileReader reader = new FileReader(filePath)) {
+        try (InputStream InputReader = getClass().getResourceAsStream(filePath)) {
+            InputStreamReader reader = new InputStreamReader(InputReader);
             Gson gson = new Gson();
 
             CardDataContainer[] cards = gson.fromJson(reader, CardDataContainer[].class);
@@ -46,9 +49,10 @@ public class CardsLoader {
     }
 
     public ArrayList<GoldCard> loadGoldCards() {
-        String filePath = "src/main/resources/polimi/ingsw/JSON/GoldCardsData.json";
+        String filePath = "/polimi/ingsw/JSON/GoldCardsData.json";
 
-        try (FileReader reader = new FileReader(filePath)) {
+        try (InputStream InputReader = getClass().getResourceAsStream(filePath)) {
+            InputStreamReader reader = new InputStreamReader(InputReader);
             Gson gson = new Gson();
 
             GoldCardDataContainer[] goldCardsContainers = gson.fromJson(reader, GoldCardDataContainer[].class);
@@ -93,9 +97,10 @@ public class CardsLoader {
     }
 
     public ArrayList<InitialCard> loadInitialCards() {
-        String filePath = "src/main/resources/polimi/ingsw/JSON/InitialCardsData.json";
+        String filePath = "/polimi/ingsw/JSON/InitialCardsData.json";
 
-        try (FileReader reader = new FileReader(filePath)) {
+        try (InputStream InputReader = getClass().getResourceAsStream(filePath)) {
+            InputStreamReader reader = new InputStreamReader(InputReader);
             Gson gson = new Gson();
 
             InitialCardDataContainer[] initialCardsContainers = gson.fromJson(reader, InitialCardDataContainer[].class);
