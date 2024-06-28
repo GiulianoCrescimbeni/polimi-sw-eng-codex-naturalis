@@ -87,7 +87,26 @@ public class View extends Thread implements ViewInterface {
 
         if (ClientController.getInstance().getAvailableColors().size() > 1) {
             Messages.getInstance().input("Insert the number representing the color you would like to choose: ");
-            int colorIndex = s.nextInt();
+            String input = s.nextLine();
+            int colorIndex = -1;
+
+            boolean goodToGo = false;
+            while (!goodToGo) {
+                if (!isNumeric(input)) {
+                    Messages.getInstance().error("Wrong format, expecting a number");
+                    Messages.getInstance().input("Insert the number representing the color you would like to choose: ");
+                    input = s.nextLine();
+                    continue;
+                }
+                colorIndex = Integer.parseInt(input);
+                if (colorIndex < 0 || colorIndex >= ClientController.getInstance().getAvailableColors().size()) {
+                    Messages.getInstance().error("Wrong format, the number must be between 0 and " + (ClientController.getInstance().getAvailableColors().size() - 1));
+                    Messages.getInstance().input("Insert the number representing the color you would like to choose: ");
+                    input = s.nextLine();
+                    continue;
+                }
+                goodToGo = true;
+            }
 
             if (ClientController.getInstance().getAvailableColors().get(colorIndex) != null) {
                 Color c = ClientController.getInstance().getAvailableColors().get(colorIndex);
@@ -121,6 +140,7 @@ public class View extends Thread implements ViewInterface {
         ClientController.getInstance().getGoalsToPick().get(1).draw();
         System.out.println("   Goal Score: " + TextColor.BRIGHT_YELLOW + ClientController.getInstance().getGoalsToPick().get(1).getScore() + TextColor.RESET);
         System.out.println("\n");
+        s.reset();
         Messages.getInstance().info("Digit the number of the goal you want to choose");
         int optionChoosen = getOptionsInput(2);
         if(optionChoosen == 1) {
@@ -157,7 +177,14 @@ public class View extends Thread implements ViewInterface {
 
         while (maxPlayers < 2 || maxPlayers > 4) {
             Messages.getInstance().input("Select the maximum number of players that can join the game (from " + TextColor.BRIGHT_YELLOW + "2" + TextColor.RESET + " to " + TextColor.BRIGHT_YELLOW + "4" + TextColor.RESET + "): ");
-            maxPlayers = s.nextInt();
+
+            String input = s.nextLine();
+            if (!isNumeric(input)) {
+                Messages.getInstance().error("Wrong format, expecting a number");
+                continue;
+            }
+
+            maxPlayers = Integer.parseInt(input);
 
             if (maxPlayers < 2 || maxPlayers > 4) {
                 Messages.getInstance().error("The inserted number must be between " + TextColor.BRIGHT_RED + "2" + TextColor.RESET + " and " + TextColor.BRIGHT_RED + "4" + TextColor.RESET);
@@ -165,7 +192,7 @@ public class View extends Thread implements ViewInterface {
 
         }
 
-        s.nextLine();
+        //s.nextLine();
 
         CreateMatchCommand cmd = new CreateMatchCommand(maxPlayers);
         try {
@@ -308,14 +335,14 @@ public class View extends Thread implements ViewInterface {
                         "____     ___                      ____                                            8  \n" +
                         "`MM(     )M'                      `MM'                                           (M) \n" +
                         " `MM.    d'                        MM                                            (M) \n" +
-                        "  `MM.  d' _____  ___   ___        MM        _____     _____     ____     ____   (M) \n" +
-                        "   `MM d' 6MMMMMb `MM    MM        MM       6MMMMMb   6MMMMMb   6MMMMb\\  6MMMMb   M  \n" +
-                        "    `MM' 6M'   `Mb MM    MM        MM      6M'   `Mb 6M'   `Mb MM'    ` 6M'  `Mb  M  \n" +
-                        "     MM  MM     MM MM    MM        MM      MM     MM MM     MM YM.      MM    MM  M  \n" +
-                        "     MM  MM     MM MM    MM        MM      MM     MM MM     MM  YMMMMb  MMMMMMMM  8  \n" +
-                        "     MM  MM     MM MM    MM        MM      MM     MM MM     MM      `Mb MM           \n" +
-                        "     MM  YM.   ,M9 YM.   MM        MM    / YM.   ,M9 YM.   ,M9 L    ,MM YM    d9 68b \n" +
-                        "    _MM_  YMMMMM9   YMMM9MM_      _MMMMMMM  YMMMMM9   YMMMMM9  MYMMMM9   YMMMM9  Y89 \n" +
+                        "  `MM.  d' _____  ___   ___        MM        ____     ____   (M) \n" +
+                        "   `MM d' 6MMMMMb `MM    MM        MM        6MMMMb\\  6MMMMb   M  \n" +
+                        "    `MM' 6M'   `Mb MM    MM        MM      6M'   `Mb MM'    ` 6M'  `Mb  M  \n" +
+                        "     MM  MM     MM MM    MM        MM      MM     MM YM.      MM    MM  M  \n" +
+                        "     MM  MM     MM MM    MM        MM      MM     MM  YMMMMb  MMMMMMMM  8  \n" +
+                        "     MM  MM     MM MM    MM        MM      MM     MM      `Mb MM           \n" +
+                        "     MM  YM.   ,M9 YM.   MM        MM    / YM.   ,M9 L    ,MM YM    d9 68b \n" +
+                        "    _MM_  YMMMMM9   YMMM9MM_      _MMMMMMM   YMMMMM9  MYMMMM9   YMMMM9  Y89 \n" +
                         "                                                                                     \n" +
                         "                                                                                     \n" +
                         "                                                                                     \n"
@@ -336,12 +363,20 @@ public class View extends Thread implements ViewInterface {
             switch (command) {
                 case "playcard":
                     if (args.length == 5) {
+                        if (!isNumeric(args[1]) || !isNumeric(args[2]) || !isNumeric(args[3])) {
+                            Messages.getInstance().error("Format error. Use: playcard [#x] [#y] [#CardToPlayFromHand] [#CardToPickFromGround / ResourceDeck / GoldDeck] [optional: Turn]");
+                            continue;
+                        }
                         int x = Integer.parseInt(args[1]);
                         int y = Integer.parseInt(args[2]);
                         int cardToPlay = Integer.parseInt(args[3]);
                         String cardToPick = args[4];
                         playCard(x, y, cardToPlay, cardToPick, false);
                     } else if(args.length == 6 && args[5].equals("Turn")) {
+                        if (!isNumeric(args[1]) || !isNumeric(args[2]) || !isNumeric(args[3])) {
+                            Messages.getInstance().error("Format error. Use: playcard [#x] [#y] [#CardToPlayFromHand] [#CardToPickFromGround / ResourceDeck / GoldDeck] [optional: Turn]");
+                            continue;
+                        }
                         int x = Integer.parseInt(args[1]);
                         int y = Integer.parseInt(args[2]);
                         int cardToPlay = Integer.parseInt(args[3]);
@@ -354,16 +389,32 @@ public class View extends Thread implements ViewInterface {
 
                 case "inspectcodex":
                     String nameOfPlayer = args.length > 1 ? args[1] : ClientController.getInstance().getUsername();
+                    if (!existsPlayer(nameOfPlayer)) {
+                        Messages.getInstance().error("The specified player doesn't exist");
+                        continue;
+                    }
                     inspectCodex(nameOfPlayer);
                     continue;
 
                 case "inspectcard":
                     if (args.length == 4) {
+                        if (!isNumeric(args[2]) || !isNumeric(args[3])) {
+                            Messages.getInstance().error("Format error. Use: inspectCard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]");
+                            continue;
+                        }
                         nameOfPlayer = args[1];
                         int x = Integer.parseInt(args[2]);
                         int y = Integer.parseInt(args[3]);
+                        if (!existsPlayer(nameOfPlayer)) {
+                            Messages.getInstance().error("The specified player doesn't exist");
+                            continue;
+                        }
                         inspectCard(nameOfPlayer, x, y);
                     } else if (args.length == 3) {
+                        if (!isNumeric(args[1]) || !isNumeric(args[2])) {
+                            Messages.getInstance().error("Format error. Use: inspectCard [optional: {NameOfPlayer}, default:{You}] [#x] [#y]");
+                            continue;
+                        }
                         int x = Integer.parseInt(args[1]);
                         int y = Integer.parseInt(args[2]);
                         inspectCard(ClientController.getInstance().getUsername(), x, y);
@@ -374,6 +425,10 @@ public class View extends Thread implements ViewInterface {
 
                 case "inspecthand":
                     if (args.length == 2) {
+                        if (!isNumeric(args[1])) {
+                            Messages.getInstance().error("Wrong input, expecting a number");
+                            continue;
+                        }
                         int cardToInspectFromHand = Integer.parseInt(args[1]);
                         inspectHand(cardToInspectFromHand);
                     } else {
@@ -383,6 +438,10 @@ public class View extends Thread implements ViewInterface {
 
                 case "inspectground":
                     if (args.length == 2) {
+                        if (!isNumeric(args[1])) {
+                            Messages.getInstance().error("Wrong input, expecting a number");
+                            continue;
+                        }
                         int cardToInspectFromGround = Integer.parseInt(args[1]);
                         inspectGround(cardToInspectFromGround);
                     } else {
@@ -1036,14 +1095,59 @@ public class View extends Thread implements ViewInterface {
      */
     public int getOptionsInput(int numOfOptions) {
         Messages.getInstance().input("Choose an option (1 to "+numOfOptions+"): ");
-        int option = s.nextInt();
-        while (option < 1 || option > numOfOptions) {
+        String input = s.nextLine();
+        int option = -1;
+
+        boolean goodToGo = false;
+
+        while(!goodToGo) {
+            if (!isNumeric(input)) {
+                Messages.getInstance().error("Wrong format, expecting a number");
+                Messages.getInstance().input("Choose an option (1 to "+numOfOptions+"): ");
+                input = s.nextLine();
+                continue;
+            }
+            option = Integer.parseInt(input);
+            if (option < 1 || option > numOfOptions) {
+                Messages.getInstance().error("Option not valid, try again");
+                Messages.getInstance().input("Choose an option (1 to "+numOfOptions+"): ");
+                input = s.nextLine();
+                continue;
+            }
+            goodToGo = true;
+        }
+
+        /*while (option < 1 || option > numOfOptions) {
             Messages.getInstance().error("Option not valid, try again");
             Messages.getInstance().input("Choose an option (1 to "+numOfOptions+"): ");
             option = s.nextInt();
         }
-        s.nextLine();
+        s.nextLine();*/
         return option;
+    }
+
+    /**
+     * @param string
+     * @return true if the string is a number, false otherwise.
+     */
+    private boolean isNumeric(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param username
+     * @return true if the player exists in game, false otherwise.
+     */
+    private boolean existsPlayer(String username) {
+        for (Player p : ClientController.getInstance().getPlayers()) {
+            if (p.getNickname().equals(username)) return true;
+        }
+        return false;
     }
 
 }

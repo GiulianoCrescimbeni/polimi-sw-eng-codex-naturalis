@@ -21,17 +21,34 @@ public class MainClient{
 
         Scanner s = new Scanner(System.in);
         Messages.getInstance().input("Insert 1 for socket or 2 for RMI: ");
-        int selection = s.nextInt();
+        String input = s.nextLine();
+
+        while (!isNumeric(input) || Integer.parseInt(input) > 2 || Integer.parseInt(input) < 1) {
+            Messages.getInstance().error("Wrong input format");
+            Messages.getInstance().input("Insert 1 for socket or 2 for RMI: ");
+            input = s.nextLine();
+        }
+
+        int selection = Integer.parseInt(input);
+
         if (selection == 2) {
             socket = false;
         }
-        s.nextLine();
+        //s.nextLine();
 
         Messages.getInstance().input("Insert the server address: ");
         String host = s.nextLine();
 
         Messages.getInstance().input("Insert 1 for TUI or 2 for GUI: ");
-        selection = s.nextInt();
+        input = s.nextLine();
+
+        while (!isNumeric(input) || Integer.parseInt(input) > 2 || Integer.parseInt(input) < 1) {
+            Messages.getInstance().error("Wrong input format");
+            Messages.getInstance().input("Insert 1 for TUI or 2 for GUI: ");
+            input = s.nextLine();
+        }
+
+        selection = Integer.parseInt(input);
 
         try {
 
@@ -52,6 +69,15 @@ public class MainClient{
             Application.launch(GUIApplication.class);
         }
         while (true);
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }
