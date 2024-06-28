@@ -66,6 +66,7 @@ public class ControllerTest extends TestCase {
         availableColors.add(Color.Green);
 
         model = new Game(gameID, players, availableColors, gameStatus, winner, table, maxPlayers);
+        Game model1 = new Game(gameID + 1);
 
         toTest = new Controller(model);
     }
@@ -116,6 +117,7 @@ public class ControllerTest extends TestCase {
 
     @Test
     public void addPlayerTest() {
+        this.toTest.getModel().isFull();
         assertNotNull(toTest.addPlayer("Test", Color.Red));
     }
 
@@ -137,6 +139,7 @@ public class ControllerTest extends TestCase {
 
     @Test
     public void playCardTest() throws IllegalCoordinatesException, IllegalCardPlacementException {
+        toTest.getModel().switchCurrentPlayer();
         toTest.playCard(new Coordinate(81, 81), new Card(1, null, CardType.ANIMAL, false, 10, false, false));
     }
 
@@ -158,7 +161,14 @@ public class ControllerTest extends TestCase {
 
     @Test
     public void endGameTest() {
+        toTest.getModel().setWinner(null);
+        toTest.getModel().getWinner();
         toTest.endGame();
         assertEquals(GameStatus.ENDED, toTest.getModel().getGameStatus());
+    }
+
+    @Test
+    public void gameModelTest() {
+        toTest.getModel().initGame();
     }
 }

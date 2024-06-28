@@ -12,7 +12,12 @@ public class PlayerTest extends TestCase {
 
     @BeforeEach
     public void setup() {
+
         p.setColor(Color.Blue);
+        Color.Blue.toString();
+        Color.Red.toString();
+        Color.Green.toString();
+        Color.Yellow.toString();
     }
 
     @Test

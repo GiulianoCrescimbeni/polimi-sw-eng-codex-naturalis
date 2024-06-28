@@ -12,15 +12,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-public class CodexTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
 
-    InitialCard initialCard = new InitialCard(12345, null, CardType.PLANT, false, 15, false, false, null);
-    ArrayList<Goal> goalsToPick = new ArrayList<Goal>();
-    ArrayList<Goal> settedGoalsToPick = new ArrayList<Goal>();
-    ArrayList<Resource> playCondition = new ArrayList<Resource>();
+public class CodexTest extends TestCase {
+    ArrayList<Resource> playCondition = new ArrayList<>();
+    InitialCard initialCard = new InitialCard(12345, null, CardType.PLANT, false, 15, false, false, playCondition);
+    ArrayList<Goal> goalsToPick = new ArrayList<>();
+    ArrayList<Goal> settedGoalsToPick = new ArrayList<>();
 
     Goal personalGoal = new DiagonalGoal(null, null, 0, 1);
-    Map<Resource, Integer> numOfResources = new HashMap<Resource, Integer>();
+    Map<Resource, Integer> numOfResources = new HashMap<>();
     Map<Coordinate, Card> cards = new LinkedHashMap<>();
     Map<AnglePos, Angle> initialCardAngles = new HashMap<>();
     Map<AnglePos, Angle> cardAngles = new HashMap<>();
@@ -32,10 +33,10 @@ public class CodexTest extends TestCase {
     Card cardToPlace = new Card(4, null, CardType.ANIMAL, false, 1, false, false);
     GoldCard goldCardToPlace = new GoldCard(5, null, CardType.FUNGI, false, 2, false, false, playCondition);
 
-    Angle initialCardAngle1 = new Angle(Resource.INSECT, false, null, cardToPlace);
-    Angle initialCardAngle2 = new Angle(null, false, null, cardToPlace);
-    Angle initialCardAngle3 = new Angle(null, false, null, cardToPlace);
-    Angle initialCardAngle4 = new Angle(null, false, null, cardToPlace);
+    Angle initialCardAngle1 = new Angle(Resource.INSECT, false, null, initialCard);
+    Angle initialCardAngle2 = new Angle(Resource.PLANT, false, null, initialCard);
+    Angle initialCardAngle3 = new Angle(Resource.ANIMAL, false, null, initialCard);
+    Angle initialCardAngle4 = new Angle(Resource.FUNGI, false, null, initialCard);
     Angle cardAngle1 = new Angle(Resource.BLANK, false, null, cardToPlace);
     Angle cardAngle2 = new Angle(null, false, null, cardToPlace);
     Angle cardAngle3 = new Angle(null, false, null, cardToPlace);
@@ -78,6 +79,7 @@ public class CodexTest extends TestCase {
         initialCardAngles.put(AnglePos.DL, initialCardAngle3);
         initialCardAngles.put(AnglePos.DR, initialCardAngle4);
         initialCard.setAnglesMap(initialCardAngles);
+        initialCard.setBackAngles(initialCardAngles);
 
         cardAngles.put(AnglePos.UL, cardAngle1);
         cardAngles.put(AnglePos.UR, cardAngle2);
@@ -181,6 +183,18 @@ public class CodexTest extends TestCase {
     }
 
     @Test
+    public void testTurnCard() throws IllegalCoordinatesException, IllegalCardPlacementException {
+        cardToPlace.turn();
+        toTest.placeCard(new Coordinate(79,81), cardToPlace);
+    }
+
+    @Test
+    public void testTurnGoldCard() throws IllegalCoordinatesException, IllegalCardPlacementException {
+        goldCardToPlace.turn();
+        toTest.placeGoldCard(new Coordinate(79,81), goldCardToPlace);
+    }
+
+    @Test
     public void testPlaceGoldCard() throws IllegalCoordinatesException, IllegalCardPlacementException {
         assertEquals(4, toTest.getNumOfResources(Resource.INSECT));
         assertEquals(1, toTest.getNumOfResources(Resource.FUNGI));
@@ -196,9 +210,34 @@ public class CodexTest extends TestCase {
     }
 
     @Test
+    public void testPlaceAngleGoldCard() throws IllegalCoordinatesException, IllegalCardPlacementException {
+        AngleGoldCard angleGoldCard = new AngleGoldCard(0, goldCardAngles, CardType.FUNGI,false, 2, false, false, playCondition);
+        toTest.placeGoldCard(new Coordinate(79, 81), angleGoldCard);
+    }
+
+    @Test
     public void testSetInitialCard() {
         toTest.setInitialCard(initialCard);
         assertEquals(initialCard, toTest.getCard(c));
         assertTrue(toTest.getCards().containsValue(initialCard));
+    }
+
+    @Test
+    public void testTurnInitialCard() {
+        toTest.setInitialCard(initialCard);
+        toTest.turnInitialCard();
+        assertTrue(initialCard.isTurned());
+        assertEquals(1, toTest.getNumOfResources(Resource.INSECT));
+    }
+
+
+
+    @Test
+    public void testGetResourcesFromCard() {
+        toTest.getResourcesFromCard(cardToPlace);
+        assertEquals(4, toTest.getNumOfResources(Resource.INSECT));
+        assertEquals(1, toTest.getNumOfResources(Resource.FUNGI));
+        assertEquals(3, toTest.getNumOfResources(Resource.PLANT));
+        assertEquals(4, toTest.getNumOfResources(Resource.INSECT));
     }
 }
