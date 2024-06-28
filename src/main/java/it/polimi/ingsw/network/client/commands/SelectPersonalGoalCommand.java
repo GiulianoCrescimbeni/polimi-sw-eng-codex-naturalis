@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Class for selecting the personal goal
+ */
 public class SelectPersonalGoalCommand extends Command implements Serializable {
     private Goal personalGoalChoosen;
 
@@ -40,6 +43,12 @@ public class SelectPersonalGoalCommand extends Command implements Serializable {
     public void setPersonalGoalChoosen(Goal personalGoalChoosen) {
         this.personalGoalChoosen = personalGoalChoosen;
     }
+
+    /**
+     * Set the personal goal for the player
+     * @param gameController the {@link Controller} of the game where the message needs to get executed
+     * @return a {@link PersonalGoalUpdate}
+     */
     @Override
     public Update execute(Controller gameController) {
         gameController.pickPersonalGoal(this.getNickname(), this.getPersonalGoalChoosen());
@@ -55,6 +64,11 @@ public class SelectPersonalGoalCommand extends Command implements Serializable {
         return personalGoalUpdate;
     }
 
+    /**
+     * Get game data from the model
+     * @param gameController the {@link Controller} of the game
+     * @return a {@link GameDataUpdate}
+     */
     private static GameDataUpdate getGameDataUpdate(Controller gameController) {
         Map<Player, Codex> codexMap = gameController.getModel().getGameTable().getCodexMap();
         ArrayList<Card> cardToPick = gameController.getModel().getTable().getCardToPick();

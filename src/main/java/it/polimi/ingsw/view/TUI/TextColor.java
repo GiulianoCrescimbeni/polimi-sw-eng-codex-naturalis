@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view.TUI;
 
+/**
+ * Enumeration for text color
+ */
 public enum TextColor {
 
     RESET("\u001B[0m"),

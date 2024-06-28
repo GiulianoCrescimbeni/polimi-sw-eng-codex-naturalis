@@ -3,6 +3,9 @@ package it.polimi.ingsw.network.server.updates;
 import it.polimi.ingsw.network.client.ClientController;
 import java.io.Serializable;
 
+/**
+ * The update of the initial card side chosen
+ */
 public class InitialCardSideUpdate extends Update implements Serializable {
     String nickname;
     boolean isTurned;
@@ -36,6 +39,9 @@ public class InitialCardSideUpdate extends Update implements Serializable {
      */
     public void setTurned() {this.isTurned = true;}
 
+    /**
+     * Update the new card side
+     */
     public void execute() {
         if(isTurned) {
             ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(getNickname())).turnInitialCard();

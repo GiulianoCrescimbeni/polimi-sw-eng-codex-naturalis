@@ -11,12 +11,18 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
+/**
+ * The CreateGameMenuController class handles the user interactions for creating a new game
+ */
 public class CreateGameMenuController extends ViewController {
     @FXML
     public void back() throws IOException {
         ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.MAIN_MENU);
     }
 
+    /**
+     * Handles the action to create a game with 2 players
+     */
     @FXML
     public void create2Players() {
         CreateMatchCommand cmd = new CreateMatchCommand(2);
@@ -26,6 +32,10 @@ public class CreateGameMenuController extends ViewController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Handles the action to create a game with 3 players
+     */
     @FXML
     public void create3Players() {
         CreateMatchCommand cmd = new CreateMatchCommand(3);
@@ -36,6 +46,9 @@ public class CreateGameMenuController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action to create a game with 4 players
+     */
     @FXML
     public void create4Players() {
         CreateMatchCommand cmd = new CreateMatchCommand(4);

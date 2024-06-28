@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Class that represents the game table of a single game, it stores all the important information like goals, decks and codex
+ */
 public class GameTable implements GameTableInterface {
 
     private Map<Player, Codex> codexMap;

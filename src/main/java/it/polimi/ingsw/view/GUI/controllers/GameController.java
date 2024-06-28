@@ -26,7 +26,10 @@ import java.nio.channels.ClosedByInterruptException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * The GameController class handles the interactions and visual representation
+ * of the game state in the GUI
+ */
 public class GameController extends ViewController {
 
     private double mouseX;
@@ -136,12 +139,19 @@ public class GameController extends ViewController {
 
     }
 
+    /**
+     * Handles mouse press events for dragging
+     * @param event the mouse event
+     */
     @FXML
     public void handleMousePressed(MouseEvent event) {
         mouseX = event.getSceneX();
         mouseY = event.getSceneY();
     }
 
+    /**
+     * Set the goal shadow
+     */
     private void setGoalShadow(ImageView goalImage, Card card) {
         switch (card.getCardType()) {
             case FUNGI -> goalImage.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 5);");
@@ -151,6 +161,9 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Adds a hover effect
+     */
     private void addHoverEffect(ImageView imageView, Card card) {
         imageView.setOnMouseEntered(event -> {
             if(isPicking) {
@@ -165,30 +178,50 @@ public class GameController extends ViewController {
         });
     }
 
+    /**
+     * Adds a hover effect to the resource deck
+     * @param mouseEvent the mouse event
+     */
     @FXML
     private void addResourceDeckHoverEffect(MouseEvent mouseEvent) {
         if(isPicking)
             ResourceDeck.setStyle("-fx-effect: dropshadow(three-pass-box, WHITE, 10, 0, 0, 5);");
     }
 
+    /**
+     * Removes the hover effect from the resource deck
+     * @param mouseEvent the mouse event
+     */
     @FXML
     private void removeResourceDeckHoverEffect(MouseEvent mouseEvent) {
         if(isPicking)
             ResourceDeck.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);");
     }
 
+    /**
+     * Adds a hover effect to the gold deck
+     * @param mouseEvent the mouse event
+     */
     @FXML
     private void addGoldDeckHoverEffect(MouseEvent mouseEvent) {
         if(isPicking)
             GoldDeck.setStyle("-fx-effect: dropshadow(three-pass-box, WHITE, 10, 0, 0, 5);");
     }
 
+    /**
+     * Removes the hover effect from the gold deck
+     * @param mouseEvent the mouse event
+     */
     @FXML
     private void removeGoldDeckHoverEffect(MouseEvent mouseEvent) {
         if(isPicking)
             GoldDeck.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);");
     }
 
+    /**
+     * Make a card draggable
+     * @param imageView the image view of the card
+     */
     private void makeDraggable(ImageView imageView) {
         imageView.setOnMousePressed(event -> {
             if(isPlacing) {
@@ -235,6 +268,9 @@ public class GameController extends ViewController {
         });
     }
 
+    /**
+     * Place all the cards on the scene
+     */
     private void placeCardsOnScene() {
         Map<Coordinate, Card> codex = ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(ClientController.getInstance().getUsername())).getCards();
         for (Map.Entry<Coordinate, Card> entry : codex.entrySet()) {
@@ -248,6 +284,11 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Place a card relative to the center card
+     * @param cardCoordinates the coordinates of the card
+     * @param card the card
+     */
     private void placeCardRelativeToCenter(Coordinate cardCoordinates, Card card) {
         Coordinate centralCoordinates = new Coordinate(80, 80);
 
@@ -260,6 +301,13 @@ public class GameController extends ViewController {
         placeCard(cardCoordinates, card, targetX, targetY);
     }
 
+    /**
+     * Place a card
+     * @param cardCoordinates the game coorinates of the card
+     * @param card the card
+     * @param x
+     * @param y
+     */
     private void placeCard(Coordinate cardCoordinates, Card card, double x, double y) {
         ImageView cardImageView = new ImageView();
         if(!card.isTurned()) {
@@ -280,6 +328,14 @@ public class GameController extends ViewController {
         anchor.getChildren().add(placedCards.size(), cardImageView);
     }
 
+    /**
+     * Check if the player is dragging over a card
+     * @param dropX the x coordinate of the drop
+     * @param dropY the y coordinate of the drop
+     * @param cardWidth the width of the card
+     * @param cardHeight the height of the card
+     * @return the game coordinates
+     */
     private Coordinate getOverlappingCard(double dropX, double dropY, double cardWidth, double cardHeight) {
         for (Map.Entry<Coordinate, ImageView> entry : placedCards.entrySet()) {
             Coordinate coordinates = entry.getKey();
@@ -306,6 +362,13 @@ public class GameController extends ViewController {
         return null;
     }
 
+    /**
+     * Snap a card to the corner of another card
+     * @param imageView the image view of the card
+     * @param dropX the x coordinate of the drop
+     * @param dropY the y coordinate of the drop
+     * @param overlappingCard the coordinates of the overlapping card
+     */
     private void snapToCorner(ImageView imageView, double dropX, double dropY, Coordinate overlappingCard) {
         double[] renderCoordinates = calculateRenderCoordinates(dropX, dropY, imageView.getFitWidth(), imageView.getFitHeight(), overlappingCard);
         int[] targetCoordinates = calculateTargetCoordinates(renderCoordinates[0], renderCoordinates[1]);
@@ -328,6 +391,13 @@ public class GameController extends ViewController {
         anchor.getChildren().add(placedCards.size(), imageView);
     }
 
+    /**
+     * Show the preview where the card is going to be
+     * @param dropX the x coordinate of the drop
+     * @param dropY the y coordinate of the drop
+     * @param imageView the image view of the card
+     * @param overlappingCard the overlapping card
+     */
     private void showPreview(double dropX, double dropY, ImageView imageView, Coordinate overlappingCard) {
         double[] renderCoordinates = calculateRenderCoordinates(dropX, dropY, imageView.getFitWidth(), imageView.getFitHeight(), overlappingCard);
         previewImageView.setLayoutX(renderCoordinates[0]);
@@ -337,6 +407,15 @@ public class GameController extends ViewController {
         previewImageView.setVisible(true);
     }
 
+    /**
+     * Calculate the render coordinate for a card
+     * @param dropX the x coordinate of the drop
+     * @param dropY the y coordinate of the drop
+     * @param cardWidth the card width
+     * @param cardHeight the card height
+     * @param overlappingCard the coordinates of the overlapping card
+     * @return the render coordinate
+     */
     private double[] calculateRenderCoordinates(double dropX, double dropY, double cardWidth, double cardHeight, Coordinate overlappingCard) {
         ImageView centralCard = placedCards.get(overlappingCard);
 
@@ -369,11 +448,19 @@ public class GameController extends ViewController {
         return new double[]{targetX, targetY};
     }
 
+    /**
+     * Calculate the target coordinate (The in game coordinates)
+     * @param dropX the x coordinate of the drop
+     * @param dropY the y coordinate of the drop
+     * @return
+     */
     private int[] calculateTargetCoordinates(double dropX, double dropY) {
         return new int[]{(int) (((dropX - placedCards.get(new Coordinate(80, 80)).getLayoutX())/109)+80), (int) (((dropY - placedCards.get(new Coordinate(80, 80)).getLayoutY())/-56)+80)};
     }
 
-
+    /**
+     * Update the backgrounds limits
+     */
     private void updateLimits() {
 
         double imageWidth = background.getImage().getWidth();
@@ -385,6 +472,9 @@ public class GameController extends ViewController {
         maxY = imageHeight;
     }
 
+    /**
+     * Handle the background behaviour
+     */
     @FXML
     public void handleBackground(MouseEvent event) {
         double offsetX = event.getSceneX() - mouseX;
@@ -411,6 +501,11 @@ public class GameController extends ViewController {
         mouseY = event.getSceneY();
     }
 
+    /**
+     * Set a card image
+     * @param imageView the image view of the card
+     * @param imagePath the path to the image
+     */
     private void setCardImage(ImageView imageView, String imagePath) {
         try {
             Image image = new Image(getClass().getResource(imagePath).toExternalForm());
@@ -420,6 +515,9 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Print the current player
+     */
     private void printCurrentPlayer() {
         CurrentPlayerNameText.setText(ClientController.getInstance().getCurrentPlayer().getNickname());
         switch (ClientController.getInstance().getCurrentPlayer().getColor()) {
@@ -438,6 +536,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handle the card turn graphics
+     * @param event
+     */
     @FXML
     public void handleTurnCard(MouseEvent event) {
         if(!turnCard) {
@@ -453,6 +555,11 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Load the back of a card
+     * @param imageView the image view of the card
+     * @param card
+     */
     private void loadBack(ImageView imageView, Card card) {
         if(card instanceof GoldCard) {
             switch (card.getCardType()) {
@@ -473,6 +580,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action for the resource card deck
+     * @param event the mouse event
+     */
     @FXML
     public void handleResourceCardDeck(MouseEvent event) {
         if(isPicking) {
@@ -482,6 +593,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action for the gold card deck
+     * @param event the mouse event
+     */
     @FXML
     public void handleGoldCardDeck(MouseEvent event) {
         if(isPicking) {
@@ -491,6 +606,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action for the first ground card
+     * @param event the mouse event
+     */
     @FXML
     public void handleGroundCard1(MouseEvent event) {
         if(isPicking) {
@@ -500,6 +619,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action for the second ground card
+     * @param event the mouse event
+     */
     @FXML
     public void handleGroundCard2(MouseEvent event) {
         if(isPicking) {
@@ -509,6 +632,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action for the first ground gold card
+     * @param event the mouse event
+     */
     @FXML
     public void handleGroundGoldCard1(MouseEvent event) {
         if(isPicking) {
@@ -518,6 +645,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action for the second ground gold card
+     * @param event the mouse event
+     */
     @FXML
     public void handleGroundGoldCard2(MouseEvent event) {
         if(isPicking) {
@@ -527,7 +658,10 @@ public class GameController extends ViewController {
         }
     }
 
-
+    /**
+     * Handles the action to view the plateau
+     * @param event the action event
+     */
     @FXML
     public void handlePlateau(ActionEvent event) {
         try {
@@ -538,6 +672,10 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action to open the chat
+     * @param event the action event
+     */
     @FXML
     public void handleChat(ActionEvent event) {
         try {
@@ -548,6 +686,9 @@ public class GameController extends ViewController {
         }
     }
 
+    /**
+     * Sets up the codex combo box with player names.
+     */
     private void setupCodexComboBox() {
         for (Player p : ClientController.getInstance().getPlayers()) {
             if (!p.getNickname().equals(ClientController.getInstance().getUsername())) {
@@ -558,6 +699,9 @@ public class GameController extends ViewController {
         codexComboBox.setOnAction(event -> handleInspectCodex());
     }
 
+    /**
+     * Handles the action to inspect a player's codex.
+     */
     @FXML
     public void handleInspectCodex() {
         String selectedPlayer = codexComboBox.getValue();

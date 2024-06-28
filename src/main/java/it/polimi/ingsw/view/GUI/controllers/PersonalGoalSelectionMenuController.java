@@ -9,6 +9,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.InputStream;
 
+/**
+ * The PersonalGoalSelectionMenuController class handles the interface for selecting personal goals in the GUI
+ */
 public class PersonalGoalSelectionMenuController extends ViewController {
     @FXML
     private ImageView goal1;
@@ -26,6 +29,11 @@ public class PersonalGoalSelectionMenuController extends ViewController {
         addHoverEffect(goal2, ClientController.getInstance().getGoalsToPick().get(1));
     }
 
+    /**
+     * Sets the shadow effect on the goal card image based on the goal type
+     * @param goalImage the ImageView of the goal card
+     * @param goal the goal associated with the card
+     */
     private void setGoalShadow(ImageView goalImage, Goal goal) {
         switch (goal.getCardType()) {
             case FUNGI -> goalImage.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 5);");
@@ -37,6 +45,11 @@ public class PersonalGoalSelectionMenuController extends ViewController {
         }
     }
 
+    /**
+     * Adds a hover effect to the goal card image
+     * @param imageView the ImageView of the goal card
+     * @param goal the goal associated with the card
+     */
     private void addHoverEffect(ImageView imageView, Goal goal) {
         imageView.setOnMouseEntered(event -> {
             setGoalShadow(imageView, goal);
@@ -47,6 +60,11 @@ public class PersonalGoalSelectionMenuController extends ViewController {
         });
     }
 
+    /**
+     * Sets the goal image on the specified ImageView
+     * @param imageView the ImageView to set the image on
+     * @param imagePath the path to the image file
+     */
     private void setGoalImage(ImageView imageView, String imagePath) {
         try {
             Image image = new Image(getClass().getResource(imagePath).toExternalForm());
@@ -55,6 +73,12 @@ public class PersonalGoalSelectionMenuController extends ViewController {
             System.out.println("Image not found: " + imagePath);
         }
     }
+
+    /**
+     * Handles the click event on a goal card
+     * @param event the mouse event
+     * @param goal the goal associated with the clicked card
+     */
     private void handleCardClick(MouseEvent event, Goal goal) {
         ClientController.getInstance().selectPersonalGoal(goal);
     }

@@ -14,6 +14,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+/**
+ * The client class for sending and receiving data from the server
+ */
 public class ClientSR extends Thread {
 
     private Socket s;
@@ -32,6 +35,12 @@ public class ClientSR extends Thread {
 
     private ClientSR() {}
 
+    /**
+     * Start a new thread that will the manage connection with the server
+     * @param host the host of the server
+     * @param port the port of the server
+     * @param isSocket true if the specified connection is socket, false for RMI
+     */
     public synchronized void startSR(String host, int port, boolean isSocket) {
         this.isSocket = isSocket;
         this.host = host;
@@ -52,7 +61,6 @@ public class ClientSR extends Thread {
             try {
                 Registry registry = LocateRegistry.getRegistry(host, port);
                 this.server = (RMIServerInterface) registry.lookup("RMIServer");
-                //this.server = (RMIServerInterface) Naming.lookup("rmi://" + this.host + ":" + this.port + "/RMIServerInterface");
 
                 this.clientHandler = new RMIClientHandlerImplementation();
                 server.registerClient(clientHandler);
@@ -68,6 +76,11 @@ public class ClientSR extends Thread {
         return instance;
     }
 
+    /**
+     * Send a command to the server
+     * @param command the command to be sent
+     * @throws IOException
+     */
     public void sendCommand(Command command) throws IOException {
         if (isSocket) {
             out.writeObject(command);
@@ -83,14 +96,17 @@ public class ClientSR extends Thread {
 
     }
 
-    public void handleUpdate(Update update) throws IOException {
-        update.execute();
-    }
-
+    /**
+     * Send a pong to the server
+     * @throws RemoteException
+     */
     public void sendPong() throws RemoteException {
         server.receviePong(clientHandler);
     }
 
+    /**
+     * Run the thread listening from data
+     */
     public void run() {
         try {
 

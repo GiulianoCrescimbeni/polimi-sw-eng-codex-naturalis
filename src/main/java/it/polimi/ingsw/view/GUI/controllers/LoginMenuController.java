@@ -11,6 +11,10 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
+/**
+ * The LoginMenuController class manages the user login interface,
+ * allowing the user to enter their name and select a color
+ */
 public class LoginMenuController extends ViewController {
 
     @FXML
@@ -26,6 +30,10 @@ public class LoginMenuController extends ViewController {
         populateMenuButton(ClientController.getInstance().getAvailableColors());
     }
 
+    /**
+     * Populates the color menu button with available colors
+     * @param options the list of available colors
+     */
     private void populateMenuButton(ArrayList<Color> options) {
         for (Color option : options) {
             MenuItem item = new MenuItem(option.name());
@@ -48,6 +56,10 @@ public class LoginMenuController extends ViewController {
         }
     }
 
+    /**
+     * Handles the color selection from the menu
+     * @param event the action event triggered by selecting a color
+     */
     @FXML
     private void handleColorSelection(javafx.event.ActionEvent event) {
         MenuItem selectedItem = (MenuItem) event.getSource();
@@ -72,6 +84,10 @@ public class LoginMenuController extends ViewController {
         });
     }
 
+    /**
+     * Handles the action of the continue button,
+     * sending the entered name and selected color to the client controller
+     */
     @FXML
     private void handleContinueButton() {
         String name = nameTextField.getText();

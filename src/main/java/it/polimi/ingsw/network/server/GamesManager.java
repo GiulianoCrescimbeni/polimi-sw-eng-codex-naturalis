@@ -223,12 +223,19 @@ public class GamesManager {
         }
     }
 
+    /**
+     * Remove a connection
+     * @param clientHandler the {@link ClientHandler} to remove
+     */
     public void removeConnection(ClientHandler clientHandler) {
         synchronized(connections) {
             connections.remove(clientHandler);
         }
     }
 
+    /**
+     * Start the RMI ping process for inactivity checking
+     */
     public void startRMIPing() {
         System.out.println(TextColor.BRIGHT_BLUE + "[RMI PINGER]" + TextColor.RESET + " RMI Pinging" + TextColor.GREEN + " Started");
 

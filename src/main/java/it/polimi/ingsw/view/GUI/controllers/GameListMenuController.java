@@ -16,11 +16,18 @@ import javafx.scene.text.TextFlow;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The GameListMenuController class manages the interface for displaying and interacting with the list of available games
+ */
 public class GameListMenuController extends ViewController {
     @FXML
     private ListView<VBox> gameListView;
     private ArrayList<SerializedGame> games;
 
+    /**
+     * Populates the games list with the provided games
+     * @param games the list of serialized games to display
+     */
     public void populateGamesList(ArrayList<SerializedGame> games) {
         this.games = games;
         for (SerializedGame game : this.games) {
@@ -37,6 +44,9 @@ public class GameListMenuController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action of joining a selected game from the list
+     */
     @FXML
     private void handleJoinButton() {
         int selectedIndex = gameListView.getSelectionModel().getSelectedIndex();
@@ -49,6 +59,9 @@ public class GameListMenuController extends ViewController {
         }
     }
 
+    /**
+     * Refreshes the list of available games by sending a refresh command to the server
+     */
     @FXML
     public void refresh() {
         try {
@@ -59,6 +72,10 @@ public class GameListMenuController extends ViewController {
         }
     }
 
+    /**
+     * Handles the action of going back to the main menu
+     * @throws IOException
+     */
     @FXML
     public void back() throws IOException {
         ((GUIApplication) ClientController.getInstance().getViewInterface()).setMainScene(SceneEnum.MAIN_MENU);

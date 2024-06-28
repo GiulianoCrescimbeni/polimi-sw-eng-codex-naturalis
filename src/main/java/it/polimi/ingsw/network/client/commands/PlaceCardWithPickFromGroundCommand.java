@@ -12,6 +12,9 @@ import it.polimi.ingsw.network.server.updates.Update;
 
 import java.io.Serializable;
 
+/**
+ * Class for placing a card and picking from the deck
+ */
 public class PlaceCardWithPickFromGroundCommand extends Command implements Serializable {
     private Coordinate coordinate;
     private Card cardPlaced;

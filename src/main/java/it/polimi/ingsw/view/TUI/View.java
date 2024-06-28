@@ -19,6 +19,9 @@ import java.security.MessageDigestSpi;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Class that represents the TUI View
+ */
 public class View extends Thread implements ViewInterface {
 
     private static View instance;
@@ -38,6 +41,9 @@ public class View extends Thread implements ViewInterface {
         return instance;
     }
 
+    /**
+     * Initialize the TUI
+     */
     @Override
     public void run() {
         try {
@@ -48,10 +54,16 @@ public class View extends Thread implements ViewInterface {
         menu();
     }
 
+    /**
+     * Clear the screen
+     */
     public void clear() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
+    /**
+     * Show the title screen
+     */
     public void showTitleScreen() {
         System.out.println(TextColor.BRIGHT_GREEN +
                         " ▄▄·       ·▄▄▄▄  ▄▄▄ .▐▄• ▄      ▐ ▄  ▄▄▄· ▄▄▄▄▄▄• ▄▌▄▄▄   ▄▄▄· ▄▄▌  ▪  .▄▄ · \n" +
@@ -62,6 +74,9 @@ public class View extends Thread implements ViewInterface {
         );
     }
 
+    /**
+     * Load the screen to pick username and color
+     */
     public void pickUsernameAndColor() {
 
         Messages.getInstance().input("Insert your username: ");
@@ -82,10 +97,11 @@ public class View extends Thread implements ViewInterface {
             Color c = ClientController.getInstance().getAvailableColors().get(0);
             ClientController.getInstance().sendUsernameAndColor(username, c);
         }
-
-        //s.nextLine();
     }
 
+    /**
+     * Show available colors
+     */
     public void showColors() {
         Messages.getInstance().info("Here's a list of the available colors: ");
         for(int i = 0; i < ClientController.getInstance().getAvailableColors().size(); i++) {
@@ -93,6 +109,9 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Load the screen for selecting a personal {@link it.polimi.ingsw.model.Goals.Goal}
+     */
     public void selectPersonalGoal() {
         System.out.print("1)");
         ClientController.getInstance().getGoalsToPick().get(0).draw();
@@ -130,6 +149,9 @@ public class View extends Thread implements ViewInterface {
 
     }
 
+    /**
+     * Create a match screen
+     */
     public void createMatch() {
         int maxPlayers = 0;
 
@@ -154,6 +176,12 @@ public class View extends Thread implements ViewInterface {
 
     }
 
+    /**
+     * Load the select available match screen
+     * @param availableMatches the ArrayList of {@link SerializedGame} representing all the available matches
+     * @param error
+     * @throws IOException
+     */
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
         if (error != null) System.out.println(error);
         int possibleChoice = 1;
@@ -186,10 +214,17 @@ public class View extends Thread implements ViewInterface {
         ClientController.getInstance().JoinGame(availableMatches.get(optionChoosen - 1).getGameID());
     }
 
+    /**
+     * Load the screen for the waiting room
+     */
     public void waitingRoom() {
         Messages.getInstance().info("Personal goal choosen, waiting for other players!");
     }
 
+    /**
+     * Load the screen for selecting an {@link it.polimi.ingsw.model.GameComponents.InitialCard} side
+     * @throws IOException
+     */
     public void selectInitialCardSide() throws IOException {
         clear();
         Messages.getInstance().info("Initial Card back side:");
@@ -234,6 +269,9 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show the winning screen
+     */
     public void winScreen() {
         clear();
         System.out.println(
@@ -258,6 +296,9 @@ public class View extends Thread implements ViewInterface {
         System.exit(0);
     }
 
+    /**
+     * Show the loosing screen
+     */
     public void looseScreen() {
         clear();
         System.out.println(
@@ -282,6 +323,9 @@ public class View extends Thread implements ViewInterface {
         System.exit(0);
     }
 
+    /**
+     * Show the menu
+     */
     public void menu() {
         showCommands();
         while(true) {
@@ -368,6 +412,9 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show the command list
+     */
     public void showCommands() {
         clear();
         System.out.println(
@@ -388,6 +435,11 @@ public class View extends Thread implements ViewInterface {
 
     }
 
+    /**
+     * Update the screen after a new turn
+     * @param message a message in case of error
+     * @param clear true if is needed to clear the screen (Only for TUI)
+     */
     public void updateInfo(String message, boolean clear) {
         if(clear)
             clear();
@@ -421,6 +473,10 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show the inspect view for the codex
+     * @param username the username of the player to show the codex to
+     */
     public void inspectCodex(String username) {
         clear();
         System.out.println(getPlayerColor() +
@@ -481,6 +537,12 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show the screen of a {@link Card}
+     * @param username the username of the player
+     * @param x the x coordinate of the card
+     * @param y the y coordinate of the card
+     */
     public void inspectCard(String username, int x, int y) {
         clear();
         Player player = ClientController.getInstance().getPlayerByUsername(username);
@@ -491,6 +553,10 @@ public class View extends Thread implements ViewInterface {
         printCardStatistics(card);
     }
 
+    /**
+     * Show the screen for inspectiing the hand of the player
+     * @param cardToInspect the {@link } card to inspect from the hand
+     */
     public void inspectHand(int cardToInspect) {
         clear();
         System.out.println(getPlayerColor() +
@@ -521,6 +587,10 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show the screen for inspecting the ground
+     * @param cardToInspectFromGround the {@link Card} to inspect from the ground
+     */
     public void inspectGround(int cardToInspectFromGround) {
         clear();
         System.out.println(getPlayerColor() +
@@ -553,6 +623,9 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show the screen for all the goals
+     */
     public void viewGoals() {
         clear();
         System.out.println(getPlayerColor() +
@@ -573,6 +646,9 @@ public class View extends Thread implements ViewInterface {
         ClientController.getInstance().getPersonalGoal().draw();
     }
 
+    /**
+     * Show the screen for the scores
+     */
     public void viewScores() {
         clear();
         System.out.println(getPlayerColor() +
@@ -588,6 +664,9 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show the screen for the chat
+     */
     public void chat() {
         chatMode = true;
         updateChatView("");
@@ -636,6 +715,10 @@ public class View extends Thread implements ViewInterface {
 
     }
 
+    /**
+     * Load the screen for the chat
+     * @param error
+     */
     public synchronized void updateChatView(String error) {
         if (chatMode) {
             clear();
@@ -655,6 +738,10 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Show an error message
+     * @param error the string of the error message
+     */
     public void showError(String error) {
         Messages.getInstance().error(error);
     }
@@ -747,6 +834,10 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Print the card statistics of the specified card
+     * @param card the {@link Card}
+     */
     private void printCardStatistics(Card card) {
         Angle UL = card.getAngle(AnglePos.UL);
         Angle UR = card.getAngle(AnglePos.UR);
@@ -815,6 +906,11 @@ public class View extends Thread implements ViewInterface {
 
     }
 
+    /**
+     * Print the player with the correct color
+     * @param player the {@link Player} to print
+     * @return
+     */
     public String printPlayer(Player player) {
         switch(player.getColor()) {
             case Red: return TextColor.RED + player.getNickname() + TextColor.RESET;
@@ -825,6 +921,9 @@ public class View extends Thread implements ViewInterface {
         return null;
     }
 
+    /**
+     * @return the {@link Color} for the player
+     */
     public String getPlayerColor() {
         switch(ClientController.getInstance().getColor()) {
             case Red: return TextColor.RED + "";
@@ -835,6 +934,11 @@ public class View extends Thread implements ViewInterface {
         return "";
     }
 
+    /**
+     * Print correctly the resource
+     * @param resource the {@link Resource} to print
+     * @return
+     */
     public String printResource(Resource resource) {
         if (resource == null) {
             return " ";
@@ -862,6 +966,11 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Get the card color
+     * @param card the {@link Card} to get the color from
+     * @return a string representing the color
+     */
     public String getCardColor(Card card) {
         if(card.getCardType() == null) {
             return TextColor.WHITE.toString();
@@ -880,6 +989,11 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Get the card type color
+     * @param cardType the {@link CardType} to get the color from
+     * @return a string representing the color
+     */
     public String getCardTypeColor(CardType cardType) {
         switch (cardType) {
             case FUNGI:
@@ -895,6 +1009,11 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Get the reversed card type color
+     * @param cardType the {@link CardType} to get the reversed color from
+     * @return a string representing the color
+     */
     public String getReverseCardTypeColor(CardType cardType) {
         switch (cardType) {
             case FUNGI:
@@ -910,6 +1029,11 @@ public class View extends Thread implements ViewInterface {
         }
     }
 
+    /**
+     * Get a generic input from the plauer
+     * @param numOfOptions number of total options
+     * @return the option chosen by the player
+     */
     public int getOptionsInput(int numOfOptions) {
         Messages.getInstance().input("Choose an option (1 to "+numOfOptions+"): ");
         int option = s.nextInt();

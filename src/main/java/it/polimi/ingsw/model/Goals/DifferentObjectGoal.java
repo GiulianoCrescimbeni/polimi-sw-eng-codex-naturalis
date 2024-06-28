@@ -12,6 +12,13 @@ import java.io.Serializable;
  */
 public class DifferentObjectGoal extends Goal implements Serializable {
 
+    /**
+     * Constructor for the different object goal
+     * @param objectType the type of the objective
+     * @param cardType the type of the card
+     * @param score the score of the goal
+     * @param goalId the id of the goal
+     */
     public DifferentObjectGoal(Resource objectType, CardType cardType, int score, int goalId) {
         super(objectType, cardType, score, goalId);
     }

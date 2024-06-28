@@ -35,10 +35,24 @@ public class InitialCard extends Card {
      */
     public ArrayList<Resource> getBackResources() { return this.backResources; }
 
+    /**
+     * Set the map of back angles in the card
+     * @param backAngles a map of {@link Angle}
+     */
     public void setBackAngles(Map<AnglePos, Angle> backAngles) {
         this.backAngles = backAngles;
     }
 
+    /**
+     * Get the back angles of the card
+     * @return a map of {@link Angle}
+     */
     public Map<AnglePos, Angle> getBackAngles() { return this.backAngles; }
+
+    /**
+     * Get a single back angle of a card
+     * @param anglePos the {@link AnglePos} for the angle
+     * @return the {@link Angle} of that specified anglePos
+     */
     public Angle getBackAngle(AnglePos anglePos) { return this.backAngles.get(anglePos); }
 }

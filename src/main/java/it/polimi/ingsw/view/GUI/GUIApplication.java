@@ -20,10 +20,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class that represents the GUI View
+ */
 public class GUIApplication extends Application implements ViewInterface {
     private Stage mainStage, popUpStage;
     private StackPane root;
 
+    /**
+     * Start the GUI
+     * @param stage the {@link Stage} to start from
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         ClientController.getInstance().setViewInterface(this);
@@ -38,6 +46,12 @@ public class GUIApplication extends Application implements ViewInterface {
         root = new StackPane();
     }
 
+    /**
+     * Set up the main stage
+     * @param sceneName the name of the scene that you want to load in the main stage
+     * @return the {@link ViewController} of that {@link Stage}
+     * @throws IOException
+     */
     public ViewController setMainScene(SceneEnum sceneName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName.value()));
         Parent root = loader.load();
@@ -46,6 +60,12 @@ public class GUIApplication extends Application implements ViewInterface {
         return loader.getController();
     }
 
+    /**
+     * Open a new popup
+     * @param sceneName the name of the scene that you want to load in the popup
+     * @return the {@link ViewController} of that {@link Stage}
+     * @throws IOException
+     */
     public ViewController openPopup(SceneEnum sceneName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName.value()));
         Parent root = loader.load();
@@ -62,6 +82,12 @@ public class GUIApplication extends Application implements ViewInterface {
         return loader.getController();
     }
 
+    /**
+     * Load the select available match screen
+     * @param availableMatches the ArrayList of {@link SerializedGame} representing all the available matches
+     * @param error
+     * @throws IOException
+     */
     public void selectAvailableMatch(ArrayList<SerializedGame> availableMatches, String error) {
         Platform.runLater(() -> {
                     try {
@@ -73,6 +99,9 @@ public class GUIApplication extends Application implements ViewInterface {
                 });
     }
 
+    /**
+     * Load the screen to pick username and color
+     */
     public void pickUsernameAndColor() {
         Platform.runLater(() -> {
             try {
@@ -83,6 +112,9 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Load the screen for selecting a personal {@link it.polimi.ingsw.model.Goals.Goal}
+     */
     public void selectPersonalGoal() {
         Platform.runLater(() -> {
             try {
@@ -93,6 +125,9 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Load the screen for the waiting room
+     */
     public void waitingRoom() {
         Platform.runLater(() -> {
             try {
@@ -103,6 +138,10 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Load the screen for selecting an {@link it.polimi.ingsw.model.GameComponents.InitialCard} side
+     * @throws IOException
+     */
     public void selectInitialCardSide() {
         Platform.runLater(() -> {
             try {
@@ -113,6 +152,11 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Update the screen after a new turn
+     * @param message a message in case of error
+     * @param clear true if is needed to clear the screen (Only for TUI)
+     */
     public void updateInfo(String message, boolean clear) {
         Platform.runLater(() -> {
             try {
@@ -126,6 +170,10 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Load the screen for the chat
+     * @param error
+     */
     public void updateChatView(String error) {
         Platform.runLater(() -> {
             if (ChatViewController.getInstance() == null) return;
@@ -133,6 +181,10 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Show an error message
+     * @param error the string of the error message
+     */
     public void showError(String error) {
         Platform.runLater(() -> {
             try {
@@ -144,6 +196,9 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Show the winning screen
+     */
     public void winScreen() {
         Platform.runLater(() -> {
             try {
@@ -154,6 +209,9 @@ public class GUIApplication extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Show the loosing screen
+     */
     public void looseScreen() {
         Platform.runLater(() -> {
             try {

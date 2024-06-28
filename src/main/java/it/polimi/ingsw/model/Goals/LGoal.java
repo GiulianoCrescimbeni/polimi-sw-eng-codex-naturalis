@@ -15,6 +15,13 @@ import java.io.Serializable;
  */
 public class LGoal extends Goal implements Serializable {
 
+    /**
+     * Constructor for the diagonal goad
+     * @param objectType the type of the objective
+     * @param cardType the type of the card
+     * @param score the score of the goal
+     * @param goalId the id of the goal
+     */
     public LGoal(Resource objectType, CardType cardType, int score, int goalId) {
         super(objectType, cardType, score, goalId);
     }

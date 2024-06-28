@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The update that carries the game data when a new game has started
+ */
 public class GameDataUpdate extends Update implements Serializable {
     private Map<Player, Codex> codexMap;
     private ArrayList<Card> cardToPick;
@@ -107,6 +110,10 @@ public class GameDataUpdate extends Update implements Serializable {
         this.commonGoals = commonGoals;
     }
 
+    /**
+     * Update the game data when the game start
+     * @throws IOException
+     */
     @Override
     public void execute() throws IOException {
         ClientController.getInstance().updateGameData(getCodexMap(), getCardToPick(), getGoldCardToPick(), getPlayers(), getCurrentPlayer(), getCommonGoals());

@@ -15,8 +15,18 @@ public abstract class Goal implements Serializable {
     private CardType cardType;
     private Resource objectType;
 
+    /**
+     * Constructor
+     */
     public Goal() {}
 
+    /**
+     * Constructor for the goad
+     * @param objectType the type of the objective
+     * @param cardType the type of the card
+     * @param score the score of the goal
+     * @param goalId the id of the goal
+     */
     public Goal(Resource objectType, CardType cardType, int score, int goalId) {
         this.objectType = objectType;
         this.cardType = cardType;

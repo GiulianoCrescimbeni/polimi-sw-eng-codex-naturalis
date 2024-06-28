@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to deserialize gold card data from the JSON
+ */
 public class GoldCardDataContainer {
 
     @SerializedName("cardID")

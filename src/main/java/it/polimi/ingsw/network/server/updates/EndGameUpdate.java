@@ -5,18 +5,30 @@ import it.polimi.ingsw.view.TUI.Messages;
 
 import java.io.Serializable;
 
+/**
+ * End game update
+ */
 public class EndGameUpdate extends Update implements Serializable {
 
     String winner;
 
+    /**
+     * @return the winner of the game
+     */
     public String getWinner() {
         return winner;
     }
 
+    /**
+     * @param winner the winner of the game
+     */
     public void setWinner(String winner) {
         this.winner = winner;
     }
 
+    /**
+     * Show the win or loose screen
+     */
     @Override
     public void execute() {
         if(getWinner() == null) {

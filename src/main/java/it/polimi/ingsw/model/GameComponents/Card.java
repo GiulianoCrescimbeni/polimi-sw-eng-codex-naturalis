@@ -63,6 +63,11 @@ public class Card implements CardInteface,Serializable {
         return anglesMap;
     }
 
+    /**
+     * Return the position of the angle in a specified {@link AnglePos}
+     * @param anglePos the {@link AnglePos} of the angle
+     * @return the {@link Angle} of the specified angle pos
+     */
     public Angle getAngle(AnglePos anglePos) { return getAnglesMap().get(anglePos); }
 
     /**

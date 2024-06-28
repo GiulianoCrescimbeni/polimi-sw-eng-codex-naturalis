@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to deserialize card data from the JSON
+ */
 public class CardDataContainer {
     @SerializedName("cardID")
     private int cardID;

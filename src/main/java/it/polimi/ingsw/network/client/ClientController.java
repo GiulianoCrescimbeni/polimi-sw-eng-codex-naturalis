@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Class for the controller of the client
+ */
 public class ClientController {
     private static ClientController instance;
     private ViewInterface viewInterface;
@@ -37,6 +40,9 @@ public class ClientController {
     private ArrayList<Goal> commonGoals;
     private ArrayList<String> messageHistory;
 
+    /**
+     * Constructor
+     */
     private ClientController() {}
 
     public static ClientController getInstance() {
@@ -44,128 +50,227 @@ public class ClientController {
         return instance;
     }
 
+    /**
+     * @return the {@link ViewInterface} of the client
+     */
     public ViewInterface getViewInterface() {
         return viewInterface;
     }
 
+    /**
+     * @param viewInterface the {@link ViewInterface} of the client
+     */
     public void setViewInterface(ViewInterface viewInterface) {
         this.viewInterface = viewInterface;
     }
 
+    /**
+     * @return the username of the player
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * @param username the username of the player
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * @return the {@link Color} of the player
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * @param color the color of the player
+     */
     public void setColor(Color color) {
         this.color = color;
     }
 
+    /**
+     * @return the personal {@link Goal} of the player
+     */
     public Goal getPersonalGoal() { return personalGoal; }
 
+    /**
+     * @param personalGoal the personal {@link Goal} of the player
+     */
     public void setPersonalGoal(Goal personalGoal) {
         this.personalGoal = personalGoal;
     }
 
+    /**
+     * @param availableColors the ArrayList of available {@link Color}
+     */
     public void updateAvailableColors(ArrayList<Color> availableColors) {
         this.availableColors = availableColors;
     }
 
+    /**
+     * @return the ArrayList of available {@link Color}
+     */
     public ArrayList<Color> getAvailableColors() {
         return availableColors;
     }
 
+    /**
+     * @return the ArrayList of {@link Goal} to pick from
+     */
     public ArrayList<Goal> getGoalsToPick() {
         return goalsToPick;
     }
 
+    /**
+     * @param goalsToPick the ArrayList of {@link Goal} to pick from
+     */
     public void updateGoalsToPick(ArrayList<Goal> goalsToPick) {
         this.goalsToPick = goalsToPick;
     }
 
+    /**
+     * @return true if the side of the initial card is already chosen
+     */
     public boolean isInitialSideChoosen() {
         return initialSideChoosen;
     }
 
+    /**
+     * set if the initial side of the card is already chosen
+     */
     public void setInitialSideChoosen() {
         this.initialSideChoosen = true;
     }
 
+    /**
+     * @return the {@link GameStatus} of the game
+     */
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
+    /**
+     * @param gameStatus the {@link GameStatus} of the game
+     */
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
+    /**
+     * @return the map of {@link Codex} foreach player
+     */
     public Map<Player, Codex> getCodexMap() {
         return codexMap;
     }
 
+    /**
+     * @param codexMap the map of {@link Codex} foreach player
+     */
     public void setCodexMap(Map<Player, Codex> codexMap) {
         this.codexMap = codexMap;
     }
 
+    /**
+     * @return the ArrayList of {@link Card} to pick from
+     */
     public ArrayList<Card> getCardToPick() {
         return cardToPick;
     }
 
+    /**
+     * @param cardToPick the ArrayList of {@link Card} to pick from
+     */
     public void setCardToPick(ArrayList<Card> cardToPick) {
         this.cardToPick = cardToPick;
     }
 
+    /**
+     * @return the ArrayList of {@link GoldCard} to pick from
+     */
     public ArrayList<Card> getGoldCardToPick() {
         return goldCardToPick;
     }
 
+    /**
+     * @param goldCardToPick the ArrayList of {@link GoldCard} to pick from
+     */
     public void setGoldCardToPick(ArrayList<Card> goldCardToPick) {
         this.goldCardToPick = goldCardToPick;
     }
 
+    /**
+     * @return the ArrayList of {@link Player} of the game
+     */
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * @param players the ArrayList of {@link Player} of the game
+     */
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
 
+    /**
+     * @return the current {@link Player}
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * @param currentPlayer the current {@link Player}
+     */
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
+    /**
+     * @return an ArrayList of common {@link Goal}
+     */
     public ArrayList<Goal> getCommonGoals() {
         return commonGoals;
     }
 
+    /**
+     * @param commonGoals an ArrayList of common {@link Goal}
+     */
     public void setCommonGoals(ArrayList<Goal> commonGoals) {
         this.commonGoals = commonGoals;
     }
 
+    /**
+     * @return the {@link PlayerHand} of the player
+     */
     public PlayerHand getPlayerHand() {
         return players.stream().filter(player ->  player.getNickname().equals(this.getUsername())).findFirst().map(Player::getPlayerHand).orElse(null);
     }
 
+    /**
+     * Remove the card player from the {@link PlayerHand}
+     * @param cardPlayed the {@link Card} played from the player
+     */
     public void removeCardPlayed(Card cardPlayed) {
         Objects.requireNonNull(players.stream().filter(player -> player.getNickname().equals(this.getUsername())).findFirst().orElse(null)).getPlayerHand().removeCard(cardPlayed);
     }
 
+    /**
+     * Add the card picked to the {@link PlayerHand}
+     * @param cardPicked the {@link Card} picked from the player
+     */
     public void addCardPicked(Card cardPicked) {
         Objects.requireNonNull(players.stream().filter(player -> player.getNickname().equals(this.getUsername())).findFirst().orElse(null)).getPlayerHand().addCard(cardPicked);
     }
 
+    /**
+     * Join a game
+     * @param gameId the id of the game
+     */
     public void JoinGame(int gameId) {
         JoinMatchCommand cmd = new JoinMatchCommand(gameId);
         try {
@@ -175,6 +280,9 @@ public class ClientController {
         }
     }
 
+    /**
+     * @return true if is the turn of this client controller
+     */
     public boolean isMyTurn() {
         if(ClientController.getInstance().getUsername().equals(ClientController.getInstance().getCurrentPlayer().getNickname())) {
             return true;
@@ -183,6 +291,15 @@ public class ClientController {
         }
     }
 
+    /**
+     * Update the game data after joining a match
+     * @param codexMap
+     * @param cardToPick
+     * @param goldCardToPick
+     * @param players
+     * @param currentPlayer
+     * @param commonGoals
+     */
     public void updateGameData(Map<Player, Codex> codexMap, ArrayList<Card> cardToPick, ArrayList<Card> goldCardToPick, ArrayList<Player> players, Player currentPlayer, ArrayList<Goal> commonGoals) {
         gameStatus = GameStatus.RUNNING;
         setCodexMap(codexMap);
@@ -193,6 +310,11 @@ public class ClientController {
         setCommonGoals(commonGoals);
     }
 
+    /**
+     * Send the username and the color to join the match
+     * @param username the username of the player
+     * @param color the {@link Color} of the player
+     */
     public void sendUsernameAndColor(String username, Color color) {
         setUsername(username);
         setColor(color);
@@ -204,6 +326,11 @@ public class ClientController {
         }
     }
 
+    /**
+     * Select the side of the initial card
+     * @param side the side of the {@link InitialCard}
+     * @throws IOException
+     */
     public void selectInitialCardSide(int side) throws IOException {
         SelectInitialCardSideCommand selectInitialCardSideCommand;
         if(side == 0) {
@@ -215,6 +342,10 @@ public class ClientController {
 
     }
 
+    /**
+     * Select the personal goal for the player
+     * @param goal the {@link Goal} chosen
+     */
     public void selectPersonalGoal(Goal goal) {
         SelectPersonalGoalCommand selectPersonalGoalCommand = new SelectPersonalGoalCommand(this.username, goal);
         try {
@@ -225,6 +356,12 @@ public class ClientController {
 
     }
 
+    /**
+     * Play a card picking from the ground
+     * @param coordinate the {@link Coordinate} of the card that has been played
+     * @param cardPlaced the {@link Card} played
+     * @param cardPicked the {@link Card} picked from the ground
+     */
     public void playWithPickFromGround(Coordinate coordinate, Card cardPlaced, Card cardPicked) {
         PlaceCardWithPickFromGroundCommand command = new PlaceCardWithPickFromGroundCommand();
         command.setNickname(ClientController.getInstance().getUsername());
@@ -238,6 +375,12 @@ public class ClientController {
         }
     }
 
+    /**
+     * Play a card picking from the deck
+     * @param coordinate the {@link Coordinate} of the card that has been played
+     * @param cardPlaced the {@link Card} played
+     * @param deckIndex the index of the {@link Deck} (0 for ResourceDeck, 1 for GoldDeck)
+     */
     public void playWithPickFromDeck(Coordinate coordinate, Card cardPlaced, int deckIndex) {
         PlaceCardWithPickFromDeckCommand command = new PlaceCardWithPickFromDeckCommand();
         command.setNickname(ClientController.getInstance().getUsername());
@@ -251,6 +394,15 @@ public class ClientController {
         }
     }
 
+    /**
+     * Update the turn
+     * @param username the username of the last current {@link Player}
+     * @param coordinate the {@link Coordinate} of the new {@link Card} placed
+     * @param cardPlaced the new {@link Card} placed
+     * @param currentPlayer the new current {@link Player}
+     * @param cardPicked the {@link Card} picked from the last current {@link Player}
+     * @param newGroundCard the new ground {@link Card}(If the last current {@link Player} picked from ground)
+     */
     public void updateTurn(String username, Coordinate coordinate, Card cardPlaced, Player currentPlayer, Card cardPicked, Card newGroundCard) {
         ClientController.getInstance().setCurrentPlayer(currentPlayer);
         Player player = getPlayerByUsername(username);
@@ -284,10 +436,18 @@ public class ClientController {
         }
     }
 
+    /**
+     * @param nickname the nickname of the player
+     * @return Return the {@link Player} with the specified username
+     */
     public Player getPlayerByUsername(String nickname) {
         return (Player) getPlayers().stream().filter(player ->  player.getNickname().equals(nickname)).findFirst().orElse(null);
     }
 
+    /**
+     * Add a message to the message history
+     * @param message the message to be added
+     */
     public synchronized void addMessage(String message) {
 
         if (this.messageHistory == null) messageHistory = new ArrayList<String>();
@@ -296,10 +456,17 @@ public class ClientController {
         this.messageHistory.add(message);
     }
 
+    /**
+     * @return an ArrayList of messages from the message history
+     */
     public ArrayList<String> getMessages() {
         return this.messageHistory;
     }
 
+    /**
+     * Send a public message to all
+     * @param args
+     */
     public void sendPublicMessage(String[] args) {
         String[] message = new String[args.length - 1];
         for (int i = 1; i < args.length; i++) {
@@ -318,6 +485,10 @@ public class ClientController {
 
     }
 
+    /**
+     * Send a private message to a specified client
+     * @param args
+     */
     public void sendPrivateMessage(String[] args) {
         String[] message = new String[args.length - 1];
         for (int i = 1; i < args.length; i++) {
@@ -336,6 +507,9 @@ public class ClientController {
 
     }
 
+    /**
+     * Send a pong to the server for activity checking
+     */
     public void sendPong() {
         Pong pong = new Pong();
 

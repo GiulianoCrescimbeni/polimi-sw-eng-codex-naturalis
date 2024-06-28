@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.Data;
 
 import java.io.Serializable;
 
+/**
+ * Class that represent a serializable game that can be sent to the client
+ */
 public class SerializedGame implements Serializable {
 
     private int gameID;

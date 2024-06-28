@@ -12,6 +12,10 @@ import javafx.scene.layout.AnchorPane;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The PlateauController class handles the visual representation of the game plateau,
+ * including player tokens and their positions based on scores
+ */
 public class PlateauController extends ViewController {
 
     @FXML
@@ -25,6 +29,9 @@ public class PlateauController extends ViewController {
         initializeTokens();
     }
 
+    /**
+     * Initializes the tokens for each player.
+     */
     private void initializeTokens() {
         for (Player player : ClientController.getInstance().getPlayers()) {
             ImageView token = new ImageView();
@@ -37,6 +44,11 @@ public class PlateauController extends ViewController {
         }
     }
 
+    /**
+     * Gets the token image path based on the player's color
+     * @param color the color of the player
+     * @return the path to the token image
+     */
     private String getToken(Color color) {
         switch (color) {
             case Yellow:    return new String("/placeholder_yellow.png");
@@ -47,6 +59,11 @@ public class PlateauController extends ViewController {
         }
     }
 
+    /**
+     * Sets the image for the token
+     * @param imageView the ImageView to set the image on
+     * @param imagePath the path to the image file
+     */
     private void setTokenImage(ImageView imageView, String imagePath) {
         try {
             Image image = new Image(getClass().getResource(imagePath).toExternalForm());
@@ -56,6 +73,12 @@ public class PlateauController extends ViewController {
         }
     }
 
+    /**
+     * Sets the coordinates for the token based on the player's score
+     * @param score the score of the player
+     * @param token the token ImageView
+     * @param player the player associated with the token
+     */
     private void setCoordinate(int score, ImageView token, Player player) {
         double x = 0;
         double y = 0;

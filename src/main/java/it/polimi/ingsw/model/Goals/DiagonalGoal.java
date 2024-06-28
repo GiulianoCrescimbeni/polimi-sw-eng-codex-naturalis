@@ -16,10 +16,22 @@ import java.io.Serializable;
  */
 public class DiagonalGoal extends Goal implements Serializable {
 
+    /**
+     * Constructor for the diagonal goal
+     * @param objectType the type of the objective
+     * @param cardType the type of the card
+     * @param score the score of the goal
+     * @param goalId the id of the goal
+     */
     public DiagonalGoal(Resource objectType, CardType cardType, int score, int goalId) {
         super(objectType, cardType, score, goalId);
     }
 
+    /**
+     * Function to check the goal completion
+     * @param codex the codex of the player to verify from
+     * @return the number of times that the goal has been completed
+     */
     @Override
     public int check(Codex codex){
         int numOfCompletition = 0;

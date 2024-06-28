@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to deserialize initial card data from the JSON
+ */
 public class InitialCardDataContainer {
 
     @SerializedName("cardID")

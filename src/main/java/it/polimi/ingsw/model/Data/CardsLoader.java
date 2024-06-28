@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * Class for loading and constructing data from JSON
+ */
 public class CardsLoader {
 
     private static CardsLoader instance;
@@ -25,6 +28,10 @@ public class CardsLoader {
         return instance;
     }
 
+    /**
+     * Load cards into an arraylist of cards
+     * @return an arraylist of {@link Card} loaded
+     */
     public ArrayList<Card> loadCards() {
         String filePath = "/polimi/ingsw/JSON/CardsData.json";
 
@@ -48,6 +55,10 @@ public class CardsLoader {
         return null;
     }
 
+    /**
+     * Load gold cards into an arraylist of golda cards
+     * @return an arraylist of {@link GoldCard} loaded
+     */
     public ArrayList<GoldCard> loadGoldCards() {
         String filePath = "/polimi/ingsw/JSON/GoldCardsData.json";
 
@@ -72,6 +83,10 @@ public class CardsLoader {
         return null;
     }
 
+    /**
+     * Load objective cards into an arraylist of cards
+     * @return an arraylist of {@link Goal} loaded
+     */
     public ArrayList<Goal> loadObjectivesCards() {
         ArrayList<Goal> toReturn = new ArrayList<Goal>();
 
@@ -96,6 +111,10 @@ public class CardsLoader {
         return toReturn;
     }
 
+    /**
+     * Load initial cards into an arraylist of cards
+     * @return an arraylist of {@link InitialCard} loaded
+     */
     public ArrayList<InitialCard> loadInitialCards() {
         String filePath = "/polimi/ingsw/JSON/InitialCardsData.json";
 

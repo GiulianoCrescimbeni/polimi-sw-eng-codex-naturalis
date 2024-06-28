@@ -14,6 +14,9 @@ import javafx.scene.text.Text;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The CodexInspectorController class manages the visual representation of the player's codex in the GUI.
+ */
 public class CodexInspectorController extends ViewController {
 
     @FXML
@@ -57,6 +60,9 @@ public class CodexInspectorController extends ViewController {
         instance = this;
     }
 
+    /**
+     * Places the cards on the scene
+     */
     private void placeCardsOnScene() {
         Map<Coordinate, Card> codex = ClientController.getInstance().getCodexMap().get(ClientController.getInstance().getPlayerByUsername(playerToInspect)).getCards();
         for (Map.Entry<Coordinate, Card> entry : codex.entrySet()) {
@@ -70,6 +76,11 @@ public class CodexInspectorController extends ViewController {
         }
     }
 
+    /**
+     * Places a card relative to the center
+     * @param cardCoordinates the coordinates of the card
+     * @param card the card to be placed
+     */
     private void placeCardRelativeToCenter(Coordinate cardCoordinates, Card card) {
         Coordinate centralCoordinates = new Coordinate(80, 80);
 
@@ -82,6 +93,13 @@ public class CodexInspectorController extends ViewController {
         placeCard(cardCoordinates, card, targetX, targetY);
     }
 
+    /**
+     * Places a card at the specified location
+     * @param cardCoordinates the coordinates of the card
+     * @param card the card to be placed
+     * @param x the x-coordinate for placement
+     * @param y the y-coordinate for placement
+     */
     private void placeCard(Coordinate cardCoordinates, Card card, double x, double y) {
         ImageView cardImageView = new ImageView();
         if(!card.isTurned()) {
@@ -102,6 +120,11 @@ public class CodexInspectorController extends ViewController {
         anchor.getChildren().add(placedCards.size(), cardImageView);
     }
 
+    /**
+     * Sets the image for a card
+     * @param imageView the ImageView to set the image on
+     * @param imagePath the path to the image file
+     */
     private void setCardImage(ImageView imageView, String imagePath) {
         try {
             Image image = new Image(getClass().getResource(imagePath).toExternalForm());
@@ -111,6 +134,11 @@ public class CodexInspectorController extends ViewController {
         }
     }
 
+    /**
+     * Loads the back image for a card
+     * @param imageView the ImageView to set the image on
+     * @param card the card whose back image is to be loaded
+     */
     private void loadBack(ImageView imageView, Card card) {
         if(card instanceof GoldCard) {
             switch (card.getCardType()) {
@@ -131,6 +159,9 @@ public class CodexInspectorController extends ViewController {
         }
     }
 
+    /**
+     * Updates the layout limits
+     */
     private void updateLimits() {
 
         double imageWidth = background.getImage().getWidth();
@@ -142,6 +173,10 @@ public class CodexInspectorController extends ViewController {
         maxY = imageHeight;
     }
 
+    /**
+     * Sets the player to inspect
+     * @param username the username of the player to inspect
+     */
     public void setPlayerToInspect(String username) {
         Color playerColor = ClientController.getInstance().getPlayerByUsername(username).getColor();
         this.playerToInspect = username;
@@ -163,6 +198,10 @@ public class CodexInspectorController extends ViewController {
         placeCardsOnScene();
     }
 
+    /**
+     * Handles the background movement when dragged
+     * @param event the mouse event triggered by dragging the background
+     */
     @FXML
     public void handleBackground(MouseEvent event) {
         double offsetX = event.getSceneX() - mouseX;
@@ -189,6 +228,11 @@ public class CodexInspectorController extends ViewController {
         mouseY = event.getSceneY();
     }
 
+
+    /**
+     * Handles the mouse press event
+     * @param event the mouse event triggered by pressing the mouse
+     */
     @FXML
     public void handleMousePressed(MouseEvent event) {
         mouseX = event.getSceneX();

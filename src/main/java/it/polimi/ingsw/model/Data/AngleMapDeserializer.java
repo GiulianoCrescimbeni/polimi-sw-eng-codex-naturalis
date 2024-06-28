@@ -11,6 +11,9 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to deserialize angle data from the JSON
+ */
 public class AngleMapDeserializer {
 
     @SerializedName("position")

@@ -58,6 +58,11 @@ public class Player implements Serializable {
         this.color = color;
     }
 
+    /**
+     * Equals method override
+     * @param o
+     * @return equals if players have the same nickname
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -63,6 +63,9 @@ public class GoalsDeck implements GoalDeckInterface {
         Collections.shuffle(goals);
     }
 
+    /**
+     * Function to build the deck from JSON data
+     */
     public void buildDeck() {
         this.goals = new Stack<Goal>();
         this.goals.addAll(CardsLoader.getInstance().loadObjectivesCards());

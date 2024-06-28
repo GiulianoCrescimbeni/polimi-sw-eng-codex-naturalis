@@ -230,6 +230,10 @@ public class Game implements GameInterface {
         }
     }
 
+    /**
+     * Set the number of max players for the game
+     * @param maxPlayers the number of max players
+     */
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }

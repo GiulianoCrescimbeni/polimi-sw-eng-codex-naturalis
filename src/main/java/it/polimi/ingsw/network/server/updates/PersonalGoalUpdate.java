@@ -7,6 +7,9 @@ import it.polimi.ingsw.view.TUI.Messages;
 
 import java.io.Serializable;
 
+/**
+ * The update after picking a personal goal
+ */
 public class PersonalGoalUpdate extends Update implements Serializable {
     private Goal personalGoal;
     public PersonalGoalUpdate() {
@@ -26,6 +29,10 @@ public class PersonalGoalUpdate extends Update implements Serializable {
     public void setPersonalGoal(Goal personalGoal) {
         this.personalGoal = personalGoal;
     }
+
+    /**
+     * Update the personal goal chosen
+     */
     @Override
     public void execute() {
         ClientController.getInstance().setPersonalGoal(this.personalGoal);

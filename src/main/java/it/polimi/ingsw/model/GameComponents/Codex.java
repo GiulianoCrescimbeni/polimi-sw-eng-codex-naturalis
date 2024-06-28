@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that represents the codex of a player, where all the cards, resources and scores are stored
+ */
 public class Codex implements CodexInterface, Serializable {
 
     private int score;

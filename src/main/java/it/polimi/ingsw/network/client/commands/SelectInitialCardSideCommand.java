@@ -9,6 +9,9 @@ import it.polimi.ingsw.network.server.updates.Update;
 
 import java.io.Serializable;
 
+/**
+ * Class for selecting the side of the initial card
+ */
 public class SelectInitialCardSideCommand extends Command implements Serializable {
     private boolean turned;
     /**
@@ -28,6 +31,11 @@ public class SelectInitialCardSideCommand extends Command implements Serializabl
         return this.turned;
     }
 
+    /**
+     * Select the side
+     * @param clientController the {@link Controller} of the game where the message needs to get executed
+     * @return a {@link InitialCardSideUpdate}
+     */
     @Override
     public Update execute(Controller clientController) {
         InitialCardSideUpdate initialCardSideUpdate = new InitialCardSideUpdate();

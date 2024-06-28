@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 
 /**
- * Server App Class
+ * Socket Server App Class
  */
 public class SocketServer extends Thread {
 
@@ -37,6 +37,9 @@ public class SocketServer extends Thread {
         }
     }
 
+    /**
+     * Runt the thread for new connection
+     */
     public void run() {
         try {
             while (!this.isInterrupted()) {

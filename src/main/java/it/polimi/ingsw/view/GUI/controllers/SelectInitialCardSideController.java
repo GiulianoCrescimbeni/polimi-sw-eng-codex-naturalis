@@ -9,6 +9,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+/**
+ * The SelectInitialCardSideController class handles the selection of the initial card side in the GUI
+ */
 public class SelectInitialCardSideController extends ViewController {
 
     @FXML
@@ -23,6 +26,11 @@ public class SelectInitialCardSideController extends ViewController {
         addHoverEffect(BackSide);
     }
 
+    /**
+     * Sets the image for a card side
+     * @param imageView the ImageView to set the image on
+     * @param imagePath the path to the image file
+     */
     private void setCardImage(ImageView imageView, String imagePath) {
         try {
             Image image = new Image(getClass().getResource(imagePath).toExternalForm());
@@ -32,6 +40,10 @@ public class SelectInitialCardSideController extends ViewController {
         }
     }
 
+    /**
+     * Adds a hover effect to the card image
+     * @param imageView the ImageView of the card
+     */
     private void addHoverEffect(ImageView imageView) {
         imageView.setOnMouseEntered(event -> {
             imageView.setStyle("-fx-effect: dropshadow(three-pass-box, #edb009, 10, 0, 0, 5);");
@@ -42,11 +54,21 @@ public class SelectInitialCardSideController extends ViewController {
         });
     }
 
+    /**
+     * Handles the action when the front side of the card is selected
+     * @param event the mouse event
+     * @throws IOException if an I/O error occurs
+     */
     @FXML
     public void handleFrontSide(MouseEvent event) throws IOException {
         ClientController.getInstance().selectInitialCardSide(0);
     }
 
+    /**
+     * Handles the action when the back side of the card is selected
+     * @param event the mouse event
+     * @throws IOException if an I/O error occurs
+     */
     @FXML
     public void handleBackSide(MouseEvent event) throws IOException {
         ClientController.getInstance().selectInitialCardSide(1);

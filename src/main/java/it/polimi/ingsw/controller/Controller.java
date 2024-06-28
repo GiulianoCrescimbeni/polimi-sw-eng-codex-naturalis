@@ -17,11 +17,15 @@ import it.polimi.ingsw.view.TUI.TextColor;
 
 import java.util.ArrayList;
 
+/**
+ * The Controller class handles the communication between the view and the model.
+ * It processes input from the user and updates the game state accordingly.
+ */
 public class Controller {
     private Game model;
 
     /**
-     * Controller
+     * Constructs a Controller with the specified game model.
      * @param model the {@link Game} for the controller
      */
     public Controller(Game model) {
@@ -40,7 +44,7 @@ public class Controller {
     }
 
     /**
-     * Return colors available
+     * @return an arraylist of available colors
      */
     public ArrayList<Color> getAvailableColors() {
         return model.getAvailableColors();

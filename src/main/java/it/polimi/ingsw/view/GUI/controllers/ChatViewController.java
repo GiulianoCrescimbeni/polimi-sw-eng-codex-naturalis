@@ -51,6 +51,9 @@ public class ChatViewController extends ViewController {
         return instance;
     }
 
+    /**
+     * Loads the messages from the client controller and displays them in the chat log.
+     */
     private void loadMessages() {
         if (ClientController.getInstance().getMessages() == null) return;
         ClientController clientController = ClientController.getInstance();
@@ -63,6 +66,9 @@ public class ChatViewController extends ViewController {
 
     }
 
+    /**
+     * Sets up the channels in the channel box.
+     */
     private void setupChannels() {
         channelBox.getItems().add("Public");
         for (Player p : ClientController.getInstance().getPlayers()) {
@@ -73,11 +79,19 @@ public class ChatViewController extends ViewController {
         channelBox.setValue("Public");
     }
 
+    /**
+     * Sets the action for the send button.
+     * @param event the action event triggered by clicking the send button
+     */
     @FXML
     private void setSendButtonAction(ActionEvent event) {
         sendMessage();
     }
 
+    /**
+     * Sends a message when the Enter key is pressed.
+     * @param event the key event triggered by pressing the Enter key
+     */
     @FXML
     private void onEnterSend(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -86,6 +100,9 @@ public class ChatViewController extends ViewController {
         }
     }
 
+    /**
+     * Sends a message from the message box.
+     */
     private void sendMessage() {
         String message = messageBox.getText().trim();
         if (!message.isEmpty()) {
@@ -117,7 +134,9 @@ public class ChatViewController extends ViewController {
         }
     }
 
-
+    /**
+     * Updates the message history in the chat log.
+     */
     public void updateMessageHistory() {
         if (ClientController.getInstance().getMessages() == null) return;
         String message = ClientController.getInstance().getMessages().getLast();
@@ -127,6 +146,9 @@ public class ChatViewController extends ViewController {
         scrollToBottom();
     }
 
+    /**
+     * Scrolls the chat log to the bottom.
+     */
     private void scrollToBottom() {
         Platform.runLater(() -> {
             Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
@@ -138,6 +160,11 @@ public class ChatViewController extends ViewController {
         });
     }
 
+    /**
+     * Parses colored text from the message and returns it as a TextFlow object.
+     * @param message the message containing colored text
+     * @return the TextFlow object with parsed colored text
+     */
     private TextFlow parseColoredText(String message) {
         TextFlow textFlow = new TextFlow();
         String[] parts = message.split("(\u001B\\[[;\\d]*m)");
