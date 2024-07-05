@@ -5,7 +5,7 @@
 ## Introduction
 
 The project involves the development of a distributed software version of the board game Codex Naturalis.
-The game rules are described in the [Rulebook](https://github.com/GiulianoCrescimbeni/IS24-AM27/blob/main/src/main/resources/polimi/ingsw/CODEX_Rulebook_[ITA-ENG].pdf)
+The game rules are described in the [Rulebook](https://github.com/GiulianoCrescimbeni/IS24-AM27/main/src/main/resources/polimi/ingsw/CODEX_Rulebook_[ITA-ENG].pdf)
 
 ## Team
 Giuliano Crescimbeni <br>
@@ -52,7 +52,7 @@ Cristian Dheskali <br>
 [![](https://i.postimg.cc/RhyPzxb6/Screenshot-2024-07-06-alle-00-07-19.png)]()
 [![](https://i.postimg.cc/L6gC3hnz/Screenshot-2024-07-06-alle-00-07-57.png)]()
 [![](https://i.postimg.cc/52wsDG5y/Screenshot-2024-07-06-alle-00-10-36.png)]()
-[![](https://i.postimg.cc/g2nZZ6jW/gif.gif)]()
+[![](https://github.com/GiulianoCrescimbeni/IS24-AM27/blob/main/src/main/resources/polimi/ingsw/gif.gif)]()
 [![](https://i.postimg.cc/7PWtzSYH/Screenshot-2024-07-06-alle-00-12-03.png)]()
 
 ## Utilized Software
