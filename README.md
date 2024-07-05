@@ -8,10 +8,10 @@ The project involves the development of a distributed software version of the bo
 The game rules are described in the [Rulebook](https://github.com/GiulianoCrescimbeni/IS24-AM27/blob/main/src/main/resources/polimi/ingsw/CODEX_Rulebook_EN.pdf)
 
 ## Team
-Giuliano Crescimbeni <br>
-Mauro Leporace <br>
-Luca De Nicola <br>
-Cristian Dheskali <br>
+[Giuliano Crescimbeni](https://github.com/GiulianoCrescimbeni) <br>
+[Mauro Leporace](https://github.com/Mauro-Leporace) <br>
+[Luca De Nicola](https://github.com/LucaD2702) <br>
+[Cristian Dheskali](https://github.com/CristianDheskali) <br>
 
 ## Progress
 
