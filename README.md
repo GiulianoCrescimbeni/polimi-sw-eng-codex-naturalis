@@ -59,7 +59,7 @@ Cristian Dheskali <br>
 
 ## Utilized Software
 
-* [LucidChart]((https://www.lucidchart.com/)): UML and sequence diagrams.
+* [LucidChart](https://www.lucidchart.com/): UML and sequence diagrams.
 * [IntelliJ](https://www.jetbrains.com/idea/): Main IDE for project development.
 * [JavaFX](https://openjfx.io/): Windows application design.
 * [Maven](https://maven.apache.org/): Package and dependency management.
