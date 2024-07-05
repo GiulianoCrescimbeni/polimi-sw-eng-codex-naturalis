@@ -1,4 +1,11 @@
-# Codex Naturalis
+# Codex Naturalis - Software Engineering Final Project
+
+![Logo](https://github.com/GiulianoCrescimbeni/IS24-AM27/blob/main/src/main/resources/polimi/ingsw/Logo.png)
+
+## Introduction
+
+The project involves the development of a distributed software version of the board game Codex Naturalis.
+The game rules are described in the [Rulebook](https://github.com/GiulianoCrescimbeni/IS24-AM27/blob/main/src/main/resources/polimi/ingsw/CODEX_Rulebook_[ITA-ENG].pdf)
 
 ## Team
 Giuliano Crescimbeni <br>
@@ -32,7 +39,7 @@ Cristian Dheskali <br>
 
 - The Server can be run with the following command:
     ```shell
-    > java -jar Server.jar -Djava.rmi.server.hostname={local ip address}
+    > java -Djava.rmi.server.hostname={local ip address} -jar Server.jar
     ```
     
 - The Client can be run with the following command:
@@ -40,11 +47,17 @@ Cristian Dheskali <br>
     > java -jar Client.jar
     ```
 
+## Game Screenshots
 
+[![](https://i.postimg.cc/RhyPzxb6/Screenshot-2024-07-06-alle-00-07-19.png)]()
+[![](https://i.postimg.cc/L6gC3hnz/Screenshot-2024-07-06-alle-00-07-57.png)]()
+[![](https://i.postimg.cc/52wsDG5y/Screenshot-2024-07-06-alle-00-10-36.png)]()
+[![](https://i.postimg.cc/g2nZZ6jW/gif.gif)]()
+[![](https://i.postimg.cc/7PWtzSYH/Screenshot-2024-07-06-alle-00-12-03.png)]()
 
 ## Utilized Software
 
-* [Draw.io - Diagrams.net](https://app.diagrams.net/): UML and sequence diagrams.
+* [LucidChart]((https://www.lucidchart.com/)): UML and sequence diagrams.
 * [IntelliJ](https://www.jetbrains.com/idea/): Main IDE for project development.
 * [JavaFX](https://openjfx.io/): Windows application design.
 * [Maven](https://maven.apache.org/): Package and dependency management.
