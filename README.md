@@ -53,6 +53,8 @@ Cristian Dheskali <br>
 [![](https://i.postimg.cc/L6gC3hnz/Screenshot-2024-07-06-alle-00-07-57.png)]()
 [![](https://i.postimg.cc/52wsDG5y/Screenshot-2024-07-06-alle-00-10-36.png)]()
 [![](https://github.com/GiulianoCrescimbeni/IS24-AM27/blob/main/src/main/resources/polimi/ingsw/gif.gif)]()
+<br>
+<br>
 [![](https://i.postimg.cc/7PWtzSYH/Screenshot-2024-07-06-alle-00-12-03.png)]()
 
 ## Utilized Software
