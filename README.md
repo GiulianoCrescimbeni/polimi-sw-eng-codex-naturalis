@@ -1,5 +1,7 @@
 # Codex Naturalis - Software Engineering Final Project
 
+### Grade: 30/30
+
 ![Logo](https://github.com/GiulianoCrescimbeni/IS24-AM27/blob/main/src/main/resources/polimi/ingsw/Logo.png)
 
 ## Introduction
