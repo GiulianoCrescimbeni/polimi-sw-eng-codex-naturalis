@@ -37,6 +37,8 @@ The game rules are described in the [Rulebook](https://github.com/GiulianoCresci
 
 ## Setup
 
+You can find the jars in the directory: [/out/artifacts/](https://github.com/GiulianoCrescimbeni/polimi-sw-eng-codex-naturalis/tree/main/out/artifacts)
+
 - The Server can be run with the following command:
     ```shell
     > java -Djava.rmi.server.hostname={local ip address} -jar Server.jar
