@@ -32,7 +32,7 @@ public class GameListMenuController extends ViewController {
         this.games = games;
         for (SerializedGame game : this.games) {
             VBox vbox = new VBox();
-            Text gameIdText = new Text("Id partita: " + game.getGameID() + " - ");
+            Text gameIdText = new Text("Game Id: " + game.getGameID() + " - ");
             Text playersText = new Text(game.getCurrentPlayers() + "/" + game.getMaxPlayers());
             playersText.setStyle("-fx-fill: blue; -fx-font-family: 'Luminari'; -fx-font-size: 20;");
             gameIdText.setStyle("-fx-font-family: 'Luminari'; -fx-font-size: 20;");
